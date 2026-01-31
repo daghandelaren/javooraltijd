@@ -72,7 +72,7 @@ export default function TemplatesPage() {
         </motion.div>
 
         {/* Templates grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {filteredTemplates.map((template, index) => (
             <TemplateCard
               key={template.id}
@@ -115,7 +115,7 @@ function TemplateCard({
       <Card className="group overflow-hidden h-full flex flex-col">
         {/* Preview area */}
         <div
-          className="aspect-[4/5] relative flex items-center justify-center p-6"
+          className="aspect-[3/4] relative flex items-center justify-center p-4 sm:p-6"
           style={{ background: template.colors.backgroundGradient }}
         >
           <div className="w-full h-full bg-white/80 rounded-lg shadow-lg p-6 flex flex-col items-center justify-center">

@@ -11,7 +11,7 @@ export function HeroSection() {
   const t = useTranslations("home.hero");
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-20 sm:pt-24 lg:pt-0">
       {/* Background pattern */}
       <div
         className="absolute inset-0 opacity-30"
@@ -33,7 +33,7 @@ export function HeroSection() {
             transition={{ duration: 0.6 }}
             className="text-center lg:text-left"
           >
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-stone-900 leading-tight">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-stone-900 leading-tight whitespace-pre-line">
               {t("title")}
             </h1>
             <p className="mt-6 text-lg text-stone-600 max-w-xl mx-auto lg:mx-0">
@@ -74,7 +74,7 @@ export function HeroSection() {
           >
             <div className="relative">
               {/* Decorative envelope background */}
-              <div className="relative w-80 h-96 bg-gradient-to-br from-champagne-100 to-champagne-200 rounded-lg shadow-2xl transform rotate-2">
+              <div className="relative w-64 h-80 sm:w-80 sm:h-96 bg-gradient-to-br from-champagne-100 to-champagne-200 rounded-lg shadow-2xl transform rotate-2">
                 {/* Envelope flap */}
                 <div
                   className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-br from-champagne-200 to-champagne-300 rounded-t-lg"
