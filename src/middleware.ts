@@ -14,6 +14,7 @@ const intlMiddleware = createIntlMiddleware({
   locales,
   defaultLocale,
   localePrefix: "as-needed",
+  localeDetection: false,
 });
 
 function getPathnameWithoutLocale(pathname: string): string {
