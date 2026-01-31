@@ -46,6 +46,7 @@ export default async function PublicInvitationPage({ params }: Props) {
       invitation={{
         ...invitation,
         sealColor: invitation.sealColor as SealColor,
+        giftConfig: invitation.giftConfig as { enabled: boolean; message: string; preferMoney: boolean; registryUrl?: string } | null,
       }}
     />
   );

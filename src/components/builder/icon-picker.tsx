@@ -19,7 +19,7 @@ import {
   Cake,
   CakeSlice,
   Beer,
-  Champagne,
+  Glasses,
   GlassWater,
   Soup,
   // Activities
@@ -100,7 +100,7 @@ const ICON_CATEGORIES = [
     color: "amber",
     icons: [
       { id: "wine", icon: Wine, label: "Wijn" },
-      { id: "champagne", icon: Champagne, label: "Champagne" },
+      { id: "champagne", icon: Glasses, label: "Champagne" },
       { id: "beer", icon: Beer, label: "Bier" },
       { id: "coffee", icon: Coffee, label: "Koffie" },
       { id: "glass-water", icon: GlassWater, label: "Water" },
@@ -340,7 +340,7 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   "award": Award,
   // Food & Drink
   "wine": Wine,
-  "champagne": Champagne,
+  "champagne": Glasses,
   "beer": Beer,
   "coffee": Coffee,
   "glass-water": GlassWater,
