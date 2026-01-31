@@ -1,0 +1,847 @@
+{
+  "metadata": {
+    "title": "Ja, Voor Altijd - Digitale Trouwuitnodigingen",
+    "description": "Maak prachtige digitale trouwuitnodigingen met een unieke lakzegel-ervaring. Elegant, persoonlijk, en onvergetelijk."
+  },
+  "nav": {
+    "home": "Home",
+    "templates": "Templates",
+    "pricing": "Prijzen",
+    "faq": "FAQ",
+    "about": "Over ons",
+    "contact": "Contact",
+    "login": "Inloggen",
+    "dashboard": "Dashboard",
+    "start": "Begin nu"
+  },
+  "home": {
+    "hero": {
+      "title": "Jullie liefde, verzegeld met stijl",
+      "subtitle": "Digitale trouwuitnodigingen die aanvoelen als een persoonlijke brief. Elegant, interactief, en onvergetelijk.",
+      "cta_primary": "Start met een template",
+      "cta_secondary": "Bekijk een demo",
+      "social_proof": "Al meerdere koppels gingen jullie voor"
+    },
+    "features": {
+      "title": "Waarom Ja, Voor Altijd?",
+      "items": [
+        {
+          "title": "De lakzegel die verrast",
+          "description": "Jullie gasten openen de uitnodiging met een klik op de zegel. Persoonlijk, onvergetelijk, en écht bijzonder."
+        },
+        {
+          "title": "RSVP zonder gedoe",
+          "description": "Gasten reageren direct. Jullie zien alles in één overzicht: wie komt, dieetwensen, en meer."
+        },
+        {
+          "title": "Altijd actueel",
+          "description": "Locatie gewijzigd? Tijd aangepast? Update je uitnodiging en iedereen ziet meteen de laatste versie."
+        },
+        {
+          "title": "Milieuvriendelijk",
+          "description": "Geen papier, geen drukkosten. Een duurzame keuze die net zo mooi is als traditioneel."
+        },
+        {
+          "title": "Deel via elk kanaal",
+          "description": "WhatsApp, e-mail, of social media. Deel jullie uitnodiging waar jullie gasten zijn."
+        },
+        {
+          "title": "Persoonlijk dashboard",
+          "description": "Volg alle reacties, exporteer data, en beheer jullie uitnodiging op één plek."
+        }
+      ]
+    },
+    "how_it_works": {
+      "title": "Zo werkt het",
+      "subtitle": "In vier stappen naar jullie perfecte uitnodiging",
+      "steps": [
+        {
+          "number": "1",
+          "title": "Kies een template",
+          "description": "Blader door onze collectie en vind de stijl die bij jullie past."
+        },
+        {
+          "number": "2",
+          "title": "Maak hem persoonlijk",
+          "description": "Vul jullie namen, datum en locatie in. Pas kleuren en teksten aan."
+        },
+        {
+          "number": "3",
+          "title": "Verstuur naar gasten",
+          "description": "Deel de link via WhatsApp, e-mail of social media. Klaar!"
+        },
+        {
+          "number": "4",
+          "title": "Volg de reacties",
+          "description": "Bekijk wie er komt in jullie persoonlijke dashboard."
+        }
+      ]
+    },
+    "wax_seal_story": {
+      "title": "Waarom een lakzegel?",
+      "paragraphs": [
+        "Eeuwenlang werden belangrijke brieven verzegeld met was. Het breken van het zegel was een moment van spanning en vreugde.",
+        "Wij brengen die traditie terug, in digitale vorm. Jullie gasten ervaren hetzelfde speciale moment: de zegel verbreken, de uitnodiging ontvouwen, jullie verhaal ontdekken.",
+        "Geen saai ontwerp. Geen standaard kaart. Een écht moment."
+      ],
+      "cta": "Ervaar het zelf"
+    },
+    "testimonials": {
+      "title": "Wat anderen zeggen",
+      "items": [
+        {
+          "quote": "Onze gasten waren zo verrast door de lakzegel! Iedereen had het erover.",
+          "author": "Emma & Thomas",
+          "location": "Amsterdam"
+        },
+        {
+          "quote": "Eindelijk geen Excel-chaos meer. De RSVP-functie is perfect.",
+          "author": "Lisa & Mark",
+          "location": "Rotterdam"
+        },
+        {
+          "quote": "Zo elegant en makkelijk. Precies wat we zochten.",
+          "author": "Sophie & David",
+          "location": "Utrecht"
+        }
+      ]
+    },
+    "faq": {
+      "title": "Veelgestelde vragen",
+      "items": [
+        {
+          "question": "Kan ik de uitnodiging aanpassen na publicatie?",
+          "answer": "Ja! Je kunt teksten, tijden en locaties altijd wijzigen. Gasten zien automatisch de nieuwste versie."
+        },
+        {
+          "question": "Hoe lang blijft mijn uitnodiging online?",
+          "answer": "De uitnodiging staat 12 maanden online."
+        },
+        {
+          "question": "Kunnen gasten zonder app reageren?",
+          "answer": "Absoluut. Alles werkt in de browser, op elk apparaat. Geen download nodig."
+        },
+        {
+          "question": "Is er een limiet aan het aantal gasten?",
+          "answer": "Het Basic-pakket ondersteunt tot 75 gasten, Signature tot 150 gasten en Premium is onbeperkt."
+        },
+        {
+          "question": "Kan ik de uitnodiging ook printen?",
+          "answer": "Onze uitnodigingen zijn ontworpen voor digitaal gebruik. We bieden geen print-versie, maar je kunt de link altijd op een fysieke kaart zetten."
+        },
+        {
+          "question": "Hoe zit het met privacy van mijn gasten?",
+          "answer": "We nemen privacy serieus. Gastgegevens worden alleen gebruikt voor RSVP's en zijn niet zichtbaar voor andere gasten. Je kunt alle data exporteren of verwijderen."
+        }
+      ]
+    },
+    "final_cta": {
+      "title": "Klaar om te beginnen?",
+      "subtitle": "Maak vandaag nog jullie unieke trouwuitnodiging",
+      "cta": "Start met een template"
+    },
+    "comparison": {
+      "badge": "Waarom digitaal?",
+      "title": "Traditioneel vs. Digitaal",
+      "subtitle": "Ontdek waarom steeds meer koppels kiezen voor een digitale trouwuitnodiging",
+      "traditional": "Normale Trouwkaarten",
+      "digital": "Onze Digitale Kaart",
+      "items": [
+        {
+          "aspect": "Kosten",
+          "traditional": "Duur (drukkosten, verzending)",
+          "digital": "Betaalbaar (eenmalige prijs)"
+        },
+        {
+          "aspect": "Milieu",
+          "traditional": "Papier, inkt, transport",
+          "digital": "Milieuvriendelijk"
+        },
+        {
+          "aspect": "Snelheid",
+          "traditional": "Weken wachten",
+          "digital": "Direct klaar"
+        },
+        {
+          "aspect": "Aanpassen",
+          "traditional": "Moeilijk en duur",
+          "digital": "Eenvoudig aanpasbaar"
+        },
+        {
+          "aspect": "RSVP",
+          "traditional": "Handmatig bijhouden",
+          "digital": "Automatisch dashboard"
+        },
+        {
+          "aspect": "Bereik",
+          "traditional": "Beperkt",
+          "digital": "Makkelijk delen via WhatsApp & social"
+        }
+      ]
+    },
+    "dashboard_preview": {
+      "badge": "Jouw dashboard",
+      "title": "Alles in één overzicht",
+      "subtitle": "Beheer reacties, bekijk statistieken en pas je uitnodiging aan - allemaal vanuit één elegant dashboard",
+      "welcome": "Welkom terug",
+      "wedding_date": "Jullie bruiloft",
+      "edit_invitation": "Bewerk uitnodiging",
+      "rsvp_overview": "RSVP Overzicht",
+      "yes": "Ja",
+      "maybe": "Misschien",
+      "no": "Nee",
+      "total_views": "Totale weergaven",
+      "unique_visitors": "Reacties",
+      "recent_responses": "Recente reacties",
+      "view_all": "Bekijk alles",
+      "attending": "Komt",
+      "not_attending": "Komt niet",
+      "quick_actions": "Snelle acties",
+      "edit_texts": "Teksten aanpassen",
+      "export_guests": "Exporteer gastenlijst",
+      "view_preview": "Bekijk live preview",
+      "more_features": "En nog veel meer functies om jullie dag perfect te plannen",
+      "hours_ago": "uur geleden",
+      "day_ago": "dag geleden",
+      "days_ago": "dagen geleden",
+      "example_date": "15 juni 2025"
+    }
+  },
+  "templates": {
+    "title": "Onze Templates",
+    "subtitle": "Vind de perfecte stijl voor jullie grote dag",
+    "filter": {
+      "all": "Alle stijlen",
+      "romantic": "Romantisch",
+      "modern": "Modern",
+      "minimal": "Minimaal"
+    },
+    "view_demo": "Bekijk demo",
+    "select": "Kies deze template"
+  },
+  "pricing": {
+    "badge": "Eenvoudige, eerlijke prijzen",
+    "title": "Kies het pakket dat bij jullie past",
+    "subtitle": "Geen abonnement, geen verborgen kosten. Eenmalige betaling voor jullie perfecte uitnodiging.",
+    "mostPopular": "Meest gekozen",
+    "oneTime": "eenmalig",
+    "selectPlan": "Kies {plan}",
+    "unlimited": "Onbeperkt",
+    "months": "{count} maanden",
+    "guestsCount": "Tot {count} gasten",
+    "trustLine": "Eenmalig betalen • Veilig via Stripe • Direct live na aankoop",
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "description": "Perfect voor een intieme bruiloft",
+        "rsvpTitle": "RSVP Basis",
+        "rsvpFeatures": "Ja/Nee/Misschien reacties • Gast segmentatie (daggast/avondgast) • CSV export • Nog niet gereageerd lijst"
+      },
+      "signature": {
+        "name": "Signature",
+        "description": "De complete RSVP-ervaring",
+        "rsvpTitle": "RSVP Uitgebreid",
+        "rsvpFeatures": "Alles van Basic + Dieetwensen/allergieën • 1-2 extra vragen"
+      },
+      "premium": {
+        "name": "Premium",
+        "description": "Maximale flexibiliteit",
+        "rsvpTitle": "RSVP Compleet",
+        "rsvpFeatures": "Alles van Signature + Onbeperkt extra vragen • Algemeen berichtveld"
+      }
+    },
+    "features": {
+      "guests": "Tot {value} gasten",
+      "guestsUnlimited": "Onbeperkt aantal gasten",
+      "templates": "Alle templates inbegrepen",
+      "duration": "{value} maanden online",
+      "rsvpBasic": "RSVP met Ja/Nee/Misschien",
+      "guestSegmentation": "Gast segmentatie (dag/avond)",
+      "rsvpExtended": "Dieetwensen & allergieën",
+      "extraQuestions": "1-2 extra vragen",
+      "extraQuestionsUnlimited": "Onbeperkt extra vragen",
+      "csvExport": "CSV export",
+      "notRespondedList": "Nog niet gereageerd lijst",
+      "guestMessage": "Algemeen berichtveld voor gasten"
+    },
+    "comparison": {
+      "title": "Vergelijk plannen",
+      "subtitle": "Bekijk welke features zijn inbegrepen per plan",
+      "features": "Features",
+      "rows": {
+        "guests": "Aantal gasten",
+        "templates": "Alle templates",
+        "duration": "Online duur",
+        "rsvpBasic": "Ja/Nee/Misschien reacties",
+        "guestSegmentation": "Gast segmentatie",
+        "dietaryNeeds": "Dieetwensen/allergieën",
+        "extraQuestions": "Extra vragen",
+        "csvExport": "CSV export",
+        "notRespondedList": "Nog niet gereageerd lijst",
+        "guestMessage": "Algemeen berichtveld"
+      }
+    },
+    "faq": {
+      "title": "Veelgestelde vragen",
+      "items": [
+        {
+          "question": "Is dit een eenmalige betaling?",
+          "answer": "Ja, je betaalt één keer. Basic blijft 9 maanden online, Signature 12 maanden en Premium 16 maanden. Geen abonnement of verborgen kosten."
+        },
+        {
+          "question": "Wat is het verschil tussen de RSVP-opties?",
+          "answer": "Basic biedt Ja/Nee/Misschien reacties met gast segmentatie, CSV export en een nog niet gereageerd lijst. Signature voegt dieetwensen en 1-2 extra vragen toe. Premium geeft onbeperkt extra vragen en een algemeen berichtveld."
+        },
+        {
+          "question": "Kan ik later upgraden?",
+          "answer": "Ja, je kunt altijd upgraden en betaalt alleen het verschil."
+        },
+        {
+          "question": "Hoe werkt de gast segmentatie?",
+          "answer": "Jullie bepalen welke gasten daggast of avondgast zijn. Elke gast ziet alleen de RSVP-opties die voor hen relevant zijn."
+        },
+        {
+          "question": "Kunnen gasten zonder app reageren?",
+          "answer": "Absoluut. Alles werkt in de browser, op elk apparaat. Geen download nodig."
+        },
+        {
+          "question": "Is de betaling veilig?",
+          "answer": "Ja, alle betalingen verlopen via Stripe, een van de veiligste betaalplatformen ter wereld."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Klaar om te beginnen?",
+      "subtitle": "Start vandaag nog met het maken van jullie droomuitnodiging. Geen account nodig om te beginnen.",
+      "button": "Start met een template"
+    }
+  },
+  "cta": {
+    "start": "Begin nu",
+    "demo": "Bekijk demo",
+    "templates": "Bekijk templates",
+    "pricing": "Bekijk prijzen",
+    "contact": "Neem contact op",
+    "save_draft": "Opslaan als concept",
+    "preview": "Bekijk preview",
+    "publish": "Publiceer uitnodiging",
+    "share": "Deel met gasten",
+    "back": "Terug",
+    "next": "Volgende",
+    "submit": "Verstuur",
+    "cancel": "Annuleren"
+  },
+  "footer": {
+    "tagline": "Jullie liefde, verzegeld met stijl",
+    "links": {
+      "templates": "Templates",
+      "pricing": "Prijzen",
+      "faq": "FAQ",
+      "about": "Over ons",
+      "contact": "Contact",
+      "login": "Inloggen",
+      "dashboard": "Dashboard",
+      "privacy": "Privacy",
+      "terms": "Voorwaarden",
+      "cookies": "Cookies"
+    },
+    "copyright": "© {year} Ja, Voor Altijd. Alle rechten voorbehouden."
+  },
+  "demo": {
+    "watermark": "VOORBEELD",
+    "cta_title": "Dit kan jouw uitnodiging zijn",
+    "cta_button": "Maak je eigen uitnodiging"
+  },
+  "builder": {
+    "progress": "Stap {current} van {total}",
+    "steps": {
+      "template": "Template",
+      "details": "Details",
+      "locations": "Locaties",
+      "program": "Programma",
+      "rsvp": "RSVP",
+      "styling": "Stijl",
+      "preview": "Preview",
+      "checkout": "Betalen"
+    },
+    "autosave": "Automatisch opgeslagen",
+    "save_draft": "Opslaan als concept"
+  },
+  "rsvp": {
+    "title": "RSVP",
+    "attending": {
+      "question": "Kom je naar de bruiloft?",
+      "yes": "Ja, ik kom!",
+      "no": "Helaas, ik kan niet",
+      "maybe": "Nog niet zeker"
+    },
+    "fields": {
+      "name": "Naam",
+      "email": "E-mailadres",
+      "guests": "Aantal personen",
+      "dietary": "Dieetwensen",
+      "message": "Bericht voor het bruidspaar"
+    },
+    "submit": "Verstuur RSVP",
+    "success": "Bedankt! Je RSVP is verzonden.",
+    "error": "Er ging iets mis. Probeer het opnieuw."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "invitation": {
+      "title": "Mijn uitnodiging",
+      "status": {
+        "draft": "Concept",
+        "paid": "Betaald",
+        "published": "Gepubliceerd",
+        "expired": "Verlopen"
+      },
+      "edit": "Bewerk",
+      "share": "Deel"
+    },
+    "rsvp": {
+      "title": "RSVP Overzicht",
+      "total": "Totaal",
+      "attending": "Komt",
+      "not_attending": "Komt niet",
+      "pending": "Nog geen reactie",
+      "export": "Exporteer"
+    },
+    "share": {
+      "title": "Deel je uitnodiging",
+      "copy_link": "Kopieer link",
+      "copied": "Gekopieerd!",
+      "qr_code": "Download QR-code"
+    }
+  },
+  "legal": {
+    "privacy": {
+      "title": "Privacybeleid",
+      "lastUpdated": "Laatst bijgewerkt: januari 2025",
+      "sections": {
+        "intro": {
+          "title": "Inleiding",
+          "content": "Ja, Voor Altijd ('wij', 'ons', 'onze') respecteert de privacy van onze gebruikers. Dit privacybeleid legt uit hoe wij persoonlijke gegevens verzamelen, gebruiken en beschermen wanneer u onze dienst gebruikt voor het maken en delen van digitale trouwuitnodigingen."
+        },
+        "dataCollection": {
+          "title": "Welke gegevens verzamelen wij?",
+          "content": "Wij verzamelen de volgende categorieën persoonlijke gegevens:",
+          "items": {
+            "email": "E-mailadres voor accountcreatie en communicatie",
+            "names": "Namen van het bruidspaar voor de uitnodiging",
+            "weddingDetails": "Trouwdatum, locaties en programma-informatie",
+            "rsvp": "RSVP-gegevens van gasten (naam, e-mail, dieetwensen, bericht)",
+            "payment": "Betalingsinformatie (verwerkt door Stripe, niet door ons opgeslagen)"
+          }
+        },
+        "dataUsage": {
+          "title": "Hoe gebruiken wij uw gegevens?",
+          "content": "Wij gebruiken uw gegevens uitsluitend voor:",
+          "items": {
+            "service": "Het leveren van onze dienst (maken en hosten van uitnodigingen)",
+            "communication": "Communicatie over uw account en bestellingen",
+            "improvement": "Verbetering van onze dienst en gebruikerservaring",
+            "legal": "Voldoen aan wettelijke verplichtingen"
+          }
+        },
+        "dataSharing": {
+          "title": "Met wie delen wij uw gegevens?",
+          "content": "Wij delen uw gegevens alleen met:",
+          "items": {
+            "stripe": "Stripe voor betalingsverwerking",
+            "email": "Resend voor e-mailbezorging",
+            "hosting": "Vercel voor hosting en infrastructuur"
+          }
+        },
+        "dataRetention": {
+          "title": "Hoe lang bewaren wij uw gegevens?",
+          "content": "Wij bewaren uw gegevens zolang uw uitnodiging actief is, plus 30 dagen na afloop. U kunt op elk moment verzoeken om verwijdering van uw gegevens. Na verwijdering worden alle persoonlijke gegevens binnen 30 dagen permanent verwijderd uit onze systemen."
+        },
+        "rights": {
+          "title": "Uw rechten",
+          "content": "Onder de AVG (GDPR) heeft u de volgende rechten:",
+          "items": {
+            "access": "Recht op inzage in uw persoonlijke gegevens",
+            "rectification": "Recht op rectificatie van onjuiste gegevens",
+            "erasure": "Recht op verwijdering ('recht om vergeten te worden')",
+            "portability": "Recht op gegevensoverdraagbaarheid",
+            "objection": "Recht van bezwaar tegen verwerking"
+          }
+        },
+        "security": {
+          "title": "Beveiliging",
+          "content": "Wij nemen passende technische en organisatorische maatregelen om uw gegevens te beschermen. Dit omvat versleuteling van gegevens in transit en in rust, beveiligde servers, en beperkte toegang tot persoonlijke gegevens."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "Voor vragen over dit privacybeleid of om uw rechten uit te oefenen, kunt u contact met ons opnemen via:"
+        }
+      }
+    },
+    "terms": {
+      "title": "Algemene Voorwaarden",
+      "lastUpdated": "Laatst bijgewerkt: januari 2025",
+      "sections": {
+        "intro": {
+          "title": "Inleiding",
+          "content": "Deze algemene voorwaarden zijn van toepassing op het gebruik van de diensten van Ja, Voor Altijd. Door gebruik te maken van onze dienst gaat u akkoord met deze voorwaarden."
+        },
+        "services": {
+          "title": "Onze diensten",
+          "content": "Ja, Voor Altijd biedt een platform voor het maken en delen van digitale trouwuitnodigingen. Onze diensten omvatten:",
+          "items": {
+            "creation": "Het maken van gepersonaliseerde digitale trouwuitnodigingen",
+            "hosting": "Het hosten van uw uitnodiging gedurende de gekozen periode",
+            "rsvp": "RSVP-beheer en gastenlijstfunctionaliteit",
+            "sharing": "Tools voor het delen van uw uitnodiging"
+          }
+        },
+        "accounts": {
+          "title": "Accounts",
+          "content": "U bent verantwoordelijk voor het beveiligen van uw account en alle activiteiten die plaatsvinden onder uw account. U moet ons onmiddellijk informeren over ongeautoriseerd gebruik van uw account."
+        },
+        "payment": {
+          "title": "Betaling",
+          "content": "Alle betalingen worden verwerkt via Stripe. Prijzen zijn inclusief BTW.",
+          "items": {
+            "pricing": "Prijzen zijn zoals vermeld op onze website op het moment van aankoop",
+            "processing": "Betalingen worden veilig verwerkt door Stripe",
+            "refunds": "Restitutie is mogelijk binnen 14 dagen na aankoop, mits de uitnodiging niet gepubliceerd is"
+          }
+        },
+        "content": {
+          "title": "Inhoud",
+          "content": "U behoudt alle rechten op de inhoud die u uploadt naar uw uitnodiging.",
+          "items": {
+            "ownership": "U blijft eigenaar van alle door u gemaakte inhoud",
+            "license": "U verleent ons een beperkte licentie om uw inhoud te hosten en weer te geven",
+            "prohibited": "Illegale, aanstootgevende of schadelijke inhoud is niet toegestaan"
+          }
+        },
+        "intellectual": {
+          "title": "Intellectueel eigendom",
+          "content": "Alle templates, ontwerpen, code en andere materialen van Ja, Voor Altijd zijn ons intellectueel eigendom. U mag deze niet kopiëren, wijzigen of verspreiden buiten het normale gebruik van onze dienst."
+        },
+        "liability": {
+          "title": "Aansprakelijkheid",
+          "content": "Wij zijn niet aansprakelijk voor indirecte schade, gederfde winst of gevolgschade. Onze totale aansprakelijkheid is beperkt tot het bedrag dat u voor onze dienst heeft betaald."
+        },
+        "termination": {
+          "title": "Beëindiging",
+          "content": "Wij behouden ons het recht voor om accounts te beëindigen die onze voorwaarden schenden. Bij beëindiging verliest u toegang tot uw uitnodiging en alle bijbehorende gegevens."
+        },
+        "changes": {
+          "title": "Wijzigingen",
+          "content": "Wij kunnen deze voorwaarden van tijd tot tijd wijzigen. Materiële wijzigingen worden 30 dagen van tevoren aangekondigd. Voortgezet gebruik na wijzigingen betekent acceptatie van de nieuwe voorwaarden."
+        },
+        "governing": {
+          "title": "Toepasselijk recht",
+          "content": "Op deze voorwaarden is Nederlands recht van toepassing. Geschillen worden voorgelegd aan de bevoegde rechtbank in Nederland."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "Voor vragen over deze voorwaarden kunt u contact met ons opnemen via:"
+        }
+      }
+    },
+    "cookies": {
+      "title": "Cookiebeleid",
+      "lastUpdated": "Laatst bijgewerkt: januari 2025",
+      "sections": {
+        "intro": {
+          "title": "Inleiding",
+          "content": "Dit cookiebeleid legt uit hoe Ja, Voor Altijd cookies en vergelijkbare technologieën gebruikt op onze website."
+        },
+        "whatAreCookies": {
+          "title": "Wat zijn cookies?",
+          "content": "Cookies zijn kleine tekstbestanden die op uw apparaat worden opgeslagen wanneer u onze website bezoekt. Ze helpen ons om de website te laten functioneren, uw voorkeuren te onthouden en inzicht te krijgen in hoe onze website wordt gebruikt."
+        },
+        "typesOfCookies": {
+          "title": "Welke cookies gebruiken wij?",
+          "content": "Wij gebruiken de volgende categorieën cookies:",
+          "tableHeaders": {
+            "purpose": "Doel",
+            "duration": "Duur"
+          },
+          "durations": {
+            "session": "Sessie",
+            "days": "dagen",
+            "year": "jaar"
+          },
+          "essential": {
+            "title": "Essentiële cookies",
+            "description": "Deze cookies zijn noodzakelijk voor het functioneren van de website.",
+            "cookies": {
+              "session": "Houdt u ingelogd",
+              "locale": "Onthoudt uw taalvoorkeur",
+              "consent": "Onthoudt uw cookie-voorkeuren"
+            }
+          },
+          "functional": {
+            "title": "Functionele cookies",
+            "description": "Deze cookies verbeteren uw gebruikerservaring.",
+            "cookies": {
+              "draft": "Bewaart uw uitnodiging-concept lokaal",
+              "preferences": "Onthoudt uw weergave-voorkeuren"
+            }
+          },
+          "analytics": {
+            "title": "Analytische cookies",
+            "description": "Deze cookies helpen ons te begrijpen hoe bezoekers onze website gebruiken.",
+            "cookies": {
+              "plausible": "Privacy-vriendelijke analytics (geen persoonsgegevens)"
+            }
+          }
+        },
+        "thirdParty": {
+          "title": "Cookies van derden",
+          "content": "Sommige diensten die wij gebruiken plaatsen hun eigen cookies:",
+          "services": {
+            "stripe": "Voor veilige betalingsverwerking",
+            "vercel": "Voor prestatie-optimalisatie en analytics"
+          }
+        },
+        "management": {
+          "title": "Uw cookies beheren",
+          "content": "U kunt cookies beheren of verwijderen via uw browserinstellingen. Hier vindt u instructies voor de meest gebruikte browsers:"
+        },
+        "updates": {
+          "title": "Updates",
+          "content": "Wij kunnen dit cookiebeleid van tijd tot tijd bijwerken. Wijzigingen worden op deze pagina gepubliceerd met een nieuwe 'laatst bijgewerkt' datum."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "Voor vragen over dit cookiebeleid kunt u contact met ons opnemen via:"
+        }
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Heb je een vraag of wil je meer weten? We horen graag van je!",
+    "form": {
+      "name": "Naam",
+      "name_placeholder": "Je naam",
+      "email": "E-mailadres",
+      "email_placeholder": "naam@voorbeeld.nl",
+      "subject": "Onderwerp",
+      "subject_placeholder": "Waar gaat je vraag over?",
+      "message": "Bericht",
+      "message_placeholder": "Schrijf hier je bericht...",
+      "submit": "Verstuur bericht",
+      "submitting": "Verzenden..."
+    },
+    "success": {
+      "title": "Bericht verzonden!",
+      "message": "Bedankt voor je bericht. We nemen zo snel mogelijk contact met je op."
+    },
+    "error": "Er ging iets mis. Probeer het opnieuw.",
+    "info": {
+      "title": "Direct contact",
+      "email": "info@javooraltijd.nl",
+      "response_time": "We reageren meestal binnen 24 uur"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Inloggen",
+      "subtitle": "Ontvang een inloglink via e-mail",
+      "email_label": "E-mailadres",
+      "email_placeholder": "naam@voorbeeld.nl",
+      "submit": "Verstuur inloglink",
+      "submitting": "Verzenden...",
+      "no_account": "Nog geen account?",
+      "create_account": "Maak er een aan tijdens het bouwen van je uitnodiging"
+    },
+    "verify": {
+      "title": "Controleer je inbox",
+      "subtitle": "We hebben een inloglink gestuurd naar",
+      "instructions": "Klik op de link in de e-mail om in te loggen. De link is 24 uur geldig.",
+      "spam_note": "Geen e-mail ontvangen? Controleer je spam-folder.",
+      "try_again": "Opnieuw proberen"
+    },
+    "errors": {
+      "invalid_email": "Voer een geldig e-mailadres in",
+      "send_failed": "Er ging iets mis. Probeer het opnieuw.",
+      "default": "Er is een fout opgetreden. Probeer het opnieuw."
+    }
+  },
+  "errors": {
+    "not_found": {
+      "title": "Pagina niet gevonden",
+      "description": "De pagina die je zoekt bestaat niet.",
+      "cta": "Terug naar home"
+    },
+    "generic": {
+      "title": "Er ging iets mis",
+      "description": "Probeer het later opnieuw.",
+      "cta": "Probeer opnieuw"
+    }
+  },
+  "faqPage": {
+    "title": "Veelgestelde vragen",
+    "subtitle": "Alles wat je wilt weten over het maken van jullie digitale trouwuitnodiging",
+    "categories": {
+      "general": {
+        "name": "Algemeen",
+        "title": "Algemene vragen",
+        "description": "De basis over onze dienst en hoe het werkt",
+        "items": [
+          {
+            "question": "Wat is Ja, Voor Altijd precies?",
+            "answer": "Ja, Voor Altijd is een platform waar je prachtige digitale trouwuitnodigingen maakt. Met onze unieke lakzegel-ervaring maak je indruk op je gasten. Ze openen de uitnodiging door op de zegel te klikken - een magisch moment dat ze niet snel vergeten."
+          },
+          {
+            "question": "Voor wie is dit bedoeld?",
+            "answer": "Voor alle koppels die een moderne, stijlvolle en milieuvriendelijke manier zoeken om hun gasten uit te nodigen. Of je nu een intieme ceremonie of een groot feest plant, wij hebben een pakket dat past."
+          },
+          {
+            "question": "Hoe lang duurt het om een uitnodiging te maken?",
+            "answer": "De meeste koppels zijn binnen 30 minuten klaar! Je kiest een template, vult je gegevens in, past kleuren aan en klaar. Je kunt altijd later terugkomen om wijzigingen te maken."
+          },
+          {
+            "question": "Kan ik de uitnodiging eerst uitproberen voordat ik betaal?",
+            "answer": "Ja! Je kunt gratis beginnen met het bouwen van je uitnodiging. Je ziet een live preview met watermerk. Pas wanneer je tevreden bent en wilt publiceren, kies je een pakket."
+          },
+          {
+            "question": "In welke talen is de uitnodiging beschikbaar?",
+            "answer": "Je kunt je uitnodiging volledig in het Nederlands of Engels maken. De teksten zijn vrij aan te passen, dus je kunt ook andere talen gebruiken als je dat wilt."
+          }
+        ]
+      },
+      "pricing": {
+        "name": "Prijzen",
+        "title": "Vragen over prijzen",
+        "description": "Alles over pakketten, betalingen en wat je krijgt",
+        "items": [
+          {
+            "question": "Wat kost een uitnodiging?",
+            "answer": "We hebben drie pakketten: Basic (€125), Signature (€175) en Premium (€225). Alle prijzen zijn eenmalig - geen abonnement of verborgen kosten. Bekijk onze prijzenpagina voor alle details."
+          },
+          {
+            "question": "Is dit een eenmalige betaling?",
+            "answer": "Ja, absoluut. Je betaalt één keer. Basic blijft 9 maanden online, Signature 12 maanden en Premium 16 maanden. Geen maandelijkse kosten."
+          },
+          {
+            "question": "Kan ik later upgraden naar een duurder pakket?",
+            "answer": "Zeker! Je kunt altijd upgraden en betaalt dan alleen het verschil. Handig als je eerst klein begint en later meer functies nodig hebt."
+          },
+          {
+            "question": "Wat is het verschil tussen de RSVP-opties?",
+            "answer": "Basic biedt Ja/Nee/Misschien reacties met gast segmentatie, CSV export en een nog niet gereageerd lijst. Signature voegt dieetwensen en 1-2 extra vragen toe. Premium geeft onbeperkt extra vragen en een algemeen berichtveld."
+          },
+          {
+            "question": "Zijn er extra kosten voor meer gasten?",
+            "answer": "Nee, er zijn geen kosten per gast. Bij Basic kun je tot 75 gasten uitnodigen, bij Signature tot 150 gasten en bij Premium is het onbeperkt."
+          }
+        ]
+      },
+      "technical": {
+        "name": "Technisch",
+        "title": "Technische vragen",
+        "description": "Over het bewerken, delen en beheren van je uitnodiging",
+        "items": [
+          {
+            "question": "Kan ik de uitnodiging aanpassen na publicatie?",
+            "answer": "Ja! Je kunt teksten, tijden, locaties en andere details altijd wijzigen. Gasten zien automatisch de nieuwste versie wanneer ze de link openen."
+          },
+          {
+            "question": "Hoe deel ik de uitnodiging met mijn gasten?",
+            "answer": "Je krijgt een unieke link die je kunt delen via WhatsApp, e-mail, SMS of social media."
+          },
+          {
+            "question": "Werkt het op alle apparaten?",
+            "answer": "Ja, onze uitnodigingen werken perfect op telefoons, tablets en computers. Geen app nodig - alles werkt in de browser."
+          },
+          {
+            "question": "Wat gebeurt er als de online periode afloopt?",
+            "answer": "We sturen je 30 dagen van tevoren een herinnering dat de uitnodiging offline gaat. Je hebt 30 dagen na de verloopdatum nog de tijd om het te downloaden als herinnering."
+          },
+          {
+            "question": "Kan ik mijn eigen foto's en video's toevoegen?",
+            "answer": "Met Premium kun je foto's en video's uploaden om je uitnodiging nog persoonlijker te maken. Bij Basic en Signature is dit niet inbegrepen."
+          }
+        ]
+      },
+      "rsvp": {
+        "name": "RSVP",
+        "title": "Vragen over RSVP",
+        "description": "Hoe gasten reageren en hoe je reacties beheert",
+        "items": [
+          {
+            "question": "Hoe werkt de RSVP-functie?",
+            "answer": "Gasten kunnen direct via de uitnodiging aangeven of ze komen. Ze vullen hun naam in, kiezen 'Ja', 'Nee' of 'Misschien', en kunnen optioneel dieetwensen en een bericht achterlaten."
+          },
+          {
+            "question": "Krijg ik een melding als iemand reageert?",
+            "answer": "Ja! Je ontvangt een e-mail bij elke nieuwe RSVP. In je dashboard zie je een overzicht van alle reacties."
+          },
+          {
+            "question": "Kunnen gasten hun RSVP wijzigen?",
+            "answer": "Ja, gasten kunnen hun antwoord wijzigen door opnieuw te reageren met hetzelfde e-mailadres. De oude reactie wordt dan bijgewerkt."
+          },
+          {
+            "question": "Kan ik de gastenlijst exporteren?",
+            "answer": "Ja, je kunt alle RSVP-gegevens exporteren naar Excel of CSV. Handig voor het plannen van tafels, catering en andere zaken."
+          },
+          {
+            "question": "Kan ik een deadline instellen voor RSVP's?",
+            "answer": "Ja, je kunt een RSVP-deadline instellen. Na deze datum kunnen gasten niet meer reageren via de uitnodiging."
+          }
+        ]
+      }
+    },
+    "contact": {
+      "title": "Nog vragen?",
+      "description": "Staat je vraag er niet tussen? We helpen je graag persoonlijk verder.",
+      "button": "Neem contact op"
+    }
+  },
+  "aboutPage": {
+    "hero": {
+      "label": "Ons verhaal",
+      "title": "Een traditie herboren in pixels",
+      "subtitle": "Wij geloven dat sommige momenten te bijzonder zijn voor een gewone link. Daarom brengen we de magie van de lakzegel terug - voor een nieuwe generatie."
+    },
+    "story": {
+      "eyebrow": "De lakzegel",
+      "title": "Eeuwenlang verzegelden mensen hun belangrijkste berichten met was",
+      "paragraphs": [
+        "Sinds de middeleeuwen is de lakzegel het symbool van belangrijke correspondentie. Koningen, koninginnen en geliefden gebruikten hem om hun meest kostbare berichten te beschermen en te personaliseren. Het breken van het zegel was altijd een moment van spanning en verwachting.",
+        "In een wereld van snelle berichten en wegwerplinks wilden wij dat gevoel terugbrengen. Niet door terug te gaan in de tijd, maar door vooruit te gaan met technologie die emotie niet vergeet.",
+        "Toen wij zelf gingen trouwen, merkten we hoe onpersoonlijk digitale uitnodigingen vaak voelen. Dat kan anders, dachten wij.",
+        "Zo ontstond Ja, Voor Altijd. Een plek waar technologie en traditie samenkomen. Waar jullie gasten niet zomaar een link openen, maar een zegel verbreken. Waar het moment van uitnodigen weer écht bijzonder is."
+      ],
+      "quote": "Het breken van het zegel is het begin van jullie verhaal"
+    },
+    "mission": {
+      "eyebrow": "Waar we voor staan",
+      "title": "Onze waarden",
+      "description": "Alles wat we maken is gebouwd op deze principes. Ze vormen de basis van elke uitnodiging die we samen met jullie creëren.",
+      "values": {
+        "tradition": {
+          "title": "Traditie met een twist",
+          "description": "We eren het verleden door het opnieuw uit te vinden. De lakzegel is oud, onze aanpak is fris."
+        },
+        "personal": {
+          "title": "Persoonlijk tot in detail",
+          "description": "Geen twee bruiloften zijn hetzelfde. Jullie uitnodiging moet dat weerspiegelen."
+        },
+        "quality": {
+          "title": "Kwaliteit boven kwantiteit",
+          "description": "We kiezen voor zorgvuldig ontworpen templates boven eindeloze opties die overweldigen."
+        },
+        "together": {
+          "title": "Samen maken we het",
+          "description": "Jullie visie, onze tools. Wij geven jullie de mogelijkheden, jullie maken het persoonlijk."
+        }
+      }
+    },
+    "cta": {
+      "title": "Klaar om jullie verhaal te verzegelen?",
+      "description": "Begin vandaag nog met het maken van een uitnodiging die jullie gasten nooit zullen vergeten.",
+      "primaryButton": "Start met een template",
+      "secondaryButton": "Bekijk voorbeelden"
+    }
+  }
+}

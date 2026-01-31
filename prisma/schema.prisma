@@ -1,0 +1,216 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== USER & AUTH ====================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+
+  accounts      Account[]
+  sessions      Session[]
+  invitations   Invitation[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ==================== INVITATION ====================
+
+model Invitation {
+  id            String           @id @default(cuid())
+  userId        String
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Status
+  status        InvitationStatus @default(DRAFT)
+  publishedAt   DateTime?
+  expiresAt     DateTime?
+
+  // Template
+  templateId    String
+
+  // Content - Couple Details
+  partner1Name  String
+  partner2Name  String
+  weddingDate   DateTime
+  weddingTime   String?
+  headline      String?
+  dresscode     String?
+  giftConfig    Json?
+
+  // Locations
+  locations     Location[]
+
+  // Timeline
+  timeline      TimelineItem[]
+
+  // RSVP Config
+  rsvpEnabled   Boolean          @default(true)
+  rsvpDeadline  DateTime?
+  rsvpConfig    Json?            // Flexible config for which fields are enabled
+
+  // Styling
+  sealColor     String           @default("#9E1F3F")
+  sealFont      String           @default("great-vibes")
+  sealStyle     String           @default("classic")
+  sealFloral    Boolean          @default(true)
+  monogram      String?
+  accentColor   String?
+  fontPairing   String           @default("elegant")
+  background    Json?
+
+  // Sharing
+  shareId       String           @unique @default(cuid())
+  shareUrl      String?
+
+  // Payment
+  planId        String?
+  stripePaymentId String?
+  stripeSessionId String?
+  paidAt        DateTime?
+
+  // Relations
+  rsvps         RSVP[]
+
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  @@index([userId])
+  @@index([shareId])
+  @@index([status])
+}
+
+enum InvitationStatus {
+  DRAFT
+  PAID
+  PUBLISHED
+  EXPIRED
+}
+
+// ==================== LOCATION ====================
+
+model Location {
+  id            String     @id @default(cuid())
+  invitationId  String
+  invitation    Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  name          String
+  address       String
+  time          String
+  type          String     // ceremony, reception, dinner, party, etc.
+  notes         String?
+  mapsUrl       String?
+  order         Int        @default(0)
+
+  @@index([invitationId])
+}
+
+// ==================== TIMELINE ====================
+
+model TimelineItem {
+  id            String     @id @default(cuid())
+  invitationId  String
+  invitation    Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  title         String
+  time          String
+  description   String?
+  icon          String?
+  order         Int        @default(0)
+
+  @@index([invitationId])
+}
+
+// ==================== RSVP ====================
+
+model RSVP {
+  id            String     @id @default(cuid())
+  invitationId  String
+  invitation    Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  name          String
+  email         String?
+  attending     RSVPStatus
+  guestCount    Int        @default(1)
+  dietary       String?
+  message       String?
+  events        Json?      // Which events they're attending
+
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([invitationId])
+  @@index([attending])
+}
+
+enum RSVPStatus {
+  YES
+  NO
+  MAYBE
+}
+
+// ==================== TEMPLATE (reference data) ====================
+
+model Template {
+  id            String  @id @default(cuid())
+  slug          String  @unique
+  name          String
+  nameEn        String
+  description   String
+  descriptionEn String
+  style         String  // romantic, modern, minimal
+  sealVariant   String  // classic, modern, romantic
+  previewUrl    String?
+  isActive      Boolean @default(true)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

@@ -1,0 +1,847 @@
+{
+  "metadata": {
+    "title": "Ja, Voor Altijd - Digital Wedding Invitations",
+    "description": "Create beautiful digital wedding invitations with a unique wax seal experience. Elegant, personal, and unforgettable."
+  },
+  "nav": {
+    "home": "Home",
+    "templates": "Templates",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "about": "About us",
+    "contact": "Contact",
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "start": "Start now"
+  },
+  "home": {
+    "hero": {
+      "title": "Your love, sealed with style",
+      "subtitle": "Digital wedding invitations that feel like a personal letter. Elegant, interactive, and unforgettable.",
+      "cta_primary": "Start with a template",
+      "cta_secondary": "View a demo",
+      "social_proof": "Multiple couples already chose before you"
+    },
+    "features": {
+      "title": "Why Ja, Voor Altijd?",
+      "items": [
+        {
+          "title": "The seal that surprises",
+          "description": "Your guests open the invitation with a click on the seal. Personal, unforgettable, and truly special."
+        },
+        {
+          "title": "RSVP without hassle",
+          "description": "Guests respond directly. You see everything in one overview: who's coming, dietary needs, and more."
+        },
+        {
+          "title": "Always up to date",
+          "description": "Location changed? Time adjusted? Update your invitation and everyone sees the latest version."
+        },
+        {
+          "title": "Eco-friendly",
+          "description": "No paper, no printing costs. A sustainable choice that's just as beautiful as traditional."
+        },
+        {
+          "title": "Share via any channel",
+          "description": "WhatsApp, email, or social media. Share your invitation where your guests are."
+        },
+        {
+          "title": "Personal dashboard",
+          "description": "Track all responses, export data, and manage your invitation in one place."
+        }
+      ]
+    },
+    "how_it_works": {
+      "title": "How it works",
+      "subtitle": "Four steps to your perfect invitation",
+      "steps": [
+        {
+          "number": "1",
+          "title": "Choose a template",
+          "description": "Browse our collection and find the style that suits you."
+        },
+        {
+          "number": "2",
+          "title": "Make it personal",
+          "description": "Enter your names, date and location. Customize colors and text."
+        },
+        {
+          "number": "3",
+          "title": "Send to guests",
+          "description": "Share the link via WhatsApp, email or social media. Done!"
+        },
+        {
+          "number": "4",
+          "title": "Track responses",
+          "description": "See who's coming in your personal dashboard."
+        }
+      ]
+    },
+    "wax_seal_story": {
+      "title": "Why a wax seal?",
+      "paragraphs": [
+        "For centuries, important letters were sealed with wax. Breaking the seal was a moment of anticipation and joy.",
+        "We bring that tradition back, in digital form. Your guests experience the same special moment: breaking the seal, unfolding the invitation, discovering your story.",
+        "No boring design. No standard card. A real moment."
+      ],
+      "cta": "Experience it yourself"
+    },
+    "testimonials": {
+      "title": "What others say",
+      "items": [
+        {
+          "quote": "Our guests were so surprised by the wax seal! Everyone was talking about it.",
+          "author": "Emma & Thomas",
+          "location": "Amsterdam"
+        },
+        {
+          "quote": "Finally no more Excel chaos. The RSVP function is perfect.",
+          "author": "Lisa & Mark",
+          "location": "Rotterdam"
+        },
+        {
+          "quote": "So elegant and easy. Exactly what we were looking for.",
+          "author": "Sophie & David",
+          "location": "Utrecht"
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "Can I edit the invitation after publishing?",
+          "answer": "Yes! You can always change texts, times and locations. Guests automatically see the latest version."
+        },
+        {
+          "question": "How long does my invitation stay online?",
+          "answer": "The invitation stays online for 12 months."
+        },
+        {
+          "question": "Can guests respond without an app?",
+          "answer": "Absolutely. Everything works in the browser, on any device. No download required."
+        },
+        {
+          "question": "Is there a limit to the number of guests?",
+          "answer": "The Basic plan supports up to 75 guests, Signature up to 150 guests, and Premium is unlimited."
+        },
+        {
+          "question": "Can I print the invitation?",
+          "answer": "Our invitations are designed for digital use. We don't offer a print version, but you can always put the link on a physical card."
+        },
+        {
+          "question": "What about my guests' privacy?",
+          "answer": "We take privacy seriously. Guest data is only used for RSVPs and is not visible to other guests. You can export or delete all data."
+        }
+      ]
+    },
+    "final_cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Create your unique wedding invitation today",
+      "cta": "Start with a template"
+    },
+    "comparison": {
+      "badge": "Why digital?",
+      "title": "Traditional vs. Digital",
+      "subtitle": "Discover why more and more couples choose a digital wedding invitation",
+      "traditional": "Traditional Wedding Cards",
+      "digital": "Our Digital Card",
+      "items": [
+        {
+          "aspect": "Cost",
+          "traditional": "Expensive (printing, shipping)",
+          "digital": "Affordable (one-time price)"
+        },
+        {
+          "aspect": "Environment",
+          "traditional": "Paper, ink, transport",
+          "digital": "Eco-friendly"
+        },
+        {
+          "aspect": "Speed",
+          "traditional": "Weeks of waiting",
+          "digital": "Ready instantly"
+        },
+        {
+          "aspect": "Customize",
+          "traditional": "Difficult and expensive",
+          "digital": "Easily adjustable"
+        },
+        {
+          "aspect": "RSVP",
+          "traditional": "Manual tracking",
+          "digital": "Automatic dashboard"
+        },
+        {
+          "aspect": "Reach",
+          "traditional": "Limited",
+          "digital": "Easy sharing via WhatsApp & social"
+        }
+      ]
+    },
+    "dashboard_preview": {
+      "badge": "Your dashboard",
+      "title": "Everything in one overview",
+      "subtitle": "Manage responses, view statistics and customize your invitation - all from one elegant dashboard",
+      "welcome": "Welcome back",
+      "wedding_date": "Your wedding",
+      "edit_invitation": "Edit invitation",
+      "rsvp_overview": "RSVP Overview",
+      "yes": "Yes",
+      "maybe": "Maybe",
+      "no": "No",
+      "total_views": "Total views",
+      "unique_visitors": "Responses",
+      "recent_responses": "Recent responses",
+      "view_all": "View all",
+      "attending": "Attending",
+      "not_attending": "Not attending",
+      "quick_actions": "Quick actions",
+      "edit_texts": "Edit texts",
+      "export_guests": "Export guest list",
+      "view_preview": "View live preview",
+      "more_features": "And many more features to perfectly plan your day",
+      "hours_ago": "hours ago",
+      "day_ago": "day ago",
+      "days_ago": "days ago",
+      "example_date": "15 June 2025"
+    }
+  },
+  "templates": {
+    "title": "Our Templates",
+    "subtitle": "Find the perfect style for your big day",
+    "filter": {
+      "all": "All styles",
+      "romantic": "Romantic",
+      "modern": "Modern",
+      "minimal": "Minimal"
+    },
+    "view_demo": "View demo",
+    "select": "Choose this template"
+  },
+  "pricing": {
+    "badge": "Simple, honest pricing",
+    "title": "Choose the plan that fits you",
+    "subtitle": "No subscription, no hidden fees. One-time payment for your perfect invitation.",
+    "mostPopular": "Most popular",
+    "oneTime": "one-time",
+    "selectPlan": "Choose {plan}",
+    "unlimited": "Unlimited",
+    "months": "{count} months",
+    "guestsCount": "Up to {count} guests",
+    "trustLine": "One-time payment • Secure via Stripe • Live immediately after purchase",
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "description": "Perfect for an intimate wedding",
+        "rsvpTitle": "RSVP Basic",
+        "rsvpFeatures": "Yes/No/Maybe responses • Guest segmentation (day/evening guest) • CSV export • Not yet responded list"
+      },
+      "signature": {
+        "name": "Signature",
+        "description": "The complete RSVP experience",
+        "rsvpTitle": "RSVP Extended",
+        "rsvpFeatures": "Everything in Basic + Dietary needs/allergies • 1-2 extra questions"
+      },
+      "premium": {
+        "name": "Premium",
+        "description": "Maximum flexibility",
+        "rsvpTitle": "RSVP Complete",
+        "rsvpFeatures": "Everything in Signature + Unlimited extra questions • General message field"
+      }
+    },
+    "features": {
+      "guests": "Up to {value} guests",
+      "guestsUnlimited": "Unlimited guests",
+      "templates": "All templates included",
+      "duration": "{value} months online",
+      "rsvpBasic": "RSVP with Yes/No/Maybe",
+      "guestSegmentation": "Guest segmentation (day/evening)",
+      "rsvpExtended": "Dietary needs & allergies",
+      "extraQuestions": "1-2 extra questions",
+      "extraQuestionsUnlimited": "Unlimited extra questions",
+      "csvExport": "CSV export",
+      "notRespondedList": "Not yet responded list",
+      "guestMessage": "General message field for guests"
+    },
+    "comparison": {
+      "title": "Compare plans",
+      "subtitle": "See which features are included in each plan",
+      "features": "Features",
+      "rows": {
+        "guests": "Number of guests",
+        "templates": "All templates",
+        "duration": "Online duration",
+        "rsvpBasic": "Yes/No/Maybe responses",
+        "guestSegmentation": "Guest segmentation",
+        "dietaryNeeds": "Dietary needs/allergies",
+        "extraQuestions": "Extra questions",
+        "csvExport": "CSV export",
+        "notRespondedList": "Not yet responded list",
+        "guestMessage": "General message field"
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "Is this a one-time payment?",
+          "answer": "Yes, you pay once. Basic stays online for 9 months, Signature for 12 months, and Premium for 16 months. No subscription or hidden costs."
+        },
+        {
+          "question": "What's the difference between the RSVP options?",
+          "answer": "Basic offers Yes/No/Maybe responses with guest segmentation, CSV export and a not yet responded list. Signature adds dietary needs and 1-2 extra questions. Premium gives unlimited extra questions and a general message field."
+        },
+        {
+          "question": "Can I upgrade later?",
+          "answer": "Yes, you can always upgrade and only pay the difference."
+        },
+        {
+          "question": "How does guest segmentation work?",
+          "answer": "You determine which guests are day guests or evening guests. Each guest only sees the RSVP options relevant to them."
+        },
+        {
+          "question": "Can guests respond without an app?",
+          "answer": "Absolutely. Everything works in the browser, on any device. No download required."
+        },
+        {
+          "question": "Is the payment secure?",
+          "answer": "Yes, all payments are processed via Stripe, one of the world's most secure payment platforms."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Start creating your dream invitation today. No account needed to begin.",
+      "button": "Start with a template"
+    }
+  },
+  "cta": {
+    "start": "Start now",
+    "demo": "View demo",
+    "templates": "View templates",
+    "pricing": "View pricing",
+    "contact": "Get in touch",
+    "save_draft": "Save as draft",
+    "preview": "View preview",
+    "publish": "Publish invitation",
+    "share": "Share with guests",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "footer": {
+    "tagline": "Your love, sealed with style",
+    "links": {
+      "templates": "Templates",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "about": "About us",
+      "contact": "Contact",
+      "login": "Login",
+      "dashboard": "Dashboard",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "cookies": "Cookies"
+    },
+    "copyright": "© {year} Ja, Voor Altijd. All rights reserved."
+  },
+  "demo": {
+    "watermark": "PREVIEW",
+    "cta_title": "This could be your invitation",
+    "cta_button": "Create your own invitation"
+  },
+  "builder": {
+    "progress": "Step {current} of {total}",
+    "steps": {
+      "template": "Template",
+      "details": "Details",
+      "locations": "Locations",
+      "program": "Program",
+      "rsvp": "RSVP",
+      "styling": "Style",
+      "preview": "Preview",
+      "checkout": "Checkout"
+    },
+    "autosave": "Automatically saved",
+    "save_draft": "Save as draft"
+  },
+  "rsvp": {
+    "title": "RSVP",
+    "attending": {
+      "question": "Will you attend the wedding?",
+      "yes": "Yes, I'll be there!",
+      "no": "Unfortunately, I can't make it",
+      "maybe": "Not sure yet"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "Email address",
+      "guests": "Number of guests",
+      "dietary": "Dietary requirements",
+      "message": "Message for the couple"
+    },
+    "submit": "Send RSVP",
+    "success": "Thank you! Your RSVP has been sent.",
+    "error": "Something went wrong. Please try again."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "invitation": {
+      "title": "My invitation",
+      "status": {
+        "draft": "Draft",
+        "paid": "Paid",
+        "published": "Published",
+        "expired": "Expired"
+      },
+      "edit": "Edit",
+      "share": "Share"
+    },
+    "rsvp": {
+      "title": "RSVP Overview",
+      "total": "Total",
+      "attending": "Attending",
+      "not_attending": "Not attending",
+      "pending": "No response yet",
+      "export": "Export"
+    },
+    "share": {
+      "title": "Share your invitation",
+      "copy_link": "Copy link",
+      "copied": "Copied!",
+      "qr_code": "Download QR code"
+    }
+  },
+  "legal": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: January 2025",
+      "sections": {
+        "intro": {
+          "title": "Introduction",
+          "content": "Ja, Voor Altijd ('we', 'us', 'our') respects the privacy of our users. This privacy policy explains how we collect, use and protect personal data when you use our service for creating and sharing digital wedding invitations."
+        },
+        "dataCollection": {
+          "title": "What data do we collect?",
+          "content": "We collect the following categories of personal data:",
+          "items": {
+            "email": "Email address for account creation and communication",
+            "names": "Names of the couple for the invitation",
+            "weddingDetails": "Wedding date, locations and program information",
+            "rsvp": "RSVP data from guests (name, email, dietary requirements, message)",
+            "payment": "Payment information (processed by Stripe, not stored by us)"
+          }
+        },
+        "dataUsage": {
+          "title": "How do we use your data?",
+          "content": "We use your data exclusively for:",
+          "items": {
+            "service": "Providing our service (creating and hosting invitations)",
+            "communication": "Communication about your account and orders",
+            "improvement": "Improving our service and user experience",
+            "legal": "Complying with legal obligations"
+          }
+        },
+        "dataSharing": {
+          "title": "Who do we share your data with?",
+          "content": "We only share your data with:",
+          "items": {
+            "stripe": "Stripe for payment processing",
+            "email": "Resend for email delivery",
+            "hosting": "Vercel for hosting and infrastructure"
+          }
+        },
+        "dataRetention": {
+          "title": "How long do we keep your data?",
+          "content": "We retain your data for as long as your invitation is active, plus 30 days after expiration. You can request deletion of your data at any time. After deletion, all personal data will be permanently removed from our systems within 30 days."
+        },
+        "rights": {
+          "title": "Your rights",
+          "content": "Under the GDPR, you have the following rights:",
+          "items": {
+            "access": "Right to access your personal data",
+            "rectification": "Right to rectification of inaccurate data",
+            "erasure": "Right to erasure ('right to be forgotten')",
+            "portability": "Right to data portability",
+            "objection": "Right to object to processing"
+          }
+        },
+        "security": {
+          "title": "Security",
+          "content": "We take appropriate technical and organizational measures to protect your data. This includes encryption of data in transit and at rest, secure servers, and limited access to personal data."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "For questions about this privacy policy or to exercise your rights, you can contact us at:"
+        }
+      }
+    },
+    "terms": {
+      "title": "Terms and Conditions",
+      "lastUpdated": "Last updated: January 2025",
+      "sections": {
+        "intro": {
+          "title": "Introduction",
+          "content": "These terms and conditions apply to the use of the services of Ja, Voor Altijd. By using our service, you agree to these terms."
+        },
+        "services": {
+          "title": "Our services",
+          "content": "Ja, Voor Altijd provides a platform for creating and sharing digital wedding invitations. Our services include:",
+          "items": {
+            "creation": "Creating personalized digital wedding invitations",
+            "hosting": "Hosting your invitation for the chosen period",
+            "rsvp": "RSVP management and guest list functionality",
+            "sharing": "Tools for sharing your invitation"
+          }
+        },
+        "accounts": {
+          "title": "Accounts",
+          "content": "You are responsible for securing your account and all activities that occur under your account. You must immediately inform us of any unauthorized use of your account."
+        },
+        "payment": {
+          "title": "Payment",
+          "content": "All payments are processed through Stripe. Prices include VAT.",
+          "items": {
+            "pricing": "Prices are as listed on our website at the time of purchase",
+            "processing": "Payments are securely processed by Stripe",
+            "refunds": "Refunds are possible within 14 days of purchase, provided the invitation has not been published"
+          }
+        },
+        "content": {
+          "title": "Content",
+          "content": "You retain all rights to the content you upload to your invitation.",
+          "items": {
+            "ownership": "You remain the owner of all content you create",
+            "license": "You grant us a limited license to host and display your content",
+            "prohibited": "Illegal, offensive or harmful content is not allowed"
+          }
+        },
+        "intellectual": {
+          "title": "Intellectual property",
+          "content": "All templates, designs, code and other materials from Ja, Voor Altijd are our intellectual property. You may not copy, modify or distribute these outside the normal use of our service."
+        },
+        "liability": {
+          "title": "Liability",
+          "content": "We are not liable for indirect damages, lost profits or consequential damages. Our total liability is limited to the amount you have paid for our service."
+        },
+        "termination": {
+          "title": "Termination",
+          "content": "We reserve the right to terminate accounts that violate our terms. Upon termination, you will lose access to your invitation and all associated data."
+        },
+        "changes": {
+          "title": "Changes",
+          "content": "We may change these terms from time to time. Material changes will be announced 30 days in advance. Continued use after changes means acceptance of the new terms."
+        },
+        "governing": {
+          "title": "Governing law",
+          "content": "These terms are governed by Dutch law. Disputes will be submitted to the competent court in the Netherlands."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "For questions about these terms, you can contact us at:"
+        }
+      }
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "lastUpdated": "Last updated: January 2025",
+      "sections": {
+        "intro": {
+          "title": "Introduction",
+          "content": "This cookie policy explains how Ja, Voor Altijd uses cookies and similar technologies on our website."
+        },
+        "whatAreCookies": {
+          "title": "What are cookies?",
+          "content": "Cookies are small text files that are stored on your device when you visit our website. They help us to make the website function, remember your preferences and gain insight into how our website is used."
+        },
+        "typesOfCookies": {
+          "title": "What cookies do we use?",
+          "content": "We use the following categories of cookies:",
+          "tableHeaders": {
+            "purpose": "Purpose",
+            "duration": "Duration"
+          },
+          "durations": {
+            "session": "Session",
+            "days": "days",
+            "year": "year"
+          },
+          "essential": {
+            "title": "Essential cookies",
+            "description": "These cookies are necessary for the functioning of the website.",
+            "cookies": {
+              "session": "Keeps you logged in",
+              "locale": "Remembers your language preference",
+              "consent": "Remembers your cookie preferences"
+            }
+          },
+          "functional": {
+            "title": "Functional cookies",
+            "description": "These cookies improve your user experience.",
+            "cookies": {
+              "draft": "Saves your invitation draft locally",
+              "preferences": "Remembers your display preferences"
+            }
+          },
+          "analytics": {
+            "title": "Analytics cookies",
+            "description": "These cookies help us understand how visitors use our website.",
+            "cookies": {
+              "plausible": "Privacy-friendly analytics (no personal data)"
+            }
+          }
+        },
+        "thirdParty": {
+          "title": "Third-party cookies",
+          "content": "Some services we use place their own cookies:",
+          "services": {
+            "stripe": "For secure payment processing",
+            "vercel": "For performance optimization and analytics"
+          }
+        },
+        "management": {
+          "title": "Managing your cookies",
+          "content": "You can manage or delete cookies through your browser settings. Here are instructions for the most commonly used browsers:"
+        },
+        "updates": {
+          "title": "Updates",
+          "content": "We may update this cookie policy from time to time. Changes will be published on this page with a new 'last updated' date."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "For questions about this cookie policy, you can contact us at:"
+        }
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Have a question or want to know more? We'd love to hear from you!",
+    "form": {
+      "name": "Name",
+      "name_placeholder": "Your name",
+      "email": "Email address",
+      "email_placeholder": "name@example.com",
+      "subject": "Subject",
+      "subject_placeholder": "What is your question about?",
+      "message": "Message",
+      "message_placeholder": "Write your message here...",
+      "submit": "Send message",
+      "submitting": "Sending..."
+    },
+    "success": {
+      "title": "Message sent!",
+      "message": "Thank you for your message. We'll get back to you as soon as possible."
+    },
+    "error": "Something went wrong. Please try again.",
+    "info": {
+      "title": "Direct contact",
+      "email": "info@javooraltijd.nl",
+      "response_time": "We usually respond within 24 hours"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Receive a login link via email",
+      "email_label": "Email address",
+      "email_placeholder": "name@example.com",
+      "submit": "Send login link",
+      "submitting": "Sending...",
+      "no_account": "No account yet?",
+      "create_account": "Create one while building your invitation"
+    },
+    "verify": {
+      "title": "Check your inbox",
+      "subtitle": "We've sent a login link to",
+      "instructions": "Click the link in the email to log in. The link is valid for 24 hours.",
+      "spam_note": "No email received? Check your spam folder.",
+      "try_again": "Try again"
+    },
+    "errors": {
+      "invalid_email": "Please enter a valid email address",
+      "send_failed": "Something went wrong. Please try again.",
+      "default": "An error occurred. Please try again."
+    }
+  },
+  "errors": {
+    "not_found": {
+      "title": "Page not found",
+      "description": "The page you're looking for doesn't exist.",
+      "cta": "Back to home"
+    },
+    "generic": {
+      "title": "Something went wrong",
+      "description": "Please try again later.",
+      "cta": "Try again"
+    }
+  },
+  "faqPage": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about creating your digital wedding invitation",
+    "categories": {
+      "general": {
+        "name": "General",
+        "title": "General Questions",
+        "description": "The basics about our service and how it works",
+        "items": [
+          {
+            "question": "What exactly is Ja, Voor Altijd?",
+            "answer": "Ja, Voor Altijd is a platform where you create beautiful digital wedding invitations. With our unique wax seal experience, you'll impress your guests. They open the invitation by clicking on the seal - a magical moment they won't soon forget."
+          },
+          {
+            "question": "Who is this for?",
+            "answer": "For all couples looking for a modern, stylish, and eco-friendly way to invite their guests. Whether you're planning an intimate ceremony or a big celebration, we have a package that fits."
+          },
+          {
+            "question": "How long does it take to create an invitation?",
+            "answer": "Most couples are done within 30 minutes! You choose a template, fill in your details, adjust colors and you're done. You can always come back later to make changes."
+          },
+          {
+            "question": "Can I try the invitation before paying?",
+            "answer": "Yes! You can start building your invitation for free. You'll see a live preview with watermark. Only when you're satisfied and want to publish, you choose a package."
+          },
+          {
+            "question": "In which languages is the invitation available?",
+            "answer": "You can create your invitation fully in Dutch or English. The texts are freely customizable, so you can also use other languages if you wish."
+          }
+        ]
+      },
+      "pricing": {
+        "name": "Pricing",
+        "title": "Pricing Questions",
+        "description": "Everything about packages, payments and what you get",
+        "items": [
+          {
+            "question": "What does an invitation cost?",
+            "answer": "We have three packages: Basic (€125), Signature (€175) and Premium (€225). All prices are one-time - no subscription or hidden costs. Check our pricing page for all details."
+          },
+          {
+            "question": "Is this a one-time payment?",
+            "answer": "Yes, absolutely. You pay once. Basic stays online for 9 months, Signature for 12 months, and Premium for 16 months. No monthly fees."
+          },
+          {
+            "question": "Can I upgrade to a more expensive package later?",
+            "answer": "Certainly! You can always upgrade and only pay the difference. Convenient if you start small and need more features later."
+          },
+          {
+            "question": "What's the difference between the RSVP options?",
+            "answer": "Basic offers Yes/No/Maybe responses with guest segmentation, CSV export and a not yet responded list. Signature adds dietary needs and 1-2 extra questions. Premium gives unlimited extra questions and a general message field."
+          },
+          {
+            "question": "Are there extra costs for more guests?",
+            "answer": "No, there are no costs per guest. With Basic you can invite up to 75 guests, Signature up to 150 guests, and Premium is unlimited."
+          }
+        ]
+      },
+      "technical": {
+        "name": "Technical",
+        "title": "Technical Questions",
+        "description": "About editing, sharing and managing your invitation",
+        "items": [
+          {
+            "question": "Can I edit the invitation after publishing?",
+            "answer": "Yes! You can always change texts, times, locations and other details. Guests automatically see the latest version when they open the link."
+          },
+          {
+            "question": "How do I share the invitation with my guests?",
+            "answer": "You get a unique link that you can share via WhatsApp, email, SMS or social media."
+          },
+          {
+            "question": "Does it work on all devices?",
+            "answer": "Yes, our invitations work perfectly on phones, tablets and computers. No app needed - everything works in the browser."
+          },
+          {
+            "question": "What happens when the online period expires?",
+            "answer": "We'll send you a reminder 30 days before your invitation goes offline. You have 30 days after the expiration date to download it as a keepsake."
+          },
+          {
+            "question": "Can I add my own photos and videos?",
+            "answer": "With Premium you can upload photos and videos to make your invitation even more personal. This is not included with Basic and Signature."
+          }
+        ]
+      },
+      "rsvp": {
+        "name": "RSVP",
+        "title": "RSVP Questions",
+        "description": "How guests respond and how you manage responses",
+        "items": [
+          {
+            "question": "How does the RSVP function work?",
+            "answer": "Guests can indicate directly via the invitation whether they're coming. They fill in their name, choose 'Yes', 'No' or 'Maybe', and can optionally leave dietary requirements and a message."
+          },
+          {
+            "question": "Do I get a notification when someone responds?",
+            "answer": "Yes! You receive an email for every new RSVP. In your dashboard you see an overview of all responses."
+          },
+          {
+            "question": "Can guests change their RSVP?",
+            "answer": "Yes, guests can change their answer by responding again with the same email address. The old response is then updated."
+          },
+          {
+            "question": "Can I export the guest list?",
+            "answer": "Yes, you can export all RSVP data to Excel or CSV. Convenient for planning tables, catering and other matters."
+          },
+          {
+            "question": "Can I set a deadline for RSVPs?",
+            "answer": "Yes, you can set an RSVP deadline. After this date, guests can no longer respond via the invitation."
+          }
+        ]
+      }
+    },
+    "contact": {
+      "title": "Still have questions?",
+      "description": "Can't find your question? We're happy to help you personally.",
+      "button": "Contact us"
+    }
+  },
+  "aboutPage": {
+    "hero": {
+      "label": "Our story",
+      "title": "A tradition reborn in pixels",
+      "subtitle": "We believe some moments are too special for an ordinary link. That's why we're bringing back the magic of the wax seal - for a new generation."
+    },
+    "story": {
+      "eyebrow": "The wax seal",
+      "title": "For centuries, people sealed their most important messages with wax",
+      "paragraphs": [
+        "Since the Middle Ages, the wax seal has been the symbol of important correspondence. Kings, queens, and lovers used it to protect and personalize their most precious messages. Breaking the seal was always a moment of tension and anticipation.",
+        "In a world of quick messages and disposable links, we wanted to bring back that feeling. Not by going back in time, but by moving forward with technology that doesn't forget emotion.",
+        "When we were planning our own wedding, we noticed how impersonal digital invitations often feel. That could be different, we thought.",
+        "That's how Ja, Voor Altijd was born. A place where technology and tradition come together. Where your guests don't just open a link, but break a seal. Where the moment of inviting becomes truly special again."
+      ],
+      "quote": "Breaking the seal is the beginning of your story"
+    },
+    "mission": {
+      "eyebrow": "What we stand for",
+      "title": "Our values",
+      "description": "Everything we create is built on these principles. They form the foundation of every invitation we create together with you.",
+      "values": {
+        "tradition": {
+          "title": "Tradition with a twist",
+          "description": "We honor the past by reinventing it. The wax seal is old, our approach is fresh."
+        },
+        "personal": {
+          "title": "Personal to the detail",
+          "description": "No two weddings are the same. Your invitation should reflect that."
+        },
+        "quality": {
+          "title": "Quality over quantity",
+          "description": "We choose carefully designed templates over endless options that overwhelm."
+        },
+        "together": {
+          "title": "We make it together",
+          "description": "Your vision, our tools. We give you the possibilities, you make it personal."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to seal your story?",
+      "description": "Start creating an invitation today that your guests will never forget.",
+      "primaryButton": "Start with a template",
+      "secondaryButton": "View examples"
+    }
+  }
+}
