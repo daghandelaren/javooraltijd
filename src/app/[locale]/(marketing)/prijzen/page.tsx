@@ -50,6 +50,7 @@ const plans: Array<{
     csvExport: boolean;
     notRespondedList: boolean;
     guestMessage: boolean;
+    music: boolean;
   };
 }> = [
   {
@@ -70,6 +71,7 @@ const plans: Array<{
       csvExport: true,
       notRespondedList: true,
       guestMessage: false,
+      music: false,
     },
   },
   {
@@ -91,6 +93,7 @@ const plans: Array<{
       csvExport: true,
       notRespondedList: true,
       guestMessage: false,
+      music: true,
     },
   },
   {
@@ -111,6 +114,7 @@ const plans: Array<{
       csvExport: true,
       notRespondedList: true,
       guestMessage: true,
+      music: true,
     },
   },
 ];
@@ -126,6 +130,7 @@ const comparisonFeatures = [
   "csvExport",
   "notRespondedList",
   "guestMessage",
+  "music",
 ];
 
 export default function PrijzenPage() {
@@ -267,7 +272,7 @@ export default function PrijzenPage() {
                       <WaxSeal
                         initials={plan.sealInitial}
                         color={plan.sealColor}
-                        size="sm"
+                        size="md"
                         interactive={false}
                       />
                     </div>
@@ -495,15 +500,11 @@ export default function PrijzenPage() {
             <Accordion type="single" collapsible className="w-full">
               {(t.raw("faq.items") as Array<{ question: string; answer: string }>).map(
                 (item, index) => (
-                  <AccordionItem
-                    key={index}
-                    value={`item-${index}`}
-                    className="bg-white mb-3 rounded-xl border border-champagne-200 px-6 overflow-hidden"
-                  >
-                    <AccordionTrigger className="text-left text-lg font-medium text-stone-900 hover:text-burgundy-700 py-5">
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger className="text-left font-medium text-stone-900 text-lg">
                       {item.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-base text-stone-600 pb-5">
+                    <AccordionContent className="text-base text-stone-600">
                       {item.answer}
                     </AccordionContent>
                   </AccordionItem>

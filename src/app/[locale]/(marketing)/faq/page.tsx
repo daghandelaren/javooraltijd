@@ -9,10 +9,15 @@ import {
   CreditCard,
   Settings,
   Users,
-  ChevronDown,
   MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 
 const categories = [
@@ -25,13 +30,6 @@ const categories = [
 export default function FAQPage() {
   const t = useTranslations("faqPage");
   const [activeCategory, setActiveCategory] = useState("general");
-  const [openItems, setOpenItems] = useState<string[]>([]);
-
-  const toggleItem = (id: string) => {
-    setOpenItems((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    );
-  };
 
   const currentFaqs = t.raw(`categories.${activeCategory}.items`) as Array<{
     question: string;
@@ -122,12 +120,7 @@ export default function FAQPage() {
       {/* FAQ Content */}
       <section className="relative py-12 md:py-16">
         <div className="container-narrow">
-          <motion.div
-            key={activeCategory}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4 }}
-          >
+          <div>
             {/* Category Header */}
             <div className="text-center mb-10">
               <h2 className="font-heading text-2xl sm:text-3xl font-semibold text-stone-900 mb-2">
@@ -139,70 +132,19 @@ export default function FAQPage() {
             </div>
 
             {/* FAQ Items */}
-            <div className="space-y-4">
-              {currentFaqs.map((item, index) => {
-                const itemId = `${activeCategory}-${index}`;
-                const isOpen = openItems.includes(itemId);
-
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className={cn(
-                      "bg-white rounded-2xl border-2 overflow-hidden transition-all duration-300",
-                      isOpen
-                        ? "border-burgundy-200 shadow-lg shadow-burgundy-100/30"
-                        : "border-champagne-200 hover:border-champagne-300"
-                    )}
-                  >
-                    <button
-                      onClick={() => toggleItem(itemId)}
-                      className="w-full flex items-start justify-between gap-4 p-6 text-left"
-                    >
-                      <div className="flex items-start gap-4">
-                        <span
-                          className={cn(
-                            "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors",
-                            isOpen
-                              ? "bg-burgundy-100 text-burgundy-700"
-                              : "bg-champagne-100 text-champagne-700"
-                          )}
-                        >
-                          {index + 1}
-                        </span>
-                        <span className="font-medium text-stone-900 pt-1">
-                          {item.question}
-                        </span>
-                      </div>
-                      <ChevronDown
-                        className={cn(
-                          "w-5 h-5 text-stone-400 transition-transform duration-300 flex-shrink-0 mt-1.5",
-                          isOpen && "rotate-180 text-burgundy-600"
-                        )}
-                      />
-                    </button>
-
-                    <div
-                      className={cn(
-                        "grid transition-all duration-300 ease-in-out",
-                        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                      )}
-                    >
-                      <div className="overflow-hidden">
-                        <div className="px-6 pb-6 pl-[72px]">
-                          <p className="text-stone-600 leading-relaxed">
-                            {item.answer}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
+            <Accordion type="single" collapsible className="w-full">
+              {currentFaqs.map((item, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left font-medium text-stone-900 text-lg">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base text-stone-600">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
       </section>
 

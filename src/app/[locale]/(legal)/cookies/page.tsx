@@ -162,7 +162,7 @@ export default function CookiesPage() {
             <strong>Stripe</strong> - {t("sections.thirdParty.services.stripe")}
           </li>
           <li>
-            <strong>Vercel</strong> - {t("sections.thirdParty.services.vercel")}
+            <strong>Railway</strong> - {t("sections.thirdParty.services.railway")}
           </li>
         </ul>
       </section>

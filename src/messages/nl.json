@@ -16,7 +16,7 @@
   },
   "home": {
     "hero": {
-      "title": "Jullie liefde, verzegeld met stijl",
+      "title": "Jullie liefde,\nverzegeld met stijl",
       "subtitle": "Digitale trouwuitnodigingen die aanvoelen als een persoonlijke brief. Elegant, interactief, en onvergetelijk.",
       "cta_primary": "Start met een template",
       "cta_secondary": "Bekijk een demo",
@@ -27,7 +27,7 @@
       "items": [
         {
           "title": "De lakzegel die verrast",
-          "description": "Jullie gasten openen de uitnodiging met een klik op de zegel. Persoonlijk, onvergetelijk, en écht bijzonder."
+          "description": "Jullie gasten openen de uitnodiging met een klik op de zegel. Persoonlijk, onvergetelijk, en echt bijzonder."
         },
         {
           "title": "RSVP zonder gedoe",
@@ -39,7 +39,7 @@
         },
         {
           "title": "Milieuvriendelijk",
-          "description": "Geen papier, geen drukkosten. Een duurzame keuze die net zo mooi is als traditioneel."
+          "description": "Geen papier, geen drukkosten. Een duurzame keuze die nog mooier is dan traditioneel."
         },
         {
           "title": "Deel via elk kanaal",
@@ -80,9 +80,9 @@
     "wax_seal_story": {
       "title": "Waarom een lakzegel?",
       "paragraphs": [
-        "Eeuwenlang werden belangrijke brieven verzegeld met was. Het breken van het zegel was een moment van spanning en vreugde.",
+        "Eeuwenlang werden belangrijke brieven verzegeld met was. Het breken van de zegel was een moment van spanning en vreugde.",
         "Wij brengen die traditie terug, in digitale vorm. Jullie gasten ervaren hetzelfde speciale moment: de zegel verbreken, de uitnodiging ontvouwen, jullie verhaal ontdekken.",
-        "Geen saai ontwerp. Geen standaard kaart. Een écht moment."
+        "Geen saai ontwerp. Geen standaard kaart. Een echt moment."
       ],
       "cta": "Ervaar het zelf"
     },
@@ -115,7 +115,7 @@
         },
         {
           "question": "Hoe lang blijft mijn uitnodiging online?",
-          "answer": "De uitnodiging staat 12 maanden online."
+          "answer": "Afhankelijk van je pakket: Basic 9 maanden, Signature 12 maanden, Premium 16 maanden."
         },
         {
           "question": "Kunnen gasten zonder app reageren?",
@@ -204,7 +204,7 @@
       "hours_ago": "uur geleden",
       "day_ago": "dag geleden",
       "days_ago": "dagen geleden",
-      "example_date": "15 juni 2025"
+      "example_date": "15 juni 2026"
     }
   },
   "templates": {
@@ -278,7 +278,8 @@
         "extraQuestions": "Extra vragen",
         "csvExport": "CSV export",
         "notRespondedList": "Nog niet gereageerd lijst",
-        "guestMessage": "Algemeen berichtveld"
+        "guestMessage": "Algemeen berichtveld",
+        "music": "Achtergrondmuziek"
       }
     },
     "faq": {
@@ -450,7 +451,7 @@
           "items": {
             "stripe": "Stripe voor betalingsverwerking",
             "email": "Resend voor e-mailbezorging",
-            "hosting": "Vercel voor hosting en infrastructuur"
+            "hosting": "Railway voor hosting en infrastructuur"
           }
         },
         "dataRetention": {
@@ -506,7 +507,7 @@
           "items": {
             "pricing": "Prijzen zijn zoals vermeld op onze website op het moment van aankoop",
             "processing": "Betalingen worden veilig verwerkt door Stripe",
-            "refunds": "Restitutie is mogelijk binnen 14 dagen na aankoop, mits de uitnodiging niet gepubliceerd is"
+            "refunds": "Onze digitale uitnodigingen worden op maat en persoonsgebonden geleverd. Daarom is het herroepingsrecht uitgesloten zodra de levering is gestart met jouw toestemming. Uiteraard lossen we technische problemen altijd op."
           }
         },
         "content": {
@@ -598,7 +599,7 @@
           "content": "Sommige diensten die wij gebruiken plaatsen hun eigen cookies:",
           "services": {
             "stripe": "Voor veilige betalingsverwerking",
-            "vercel": "Voor prestatie-optimalisatie en analytics"
+            "railway": "Voor hosting en infrastructuur"
           }
         },
         "management": {
@@ -697,7 +698,7 @@
           },
           {
             "question": "Hoe lang duurt het om een uitnodiging te maken?",
-            "answer": "De meeste koppels zijn binnen 30 minuten klaar! Je kiest een template, vult je gegevens in, past kleuren aan en klaar. Je kunt altijd later terugkomen om wijzigingen te maken."
+            "answer": "De meeste koppels zijn binnen 30 minuten klaar! Je kiest een template, vult je gegevens in, past kleuren aan en je kunt de uitnodiging verzenden. Je kunt altijd later terugkomen om wijzigingen te maken."
           },
           {
             "question": "Kan ik de uitnodiging eerst uitproberen voordat ik betaal?",
@@ -759,7 +760,7 @@
           },
           {
             "question": "Kan ik mijn eigen foto's en video's toevoegen?",
-            "answer": "Met Premium kun je foto's en video's uploaden om je uitnodiging nog persoonlijker te maken. Bij Basic en Signature is dit niet inbegrepen."
+            "answer": "Dit zal binnenkort beschikbaar zijn!"
           }
         ]
       },
@@ -801,18 +802,18 @@
     "hero": {
       "label": "Ons verhaal",
       "title": "Een traditie herboren in pixels",
-      "subtitle": "Wij geloven dat sommige momenten te bijzonder zijn voor een gewone link. Daarom brengen we de magie van de lakzegel terug - voor een nieuwe generatie."
+      "subtitle": "Wij geloven dat sommige momenten te bijzonder zijn voor een gewone uitnodiging. Daarom brengen we de magie van de lakzegel terug - voor een nieuwe generatie."
     },
     "story": {
       "eyebrow": "De lakzegel",
       "title": "Eeuwenlang verzegelden mensen hun belangrijkste berichten met was",
       "paragraphs": [
-        "Sinds de middeleeuwen is de lakzegel het symbool van belangrijke correspondentie. Koningen, koninginnen en geliefden gebruikten hem om hun meest kostbare berichten te beschermen en te personaliseren. Het breken van het zegel was altijd een moment van spanning en verwachting.",
-        "In een wereld van snelle berichten en wegwerplinks wilden wij dat gevoel terugbrengen. Niet door terug te gaan in de tijd, maar door vooruit te gaan met technologie die emotie niet vergeet.",
-        "Toen wij zelf gingen trouwen, merkten we hoe onpersoonlijk digitale uitnodigingen vaak voelen. Dat kan anders, dachten wij.",
-        "Zo ontstond Ja, Voor Altijd. Een plek waar technologie en traditie samenkomen. Waar jullie gasten niet zomaar een link openen, maar een zegel verbreken. Waar het moment van uitnodigen weer écht bijzonder is."
+        "Sinds de middeleeuwen is de lakzegel het symbool van belangrijke correspondentie. Koningen, koninginnen en geliefden gebruikten het om hun meest kostbare berichten te beschermen en te personaliseren. Het breken van de zegel was altijd een moment van spanning en verwachting.",
+        "In een wereld van snelle berichten wilden wij dat gevoel terugbrengen. Niet door terug te gaan in de tijd, maar door vooruit te gaan met technologie die emotie niet vergeet.",
+        "Toen wij zelf gingen trouwen, merkten we hoe onpersoonlijk uitnodigingen vaak voelen. Dat kan anders, dachten wij.",
+        "Zo ontstond Ja, Voor Altijd. Een plek waar technologie en traditie samenkomen. Waar jullie gasten niet zomaar een link openen, maar een zegel verbreken. Waar het moment van uitnodigen weer echt bijzonder is."
       ],
-      "quote": "Het breken van het zegel is het begin van jullie verhaal"
+      "quote": "Het breken van de zegel is het begin van jullie verhaal"
     },
     "mission": {
       "eyebrow": "Waar we voor staan",

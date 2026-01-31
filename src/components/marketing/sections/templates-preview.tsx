@@ -102,7 +102,7 @@ export function TemplatesPreviewSection() {
                           Jullie initialen hier
                         </p>
                         <p className="text-stone-400 text-sm mt-2">
-                          15 juni 2025
+                          15 juni 2026
                         </p>
                       </div>
                     </div>

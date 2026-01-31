@@ -115,7 +115,7 @@
         },
         {
           "question": "How long does my invitation stay online?",
-          "answer": "The invitation stays online for 12 months."
+          "answer": "Depending on your package: Basic 9 months, Signature 12 months, Premium 16 months."
         },
         {
           "question": "Can guests respond without an app?",
@@ -204,7 +204,7 @@
       "hours_ago": "hours ago",
       "day_ago": "day ago",
       "days_ago": "days ago",
-      "example_date": "15 June 2025"
+      "example_date": "15 June 2026"
     }
   },
   "templates": {
@@ -278,7 +278,8 @@
         "extraQuestions": "Extra questions",
         "csvExport": "CSV export",
         "notRespondedList": "Not yet responded list",
-        "guestMessage": "General message field"
+        "guestMessage": "General message field",
+        "music": "Background music"
       }
     },
     "faq": {
@@ -450,7 +451,7 @@
           "items": {
             "stripe": "Stripe for payment processing",
             "email": "Resend for email delivery",
-            "hosting": "Vercel for hosting and infrastructure"
+            "hosting": "Railway for hosting and infrastructure"
           }
         },
         "dataRetention": {
@@ -506,7 +507,7 @@
           "items": {
             "pricing": "Prices are as listed on our website at the time of purchase",
             "processing": "Payments are securely processed by Stripe",
-            "refunds": "Refunds are possible within 14 days of purchase, provided the invitation has not been published"
+            "refunds": "Our digital invitations are custom-made and personalized. Therefore, the right of withdrawal is excluded once delivery has started with your consent. Of course, we always resolve technical issues."
           }
         },
         "content": {
@@ -598,7 +599,7 @@
           "content": "Some services we use place their own cookies:",
           "services": {
             "stripe": "For secure payment processing",
-            "vercel": "For performance optimization and analytics"
+            "railway": "For hosting and infrastructure"
           }
         },
         "management": {
@@ -759,7 +760,7 @@
           },
           {
             "question": "Can I add my own photos and videos?",
-            "answer": "With Premium you can upload photos and videos to make your invitation even more personal. This is not included with Basic and Signature."
+            "answer": "This will be available soon!"
           }
         ]
       },
@@ -801,14 +802,14 @@
     "hero": {
       "label": "Our story",
       "title": "A tradition reborn in pixels",
-      "subtitle": "We believe some moments are too special for an ordinary link. That's why we're bringing back the magic of the wax seal - for a new generation."
+      "subtitle": "We believe some moments are too special for an ordinary invitation. That's why we're bringing back the magic of the wax seal - for a new generation."
     },
     "story": {
       "eyebrow": "The wax seal",
       "title": "For centuries, people sealed their most important messages with wax",
       "paragraphs": [
         "Since the Middle Ages, the wax seal has been the symbol of important correspondence. Kings, queens, and lovers used it to protect and personalize their most precious messages. Breaking the seal was always a moment of tension and anticipation.",
-        "In a world of quick messages and disposable links, we wanted to bring back that feeling. Not by going back in time, but by moving forward with technology that doesn't forget emotion.",
+        "In a world of quick messages, we wanted to bring back that feeling. Not by going back in time, but by moving forward with technology that doesn't forget emotion.",
         "When we were planning our own wedding, we noticed how impersonal digital invitations often feel. That could be different, we thought.",
         "That's how Ja, Voor Altijd was born. A place where technology and tradition come together. Where your guests don't just open a link, but break a seal. Where the moment of inviting becomes truly special again."
       ],

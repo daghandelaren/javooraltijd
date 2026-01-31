@@ -96,12 +96,12 @@ const config: Config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { gridTemplateRows: "0fr" },
-          to: { gridTemplateRows: "1fr" },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: { gridTemplateRows: "1fr" },
-          to: { gridTemplateRows: "0fr" },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
         "seal-break": {
           "0%": { transform: "scale(1) rotate(0deg)", opacity: "1" },
