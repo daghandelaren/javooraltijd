@@ -211,24 +211,14 @@ function SealOverlay({
             ease: "easeOut",
           }}
         >
-          <motion.button
+          <WaxSeal
+            initials={monogram}
+            color={sealColor}
+            font={sealFont}
+            size="xl"
+            interactive={isInteractive}
             onClick={onClick}
-            disabled={!isInteractive}
-            className={cn(
-              "block focus:outline-none focus-visible:ring-4 focus-visible:ring-burgundy-200 rounded-full",
-              isInteractive && "cursor-pointer",
-            )}
-            whileHover={isInteractive ? { scale: 1.05 } : undefined}
-            whileTap={isInteractive ? { scale: 0.95 } : undefined}
-          >
-            <WaxSeal
-              initials={monogram}
-              color={sealColor}
-              font={sealFont}
-              size="xl"
-              interactive={isInteractive}
-            />
-          </motion.button>
+          />
 
           {/* Seal break particles effect */}
           {isBreaking && <SealBreakParticles color={sealColor} />}
