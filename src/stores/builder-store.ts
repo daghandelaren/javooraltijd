@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { DEFAULT_SEAL_COLOR } from "@/lib/wax-colors";
 import { DEFAULT_SEAL_FONT, type SealFontId } from "@/lib/wax-fonts";
+import { DEFAULT_ENVELOPE_COLOR, DEFAULT_ENVELOPE_LINER } from "@/lib/envelope-colors";
 
 // Package/Plan types
 export type PlanId = "basic" | "signature" | "premium";
@@ -67,6 +68,20 @@ export interface GiftConfig {
   registryUrl?: string;
 }
 
+export interface EnvelopeConfig {
+  enabled: boolean;
+  color: string;
+  linerPattern: string;
+  personalizedText: string; // Text below seal, e.g., "Deze uitnodiging is speciaal voor jou"
+}
+
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+  order: number;
+}
+
 export interface Styling {
   sealColor: string; // Hex color string
   sealFont: SealFontId;
@@ -77,6 +92,7 @@ export interface Styling {
     type: "solid" | "gradient" | "pattern";
     value: string;
   };
+  envelopeConfig: EnvelopeConfig;
 }
 
 export interface BuilderState {
@@ -120,6 +136,9 @@ export interface BuilderState {
 
   // Music config (Signature/Premium only)
   musicConfig: MusicConfig;
+
+  // FAQ Items
+  faqItems: FAQItem[];
 
   // Meta
   lastSaved: string | null;
@@ -177,6 +196,12 @@ interface BuilderActions {
   // Music config
   setMusicConfig: (config: Partial<MusicConfig>) => void;
 
+  // FAQ Items
+  addFAQItem: (item: Omit<FAQItem, "id" | "order">) => void;
+  updateFAQItem: (id: string, updates: Partial<FAQItem>) => void;
+  removeFAQItem: (id: string) => void;
+  reorderFAQItems: (items: FAQItem[]) => void;
+
   // Meta
   markSaved: () => void;
   resetBuilder: () => void;
@@ -211,6 +236,11 @@ export interface DatabaseInvitation {
   accentColor: string | null;
   fontPairing: string;
   background: Styling["background"] | null;
+  envelopeEnabled: boolean;
+  envelopeColor: string | null;
+  envelopeLiner: string | null;
+  envelopePersonalizedText: string | null;
+  faqItems: FAQItem[] | null;
 }
 
 const initialState: BuilderState = {
@@ -246,6 +276,12 @@ const initialState: BuilderState = {
       type: "gradient",
       value: "linear-gradient(135deg, #FDF8F3 0%, #F9EDE1 100%)",
     },
+    envelopeConfig: {
+      enabled: true,
+      color: DEFAULT_ENVELOPE_COLOR,
+      linerPattern: DEFAULT_ENVELOPE_LINER,
+      personalizedText: "Deze uitnodiging is speciaal voor jou",
+    },
   },
   giftConfig: {
     enabled: false,
@@ -253,6 +289,7 @@ const initialState: BuilderState = {
     preferMoney: false,
   },
   guestGroups: [],
+  faqItems: [],
   musicConfig: {
     enabled: false,
     source: null,
@@ -393,6 +430,31 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
           isDirty: true,
         })),
 
+      // FAQ Items
+      addFAQItem: (item) =>
+        set((state) => ({
+          faqItems: [
+            ...state.faqItems,
+            { ...item, id: generateId(), order: state.faqItems.length },
+          ],
+          isDirty: true,
+        })),
+      updateFAQItem: (id, updates) =>
+        set((state) => ({
+          faqItems: state.faqItems.map((item) =>
+            item.id === id ? { ...item, ...updates } : item
+          ),
+          isDirty: true,
+        })),
+      removeFAQItem: (id) =>
+        set((state) => ({
+          faqItems: state.faqItems
+            .filter((item) => item.id !== id)
+            .map((item, index) => ({ ...item, order: index })),
+          isDirty: true,
+        })),
+      reorderFAQItems: (items) => set({ faqItems: items, isDirty: true }),
+
       // Meta
       markSaved: () => set({ lastSaved: new Date().toISOString(), isDirty: false }),
       resetBuilder: () => set(initialState),
@@ -457,7 +519,14 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
               type: "gradient",
               value: "linear-gradient(135deg, #FDF8F3 0%, #F9EDE1 100%)",
             },
+            envelopeConfig: {
+              enabled: invitation.envelopeEnabled ?? true,
+              color: invitation.envelopeColor || DEFAULT_ENVELOPE_COLOR,
+              linerPattern: invitation.envelopeLiner || DEFAULT_ENVELOPE_LINER,
+              personalizedText: invitation.envelopePersonalizedText || "Deze uitnodiging is speciaal voor jou",
+            },
           },
+          faqItems: invitation.faqItems || [],
           isDirty: false,
           lastSaved: new Date().toISOString(),
         });
@@ -542,6 +611,7 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
         styling: state.styling,
         giftConfig: state.giftConfig,
         guestGroups: state.guestGroups,
+        faqItems: state.faqItems,
         musicConfig: state.musicConfig,
         currentStep: state.currentStep,
       }),

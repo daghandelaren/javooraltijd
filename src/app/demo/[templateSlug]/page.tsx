@@ -7,12 +7,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, X, MapPin, Clock, Calendar } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { WaxSeal, WaxSealReveal } from "@/components/wax-seal/wax-seal";
+import { WaxSeal } from "@/components/wax-seal/wax-seal";
 import { ProgramIcon } from "@/components/builder/icon-picker";
 import { getTemplateBySlug, type Template } from "@/lib/templates";
+import { Envelope2D } from "@/components/envelope-2d";
+import { CountdownTimer } from "@/components/countdown";
 import { cn } from "@/lib/utils";
 
-// Demo data with generic placeholders (no personal names)
+// Demo data with generic placeholders
 const demoData = {
   partner1: "Partner 1",
   partner2: "Partner 2",
@@ -166,53 +168,29 @@ function DemoCTABar({ templateSlug }: { templateSlug: string }) {
 function InvitationContent({ template }: { template: Template }) {
   const [isRevealed, setIsRevealed] = useState(false);
 
+  // Demo wedding date (future date for countdown)
+  const demoWeddingDate = new Date();
+  demoWeddingDate.setMonth(demoWeddingDate.getMonth() + 6); // 6 months from now
+
   return (
     <div
-      className="min-h-screen pt-16"
+      className="min-h-screen"
       style={{ background: template.colors.backgroundGradient }}
     >
       <AnimatePresence mode="wait">
         {!isRevealed ? (
           <motion.div
-            key="sealed"
-            className="min-h-screen flex flex-col items-center justify-center px-4"
-            exit={{ opacity: 0, scale: 0.95 }}
+            key="envelope"
+            className="min-h-screen pt-16"
+            exit={{ opacity: 0 }}
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-center mb-8"
-            >
-              <p
-                className="font-accent text-3xl"
-                style={{ color: template.colors.textMuted }}
-              >
-                Jullie zijn uitgenodigd
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.5, type: "spring" }}
-            >
-              <WaxSeal
-                initials={demoData.monogram}
-                color={template.sealColor}
-                size="xl"
-                onClick={() => setIsRevealed(true)}
-              />
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="mt-8 text-stone-400 text-sm"
-            >
-              Klik op de zegel om te openen
-            </motion.p>
+            <Envelope2D
+              sealColor={template.sealColor}
+              monogram={demoData.monogram}
+              personalizedText="Deze uitnodiging is speciaal voor jou"
+              onOpen={() => setIsRevealed(true)}
+              enableMusic={false}
+            />
           </motion.div>
         ) : (
           <motion.div
@@ -220,7 +198,7 @@ function InvitationContent({ template }: { template: Template }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="pb-24"
+            className="pt-16 pb-24"
           >
             {/* Hero section */}
             <section className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
@@ -229,15 +207,27 @@ function InvitationContent({ template }: { template: Template }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
+                <WaxSeal
+                  initials={demoData.monogram}
+                  color={template.sealColor}
+                  size="lg"
+                  interactive={false}
+                />
                 <p
-                  className="font-accent text-2xl mb-4"
-                  style={{ color: template.colors.textMuted }}
+                  className="font-accent text-2xl mt-6 mb-4"
+                  style={{
+                    color: template.colors.textMuted,
+                    fontFamily: `'${template.fonts.accent}', cursive`,
+                  }}
                 >
                   {demoData.headline}
                 </p>
                 <h1
                   className="font-heading text-5xl sm:text-6xl lg:text-7xl font-semibold"
-                  style={{ color: template.colors.text }}
+                  style={{
+                    color: template.colors.text,
+                    fontFamily: `'${template.fonts.heading}', serif`,
+                  }}
                 >
                   {demoData.partner1} & {demoData.partner2}
                 </h1>
@@ -249,7 +239,7 @@ function InvitationContent({ template }: { template: Template }) {
                     <Calendar className="w-5 h-5" />
                     {demoData.date}
                   </span>
-                  <span style={{ color: template.colors.secondary }}>•</span>
+                  <span style={{ color: template.colors.secondary }}>-</span>
                   <span
                     className="flex items-center gap-2"
                     style={{ color: template.colors.textMuted }}
@@ -257,6 +247,16 @@ function InvitationContent({ template }: { template: Template }) {
                     <Clock className="w-5 h-5" />
                     {demoData.time}
                   </span>
+                </div>
+
+                {/* Countdown Timer */}
+                <div className="mt-12">
+                  <CountdownTimer
+                    targetDate={demoWeddingDate}
+                    accentColor={template.colors.primary}
+                    variant="card"
+                    showSeconds={false}
+                  />
                 </div>
               </motion.div>
             </section>
@@ -266,7 +266,10 @@ function InvitationContent({ template }: { template: Template }) {
               <div className="max-w-2xl mx-auto">
                 <h2
                   className="font-heading text-3xl text-center mb-12"
-                  style={{ color: template.colors.text }}
+                  style={{
+                    color: template.colors.text,
+                    fontFamily: `'${template.fonts.heading}', serif`,
+                  }}
                 >
                   Locatie
                 </h2>
@@ -294,11 +297,14 @@ function InvitationContent({ template }: { template: Template }) {
                             className="text-sm font-medium"
                             style={{ color: template.colors.primary }}
                           >
-                            {location.type} • {location.time}
+                            {location.type} - {location.time}
                           </p>
                           <h3
                             className="font-heading text-xl font-semibold mt-1"
-                            style={{ color: template.colors.text }}
+                            style={{
+                              color: template.colors.text,
+                              fontFamily: `'${template.fonts.heading}', serif`,
+                            }}
                           >
                             {location.name}
                           </h3>
@@ -321,7 +327,10 @@ function InvitationContent({ template }: { template: Template }) {
               <div className="max-w-2xl mx-auto">
                 <h2
                   className="font-heading text-3xl text-center mb-12"
-                  style={{ color: template.colors.text }}
+                  style={{
+                    color: template.colors.text,
+                    fontFamily: `'${template.fonts.heading}', serif`,
+                  }}
                 >
                   Programma
                 </h2>
@@ -350,12 +359,14 @@ function InvitationContent({ template }: { template: Template }) {
                         <div className="flex items-center gap-4">
                           <div
                             className="w-12 h-12 rounded-xl flex items-center justify-center"
-                            style={{ backgroundColor: `${template.colors.primary}15` }}
+                            style={{
+                              backgroundColor: `${template.colors.primary}15`,
+                              color: template.colors.primary,
+                            }}
                           >
                             <ProgramIcon
                               iconId={item.icon}
                               size="lg"
-                              className="text-burgundy-600"
                             />
                           </div>
                           <div>
@@ -367,7 +378,10 @@ function InvitationContent({ template }: { template: Template }) {
                             </p>
                             <h3
                               className="font-heading text-lg font-semibold"
-                              style={{ color: template.colors.text }}
+                              style={{
+                                color: template.colors.text,
+                                fontFamily: `'${template.fonts.heading}', serif`,
+                              }}
                             >
                               {item.title}
                             </h3>
@@ -385,7 +399,10 @@ function InvitationContent({ template }: { template: Template }) {
               <div className="max-w-md mx-auto text-center">
                 <h2
                   className="font-heading text-3xl mb-4"
-                  style={{ color: template.colors.text }}
+                  style={{
+                    color: template.colors.text,
+                    fontFamily: `'${template.fonts.heading}', serif`,
+                  }}
                 >
                   RSVP
                 </h2>
@@ -408,7 +425,10 @@ function InvitationContent({ template }: { template: Template }) {
               <div className="max-w-md mx-auto text-center">
                 <p
                   className="font-accent text-xl mb-4"
-                  style={{ color: template.colors.textMuted }}
+                  style={{
+                    color: template.colors.textMuted,
+                    fontFamily: `'${template.fonts.accent}', cursive`,
+                  }}
                 >
                   Maak je eigen uitnodiging
                 </p>

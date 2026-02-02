@@ -133,6 +133,10 @@ export async function PUT(
             accentColor: styling.accentColor,
             fontPairing: styling.fontPairing,
             background: styling.background,
+            envelopeEnabled: styling.envelopeConfig?.enabled ?? true,
+            envelopeColor: styling.envelopeConfig?.color ?? "#FDF8F3",
+            envelopeLiner: styling.envelopeConfig?.linerPattern ?? "floral",
+            envelopePersonalizedText: styling.envelopeConfig?.personalizedText ?? "Deze uitnodiging is speciaal voor jou",
           }),
         },
       });

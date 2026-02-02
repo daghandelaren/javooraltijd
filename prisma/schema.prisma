@@ -107,6 +107,15 @@ model Invitation {
   fontPairing   String           @default("elegant")
   background    Json?
 
+  // Envelope
+  envelopeEnabled Boolean        @default(true)
+  envelopeColor   String         @default("#FDF8F3")
+  envelopeLiner   String         @default("floral")
+  envelopePersonalizedText String? // Text below seal on envelope
+
+  // FAQ Items (stored as JSON array)
+  faqItems        Json?          // Array of { question: string, answer: string }
+
   // Sharing
   shareId       String           @unique @default(cuid())
   shareUrl      String?

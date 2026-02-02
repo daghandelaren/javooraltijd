@@ -7,7 +7,7 @@ export interface Template {
   nameEn: string;
   description: string;
   descriptionEn: string;
-  style: "romantic" | "modern" | "minimal";
+  style: "romantic" | "modern" | "rustic";
   sealColor: string; // Hex color
   colors: {
     primary: string;
@@ -23,86 +23,91 @@ export interface Template {
     body: string;
     accent: string;
   };
+  // Section divider style
+  dividerStyle: "floral" | "geometric" | "botanical";
 }
 
 export const templates: Template[] = [
   {
     id: "1",
-    slug: "eeuwige-elegantie",
-    name: "Eeuwige Elegantie",
-    nameEn: "Eternal Elegance",
+    slug: "romantisch",
+    name: "Romantisch",
+    nameEn: "Romantic",
     description:
-      "Klassiek romantisch design met gouden accenten. Perfect voor traditionele bruiloften in kastelen of landhuizen.",
+      "Zacht en elegant design met blush tinten en rose goud accenten. Perfect voor een dromerige, romantische bruiloft.",
     descriptionEn:
-      "Classic romantic design with golden accents. Perfect for traditional weddings in castles or country estates.",
+      "Soft and elegant design with blush tones and rose gold accents. Perfect for a dreamy, romantic wedding.",
     style: "romantic",
     sealColor: DEFAULT_SEAL_COLOR, // Bordeaux red
     colors: {
-      primary: "#722F37",
-      secondary: "#D4AF37",
-      accent: "#8B8589",
-      background: "#FFFFF0",
-      backgroundGradient: "linear-gradient(135deg, #FFFFF0 0%, #FFF8E7 100%)",
-      text: "#1C1917",
-      textMuted: "#57534E",
+      primary: "#B76E79", // Rose gold / dusty rose
+      secondary: "#D4AF37", // Champagne gold
+      accent: "#F8E8E8", // Soft blush
+      background: "#FDF8F6", // Warm cream
+      backgroundGradient: "linear-gradient(180deg, #FDF8F6 0%, #F9F0ED 50%, #F5E6E0 100%)",
+      text: "#4A3C3C", // Warm dark brown
+      textMuted: "#8B7B7B", // Muted mauve
     },
     fonts: {
       heading: "Cormorant Garamond",
-      body: "EB Garamond",
+      body: "Cormorant Garamond",
       accent: "Great Vibes",
     },
+    dividerStyle: "floral",
   },
   {
     id: "2",
-    slug: "modern-minimaal",
-    name: "Modern Minimaal",
-    nameEn: "Modern Minimal",
+    slug: "modern",
+    name: "Modern",
+    nameEn: "Modern",
     description:
-      "Strak en contemporary design met clean lijnen. Ideaal voor design-minded koppels en stedelijke locaties.",
+      "Strak en minimalistisch design met clean lijnen en gouden accenten. Ideaal voor een moderne, verfijnde bruiloft.",
     descriptionEn:
-      "Sleek and contemporary design with clean lines. Ideal for design-minded couples and urban venues.",
+      "Clean and minimalist design with sleek lines and golden accents. Ideal for a modern, sophisticated wedding.",
     style: "modern",
-    sealColor: "#2F4F4F", // Slate
+    sealColor: "#2C3E50", // Slate/navy
     colors: {
-      primary: "#1A1A1A",
-      secondary: "#9CAF88",
-      accent: "#FFE4E1",
-      background: "#FFFFFF",
-      backgroundGradient: "linear-gradient(135deg, #FFFFFF 0%, #F5F5F4 100%)",
-      text: "#1A1A1A",
-      textMuted: "#78716C",
+      primary: "#1A1A1A", // Near black
+      secondary: "#C9A86C", // Warm gold
+      accent: "#F5F5F5", // Light gray
+      background: "#FFFFFF", // Pure white
+      backgroundGradient: "linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 50%, #F5F5F5 100%)",
+      text: "#1A1A1A", // Near black
+      textMuted: "#6B6B6B", // Medium gray
     },
     fonts: {
       heading: "Playfair Display",
       body: "Inter",
       accent: "Inter",
     },
+    dividerStyle: "geometric",
   },
   {
     id: "3",
-    slug: "botanische-droom",
-    name: "Botanische Droom",
-    nameEn: "Botanical Dream",
+    slug: "rustiek",
+    name: "Rustiek",
+    nameEn: "Rustic",
     description:
-      "Organisch en natuurlijk design met botanische elementen. Perfect voor tuinfeesten en vineyard weddings.",
+      "Natuurlijk en warm design met aardse tinten en organische elementen. Perfect voor een boerderij- of buitenbruiloft.",
     descriptionEn:
-      "Organic and natural design with botanical elements. Perfect for garden parties and vineyard weddings.",
-    style: "romantic",
-    sealColor: "#5C4033", // Chocolate
+      "Natural and warm design with earthy tones and organic elements. Perfect for a farm or outdoor wedding.",
+    style: "rustic",
+    sealColor: "#5C4033", // Warm brown
     colors: {
-      primary: "#C67B5C",
-      secondary: "#84A98C",
-      accent: "#D4A5A5",
-      background: "#FFF8E7",
-      backgroundGradient: "linear-gradient(135deg, #FFF8E7 0%, #F5F0E6 100%)",
-      text: "#292524",
-      textMuted: "#57534E",
+      primary: "#5C7C5C", // Sage green
+      secondary: "#C67B5C", // Terracotta
+      accent: "#E8DDD0", // Kraft/natural paper
+      background: "#F9F6F1", // Warm off-white
+      backgroundGradient: "linear-gradient(180deg, #F9F6F1 0%, #F5F0E6 50%, #EDE5D8 100%)",
+      text: "#3D3D3D", // Dark charcoal
+      textMuted: "#6B6B6B", // Medium gray
     },
     fonts: {
       heading: "Libre Baskerville",
-      body: "Lora",
-      accent: "Tangerine",
+      body: "Libre Baskerville",
+      accent: "Amatic SC",
     },
+    dividerStyle: "botanical",
   },
 ];
 
@@ -112,4 +117,16 @@ export function getTemplateBySlug(slug: string): Template | undefined {
 
 export function getTemplateById(id: string): Template | undefined {
   return templates.find((t) => t.id === id);
+}
+
+// Helper to get template colors with fallback
+export function getTemplateColors(templateId: string | null) {
+  const template = templateId ? getTemplateById(templateId) : null;
+  return template?.colors || templates[0].colors;
+}
+
+// Helper to get template fonts with fallback
+export function getTemplateFonts(templateId: string | null) {
+  const template = templateId ? getTemplateById(templateId) : null;
+  return template?.fonts || templates[0].fonts;
 }

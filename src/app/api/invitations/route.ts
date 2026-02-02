@@ -93,6 +93,10 @@ export async function POST(request: NextRequest) {
         accentColor: styling?.accentColor,
         fontPairing: styling?.fontPairing ?? "elegant",
         background: styling?.background,
+        envelopeEnabled: styling?.envelopeConfig?.enabled ?? true,
+        envelopeColor: styling?.envelopeConfig?.color ?? "#FDF8F3",
+        envelopeLiner: styling?.envelopeConfig?.linerPattern ?? "floral",
+        envelopePersonalizedText: styling?.envelopeConfig?.personalizedText ?? "Deze uitnodiging is speciaal voor jou",
         locations: locations?.length > 0 ? {
           create: locations.map((loc: {
             name: string;

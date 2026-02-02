@@ -152,8 +152,8 @@ function TemplateSelectionContent() {
                           "bg-pink-100 text-pink-700",
                         template.style === "modern" &&
                           "bg-blue-100 text-blue-700",
-                        template.style === "minimal" &&
-                          "bg-stone-100 text-stone-700"
+                        template.style === "rustic" &&
+                          "bg-amber-100 text-amber-700"
                       )}
                     >
                       {t(`filter.${template.style}`)}

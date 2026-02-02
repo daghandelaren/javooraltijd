@@ -14,7 +14,9 @@ import { useBuilderStore } from "@/stores/builder-store";
 import { getTemplateById } from "@/lib/templates";
 import { SEAL_COLOR_PRESETS, DEFAULT_SEAL_COLOR, isValidHexColor } from "@/lib/wax-colors";
 import { SEAL_FONT_PRESETS, DEFAULT_SEAL_FONT, getSealFontConfig } from "@/lib/wax-fonts";
+import { ENVELOPE_COLORS, ENVELOPE_LINERS, DEFAULT_ENVELOPE_COLOR, DEFAULT_ENVELOPE_LINER } from "@/lib/envelope-colors";
 import { cn } from "@/lib/utils";
+import { Mail, Sparkles } from "lucide-react";
 
 const FONT_PAIRINGS = [
   {
@@ -254,6 +256,88 @@ export default function StylingPage() {
               ))}
             </div>
           </div>
+        </motion.div>
+
+        {/* Envelope Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="bg-white rounded-xl p-6 shadow-sm border border-stone-200"
+        >
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-burgundy-50 flex items-center justify-center">
+                <Mail className="w-5 h-5 text-burgundy-600" />
+              </div>
+              <div>
+                <h2 className="font-heading text-xl font-semibold text-stone-900">
+                  Envelop Animatie
+                </h2>
+                <p className="text-sm text-stone-500">
+                  Interactieve opening ervaring
+                </p>
+              </div>
+            </div>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                checked={styling.envelopeConfig?.enabled ?? true}
+                onChange={(e) =>
+                  setStyling({
+                    envelopeConfig: {
+                      ...styling.envelopeConfig,
+                      enabled: e.target.checked,
+                      color: styling.envelopeConfig?.color || DEFAULT_ENVELOPE_COLOR,
+                      linerPattern: styling.envelopeConfig?.linerPattern || DEFAULT_ENVELOPE_LINER,
+                      personalizedText: styling.envelopeConfig?.personalizedText || "Deze uitnodiging is speciaal voor jou",
+                    },
+                  })
+                }
+                className="sr-only peer"
+              />
+              <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-burgundy-100 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-burgundy-600"></div>
+            </label>
+          </div>
+
+          {(styling.envelopeConfig?.enabled ?? true) && (
+            <div className="space-y-6">
+              {/* Personalized Text */}
+              <div className="space-y-2">
+                <Label htmlFor="envelopeText">Persoonlijke tekst</Label>
+                <Input
+                  id="envelopeText"
+                  value={styling.envelopeConfig?.personalizedText || "Deze uitnodiging is speciaal voor jou"}
+                  onChange={(e) =>
+                    setStyling({
+                      envelopeConfig: {
+                        ...styling.envelopeConfig,
+                        enabled: styling.envelopeConfig?.enabled ?? true,
+                        color: styling.envelopeConfig?.color || DEFAULT_ENVELOPE_COLOR,
+                        linerPattern: styling.envelopeConfig?.linerPattern || DEFAULT_ENVELOPE_LINER,
+                        personalizedText: e.target.value,
+                      },
+                    })
+                  }
+                  placeholder="Deze uitnodiging is speciaal voor jou"
+                  maxLength={60}
+                  className="text-center"
+                />
+                <p className="text-xs text-stone-500">
+                  Tekst die onder de lakzegel wordt getoond
+                </p>
+              </div>
+
+              {/* Info note */}
+              <div className="flex items-start gap-3 p-4 bg-champagne-50 rounded-lg border border-champagne-200">
+                <Sparkles className="w-5 h-5 text-burgundy-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-stone-600">
+                  Gasten zien een elegante envelop met jullie lakzegel.
+                  Door op de zegel te klikken &quot;breekt&quot; deze open en verschijnt de uitnodiging met een mooie animatie.
+                </p>
+              </div>
+            </div>
+          )}
         </motion.div>
 
         {/* Background Music Section */}
