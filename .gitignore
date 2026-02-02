@@ -48,3 +48,6 @@ prisma/*.db-journal
 *.log
 .vercel
 nul
+
+# Claude Code local settings
+.claude/
