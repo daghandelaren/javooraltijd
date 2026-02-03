@@ -21,8 +21,7 @@ interface UseEnvelopeAnimationReturn {
 export const ANIMATION_TIMING = {
   sealBreak: 400,
   flapOpen: 600,
-  cardSlide: 800,
-  totalSequence: 1800, // Sum of all animations
+  totalSequence: 1000,
 };
 
 export function useEnvelopeAnimation(
@@ -45,28 +44,23 @@ export function useEnvelopeAnimation(
     // Start animation sequence
     setState("breaking");
 
-    // Seal breaks
+    // Start music when seal breaks (if enabled)
+    if (enableMusic && onMusicStart) {
+      onMusicStart();
+    }
+
+    // Seal breaks, then flap opens
     timeoutRef.current = setTimeout(() => {
       setState("opening");
 
-      // Flap opens
+      // After flap opens, transition to complete
       timeoutRef.current = setTimeout(() => {
-        setState("sliding");
+        setState("complete");
 
-        // Start music when card starts sliding (if enabled)
-        if (enableMusic && onMusicStart) {
-          onMusicStart();
+        // Notify parent that envelope is fully open
+        if (onOpen) {
+          onOpen();
         }
-
-        // Card slides out
-        timeoutRef.current = setTimeout(() => {
-          setState("complete");
-
-          // Notify parent that envelope is fully open
-          if (onOpen) {
-            onOpen();
-          }
-        }, ANIMATION_TIMING.cardSlide);
       }, ANIMATION_TIMING.flapOpen);
     }, ANIMATION_TIMING.sealBreak);
   }, [state, onOpen, onMusicStart, enableMusic]);

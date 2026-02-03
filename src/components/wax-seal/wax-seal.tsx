@@ -17,7 +17,7 @@ interface WaxSealProps {
   initials?: string;
   color?: SealColor;
   font?: SealFontId;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
   onClick?: () => void;
   isOpen?: boolean;
   className?: string;
@@ -31,6 +31,8 @@ const sizeConfig = {
   md: { size: 120, fontSize: 17 },
   lg: { size: 160, fontSize: 22 },
   xl: { size: 200, fontSize: 28 },
+  "2xl": { size: 280, fontSize: 39 },
+  "3xl": { size: 320, fontSize: 45 },
 };
 
 export function WaxSeal({
@@ -43,8 +45,6 @@ export function WaxSeal({
   className,
   interactive = true,
 }: WaxSealProps) {
-  const [isHovered, setIsHovered] = React.useState(false);
-
   const config = sizeConfig[size];
   // Use pre-rendered PNG for each color (no CSS filters needed)
   const sealImagePath = getSealImage(color);
@@ -63,12 +63,8 @@ export function WaxSeal({
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 1.2, opacity: 0, rotate: 10 }}
-            whileHover={interactive ? { scale: 1.02 } : undefined}
-            whileTap={interactive ? { scale: 0.98 } : undefined}
             transition={{ duration: 0.4, ease: "easeOut" }}
             onClick={handleClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             disabled={!interactive}
             className={cn(
               "relative block",
@@ -95,18 +91,6 @@ export function WaxSeal({
                 fontId={font}
               />
             </div>
-
-            {/* Interactive hover glow */}
-            {interactive && isHovered && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.3 }}
-                className="absolute inset-0 rounded-full"
-                style={{
-                  boxShadow: `0 0 20px 5px ${color}`,
-                }}
-              />
-            )}
           </motion.button>
         ) : (
           <motion.div

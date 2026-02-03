@@ -126,10 +126,6 @@ export function PublicInvitation({ invitation }: Props) {
                 invitation.monogram ||
                 `${invitation.partner1Name.charAt(0)}&${invitation.partner2Name.charAt(0)}`
               }
-              personalizedText={
-                invitation.envelopePersonalizedText ||
-                "Deze uitnodiging is speciaal voor jou"
-              }
               onOpen={handleOpen}
               onMusicStart={handleMusicStart}
               enableMusic={invitation.musicEnabled && !!invitation.musicUrl}

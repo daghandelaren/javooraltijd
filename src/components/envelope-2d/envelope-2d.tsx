@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { WaxSeal } from "@/components/wax-seal/wax-seal";
-import { EnvelopeFlap } from "./envelope-flap";
 import { useEnvelopeAnimation, type EnvelopeState } from "./use-envelope-animation";
 import { type SealFontId } from "@/lib/wax-fonts";
 
@@ -11,7 +10,6 @@ interface Envelope2DProps {
   sealColor: string;
   sealFont?: SealFontId;
   monogram?: string;
-  personalizedText?: string;
   onOpen?: () => void;
   onMusicStart?: () => void;
   enableMusic?: boolean;
@@ -22,7 +20,6 @@ export function Envelope2D({
   sealColor,
   sealFont,
   monogram = "J&J",
-  personalizedText = "Deze uitnodiging is speciaal voor jou",
   onOpen,
   onMusicStart,
   enableMusic = true,
@@ -35,143 +32,51 @@ export function Envelope2D({
   });
 
   return (
-    <div
-      className={cn(
-        "min-h-screen flex flex-col items-center justify-center px-4 py-8",
-        "bg-gradient-to-b from-stone-100 via-champagne-50 to-stone-100",
-        className
-      )}
-    >
-      <AnimatePresence mode="wait">
-        {state !== "complete" ? (
-          <motion.div
-            key="envelope"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col items-center"
+    <AnimatePresence mode="wait">
+      {state !== "complete" ? (
+        <motion.div
+          key="envelope"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className={cn("fixed inset-0 w-full h-screen", className)}
+        >
+          {/* Full-screen envelope background */}
+          <picture className="absolute inset-0">
+            <source
+              media="(min-width: 768px)"
+              srcSet="/images/envelope/envelope-desktop.png"
+            />
+            <img
+              src="/images/envelope/envelope-mobile.png"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </picture>
+
+          {/* Flap image with 3D opening animation */}
+          <FlapImage state={state} />
+
+          {/* Seal positioned at flap fold intersection */}
+          <div
+            className="absolute left-1/2 top-[57%] -translate-x-1/2 -translate-y-1/2 z-30"
+            style={{
+              filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.3))",
+            }}
           >
-            {/* Instruction text */}
-            <motion.p
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: state === "sealed" ? 1 : 0, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-stone-500 mb-6 text-center font-medium"
-            >
-              Klik op de zegel om te openen
-            </motion.p>
-
-            {/* Envelope container */}
-            <motion.div
-              className="relative w-full max-w-[340px] sm:max-w-[400px]"
-              whileHover={isInteractive ? { scale: 1.02 } : undefined}
-              transition={{ duration: 0.2 }}
-            >
-              {/* Envelope body with shadow */}
-              <div
-                className="relative aspect-[4/3] rounded-sm overflow-visible"
-                style={{
-                  filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.15))",
-                }}
-              >
-                {/* Main envelope body */}
-                <EnvelopeBody state={state} />
-
-                {/* Envelope flap (animated) */}
-                <EnvelopeFlap state={state} />
-
-                {/* Wax seal on top of flap */}
-                <SealOverlay
-                  state={state}
-                  sealColor={sealColor}
-                  sealFont={sealFont}
-                  monogram={monogram}
-                  onClick={handleClick}
-                  isInteractive={isInteractive}
-                />
-              </div>
-            </motion.div>
-
-            {/* Personalized text below envelope */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: state === "sealed" ? 1 : 0 }}
-              transition={{ delay: 0.5 }}
-              className="mt-8 text-center font-accent text-xl text-stone-600 italic"
-            >
-              {personalizedText}
-            </motion.p>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-// Envelope body component
-function EnvelopeBody({ state }: { state: EnvelopeState }) {
-  return (
-    <div className="absolute inset-0">
-      {/* Main cream/kraft paper background */}
-      <div
-        className="w-full h-full rounded-sm"
-        style={{
-          background: "linear-gradient(135deg, #F5EDE4 0%, #E8DED4 50%, #DDD2C6 100%)",
-        }}
-      >
-        {/* Paper texture overlay */}
-        <div
-          className="absolute inset-0 rounded-sm"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-            opacity: 0.04,
-            mixBlendMode: "multiply",
-          }}
-        />
-
-        {/* Inner shadow for depth */}
-        <div
-          className="absolute inset-0 rounded-sm"
-          style={{
-            boxShadow: "inset 0 2px 10px rgba(0,0,0,0.05), inset 0 -2px 10px rgba(0,0,0,0.03)",
-          }}
-        />
-
-        {/* Subtle edge highlight */}
-        <div
-          className="absolute inset-0 rounded-sm"
-          style={{
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)",
-          }}
-        />
-      </div>
-
-      {/* Bottom fold detail */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-1/3"
-        style={{
-          background: "linear-gradient(0deg, rgba(0,0,0,0.03) 0%, transparent 100%)",
-          borderTop: "1px solid rgba(0,0,0,0.03)",
-        }}
-      />
-
-      {/* Left fold crease */}
-      <div
-        className="absolute left-0 top-[35%] bottom-0 w-[2px]"
-        style={{
-          background: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.02) 50%, transparent 100%)",
-        }}
-      />
-
-      {/* Right fold crease */}
-      <div
-        className="absolute right-0 top-[35%] bottom-0 w-[2px]"
-        style={{
-          background: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.02) 50%, transparent 100%)",
-        }}
-      />
-    </div>
+            <SealOverlay
+              state={state}
+              sealColor={sealColor}
+              sealFont={sealFont}
+              monogram={monogram}
+              onClick={handleClick}
+              isInteractive={isInteractive}
+            />
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
   );
 }
 
@@ -198,7 +103,7 @@ function SealOverlay({
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="absolute left-1/2 top-[35%] -translate-x-1/2 -translate-y-1/2 z-30"
+          className="relative"
           initial={{ scale: 1, opacity: 1 }}
           animate={{
             scale: isBreaking ? [1, 1.1, 0.8] : 1,
@@ -215,7 +120,7 @@ function SealOverlay({
             initials={monogram}
             color={sealColor}
             font={sealFont}
-            size="xl"
+            size="3xl"
             interactive={isInteractive}
             onClick={onClick}
           />
@@ -225,6 +130,45 @@ function SealOverlay({
         </motion.div>
       )}
     </AnimatePresence>
+  );
+}
+
+// Flap image with 3D opening animation
+function FlapImage({ state }: { state: EnvelopeState }) {
+  const isOpening = state === "opening" || state === "complete";
+
+  return (
+    <div
+      className="absolute top-0 left-0 right-0 z-20 pointer-events-none"
+      style={{
+        perspective: "1000px",
+        perspectiveOrigin: "50% 0%",
+      }}
+    >
+      <motion.div
+        className="w-full"
+        style={{
+          transformStyle: "preserve-3d",
+          transformOrigin: "50% 0%",
+        }}
+        initial={{ rotateX: 0 }}
+        animate={{ rotateX: isOpening ? -180 : 0 }}
+        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+      >
+        <picture>
+          <source
+            media="(min-width: 768px)"
+            srcSet="/images/envelope/flap-desktop.png"
+          />
+          <img
+            src="/images/envelope/flap-mobile.png"
+            alt=""
+            className="w-full h-auto"
+            style={{ backfaceVisibility: "hidden" }}
+          />
+        </picture>
+      </motion.div>
+    </div>
   );
 }
 

@@ -79,49 +79,11 @@ export default function DemoPage({
 
   return (
     <div className="demo-protected min-h-screen relative">
-      {/* Watermark overlay */}
-      <DemoWatermark />
-
       {/* Top CTA bar */}
       <DemoCTABar templateSlug={params.templateSlug} />
 
       {/* Invitation content */}
       <InvitationContent template={template} />
-    </div>
-  );
-}
-
-function DemoWatermark() {
-  return (
-    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-      {/* Diagonal watermark pattern */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `repeating-linear-gradient(
-            -45deg,
-            transparent,
-            transparent 100px,
-            rgba(0,0,0,0.02) 100px,
-            rgba(0,0,0,0.02) 200px
-          )`,
-        }}
-      />
-
-      {/* Center watermark */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -rotate-[30deg] whitespace-nowrap select-none">
-        <span className="text-6xl sm:text-8xl font-bold text-black/[0.06] tracking-widest">
-          VOORBEELD
-        </span>
-      </div>
-
-      {/* Additional corner watermarks */}
-      <div className="absolute top-8 left-8 -rotate-12 select-none">
-        <span className="text-2xl font-semibold text-black/[0.04]">DEMO</span>
-      </div>
-      <div className="absolute bottom-8 right-8 rotate-12 select-none">
-        <span className="text-2xl font-semibold text-black/[0.04]">DEMO</span>
-      </div>
     </div>
   );
 }
@@ -181,13 +143,12 @@ function InvitationContent({ template }: { template: Template }) {
         {!isRevealed ? (
           <motion.div
             key="envelope"
-            className="min-h-screen pt-16"
+            className="min-h-screen"
             exit={{ opacity: 0 }}
           >
             <Envelope2D
               sealColor={template.sealColor}
               monogram={demoData.monogram}
-              personalizedText="Deze uitnodiging is speciaal voor jou"
               onOpen={() => setIsRevealed(true)}
               enableMusic={false}
             />
