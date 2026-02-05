@@ -260,6 +260,8 @@ prisma/
 
 ## HUIDIGE SESSIE - Premium Features
 
+- ⬜ Envelope animation refinements (seal position + flap speed)
+
 ### Completed Features
 - ✅ Background Music feature (Signature/Premium)
   - Vinyl record player visualization with spinning animation

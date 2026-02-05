@@ -17,7 +17,7 @@ interface WaxSealProps {
   initials?: string;
   color?: SealColor;
   font?: SealFontId;
-  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
   onClick?: () => void;
   isOpen?: boolean;
   className?: string;
@@ -33,6 +33,7 @@ const sizeConfig = {
   xl: { size: 200, fontSize: 28 },
   "2xl": { size: 280, fontSize: 39 },
   "3xl": { size: 320, fontSize: 45 },
+  "4xl": { size: 400, fontSize: 56 },
 };
 
 export function WaxSeal({

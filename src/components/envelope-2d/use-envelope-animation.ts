@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef } from "react";
 
-export type EnvelopeState = "sealed" | "breaking" | "opening" | "sliding" | "complete";
+export type EnvelopeState = "sealed" | "opening" | "fading" | "complete";
 
 interface UseEnvelopeAnimationOptions {
   onOpen?: () => void;
@@ -19,9 +19,10 @@ interface UseEnvelopeAnimationReturn {
 
 // Animation timing (in ms)
 export const ANIMATION_TIMING = {
-  sealBreak: 400,
-  flapOpen: 600,
-  totalSequence: 1000,
+  flapOpen: 4000,       // Full flap animation duration
+  fadeStart: 1000,      // Wait 1 second before starting fade
+  fadeToWhite: 400,     // Fade duration (0.4 seconds)
+  totalSequence: 1400,  // Total time before complete (1s delay + 0.4s fade)
 };
 
 export function useEnvelopeAnimation(
@@ -41,19 +42,19 @@ export function useEnvelopeAnimation(
   const handleClick = useCallback(() => {
     if (state !== "sealed") return;
 
-    // Start animation sequence
-    setState("breaking");
+    // Start animation sequence - flap begins opening
+    setState("opening");
 
-    // Start music when seal breaks (if enabled)
+    // Start music when animation begins (if enabled)
     if (enableMusic && onMusicStart) {
       onMusicStart();
     }
 
-    // Seal breaks, then flap opens
+    // Start fade at 2s (while flap still moving)
     timeoutRef.current = setTimeout(() => {
-      setState("opening");
+      setState("fading");
 
-      // After flap opens, transition to complete
+      // After fade completes (at 3s total), transition to complete
       timeoutRef.current = setTimeout(() => {
         setState("complete");
 
@@ -61,8 +62,8 @@ export function useEnvelopeAnimation(
         if (onOpen) {
           onOpen();
         }
-      }, ANIMATION_TIMING.flapOpen);
-    }, ANIMATION_TIMING.sealBreak);
+      }, ANIMATION_TIMING.fadeToWhite);
+    }, ANIMATION_TIMING.fadeStart);
   }, [state, onOpen, onMusicStart, enableMusic]);
 
   const reset = useCallback(() => {
