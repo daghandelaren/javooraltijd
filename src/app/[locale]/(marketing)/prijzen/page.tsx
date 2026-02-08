@@ -57,8 +57,8 @@ const plans: Array<{
     id: "basic",
     price: 125,
     icon: Heart,
-    sealColor: "#9AA0A6", // Stone Grey (from builder)
-    accentColor: "#9AA0A6",
+    sealColor: "#B0AEB0", // Parelsteen
+    accentColor: "#B0AEB0",
     sealInitial: "B",
     features: {
       guests: "75",
@@ -78,7 +78,7 @@ const plans: Array<{
     id: "signature",
     price: 175,
     icon: DiamondIcon,
-    sealColor: DEFAULT_SEAL_COLOR, // Bordeaux
+    sealColor: DEFAULT_SEAL_COLOR, // Olijfgaard
     accentColor: DEFAULT_SEAL_COLOR,
     sealInitial: "S",
     popular: true,
@@ -100,8 +100,8 @@ const plans: Array<{
     id: "premium",
     price: 225,
     icon: Sparkles,
-    sealColor: "#B9922E", // Goud (from builder)
-    accentColor: "#B9922E",
+    sealColor: "#C09878", // Koperkaramel
+    accentColor: "#C09878",
     sealInitial: "P",
     features: {
       guests: "unlimited",
@@ -172,7 +172,7 @@ export default function PrijzenPage() {
           }}
         />
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-champagne-200/30 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-gradient-to-tr from-burgundy-100/20 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-gradient-to-tr from-olive-100/20 to-transparent rounded-full blur-3xl" />
       </div>
 
       {/* Hero Section */}
@@ -224,7 +224,7 @@ export default function PrijzenPage() {
                 >
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                      <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-burgundy-700 text-white text-sm font-medium shadow-lg">
+                      <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-olive-700 text-white text-sm font-medium shadow-lg">
                         <DiamondIcon className="w-3.5 h-3.5" />
                         {t("mostPopular")}
                       </span>
@@ -233,13 +233,13 @@ export default function PrijzenPage() {
 
                   <div
                     className={cn(
-                      "relative h-full rounded-2xl p-8 transition-all duration-300 overflow-hidden",
+                      "relative h-full flex flex-col rounded-2xl p-8 transition-all duration-300 overflow-hidden",
                       "bg-white border-2 shadow-lg hover:shadow-xl",
-                      plan.popular && "shadow-xl shadow-burgundy-100/50"
+                      plan.popular && "shadow-xl shadow-olive-100/50"
                     )}
                     style={{
                       borderColor: plan.popular ? undefined : `${plan.accentColor}40`,
-                      ...(plan.popular && { borderColor: "rgb(225 213 210)" }), // burgundy-200 equivalent
+                      ...(plan.popular && { borderColor: "rgb(225 213 210)" }), // olive-200 equivalent
                     }}
                   >
                     {/* Decorative corner */}
@@ -251,7 +251,7 @@ export default function PrijzenPage() {
                     />
 
                     {/* Plan Header */}
-                    <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-start justify-between mb-6 min-h-[7rem]">
                       <div>
                         <div
                           className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4"
@@ -273,6 +273,7 @@ export default function PrijzenPage() {
                         initials={plan.sealInitial}
                         color={plan.sealColor}
                         size="md"
+                        initialsFontSize={40}
                         interactive={false}
                       />
                     </div>
@@ -334,8 +335,10 @@ export default function PrijzenPage() {
                     <Button
                       asChild
                       className={cn(
-                        "w-full transition-opacity hover:opacity-90",
-                        plan.popular && "bg-burgundy-700 hover:bg-burgundy-800 hover:opacity-100"
+                        "w-full mt-auto text-white",
+                        plan.popular
+                          ? "bg-olive-700 hover:bg-olive-800"
+                          : "hover:opacity-90"
                       )}
                       style={
                         !plan.popular
@@ -427,7 +430,7 @@ export default function PrijzenPage() {
                           key={plan.id}
                           className={cn(
                             "py-5 px-6 text-center",
-                            plan.popular && "bg-burgundy-50"
+                            plan.popular && "bg-olive-50"
                           )}
                         >
                           <span className="font-heading text-lg font-semibold text-stone-900">
@@ -460,7 +463,7 @@ export default function PrijzenPage() {
                               key={plan.id}
                               className={cn(
                                 "py-4 px-6 text-center",
-                                plan.popular && "bg-burgundy-50/50"
+                                plan.popular && "bg-olive-50/50"
                               )}
                             >
                               {getFeatureDisplay(feature, featureValue)}
@@ -524,7 +527,7 @@ export default function PrijzenPage() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-burgundy-100/20 via-champagne-100/40 to-burgundy-100/20 rounded-3xl blur-xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-olive-100/20 via-champagne-100/40 to-olive-100/20 rounded-3xl blur-xl" />
 
             <div className="relative bg-white rounded-3xl p-12 border border-champagne-200 shadow-xl">
               <WaxSeal
@@ -543,7 +546,7 @@ export default function PrijzenPage() {
                 {t("cta.subtitle")}
               </p>
 
-              <Button asChild size="lg" className="bg-burgundy-700 hover:bg-burgundy-800">
+              <Button asChild size="lg" className="bg-olive-700 hover:bg-olive-800">
                 <Link href="/builder/template">
                   {t("cta.button")}
                 </Link>
