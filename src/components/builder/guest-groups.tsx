@@ -170,7 +170,7 @@ function GroupCard({
                         <div
                           className={cn(
                             "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors",
-                            isSelected ? "border-burgundy-500 bg-burgundy-500" : "border-stone-300"
+                            isSelected ? "border-olive-500 bg-olive-500" : "border-stone-300"
                           )}
                         >
                           {isSelected && <Check className="w-3 h-3 text-white" />}
@@ -298,7 +298,7 @@ export function GuestGroups() {
       <div className="flex items-center justify-between">
         <div>
           <h3 className="font-heading text-lg font-semibold text-stone-900 flex items-center gap-2">
-            <Users className="w-5 h-5 text-burgundy-600" />
+            <Users className="w-5 h-5 text-olive-600" />
             Gastengroepen
           </h3>
           <p className="text-sm text-stone-500 mt-0.5">
@@ -312,10 +312,10 @@ export function GuestGroups() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-champagne-50 to-burgundy-50/30 border border-champagne-200"
+          className="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-champagne-50 to-olive-50/30 border border-champagne-200"
         >
-          <div className="w-10 h-10 rounded-full bg-burgundy-100 flex items-center justify-center flex-shrink-0">
-            <Sparkles className="w-5 h-5 text-burgundy-600" />
+          <div className="w-10 h-10 rounded-full bg-olive-100 flex items-center justify-center flex-shrink-0">
+            <Sparkles className="w-5 h-5 text-olive-600" />
           </div>
           <div>
             <h4 className="font-medium text-stone-800 mb-1">
@@ -382,12 +382,12 @@ export function GuestGroups() {
                         "flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all",
                         exists
                           ? "border-stone-200 bg-stone-50 opacity-50 cursor-not-allowed"
-                          : "border-stone-200 hover:border-burgundy-300 hover:bg-burgundy-50/30"
+                          : "border-stone-200 hover:border-olive-300 hover:bg-olive-50/30"
                       )}
                     >
                       <Icon className={cn(
                         "w-6 h-6",
-                        exists ? "text-stone-400" : "text-burgundy-600"
+                        exists ? "text-stone-400" : "text-olive-600"
                       )} />
                       <span className={cn(
                         "text-sm font-medium",
@@ -404,7 +404,7 @@ export function GuestGroups() {
               </div>
               <button
                 onClick={() => handleAddGroup()}
-                className="w-full mt-3 p-3 rounded-lg border-2 border-dashed border-stone-300 text-stone-600 hover:border-burgundy-400 hover:text-burgundy-700 hover:bg-burgundy-50/30 transition-all flex items-center justify-center gap-2"
+                className="w-full mt-3 p-3 rounded-lg border-2 border-dashed border-stone-300 text-stone-600 hover:border-olive-400 hover:text-olive-700 hover:bg-olive-50/30 transition-all flex items-center justify-center gap-2"
               >
                 <UserPlus className="w-4 h-4" />
                 Eigen groep maken
@@ -416,7 +416,7 @@ export function GuestGroups() {
         <Button
           variant="outline"
           onClick={() => setShowPresets(!showPresets)}
-          className="w-full border-2 border-dashed border-stone-300 hover:border-burgundy-400 hover:bg-burgundy-50/30 h-14"
+          className="w-full border-2 border-dashed border-stone-300 hover:border-olive-400 hover:bg-olive-50/30 h-14"
         >
           <Plus className="w-5 h-5 mr-2" />
           Groep toevoegen

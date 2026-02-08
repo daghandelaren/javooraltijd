@@ -50,8 +50,8 @@ export function FeaturesSection() {
               >
                 <Card className="h-full hover:-translate-y-1 transition-transform">
                   <CardContent className="p-6">
-                    <div className="w-12 h-12 rounded-lg bg-burgundy-50 flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-burgundy-700" />
+                    <div className="w-12 h-12 rounded-lg bg-olive-50 flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-olive-700" />
                     </div>
                     <h3 className="font-heading text-xl font-semibold text-stone-900 mb-2">
                       {feature.title}

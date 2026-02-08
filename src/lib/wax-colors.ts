@@ -5,13 +5,13 @@
  * color palettes for the wax seal component.
  */
 
-// Default wax seal color (Eucalyptus)
-export const DEFAULT_SEAL_COLOR = "#8B9E98";
+// Default wax seal color (Olijfgaard)
+export const DEFAULT_SEAL_COLOR = "#8EA870";
 
 // Fixed wax seal color options
 export const SEAL_COLOR_PRESETS = [
   { hex: "#A89088", label: "Kasjmier" },
-  { hex: "#6AABCB", label: "Hemelsblauw" },
+  { hex: "#9B89B6", label: "Lavendel" },
   { hex: "#8B9E98", label: "Eucalyptus" },
   { hex: "#B0AEB0", label: "Parelsteen" },
   { hex: "#7B95A5", label: "Leisteen" },
@@ -41,14 +41,14 @@ export const SEAL_COLOR_CONFIG: Record<string, SealColorConfig> = {
       emboss: "#786058",
     },
   },
-  "#6AABCB": {
-    // Hemelsblauw
-    image: "/images/seals/seal-Hemelsblauw.png",
+  "#9B89B6": {
+    // Lavendel
+    image: "/images/seals/seal-Lavendel.png",
     palette: {
-      base: "#88C0D8",
-      lighter: "#A0D0E8",
-      darker: "#5090B0",
-      emboss: "#4080A0",
+      base: "#B0A0C8",
+      lighter: "#C8B8D8",
+      darker: "#786898",
+      emboss: "#685888",
     },
   },
   "#8B9E98": {
@@ -120,7 +120,7 @@ export const SEAL_COLOR_CONFIG: Record<string, SealColorConfig> = {
 export function getSealImage(color: string): string {
   const normalized = color.toUpperCase();
   const config = SEAL_COLOR_CONFIG[normalized];
-  return config?.image || "/images/seals/seal-Eucalyptus.png";
+  return config?.image || "/images/seals/seal-Olijfgaard.png";
 }
 
 /**

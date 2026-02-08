@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 24 9% 10%;
 
-    --primary: 350 68% 37%;
+    --primary: 100 12% 35%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 30 53% 60%;
@@ -33,7 +33,7 @@
 
     --border: 24 5% 90%;
     --input: 24 5% 90%;
-    --ring: 350 68% 37%;
+    --ring: 100 12% 35%;
 
     --radius: 0.5rem;
 
@@ -49,16 +49,16 @@
     --champagne-800: #6E4A2D;
     --champagne-900: #523723;
 
-    --burgundy-50: #FDF2F4;
-    --burgundy-100: #FCE4E9;
-    --burgundy-200: #FACDD6;
-    --burgundy-300: #F5A3B5;
-    --burgundy-400: #ED6B8A;
-    --burgundy-500: #E04368;
-    --burgundy-600: #C42B52;
-    --burgundy-700: #9E1F3F;
-    --burgundy-800: #851D3A;
-    --burgundy-900: #721C36;
+    --olive-50: #F4F5F2;
+    --olive-100: #E6E9E2;
+    --olive-200: #CDD4C4;
+    --olive-300: #B0BBA3;
+    --olive-400: #9AAB8C;
+    --olive-500: #8B9A7B;
+    --olive-600: #6E7D61;
+    --olive-700: #55634A;
+    --olive-800: #434E3A;
+    --olive-900: #333D2C;
 
     --stone-50: #FAFAF9;
     --stone-100: #F5F5F4;
@@ -96,7 +96,7 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-burgundy-700 to-burgundy-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-olive-700 to-olive-500 bg-clip-text text-transparent;
   }
 
   .section-padding {
@@ -131,7 +131,7 @@
 
 /* Focus styles */
 *:focus-visible {
-  @apply outline-none ring-2 ring-burgundy-500 ring-offset-2;
+  @apply outline-none ring-2 ring-olive-500 ring-offset-2;
 }
 
 /* Reduced motion */

@@ -26,7 +26,7 @@ export function WaxSealStorySection() {
           >
             {/* Glow effect */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-64 h-64 rounded-full bg-burgundy-700/20 blur-3xl" />
+              <div className="w-64 h-64 rounded-full bg-olive-700/20 blur-3xl" />
             </div>
 
             {/* Multiple seals composition */}
@@ -39,7 +39,7 @@ export function WaxSealStorySection() {
               >
                 <WaxSeal
                   initials="E&L"
-                  color="gold"
+                  color="#8B9E98"
                   size="md"
                   interactive={false}
                 />
@@ -49,7 +49,7 @@ export function WaxSealStorySection() {
               <div className="relative z-20">
                 <WaxSeal
                   initials="J&M"
-                  color="red"
+                  color="#8EA870"
                   size="xl"
                   interactive={false}
                 />
@@ -63,7 +63,7 @@ export function WaxSealStorySection() {
               >
                 <WaxSeal
                   initials="S&D"
-                  color="green"
+                  color="#B0AEB0"
                   size="md"
                   interactive={false}
                 />

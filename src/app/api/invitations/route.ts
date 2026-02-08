@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
         rsvpEnabled: rsvpConfig?.enabled ?? true,
         rsvpDeadline: rsvpConfig?.deadline ? new Date(rsvpConfig.deadline) : null,
         rsvpConfig: rsvpConfig?.fields ? rsvpConfig : null,
-        sealColor: styling?.sealColor ?? "#9E1F3F",
+        sealColor: styling?.sealColor ?? "#55634A",
         sealFont: styling?.sealFont ?? "great-vibes",
         sealStyle: styling?.sealStyle ?? "classic",
         sealFloral: styling?.sealFloral ?? true,

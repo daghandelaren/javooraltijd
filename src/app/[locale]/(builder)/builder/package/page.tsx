@@ -130,12 +130,12 @@ export default function PackagePage() {
                 className={cn(
                   "w-full text-left rounded-2xl p-6 border-2 transition-all relative h-full flex flex-col",
                   isSelected
-                    ? "border-burgundy-500 bg-burgundy-50/50 shadow-lg ring-2 ring-burgundy-200"
+                    ? "border-olive-500 bg-olive-50/50 shadow-lg ring-2 ring-olive-200"
                     : "border-stone-200 bg-white hover:border-stone-300 hover:shadow-md"
                 )}
               >
                 {plan.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-burgundy-700 text-white text-xs font-medium rounded-full">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-olive-700 text-white text-xs font-medium rounded-full">
                     Meest gekozen
                   </span>
                 )}
@@ -151,7 +151,7 @@ export default function PackagePage() {
                     className={cn(
                       "w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0",
                       isSelected
-                        ? "border-burgundy-600 bg-burgundy-600"
+                        ? "border-olive-600 bg-olive-600"
                         : "border-stone-300"
                     )}
                   >
@@ -172,7 +172,7 @@ export default function PackagePage() {
                       className={cn(
                         "inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium",
                         isSelected
-                          ? "bg-burgundy-100 text-burgundy-700"
+                          ? "bg-olive-100 text-olive-700"
                           : "bg-stone-100 text-stone-600"
                       )}
                     >
@@ -202,7 +202,7 @@ export default function PackagePage() {
                       <Check
                         className={cn(
                           "w-4 h-4 flex-shrink-0 mt-0.5",
-                          isSelected ? "text-burgundy-600" : "text-green-600"
+                          isSelected ? "text-olive-600" : "text-green-600"
                         )}
                       />
                       <span className="text-stone-600">{feature}</span>

@@ -78,7 +78,7 @@ export function DashboardPreviewSection() {
           className="relative"
         >
           {/* Glow effect behind dashboard */}
-          <div className="absolute inset-0 bg-gradient-to-r from-burgundy-600/20 via-champagne-400/10 to-burgundy-600/20 blur-3xl -z-10 scale-95" />
+          <div className="absolute inset-0 bg-gradient-to-r from-olive-600/20 via-champagne-400/10 to-olive-600/20 blur-3xl -z-10 scale-95" />
 
           {/* Browser Chrome */}
           <div className="bg-stone-800 rounded-t-xl border border-stone-700/50 px-4 py-3 flex items-center gap-2">
@@ -109,7 +109,7 @@ export function DashboardPreviewSection() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-burgundy-600 text-white rounded-lg text-sm font-medium shadow-lg shadow-burgundy-600/25"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-olive-600 text-white rounded-lg text-sm font-medium shadow-lg shadow-olive-600/25"
               >
                 <PenLine className="w-4 h-4" />
                 {t("edit_invitation")}
@@ -127,8 +127,8 @@ export function DashboardPreviewSection() {
                 className="col-span-2 bg-white rounded-xl border border-stone-200 p-4 md:p-5 shadow-sm"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-burgundy-100 flex items-center justify-center">
-                    <UserCheck className="w-4 h-4 text-burgundy-600" />
+                  <div className="w-8 h-8 rounded-lg bg-olive-100 flex items-center justify-center">
+                    <UserCheck className="w-4 h-4 text-olive-600" />
                   </div>
                   <span className="font-medium text-stone-800">{t("rsvp_overview")}</span>
                 </div>
@@ -226,7 +226,7 @@ export function DashboardPreviewSection() {
                     </div>
                     <span className="font-medium text-stone-800">{t("recent_responses")}</span>
                   </div>
-                  <span className="text-xs text-burgundy-600 font-medium cursor-pointer hover:underline">
+                  <span className="text-xs text-olive-600 font-medium cursor-pointer hover:underline">
                     {t("view_all")} →
                   </span>
                 </div>
@@ -272,11 +272,11 @@ export function DashboardPreviewSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.6 }}
-                className="bg-gradient-to-br from-burgundy-50 to-champagne-50 rounded-xl border border-burgundy-100 p-4 md:p-5"
+                className="bg-gradient-to-br from-olive-50 to-champagne-50 rounded-xl border border-olive-100 p-4 md:p-5"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-burgundy-100 flex items-center justify-center">
-                    <Settings className="w-4 h-4 text-burgundy-600" />
+                  <div className="w-8 h-8 rounded-lg bg-olive-100 flex items-center justify-center">
+                    <Settings className="w-4 h-4 text-olive-600" />
                   </div>
                   <span className="font-medium text-stone-800">{t("quick_actions")}</span>
                 </div>
@@ -290,7 +290,7 @@ export function DashboardPreviewSection() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
                       whileHover={{ x: 4 }}
-                      className="w-full flex items-center gap-3 p-3 bg-white/80 hover:bg-white rounded-lg text-sm text-stone-700 hover:text-burgundy-700 transition-colors border border-transparent hover:border-burgundy-200"
+                      className="w-full flex items-center gap-3 p-3 bg-white/80 hover:bg-white rounded-lg text-sm text-stone-700 hover:text-olive-700 transition-colors border border-transparent hover:border-olive-200"
                     >
                       <action.icon className="w-4 h-4" />
                       {action.label}

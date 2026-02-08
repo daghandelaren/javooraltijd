@@ -63,7 +63,7 @@ function SuccessContent() {
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-burgundy-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-olive-600" />
       </div>
     );
   }
@@ -108,7 +108,7 @@ function SuccessContent() {
           className="bg-white rounded-xl p-6 shadow-lg border border-champagne-200 mb-8"
         >
           <div className="flex justify-center mb-6">
-            <WaxSeal size="lg" color="red" />
+            <WaxSeal size="lg" color="#8EA870" />
           </div>
 
           <h2 className="font-heading text-xl font-semibold text-stone-900 mb-4">
@@ -127,7 +127,7 @@ function SuccessContent() {
           <div className="flex flex-col sm:flex-row gap-3">
             <Button
               onClick={handleCopyLink}
-              className="flex-1 bg-burgundy-600 hover:bg-burgundy-700"
+              className="flex-1 bg-olive-600 hover:bg-olive-700"
             >
               <Share2 className="w-4 h-4 mr-2" />
               {copied ? "Gekopieerd!" : "Kopieer link"}
@@ -170,7 +170,7 @@ function SuccessContent() {
 function LoadingFallback() {
   return (
     <div className="min-h-[60vh] flex items-center justify-center">
-      <Loader2 className="w-8 h-8 animate-spin text-burgundy-600" />
+      <Loader2 className="w-8 h-8 animate-spin text-olive-600" />
     </div>
   );
 }

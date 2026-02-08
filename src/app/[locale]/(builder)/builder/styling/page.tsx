@@ -118,7 +118,7 @@ export default function StylingPage() {
             {/* Preview */}
             <div className="flex flex-col items-center justify-center p-8 bg-stone-50 rounded-lg">
               <WaxSeal
-                initials={styling.monogram || "J&J"}
+                initials={styling.monogram || "J&B"}
                 color={currentColor}
                 font={styling.sealFont || DEFAULT_SEAL_FONT}
                 size="xl"
@@ -158,7 +158,7 @@ export default function StylingPage() {
                         className={cn(
                           "group flex flex-col items-center gap-1.5 p-2 rounded-lg border transition-all",
                           styling.sealColor.toUpperCase() === preset.hex.toUpperCase()
-                            ? "border-burgundy-500 bg-burgundy-50"
+                            ? "border-olive-500 bg-olive-50"
                             : "border-stone-200 hover:border-stone-300"
                         )}
                         title={preset.label}
@@ -198,7 +198,7 @@ export default function StylingPage() {
                   className={cn(
                     "py-5 px-4 rounded-xl border-2 text-center transition-all hover:shadow-md",
                     styling.sealFont === preset.id
-                      ? "border-burgundy-500 bg-burgundy-50 shadow-sm"
+                      ? "border-olive-500 bg-olive-50 shadow-sm"
                       : "border-stone-200 hover:border-stone-300 bg-white"
                   )}
                 >
@@ -236,7 +236,7 @@ export default function StylingPage() {
                   className={cn(
                     "p-4 rounded-lg border-2 text-left transition-all",
                     styling.fontPairing === pairing.value
-                      ? "border-burgundy-500 bg-burgundy-50"
+                      ? "border-olive-500 bg-olive-50"
                       : "border-stone-200 hover:border-stone-300"
                   )}
                 >
@@ -267,8 +267,8 @@ export default function StylingPage() {
         >
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-burgundy-50 flex items-center justify-center">
-                <Mail className="w-5 h-5 text-burgundy-600" />
+              <div className="w-10 h-10 rounded-full bg-olive-50 flex items-center justify-center">
+                <Mail className="w-5 h-5 text-olive-600" />
               </div>
               <div>
                 <h2 className="font-heading text-xl font-semibold text-stone-900">
@@ -296,7 +296,7 @@ export default function StylingPage() {
                 }
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-burgundy-100 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-burgundy-600"></div>
+              <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-olive-100 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-olive-600"></div>
             </label>
           </div>
 
@@ -330,7 +330,7 @@ export default function StylingPage() {
 
               {/* Info note */}
               <div className="flex items-start gap-3 p-4 bg-champagne-50 rounded-lg border border-champagne-200">
-                <Sparkles className="w-5 h-5 text-burgundy-600 flex-shrink-0 mt-0.5" />
+                <Sparkles className="w-5 h-5 text-olive-600 flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-stone-600">
                   Gasten zien een elegante envelop met jullie lakzegel.
                   Door op de zegel te klikken &quot;breekt&quot; deze open en verschijnt de uitnodiging met een mooie animatie.
@@ -360,7 +360,7 @@ export default function StylingPage() {
             }}
           >
             <WaxSeal
-              initials={styling.monogram || "J&J"}
+              initials={styling.monogram || "J&B"}
               color={currentColor}
               font={styling.sealFont || DEFAULT_SEAL_FONT}
               size="lg"

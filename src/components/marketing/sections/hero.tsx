@@ -107,7 +107,7 @@ export function HeroSection() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="absolute -top-8 -right-8 w-16 h-16 rounded-full bg-burgundy-100 opacity-60"
+                className="absolute -top-8 -right-8 w-16 h-16 rounded-full bg-olive-100 opacity-60"
               />
               <motion.div
                 animate={{

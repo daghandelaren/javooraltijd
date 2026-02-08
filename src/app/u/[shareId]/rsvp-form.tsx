@@ -77,8 +77,8 @@ function AttendanceCard({
         "border border-white/20 hover:border-champagne-400/50",
         "backdrop-blur-sm",
         "transition-all duration-300 ease-out",
-        "hover:scale-[1.02] hover:shadow-lg hover:shadow-burgundy-900/20",
-        "focus:outline-none focus:ring-2 focus:ring-champagne-400/50 focus:ring-offset-2 focus:ring-offset-burgundy-700"
+        "hover:scale-[1.02] hover:shadow-lg hover:shadow-olive-900/20",
+        "focus:outline-none focus:ring-2 focus:ring-champagne-400/50 focus:ring-offset-2 focus:ring-offset-olive-700"
       )}
     >
       {/* Subtle gradient overlay on hover */}
@@ -102,7 +102,7 @@ function AttendanceCard({
           {icon}
         </motion.span>
         <p className="font-heading text-lg font-semibold text-white mb-1">{label}</p>
-        <p className="text-sm text-burgundy-200/80">{sublabel}</p>
+        <p className="text-sm text-olive-200/80">{sublabel}</p>
       </div>
     </motion.button>
   );
@@ -215,7 +215,7 @@ export function RSVPForm({ invitationId, onClose }: Props) {
                   animate={{ pathLength: 1, opacity: 1 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
                 >
-                  <Check className="w-10 h-10 text-burgundy-800" strokeWidth={3} />
+                  <Check className="w-10 h-10 text-olive-800" strokeWidth={3} />
                 </motion.div>
               </div>
               {/* Decorative ring */}
@@ -520,7 +520,7 @@ export function RSVPForm({ invitationId, onClose }: Props) {
           className={cn(
             "flex-1 h-12",
             "bg-gradient-to-r from-champagne-400 to-champagne-500",
-            "text-burgundy-900 font-semibold",
+            "text-olive-900 font-semibold",
             "hover:from-champagne-300 hover:to-champagne-400",
             "disabled:opacity-50 disabled:cursor-not-allowed",
             "transition-all duration-200",

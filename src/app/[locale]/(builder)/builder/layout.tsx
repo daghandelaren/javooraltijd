@@ -127,15 +127,15 @@ export default function BuilderLayout({
                       "flex-1 relative py-3 text-center transition-colors",
                       isActive && "bg-white",
                       !isActive && !isCompleted && "text-stone-400",
-                      isCompleted && "text-burgundy-700"
+                      isCompleted && "text-olive-700"
                     )}
                   >
                     <div className="flex flex-col items-center gap-1">
                       <div
                         className={cn(
                           "w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium transition-colors",
-                          isActive && "bg-burgundy-700 text-white",
-                          isCompleted && "bg-burgundy-100 text-burgundy-700",
+                          isActive && "bg-olive-700 text-white",
+                          isCompleted && "bg-olive-100 text-olive-700",
                           !isActive && !isCompleted && "bg-stone-200 text-stone-500"
                         )}
                       >
@@ -154,7 +154,7 @@ export default function BuilderLayout({
                     {isActive && (
                       <motion.div
                         layoutId="activeStep"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-burgundy-700"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-olive-700"
                       />
                     )}
                   </Link>

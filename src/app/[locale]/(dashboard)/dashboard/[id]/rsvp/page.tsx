@@ -174,11 +174,11 @@ export default async function RSVPOverviewPage({
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-burgundy-100 flex items-center justify-center">
-                <Users className="w-5 h-5 text-burgundy-600" />
+              <div className="w-10 h-10 rounded-full bg-olive-100 flex items-center justify-center">
+                <Users className="w-5 h-5 text-olive-600" />
               </div>
               <div>
-                <p className="text-2xl font-semibold text-burgundy-600">{stats.totalGuests}</p>
+                <p className="text-2xl font-semibold text-olive-600">{stats.totalGuests}</p>
                 <p className="text-sm text-stone-500">Totaal gasten</p>
               </div>
             </div>
@@ -238,7 +238,7 @@ export default async function RSVPOverviewPage({
                         {rsvp.email ? (
                           <a
                             href={`mailto:${rsvp.email}`}
-                            className="text-burgundy-600 hover:underline flex items-center gap-1"
+                            className="text-olive-600 hover:underline flex items-center gap-1"
                           >
                             <Mail className="w-3 h-3" />
                             {rsvp.email}
@@ -293,7 +293,7 @@ export default async function RSVPOverviewPage({
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <UtensilsCrossed className="w-5 h-5 text-burgundy-600" />
+              <UtensilsCrossed className="w-5 h-5 text-olive-600" />
               Dieetwensen overzicht
             </CardTitle>
           </CardHeader>

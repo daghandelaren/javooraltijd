@@ -30,7 +30,7 @@ function ToggleSwitch({
       className={cn(
         "flex items-start gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all",
         enabled
-          ? "border-burgundy-200 bg-burgundy-50/50"
+          ? "border-olive-200 bg-olive-50/50"
           : "border-stone-200 bg-white hover:border-stone-300"
       )}
       onClick={onToggle}
@@ -39,7 +39,7 @@ function ToggleSwitch({
         <div
           className={cn(
             "w-10 h-10 rounded-full flex items-center justify-center",
-            enabled ? "bg-burgundy-100 text-burgundy-700" : "bg-stone-100 text-stone-500"
+            enabled ? "bg-olive-100 text-olive-700" : "bg-stone-100 text-stone-500"
           )}
         >
           <Icon className="w-5 h-5" />
@@ -51,7 +51,7 @@ function ToggleSwitch({
           <div
             className={cn(
               "w-10 h-6 rounded-full relative transition-colors",
-              enabled ? "bg-burgundy-600" : "bg-stone-300"
+              enabled ? "bg-olive-600" : "bg-stone-300"
             )}
           >
             <div
@@ -123,7 +123,7 @@ export default function RSVPPage() {
             className={cn(
               "p-6 rounded-xl border-2 transition-all",
               rsvpConfig.enabled
-                ? "border-burgundy-200 bg-burgundy-50/50"
+                ? "border-olive-200 bg-olive-50/50"
                 : "border-stone-200 bg-white"
             )}
           >
@@ -140,7 +140,7 @@ export default function RSVPPage() {
                 onClick={() => setRSVPConfig({ enabled: !rsvpConfig.enabled })}
                 className={cn(
                   "w-14 h-8 rounded-full relative transition-colors",
-                  rsvpConfig.enabled ? "bg-burgundy-600" : "bg-stone-300"
+                  rsvpConfig.enabled ? "bg-olive-600" : "bg-stone-300"
                 )}
               >
                 <div

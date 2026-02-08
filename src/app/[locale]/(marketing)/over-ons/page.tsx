@@ -42,7 +42,7 @@ export default function OverOnsPage() {
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-20 right-[5%] w-[500px] h-[500px] bg-gradient-to-bl from-champagne-200/30 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-20 left-[10%] w-[400px] h-[400px] bg-gradient-to-tr from-burgundy-100/20 to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-20 left-[10%] w-[400px] h-[400px] bg-gradient-to-tr from-olive-100/20 to-transparent rounded-full blur-3xl" />
         </div>
 
         <motion.div
@@ -63,8 +63,8 @@ export default function OverOnsPage() {
                 transition={{ delay: 0.2 }}
                 className="inline-flex items-center gap-2 mb-6"
               >
-                <div className="w-12 h-px bg-burgundy-300" />
-                <span className="text-burgundy-700 font-medium tracking-wider text-sm uppercase">
+                <div className="w-12 h-px bg-olive-300" />
+                <span className="text-olive-700 font-medium tracking-wider text-sm uppercase">
                   {t("hero.label")}
                 </span>
               </motion.div>
@@ -114,7 +114,7 @@ export default function OverOnsPage() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   <WaxSeal
                     initials="JA"
-                    color="red"
+                    color="#8EA870"
                     size="xl"
                     interactive={false}
                   />
@@ -124,7 +124,7 @@ export default function OverOnsPage() {
                 <motion.div
                   animate={{ y: [0, -8, 0], rotate: [0, 5, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -top-6 -right-6 w-16 h-16 bg-burgundy-100 rounded-full opacity-60"
+                  className="absolute -top-6 -right-6 w-16 h-16 bg-olive-100 rounded-full opacity-60"
                 />
                 <motion.div
                   animate={{ y: [0, 8, 0], rotate: [0, -3, 0] }}
@@ -155,7 +155,7 @@ export default function OverOnsPage() {
             viewport={{ once: true }}
             className="max-w-3xl mb-16"
           >
-            <span className="font-accent text-2xl text-burgundy-600 mb-4 block">
+            <span className="font-accent text-2xl text-olive-600 mb-4 block">
               {t("story.eyebrow")}
             </span>
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-stone-900 leading-tight">
@@ -178,7 +178,7 @@ export default function OverOnsPage() {
                   key={index}
                   className={cn(
                     "text-stone-600 leading-relaxed",
-                    index === 0 && "text-lg first-letter:text-5xl first-letter:font-heading first-letter:font-semibold first-letter:text-burgundy-700 first-letter:float-left first-letter:mr-3 first-letter:mt-1"
+                    index === 0 && "text-lg first-letter:text-5xl first-letter:font-heading first-letter:font-semibold first-letter:text-olive-700 first-letter:float-left first-letter:mr-3 first-letter:mt-1"
                   )}
                 >
                   {paragraph}
@@ -195,7 +195,7 @@ export default function OverOnsPage() {
               className="lg:col-span-5"
             >
               <div className="sticky top-32">
-                <blockquote className="relative pl-6 border-l-4 border-burgundy-300">
+                <blockquote className="relative pl-6 border-l-4 border-olive-300">
                   <p className="font-heading text-2xl sm:text-3xl text-stone-800 italic leading-relaxed">
                     "{t("story.quote")}"
                   </p>
@@ -204,10 +204,10 @@ export default function OverOnsPage() {
                 {/* Decorative seal */}
                 <div className="mt-12 flex justify-center">
                   <div className="relative">
-                    <div className="absolute inset-0 bg-burgundy-100 rounded-full blur-xl opacity-50 scale-150" />
+                    <div className="absolute inset-0 bg-olive-100 rounded-full blur-xl opacity-50 scale-150" />
                     <WaxSeal
                       initials="♥"
-                      color="red"
+                      color="#D08088"
                       size="lg"
                       interactive={false}
                     />
@@ -228,7 +228,7 @@ export default function OverOnsPage() {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="font-accent text-2xl text-burgundy-600 mb-4 block">
+            <span className="font-accent text-2xl text-olive-600 mb-4 block">
               {t("mission.eyebrow")}
             </span>
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-stone-900 leading-tight mb-6">
@@ -252,10 +252,10 @@ export default function OverOnsPage() {
                   transition={{ delay: index * 0.1 }}
                   className="group relative"
                 >
-                  <div className="bg-white rounded-2xl p-8 border-2 border-champagne-200 hover:border-burgundy-200 transition-colors h-full">
+                  <div className="bg-white rounded-2xl p-8 border-2 border-champagne-200 hover:border-olive-200 transition-colors h-full">
                     {/* Icon */}
-                    <div className="w-14 h-14 rounded-xl bg-burgundy-50 flex items-center justify-center mb-6 group-hover:bg-burgundy-100 transition-colors">
-                      <Icon className="w-7 h-7 text-burgundy-700" />
+                    <div className="w-14 h-14 rounded-xl bg-olive-50 flex items-center justify-center mb-6 group-hover:bg-olive-100 transition-colors">
+                      <Icon className="w-7 h-7 text-olive-700" />
                     </div>
 
                     <h3 className="font-heading text-xl font-semibold text-stone-900 mb-3">
@@ -290,7 +290,7 @@ export default function OverOnsPage() {
               >
                 <WaxSeal
                   initials="E&L"
-                  color="gold"
+                  color="#C09878"
                   size="md"
                   interactive={false}
                 />
@@ -301,7 +301,7 @@ export default function OverOnsPage() {
               >
                 <WaxSeal
                   initials="JA"
-                  color="red"
+                  color="#8EA870"
                   size="lg"
                   interactive={false}
                 />
@@ -312,7 +312,7 @@ export default function OverOnsPage() {
               >
                 <WaxSeal
                   initials="S&D"
-                  color="green"
+                  color="#9B89B6"
                   size="md"
                   interactive={false}
                 />
@@ -328,7 +328,7 @@ export default function OverOnsPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-burgundy-700 hover:bg-burgundy-800">
+              <Button asChild size="lg" className="bg-olive-700 hover:bg-olive-800">
                 <Link href="/builder/template">
                   {t("cta.primaryButton")}
                 </Link>

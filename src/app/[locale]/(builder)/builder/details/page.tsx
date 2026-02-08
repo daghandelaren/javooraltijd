@@ -77,7 +77,7 @@ export default function DetailsPage() {
           {/* Partner names */}
           <div className="space-y-4">
             <h2 className="font-heading text-xl font-semibold text-stone-900 flex items-center gap-2">
-              <Heart className="w-5 h-5 text-burgundy-600" />
+              <Heart className="w-5 h-5 text-olive-600" />
               Het bruidspaar
             </h2>
 
@@ -157,7 +157,7 @@ export default function DetailsPage() {
           {/* Dresscode */}
           <div className="space-y-4 pt-4 border-t border-stone-100">
             <h2 className="font-heading text-xl font-semibold text-stone-900 flex items-center gap-2">
-              <Shirt className="w-5 h-5 text-burgundy-600" />
+              <Shirt className="w-5 h-5 text-olive-600" />
               Dresscode (optioneel)
             </h2>
             <p className="text-sm text-stone-500">
@@ -172,7 +172,7 @@ export default function DetailsPage() {
                     onClick={() => setDresscode(preset)}
                     className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
                       dresscode === preset
-                        ? "bg-burgundy-100 border-burgundy-300 text-burgundy-700"
+                        ? "bg-olive-100 border-olive-300 text-olive-700"
                         : "bg-white border-stone-200 text-stone-600 hover:border-stone-300"
                     }`}
                   >
@@ -194,14 +194,14 @@ export default function DetailsPage() {
           <div className="space-y-4 pt-4 border-t border-stone-100">
             <div className="flex items-center justify-between">
               <h2 className="font-heading text-xl font-semibold text-stone-900 flex items-center gap-2">
-                <Gift className="w-5 h-5 text-burgundy-600" />
+                <Gift className="w-5 h-5 text-olive-600" />
                 Cadeautip (optioneel)
               </h2>
               <button
                 type="button"
                 onClick={() => setGiftConfig({ enabled: !giftConfig.enabled })}
                 className={`w-12 h-7 rounded-full relative transition-colors ${
-                  giftConfig.enabled ? "bg-burgundy-600" : "bg-stone-300"
+                  giftConfig.enabled ? "bg-olive-600" : "bg-stone-300"
                 }`}
               >
                 <div
@@ -221,12 +221,12 @@ export default function DetailsPage() {
                 <div
                   className={`flex items-center gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all ${
                     giftConfig.preferMoney
-                      ? "border-burgundy-300 bg-white"
+                      ? "border-olive-300 bg-white"
                       : "border-stone-200 bg-white/50 hover:border-stone-300"
                   }`}
                   onClick={() => setGiftConfig({ preferMoney: !giftConfig.preferMoney })}
                 >
-                  <div className="w-12 h-12 bg-burgundy-100 rounded-full flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 bg-olive-100 rounded-full flex items-center justify-center text-2xl">
                     💌
                   </div>
                   <div className="flex-1">
@@ -236,7 +236,7 @@ export default function DetailsPage() {
                   <div
                     className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
                       giftConfig.preferMoney
-                        ? "border-burgundy-600 bg-burgundy-600"
+                        ? "border-olive-600 bg-olive-600"
                         : "border-stone-300"
                     }`}
                   >

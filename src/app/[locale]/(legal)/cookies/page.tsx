@@ -176,22 +176,22 @@ export default function CookiesPage() {
         </p>
         <ul className="list-disc pl-6 text-stone-600 space-y-2">
           <li>
-            <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" className="text-burgundy-700 hover:underline">
+            <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" className="text-olive-700 hover:underline">
               Google Chrome
             </a>
           </li>
           <li>
-            <a href="https://support.mozilla.org/kb/cookies-information-websites-store-on-your-computer" target="_blank" rel="noopener noreferrer" className="text-burgundy-700 hover:underline">
+            <a href="https://support.mozilla.org/kb/cookies-information-websites-store-on-your-computer" target="_blank" rel="noopener noreferrer" className="text-olive-700 hover:underline">
               Mozilla Firefox
             </a>
           </li>
           <li>
-            <a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener noreferrer" className="text-burgundy-700 hover:underline">
+            <a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener noreferrer" className="text-olive-700 hover:underline">
               Safari
             </a>
           </li>
           <li>
-            <a href="https://support.microsoft.com/microsoft-edge/delete-cookies-in-microsoft-edge" target="_blank" rel="noopener noreferrer" className="text-burgundy-700 hover:underline">
+            <a href="https://support.microsoft.com/microsoft-edge/delete-cookies-in-microsoft-edge" target="_blank" rel="noopener noreferrer" className="text-olive-700 hover:underline">
               Microsoft Edge
             </a>
           </li>
@@ -215,7 +215,7 @@ export default function CookiesPage() {
           {t("sections.contact.content")}
         </p>
         <p className="text-stone-600 mt-4">
-          <a href="mailto:info@javooraltijd.nl" className="text-burgundy-700 hover:underline">
+          <a href="mailto:info@javooraltijd.nl" className="text-olive-700 hover:underline">
             info@javooraltijd.nl
           </a>
         </p>

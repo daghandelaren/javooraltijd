@@ -50,9 +50,9 @@ export function HowItWorksSection() {
                   {/* Step number */}
                   <div className="relative inline-flex">
                     <div className="w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center border-2 border-champagne-200">
-                      <Icon className="w-7 h-7 text-burgundy-700" />
+                      <Icon className="w-7 h-7 text-olive-700" />
                     </div>
-                    <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-burgundy-700 text-white text-sm font-semibold flex items-center justify-center">
+                    <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-olive-700 text-white text-sm font-semibold flex items-center justify-center">
                       {step.number}
                     </span>
                   </div>

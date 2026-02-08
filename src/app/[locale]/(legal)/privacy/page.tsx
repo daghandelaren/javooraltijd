@@ -121,7 +121,7 @@ export default function PrivacyPage() {
           {t("sections.contact.content")}
         </p>
         <p className="text-stone-600 mt-4">
-          <a href="mailto:info@javooraltijd.nl" className="text-burgundy-700 hover:underline">
+          <a href="mailto:info@javooraltijd.nl" className="text-olive-700 hover:underline">
             info@javooraltijd.nl
           </a>
         </p>

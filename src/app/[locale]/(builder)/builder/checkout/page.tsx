@@ -335,7 +335,7 @@ function CheckoutContent() {
 function CheckoutFallback() {
   return (
     <div className="flex items-center justify-center py-20">
-      <Loader2 className="w-8 h-8 animate-spin text-burgundy-600" />
+      <Loader2 className="w-8 h-8 animate-spin text-olive-600" />
     </div>
   );
 }

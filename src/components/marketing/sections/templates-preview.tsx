@@ -20,7 +20,7 @@ const templates: Array<{
   {
     id: "romantisch",
     nameKey: "elegance",
-    sealColor: "#9E1F3F", // Bordeaux
+    sealColor: "#8EA870", // Olijfgaard
     colors: {
       bg: "from-[#FFFFF0] to-[#FFF8E7]",
       accent: "#D4AF37",
@@ -29,7 +29,7 @@ const templates: Array<{
   {
     id: "modern",
     nameKey: "modern",
-    sealColor: "#F2E6D6", // Champagne
+    sealColor: "#B0AEB0", // Parelsteen
     colors: {
       bg: "from-white to-[#F5F5F4]",
       accent: "#9CAF88",
@@ -38,7 +38,7 @@ const templates: Array<{
   {
     id: "rustiek",
     nameKey: "botanical",
-    sealColor: "#3E5C76", // Dusty Blue
+    sealColor: "#7B95A5", // Leisteen
     colors: {
       bg: "from-[#FFF8E7] to-[#F5F0E6]",
       accent: "#84A98C",
@@ -108,7 +108,7 @@ export function TemplatesPreviewSection() {
                     </div>
 
                     {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-burgundy-900/0 group-hover:bg-burgundy-900/60 transition-colors duration-300 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-olive-900/0 group-hover:bg-olive-900/60 transition-colors duration-300 flex items-center justify-center">
                       <span className="text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2">
                         {t("view_demo")}
                         <ArrowRight className="w-4 h-4" />

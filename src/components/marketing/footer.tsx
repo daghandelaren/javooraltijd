@@ -49,7 +49,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-stone-500 hover:text-burgundy-700 transition-colors"
+                    className="text-sm text-stone-500 hover:text-olive-700 transition-colors"
                   >
                     {t(`links.${link.labelKey}`)}
                   </Link>
@@ -66,7 +66,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-stone-500 hover:text-burgundy-700 transition-colors"
+                    className="text-sm text-stone-500 hover:text-olive-700 transition-colors"
                   >
                     {t(`links.${link.labelKey}`)}
                   </Link>
@@ -75,7 +75,7 @@ export function Footer() {
               <li>
                 <Link
                   href={isAuthenticated ? "/dashboard" : "/login"}
-                  className="text-sm text-stone-500 hover:text-burgundy-700 transition-colors"
+                  className="text-sm text-stone-500 hover:text-olive-700 transition-colors"
                 >
                   {isAuthenticated ? t("links.dashboard") : t("links.login")}
                 </Link>
@@ -91,7 +91,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-stone-500 hover:text-burgundy-700 transition-colors"
+                    className="text-sm text-stone-500 hover:text-olive-700 transition-colors"
                   >
                     {t(`links.${link.labelKey}`)}
                   </Link>
@@ -107,7 +107,7 @@ export function Footer() {
             {t("copyright", { year: currentYear })}
           </p>
           <p className="text-sm text-stone-400 flex items-center gap-1">
-            Made with <Heart className="h-4 w-4 text-burgundy-500 fill-burgundy-500" /> in Nederland
+            Made with <Heart className="h-4 w-4 text-olive-500 fill-olive-500" /> in Nederland
           </p>
         </div>
       </div>

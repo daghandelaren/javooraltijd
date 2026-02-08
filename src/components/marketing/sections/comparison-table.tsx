@@ -25,7 +25,7 @@ export function ComparisonTableSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-1.5 bg-champagne-100 text-burgundy-700 text-sm font-medium rounded-full mb-4">
+          <span className="inline-block px-4 py-1.5 bg-champagne-100 text-olive-700 text-sm font-medium rounded-full mb-4">
             {t("badge")}
           </span>
           <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-stone-900">
@@ -53,7 +53,7 @@ export function ComparisonTableSection() {
                   {t("traditional")}
                 </span>
               </div>
-              <div className="p-6 text-center border-l border-stone-200 bg-gradient-to-br from-burgundy-600 to-burgundy-700">
+              <div className="p-6 text-center border-l border-stone-200 bg-gradient-to-br from-olive-600 to-olive-700">
                 <span className="font-heading text-lg font-semibold text-white">
                   {t("digital")}
                 </span>
@@ -77,7 +77,7 @@ export function ComparisonTableSection() {
                   {/* Aspect */}
                   <div className="p-5 flex items-center gap-3 bg-stone-50/30">
                     <div className="w-10 h-10 rounded-lg bg-champagne-100 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-burgundy-700" />
+                      <Icon className="w-5 h-5 text-olive-700" />
                     </div>
                     <span className="font-medium text-stone-800">{row.aspect}</span>
                   </div>
@@ -89,7 +89,7 @@ export function ComparisonTableSection() {
                   </div>
 
                   {/* Digital */}
-                  <div className="p-5 flex items-center justify-center gap-2 border-l border-stone-200 bg-burgundy-50/30">
+                  <div className="p-5 flex items-center justify-center gap-2 border-l border-stone-200 bg-olive-50/30">
                     <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
                       <Check className="w-4 h-4 text-emerald-600" />
                     </div>
@@ -116,8 +116,8 @@ export function ComparisonTableSection() {
               >
                 {/* Aspect Header */}
                 <div className="p-4 bg-champagne-50 border-b border-stone-200 flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-burgundy-100 flex items-center justify-center">
-                    <Icon className="w-4 h-4 text-burgundy-700" />
+                  <div className="w-9 h-9 rounded-lg bg-olive-100 flex items-center justify-center">
+                    <Icon className="w-4 h-4 text-olive-700" />
                   </div>
                   <span className="font-heading font-semibold text-stone-800">{row.aspect}</span>
                 </div>
@@ -136,12 +136,12 @@ export function ComparisonTableSection() {
                   </div>
 
                   {/* Digital */}
-                  <div className="p-4 flex items-start gap-3 bg-burgundy-50/40">
+                  <div className="p-4 flex items-start gap-3 bg-olive-50/40">
                     <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Check className="w-3 h-3 text-emerald-600" />
                     </div>
                     <div>
-                      <span className="text-xs font-medium text-burgundy-600 uppercase tracking-wide">
+                      <span className="text-xs font-medium text-olive-600 uppercase tracking-wide">
                         {t("digital")}
                       </span>
                       <p className="text-stone-800 text-sm font-medium mt-0.5">{row.digital}</p>

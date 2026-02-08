@@ -19,7 +19,7 @@ interface Envelope2DProps {
 export function Envelope2D({
   sealColor,
   sealFont,
-  monogram = "J&J",
+  monogram = "J&B",
   onOpen,
   onMusicStart,
   enableMusic = true,
@@ -100,16 +100,22 @@ function Flap({ state }: { state: EnvelopeState }) {
           transformStyle: "preserve-3d",
           transformOrigin: "50% 0%",
         }}
-        initial={{ rotateX: 0, filter: "drop-shadow(1px 2px 2px rgba(0,0,0,0.10))" }}
+        initial={{ rotateX: 0, filter: "drop-shadow(8px 6px 3px rgba(0,0,0,0.28))" }}
         animate={{
           rotateX: flapRotation,
           filter: isOpening
-            ? "drop-shadow(4px 8px 6px rgba(0,0,0,0.25))"
-            : "drop-shadow(1px 2px 2px rgba(0,0,0,0.10))",
+            ? "drop-shadow(24px 18px 18px rgba(0,0,0,0.35))"
+            : "drop-shadow(8px 6px 3px rgba(0,0,0,0.28))",
         }}
         transition={{
-          duration: ANIMATION_TIMING.flapOpen / 1000,
-          ease: [0.25, 0.1, 0.25, 1],
+          rotateX: {
+            duration: ANIMATION_TIMING.flapOpen / 1000,
+            ease: "linear",
+          },
+          filter: {
+            duration: 0.6,
+            ease: "easeOut",
+          },
         }}
       >
         <picture>
@@ -153,18 +159,15 @@ function Seal({
       style={{ top: "54%", transform: "translate(-50%, -50%)" }}
     >
       <motion.div
-        style={{ perspective: "1000px" }}
         animate={{
-          scale: isOpening ? 1.08 : 1,
-          rotateX: isOpening ? 20 : 0,
-          y: isOpening ? -15 : 0,
+          y: isOpening ? -23 : 0,
           filter: isOpening
-            ? "drop-shadow(4px 12px 20px rgba(0,0,0,0.4))"
-            : "drop-shadow(0px 8px 16px rgba(0,0,0,0.3))",
+            ? "drop-shadow(10px 16px 24px rgba(0,0,0,0.25))"
+            : "drop-shadow(6px 6px 8px rgba(0,0,0,0.6))",
         }}
         transition={{
-          duration: 4,
-          ease: [0.34, 1.56, 0.64, 1],
+          duration: 1.5,
+          ease: "linear",
         }}
       >
         <WaxSeal

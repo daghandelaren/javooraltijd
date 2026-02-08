@@ -129,7 +129,7 @@ export default function ContactPage() {
                         placeholder={t("form.message_placeholder")}
                         required
                         rows={6}
-                        className="w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-burgundy-500 focus:border-transparent"
+                        className="w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-olive-500 focus:border-transparent"
                       />
                     </div>
 
@@ -142,7 +142,7 @@ export default function ContactPage() {
                     <Button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full bg-burgundy-600 hover:bg-burgundy-700"
+                      className="w-full bg-olive-600 hover:bg-olive-700"
                       size="lg"
                     >
                       {isLoading ? (
@@ -168,8 +168,8 @@ export default function ContactPage() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-burgundy-100 rounded-full flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-burgundy-600" />
+                  <div className="w-10 h-10 bg-olive-100 rounded-full flex items-center justify-center">
+                    <Mail className="w-5 h-5 text-olive-600" />
                   </div>
                   <h3 className="font-heading text-lg font-semibold text-stone-900">
                     {t("info.title")}
@@ -177,7 +177,7 @@ export default function ContactPage() {
                 </div>
                 <a
                   href={`mailto:${t("info.email")}`}
-                  className="text-burgundy-600 hover:underline font-medium"
+                  className="text-olive-600 hover:underline font-medium"
                 >
                   {t("info.email")}
                 </a>
@@ -202,7 +202,7 @@ export default function ContactPage() {
                 </p>
                 <a
                   href="/#faq"
-                  className="text-burgundy-600 hover:underline text-sm font-medium"
+                  className="text-olive-600 hover:underline text-sm font-medium"
                 >
                   Bekijk FAQ →
                 </a>

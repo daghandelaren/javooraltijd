@@ -113,8 +113,8 @@ export default async function DashboardPage() {
         <Card className="overflow-hidden">
           <CardContent className="py-16 text-center relative">
             {/* Decorative background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-champagne-50 via-white to-burgundy-50/30 opacity-50" />
-            <div className="absolute top-0 right-0 w-64 h-64 bg-burgundy-100/20 rounded-full -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute inset-0 bg-gradient-to-br from-champagne-50 via-white to-olive-50/30 opacity-50" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-olive-100/20 rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-champagne-200/30 rounded-full translate-y-1/2 -translate-x-1/2" />
 
             <div className="relative">
@@ -130,7 +130,7 @@ export default async function DashboardPage() {
               <p className="text-stone-500 text-sm mb-8">
                 Begin met het ontwerpen van jullie digitale trouwuitnodiging.
               </p>
-              <Button asChild size="lg" className="bg-burgundy-600 hover:bg-burgundy-700">
+              <Button asChild size="lg" className="bg-olive-600 hover:bg-olive-700">
                 <Link href="/builder/template">
                   <Sparkles className="w-4 h-4 mr-2" />
                   Maak jullie uitnodiging
@@ -177,19 +177,19 @@ export default async function DashboardPage() {
                 <CardContent>
                   {/* Draft invitation guidance */}
                   {invitation.status === "DRAFT" && (
-                    <div className="mb-6 p-5 bg-gradient-to-r from-burgundy-50 via-champagne-50 to-burgundy-50 rounded-xl border border-burgundy-200">
+                    <div className="mb-6 p-5 bg-gradient-to-r from-olive-50 via-champagne-50 to-olive-50 rounded-xl border border-olive-200">
                       <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0 w-10 h-10 bg-burgundy-100 rounded-full flex items-center justify-center">
-                          <Sparkles className="w-5 h-5 text-burgundy-600" />
+                        <div className="flex-shrink-0 w-10 h-10 bg-olive-100 rounded-full flex items-center justify-center">
+                          <Sparkles className="w-5 h-5 text-olive-600" />
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-heading font-semibold text-burgundy-800 mb-1">
+                          <h3 className="font-heading font-semibold text-olive-800 mb-1">
                             Bijna klaar!
                           </h3>
-                          <p className="text-sm text-burgundy-700 mb-4">
+                          <p className="text-sm text-olive-700 mb-4">
                             Jullie uitnodiging is opgeslagen als concept. Rond de betaling af om de uitnodiging te activeren en te delen met jullie gasten.
                           </p>
-                          <Button asChild className="bg-burgundy-600 hover:bg-burgundy-700">
+                          <Button asChild className="bg-olive-600 hover:bg-olive-700">
                             <Link href={`/builder/checkout?edit=${invitation.id}`}>
                               <CreditCard className="w-4 h-4 mr-2" />
                               Doorgaan naar betaling

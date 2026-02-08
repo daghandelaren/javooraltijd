@@ -48,7 +48,7 @@ export default function FAQPage() {
         />
         {/* Decorative circles */}
         <div className="absolute top-20 right-[10%] w-72 h-72 bg-gradient-to-bl from-champagne-200/40 to-transparent rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-0 w-96 h-96 bg-gradient-to-r from-burgundy-100/20 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-gradient-to-r from-olive-100/20 to-transparent rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-[20%] w-64 h-64 bg-gradient-to-tl from-champagne-300/30 to-transparent rounded-full blur-3xl" />
       </div>
 
@@ -66,9 +66,9 @@ export default function FAQPage() {
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-burgundy-100 mb-6"
+              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-olive-100 mb-6"
             >
-              <HelpCircle className="w-8 h-8 text-burgundy-700" />
+              <HelpCircle className="w-8 h-8 text-olive-700" />
             </motion.div>
 
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-stone-900 leading-tight mb-6">
@@ -104,7 +104,7 @@ export default function FAQPage() {
                   className={cn(
                     "flex items-center gap-2 px-5 py-3 rounded-full font-medium transition-all duration-300",
                     isActive
-                      ? "bg-burgundy-700 text-white shadow-lg shadow-burgundy-200"
+                      ? "bg-olive-700 text-white shadow-lg shadow-olive-200"
                       : "bg-white text-stone-600 hover:bg-champagne-100 border border-champagne-200 hover:border-champagne-300"
                   )}
                 >
@@ -163,13 +163,13 @@ export default function FAQPage() {
             <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl p-10 md:p-14 border border-champagne-200 shadow-xl text-center">
               {/* Decorative dots */}
               <div className="absolute top-6 left-6 flex gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-burgundy-300" />
+                <div className="w-2 h-2 rounded-full bg-olive-300" />
                 <div className="w-2 h-2 rounded-full bg-champagne-400" />
                 <div className="w-2 h-2 rounded-full bg-stone-300" />
               </div>
 
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-burgundy-100 mb-6">
-                <MessageCircle className="w-7 h-7 text-burgundy-700" />
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-olive-100 mb-6">
+                <MessageCircle className="w-7 h-7 text-olive-700" />
               </div>
 
               <h2 className="font-heading text-2xl sm:text-3xl font-semibold text-stone-900 mb-4">
@@ -181,7 +181,7 @@ export default function FAQPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="bg-burgundy-700 hover:bg-burgundy-800">
+                <Button asChild size="lg" className="bg-olive-700 hover:bg-olive-800">
                   <Link href="/contact">
                     {t("contact.button")}
                   </Link>

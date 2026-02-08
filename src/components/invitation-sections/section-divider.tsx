@@ -10,7 +10,7 @@ interface SectionDividerProps {
 
 export function SectionDivider({
   style = "floral",
-  color = "#B76E79",
+  color = "#9AAB8C",
   className,
 }: SectionDividerProps) {
   return (

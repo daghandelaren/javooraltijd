@@ -160,7 +160,7 @@ export default function LocationsPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <p className="text-xs font-medium text-burgundy-700">
+                        <p className="text-xs font-medium text-olive-700">
                           {typeInfo.label} • {location.time}
                         </p>
                         <h3 className="font-heading text-lg font-semibold text-stone-900">

@@ -40,12 +40,12 @@ export function TestimonialsSection() {
             >
               <Card className="h-full bg-champagne-50 border-champagne-100">
                 <CardContent className="p-6">
-                  <Quote className="w-8 h-8 text-burgundy-200 mb-4" />
+                  <Quote className="w-8 h-8 text-olive-200 mb-4" />
                   <blockquote className="text-stone-700 leading-relaxed mb-4">
                     "{testimonial.quote}"
                   </blockquote>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-burgundy-400 to-burgundy-600 flex items-center justify-center text-white text-sm font-medium">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-olive-400 to-olive-600 flex items-center justify-center text-white text-sm font-medium">
                       {testimonial.author
                         .split(" ")[0]
                         .charAt(0)}

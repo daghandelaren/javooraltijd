@@ -67,7 +67,7 @@ const MUSIC_LIBRARY = [
 
 function VinylRecord({
   isPlaying,
-  color = "#7C2D3B",
+  color = "#434E3A",
 }: {
   isPlaying: boolean;
   color?: string;
@@ -132,7 +132,7 @@ function TrackCard({
       className={cn(
         "group relative flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all",
         isSelected
-          ? "border-burgundy-400 bg-gradient-to-r from-burgundy-50 to-champagne-50 shadow-md"
+          ? "border-olive-400 bg-gradient-to-r from-olive-50 to-champagne-50 shadow-md"
           : "border-stone-200 bg-white hover:border-stone-300 hover:shadow-sm"
       )}
       onClick={onSelect}
@@ -146,7 +146,7 @@ function TrackCard({
         className={cn(
           "relative w-12 h-12 rounded-full flex items-center justify-center transition-all",
           isSelected
-            ? "bg-burgundy-600 text-white shadow-lg"
+            ? "bg-olive-600 text-white shadow-lg"
             : "bg-stone-100 text-stone-500 group-hover:bg-stone-200"
         )}
       >
@@ -159,7 +159,7 @@ function TrackCard({
         {/* Pulse animation when playing */}
         {isPlaying && isSelected && (
           <motion.div
-            className="absolute inset-0 rounded-full bg-burgundy-400"
+            className="absolute inset-0 rounded-full bg-olive-400"
             animate={{ scale: [1, 1.3], opacity: [0.5, 0] }}
             transition={{ duration: 1, repeat: Infinity }}
           />
@@ -172,13 +172,13 @@ function TrackCard({
           <Icon
             className={cn(
               "w-4 h-4 flex-shrink-0",
-              isSelected ? "text-burgundy-600" : "text-stone-400"
+              isSelected ? "text-olive-600" : "text-stone-400"
             )}
           />
           <span
             className={cn(
               "font-medium truncate",
-              isSelected ? "text-burgundy-900" : "text-stone-800"
+              isSelected ? "text-olive-900" : "text-stone-800"
             )}
           >
             {track.title}
@@ -196,7 +196,7 @@ function TrackCard({
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          className="w-6 h-6 rounded-full bg-burgundy-600 flex items-center justify-center"
+          className="w-6 h-6 rounded-full bg-olive-600 flex items-center justify-center"
         >
           <Music className="w-3 h-3 text-white" />
         </motion.div>
@@ -257,7 +257,7 @@ export function MusicSelector() {
             Beschikbaar vanaf het Signature pakket.
           </p>
 
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-burgundy-100 text-burgundy-700 text-sm font-medium">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-olive-100 text-olive-700 text-sm font-medium">
             <Sparkles className="w-4 h-4" />
             Upgrade naar Signature
           </div>
@@ -275,7 +275,7 @@ export function MusicSelector() {
       <div className="flex items-start justify-between gap-4 mb-6">
         <div>
           <h2 className="font-heading text-xl font-semibold text-stone-900 flex items-center gap-2">
-            <Music className="w-5 h-5 text-burgundy-600" />
+            <Music className="w-5 h-5 text-olive-600" />
             Achtergrondmuziek
           </h2>
           <p className="text-sm text-stone-500 mt-1">
@@ -288,7 +288,7 @@ export function MusicSelector() {
           onClick={() => setMusicConfig({ enabled: !musicConfig.enabled })}
           className={cn(
             "w-12 h-7 rounded-full relative transition-colors",
-            musicConfig.enabled ? "bg-burgundy-600" : "bg-stone-300"
+            musicConfig.enabled ? "bg-olive-600" : "bg-stone-300"
           )}
         >
           <div
@@ -330,7 +330,7 @@ export function MusicSelector() {
                     {[...Array(20)].map((_, i) => (
                       <motion.div
                         key={i}
-                        className="w-1 bg-burgundy-400 rounded-full"
+                        className="w-1 bg-olive-400 rounded-full"
                         animate={{
                           height: playingTrack === selectedTrack.id
                             ? [4, Math.random() * 20 + 4, 4]
@@ -391,7 +391,7 @@ export function MusicSelector() {
                   onChange={(e) =>
                     setMusicConfig({ volume: parseInt(e.target.value) })
                   }
-                  className="w-full h-2 rounded-full appearance-none cursor-pointer bg-stone-200 accent-burgundy-600"
+                  className="w-full h-2 rounded-full appearance-none cursor-pointer bg-stone-200 accent-olive-600"
                 />
               </div>
 
@@ -402,7 +402,7 @@ export function MusicSelector() {
                   className={cn(
                     "flex items-center gap-2 px-4 py-2 rounded-lg border-2 transition-all",
                     musicConfig.autoPlay
-                      ? "border-burgundy-400 bg-burgundy-50 text-burgundy-700"
+                      ? "border-olive-400 bg-olive-50 text-olive-700"
                       : "border-stone-200 bg-white text-stone-600 hover:border-stone-300"
                   )}
                 >
@@ -418,9 +418,9 @@ export function MusicSelector() {
                 <Label className="text-sm text-stone-600 mb-3 block">
                   Of upload eigen muziek
                 </Label>
-                <label className="flex items-center justify-center gap-3 p-6 rounded-xl border-2 border-dashed border-stone-300 cursor-pointer hover:border-burgundy-400 hover:bg-burgundy-50/30 transition-all group">
-                  <Upload className="w-6 h-6 text-stone-400 group-hover:text-burgundy-500 transition-colors" />
-                  <span className="text-stone-600 group-hover:text-burgundy-700 transition-colors">
+                <label className="flex items-center justify-center gap-3 p-6 rounded-xl border-2 border-dashed border-stone-300 cursor-pointer hover:border-olive-400 hover:bg-olive-50/30 transition-all group">
+                  <Upload className="w-6 h-6 text-stone-400 group-hover:text-olive-500 transition-colors" />
+                  <span className="text-stone-600 group-hover:text-olive-700 transition-colors">
                     Klik om MP3 te uploaden
                   </span>
                   <input type="file" accept=".mp3,audio/*" className="hidden" />

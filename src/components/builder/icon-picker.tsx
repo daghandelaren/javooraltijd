@@ -227,7 +227,7 @@ export function IconPicker({ value, onChange, onClose }: IconPickerProps) {
 
   const getColorClasses = (color: string, isSelected: boolean) => {
     if (isSelected) {
-      return "bg-burgundy-100 ring-2 ring-burgundy-500 text-burgundy-700";
+      return "bg-olive-100 ring-2 ring-olive-500 text-olive-700";
     }
     const colorMap: Record<string, string> = {
       rose: "hover:bg-rose-50 hover:text-rose-600",
@@ -440,11 +440,11 @@ export function IconButton({ value, onChange }: IconButtonProps) {
         className={cn(
           "w-14 h-14 rounded-xl border-2 flex items-center justify-center transition-all",
           showPicker
-            ? "border-burgundy-400 bg-burgundy-50 shadow-md"
+            ? "border-olive-400 bg-olive-50 shadow-md"
             : "border-stone-200 bg-white hover:border-stone-300 hover:shadow-sm"
         )}
       >
-        <Icon className={cn("w-6 h-6", showPicker ? "text-burgundy-600" : "text-stone-600")} />
+        <Icon className={cn("w-6 h-6", showPicker ? "text-olive-600" : "text-stone-600")} />
       </button>
 
       <AnimatePresence>

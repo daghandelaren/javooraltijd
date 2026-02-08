@@ -54,8 +54,8 @@ function LoginForm() {
   return (
     <Card className="w-full max-w-md shadow-xl border-champagne-200">
       <CardHeader className="text-center space-y-2">
-        <div className="mx-auto w-12 h-12 bg-burgundy-100 rounded-full flex items-center justify-center mb-2">
-          <Mail className="w-6 h-6 text-burgundy-600" />
+        <div className="mx-auto w-12 h-12 bg-olive-100 rounded-full flex items-center justify-center mb-2">
+          <Mail className="w-6 h-6 text-olive-600" />
         </div>
         <CardTitle className="font-cormorant text-3xl text-stone-800">
           {t("title")}
@@ -90,7 +90,7 @@ function LoginForm() {
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-full h-12 bg-burgundy-600 hover:bg-burgundy-700 text-white"
+            className="w-full h-12 bg-olive-600 hover:bg-olive-700 text-white"
           >
             {isLoading ? (
               <>
@@ -109,7 +109,7 @@ function LoginForm() {
         <div className="mt-6 pt-6 border-t border-champagne-200 text-center">
           <p className="text-sm text-stone-500">
             {t("no_account")}{" "}
-            <Link href="/templates" className="text-burgundy-600 hover:underline">
+            <Link href="/templates" className="text-olive-600 hover:underline">
               {t("create_account")}
             </Link>
           </p>
@@ -123,8 +123,8 @@ function LoginFallback() {
   return (
     <Card className="w-full max-w-md shadow-xl border-champagne-200">
       <CardHeader className="text-center space-y-2">
-        <div className="mx-auto w-12 h-12 bg-burgundy-100 rounded-full flex items-center justify-center mb-2">
-          <Mail className="w-6 h-6 text-burgundy-600" />
+        <div className="mx-auto w-12 h-12 bg-olive-100 rounded-full flex items-center justify-center mb-2">
+          <Mail className="w-6 h-6 text-olive-600" />
         </div>
         <div className="h-8 bg-champagne-100 rounded animate-pulse" />
         <div className="h-4 bg-champagne-100 rounded w-3/4 mx-auto animate-pulse" />
@@ -132,7 +132,7 @@ function LoginFallback() {
       <CardContent>
         <div className="space-y-4">
           <div className="h-12 bg-champagne-100 rounded animate-pulse" />
-          <div className="h-12 bg-burgundy-100 rounded animate-pulse" />
+          <div className="h-12 bg-olive-100 rounded animate-pulse" />
         </div>
       </CardContent>
     </Card>

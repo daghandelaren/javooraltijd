@@ -97,7 +97,7 @@ export function FloatingMusicToggle({
             "flex items-center justify-center",
             "border border-stone-200",
             "transition-colors hover:bg-white",
-            "focus:outline-none focus-visible:ring-2 focus-visible:ring-burgundy-500 focus-visible:ring-offset-2",
+            "focus:outline-none focus-visible:ring-2 focus-visible:ring-olive-500 focus-visible:ring-offset-2",
             className
           )}
           title={isPlaying ? "Pauzeer muziek" : "Speel muziek af"}
@@ -106,12 +106,12 @@ export function FloatingMusicToggle({
           {isPlaying && (
             <>
               <motion.div
-                className="absolute inset-0 rounded-full border border-burgundy-300"
+                className="absolute inset-0 rounded-full border border-olive-300"
                 animate={{ scale: [1, 1.4], opacity: [0.5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
               <motion.div
-                className="absolute inset-0 rounded-full border border-burgundy-300"
+                className="absolute inset-0 rounded-full border border-olive-300"
                 animate={{ scale: [1, 1.4], opacity: [0.5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
               />
@@ -124,7 +124,7 @@ export function FloatingMusicToggle({
             transition={{ duration: 0.5, repeat: isPlaying ? Infinity : 0 }}
           >
             {isPlaying ? (
-              <Volume2 className="w-5 h-5 text-burgundy-700" />
+              <Volume2 className="w-5 h-5 text-olive-700" />
             ) : (
               <VolumeX className="w-5 h-5 text-stone-500" />
             )}

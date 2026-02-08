@@ -51,8 +51,8 @@ export function Navigation() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-burgundy-700",
-                  isActive(link.href) ? "text-burgundy-700" : "text-stone-600"
+                  "text-sm font-medium transition-colors hover:text-olive-700",
+                  isActive(link.href) ? "text-olive-700" : "text-stone-600"
                 )}
               >
                 {link.label}
@@ -108,7 +108,7 @@ export function Navigation() {
                   onClick={() => setIsOpen(false)}
                   className={cn(
                     "block py-2 text-sm font-medium transition-colors",
-                    isActive(link.href) ? "text-burgundy-700" : "text-stone-600"
+                    isActive(link.href) ? "text-olive-700" : "text-stone-600"
                   )}
                 >
                   {link.label}

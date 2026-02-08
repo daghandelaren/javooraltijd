@@ -74,7 +74,7 @@ function TemplateSelectionContent() {
                   "group relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300",
                   "border-2",
                   isSelected
-                    ? "border-burgundy-700 shadow-lg ring-4 ring-burgundy-100"
+                    ? "border-olive-700 shadow-lg ring-4 ring-olive-100"
                     : "border-stone-200 hover:border-stone-300 hover:shadow-md"
                 )}
               >
@@ -115,7 +115,7 @@ function TemplateSelectionContent() {
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="absolute top-3 right-3 w-8 h-8 bg-burgundy-700 rounded-full flex items-center justify-center shadow-lg"
+                      className="absolute top-3 right-3 w-8 h-8 bg-olive-700 rounded-full flex items-center justify-center shadow-lg"
                     >
                       <Check className="w-5 h-5 text-white" />
                     </motion.div>

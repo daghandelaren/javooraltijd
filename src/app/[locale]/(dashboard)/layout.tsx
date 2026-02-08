@@ -21,7 +21,7 @@ export default async function DashboardLayout({
         <div className="container-wide">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-3">
-              <WaxSeal size="sm" color="red" />
+              <WaxSeal size="sm" color="#8EA870" />
               <span className="font-cormorant text-xl font-semibold text-stone-800">
                 Ja, Voor Altijd
               </span>

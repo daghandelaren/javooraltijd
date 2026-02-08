@@ -23,7 +23,7 @@ const baseStyles = `
   .logo-text {
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 24px;
-    color: #9E1F3F;
+    color: #55634A;
     font-weight: 600;
   }
   h1 {
@@ -38,7 +38,7 @@ const baseStyles = `
   }
   .button {
     display: inline-block;
-    background-color: #9E1F3F;
+    background-color: #55634A;
     color: #ffffff !important;
     text-decoration: none;
     padding: 14px 32px;

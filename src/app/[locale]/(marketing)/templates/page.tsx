@@ -62,7 +62,7 @@ export default function TemplatesPage() {
               className={cn(
                 "px-4 py-2 rounded-full text-sm font-medium transition-colors",
                 filter === f.value
-                  ? "bg-burgundy-700 text-white"
+                  ? "bg-olive-700 text-white"
                   : "bg-stone-100 text-stone-600 hover:bg-stone-200"
               )}
             >
@@ -120,7 +120,7 @@ function TemplateCard({
         >
           <div className="w-full h-full bg-white/80 rounded-lg shadow-lg p-6 flex flex-col items-center justify-center">
             <WaxSeal
-              initials="J&M"
+              initials="J&B"
               color={template.sealColor}
               size="lg"
               interactive={false}

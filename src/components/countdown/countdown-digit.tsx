@@ -14,7 +14,7 @@ interface CountdownDigitProps {
 export function CountdownDigit({
   value,
   label,
-  accentColor = "#722F37",
+  accentColor = "#333D2C",
   variant = "card",
 }: CountdownDigitProps) {
   const [displayValue, setDisplayValue] = useState(value);

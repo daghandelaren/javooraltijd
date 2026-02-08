@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 const demoData = {
   partner1: "Partner 1",
   partner2: "Partner 2",
-  monogram: "J&J", // Ja Voor Altijd
+  monogram: "J&B", // Ja Voor Altijd
   date: "15 juni 2025",
   time: "14:00",
   headline: "Wij gaan trouwen!",
@@ -97,7 +97,7 @@ function DemoCTABar({ templateSlug }: { templateSlug: string }) {
     <motion.div
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-40 bg-burgundy-700 text-white py-3 px-4"
+      className="fixed top-0 left-0 right-0 z-40 bg-olive-700 text-white py-3 px-4"
     >
       <div className="container-wide flex items-center justify-between gap-4">
         <p className="text-sm sm:text-base font-medium">
@@ -107,7 +107,7 @@ function DemoCTABar({ templateSlug }: { templateSlug: string }) {
           <Button
             asChild
             size="sm"
-            className="bg-white text-burgundy-700 hover:bg-champagne-100"
+            className="bg-white text-olive-700 hover:bg-champagne-100"
           >
             <Link href={`/builder/template?selected=${templateSlug}`}>
               Kies deze template
@@ -116,7 +116,7 @@ function DemoCTABar({ templateSlug }: { templateSlug: string }) {
           </Button>
           <button
             onClick={() => setIsVisible(false)}
-            className="p-1 hover:bg-burgundy-600 rounded"
+            className="p-1 hover:bg-olive-600 rounded"
             aria-label="Sluit"
           >
             <X className="h-5 w-5" />

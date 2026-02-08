@@ -51,7 +51,7 @@ function calculateTimeLeft(targetDate: Date): TimeLeft {
 
 export function CountdownTimer({
   targetDate,
-  accentColor = "#722F37",
+  accentColor = "#333D2C",
   variant = "card",
   className,
   showSeconds = true,

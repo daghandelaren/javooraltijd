@@ -163,9 +163,9 @@ export default function ProgramPage() {
                   key={preset.title}
                   variant="outline"
                   onClick={() => handleAddPreset(preset)}
-                  className="h-auto py-3 px-4 flex flex-col items-center gap-2 hover:border-burgundy-300 hover:bg-burgundy-50/50"
+                  className="h-auto py-3 px-4 flex flex-col items-center gap-2 hover:border-olive-300 hover:bg-olive-50/50"
                 >
-                  <ProgramIcon iconId={preset.icon} size="lg" className="text-burgundy-600" />
+                  <ProgramIcon iconId={preset.icon} size="lg" className="text-olive-600" />
                   <span className="text-sm">{preset.title}</span>
                 </Button>
               ))}
@@ -190,11 +190,11 @@ export default function ProgramPage() {
                   {/* Drag handle & Icon */}
                   <div className="flex items-center gap-2">
                     <GripVertical className="w-4 h-4 text-stone-300 cursor-grab opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-burgundy-50 to-champagne-50 border border-burgundy-100 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-olive-50 to-champagne-50 border border-olive-100 flex items-center justify-center">
                       <ProgramIcon
                         iconId={item.icon || DEFAULT_ICON}
                         size="lg"
-                        className="text-burgundy-600"
+                        className="text-olive-600"
                       />
                     </div>
                   </div>
@@ -203,7 +203,7 @@ export default function ProgramPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <p className="text-xs font-semibold text-burgundy-600 tracking-wide">
+                        <p className="text-xs font-semibold text-olive-600 tracking-wide">
                           {item.time}
                         </p>
                         <h3 className="font-heading text-lg font-semibold text-stone-900 mt-0.5">
@@ -260,7 +260,7 @@ export default function ProgramPage() {
             <p className="text-stone-500 mt-1 mb-4">
               Voeg de onderdelen van jullie dag toe
             </p>
-            <Button onClick={handleAddNew} className="bg-burgundy-600 hover:bg-burgundy-700">
+            <Button onClick={handleAddNew} className="bg-olive-600 hover:bg-olive-700">
               <Plus className="w-4 h-4 mr-2" />
               Item toevoegen
             </Button>
@@ -289,7 +289,7 @@ export default function ProgramPage() {
                     onClick={() => handleAddPreset(preset)}
                     className="gap-2"
                   >
-                    <ProgramIcon iconId={preset.icon} size="sm" className="text-burgundy-600" />
+                    <ProgramIcon iconId={preset.icon} size="sm" className="text-olive-600" />
                     {preset.title}
                   </Button>
                 ))}
@@ -300,7 +300,7 @@ export default function ProgramPage() {
             <Button
               variant="outline"
               onClick={handleAddNew}
-              className="w-full border-2 border-dashed border-stone-300 hover:border-burgundy-400 hover:bg-burgundy-50/30 h-12"
+              className="w-full border-2 border-dashed border-stone-300 hover:border-olive-400 hover:bg-olive-50/30 h-12"
             >
               <Plus className="w-4 h-4 mr-2" />
               Eigen onderdeel toevoegen
@@ -397,15 +397,15 @@ export default function ProgramPage() {
                     Preview
                   </p>
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-burgundy-50 to-champagne-50 border border-burgundy-100 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-olive-50 to-champagne-50 border border-olive-100 flex items-center justify-center">
                       <ProgramIcon
                         iconId={formData.icon}
                         size="lg"
-                        className="text-burgundy-600"
+                        className="text-olive-600"
                       />
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-burgundy-600">
+                      <p className="text-xs font-semibold text-olive-600">
                         {formData.time || "--:--"}
                       </p>
                       <p className="font-heading text-lg font-semibold text-stone-900">
@@ -426,7 +426,7 @@ export default function ProgramPage() {
                   <Button
                     onClick={handleSave}
                     disabled={!formData.title || !formData.time}
-                    className="bg-burgundy-600 hover:bg-burgundy-700 min-w-[120px]"
+                    className="bg-olive-600 hover:bg-olive-700 min-w-[120px]"
                   >
                     {editingId ? "Opslaan" : "Toevoegen"}
                   </Button>

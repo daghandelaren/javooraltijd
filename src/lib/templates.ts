@@ -38,9 +38,9 @@ export const templates: Template[] = [
     descriptionEn:
       "Soft and elegant design with blush tones and rose gold accents. Perfect for a dreamy, romantic wedding.",
     style: "romantic",
-    sealColor: DEFAULT_SEAL_COLOR, // Bordeaux red
+    sealColor: DEFAULT_SEAL_COLOR, // Olijfgaard
     colors: {
-      primary: "#B76E79", // Rose gold / dusty rose
+      primary: "#9AAB8C", // Sage olive
       secondary: "#D4AF37", // Champagne gold
       accent: "#F8E8E8", // Soft blush
       background: "#FDF8F6", // Warm cream

@@ -57,18 +57,18 @@ const config: Config = {
           800: "#6E4A2D",
           900: "#523723",
         },
-        // Accent - Deep Burgundy (wax seal)
-        burgundy: {
-          50: "#FDF2F4",
-          100: "#FCE4E9",
-          200: "#FACDD6",
-          300: "#F5A3B5",
-          400: "#ED6B8A",
-          500: "#E04368",
-          600: "#C42B52",
-          700: "#9E1F3F",
-          800: "#851D3A",
-          900: "#721C36",
+        // Accent - Olijfgaard Olive
+        olive: {
+          50: "#F4F5F2",
+          100: "#E6E9E2",
+          200: "#CDD4C4",
+          300: "#B0BBA3",
+          400: "#9AAB8C",
+          500: "#8B9A7B",
+          600: "#6E7D61",
+          700: "#55634A",
+          800: "#434E3A",
+          900: "#333D2C",
         },
         // Neutral - Warm Grays
         stone: {

@@ -312,8 +312,8 @@ function Scene({
 }
 
 export function WaxSeal3DComponent({
-  initials = "L & J",
-  color = "#9E1F3F",
+  initials = "J&B",
+  color = "#55634A",
   font = DEFAULT_SEAL_FONT,
   size = "lg",
   style = "classic",
@@ -383,7 +383,7 @@ export function WaxSealPlaceholder({
   return (
     <div
       className={cn(
-        "relative rounded-full bg-gradient-to-br from-burgundy-200 to-burgundy-300 animate-pulse",
+        "relative rounded-full bg-gradient-to-br from-olive-200 to-olive-300 animate-pulse",
         className
       )}
       style={{

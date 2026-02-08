@@ -10,7 +10,7 @@ export function FinalCTASection() {
   const t = useTranslations("home.final_cta");
 
   return (
-    <section className="section-padding bg-gradient-to-br from-burgundy-700 via-burgundy-800 to-burgundy-900 text-white">
+    <section className="section-padding bg-gradient-to-br from-olive-700 via-olive-800 to-olive-900 text-white">
       <div className="container-wide">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -22,12 +22,12 @@ export function FinalCTASection() {
           <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold">
             {t("title")}
           </h2>
-          <p className="mt-4 text-lg text-burgundy-100">{t("subtitle")}</p>
+          <p className="mt-4 text-lg text-olive-100">{t("subtitle")}</p>
           <div className="mt-8">
             <Button
               asChild
               size="lg"
-              className="bg-white text-burgundy-700 hover:bg-champagne-100"
+              className="bg-white text-olive-700 hover:bg-champagne-100"
             >
               <Link href="/builder/template">
                 {t("cta")}
