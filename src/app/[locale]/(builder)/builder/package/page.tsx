@@ -65,7 +65,7 @@ const PLANS: Plan[] = [
     name: "Premium",
     price: 225,
     period: "eenmalig",
-    description: "Maximale flexibiliteit",
+    description: "Maximale flexibiliteit op elk gebied",
     guestLimit: "Onbeperkt gasten",
     duration: "16 maanden online",
     features: [

@@ -56,7 +56,7 @@ const PLAN_DETAILS: Record<PlanId, PlanDetails> = {
     id: "premium",
     name: "Premium",
     price: 225,
-    description: "Maximale flexibiliteit",
+    description: "Maximale flexibiliteit op elk gebied",
     guestLimit: "Onbeperkt gasten",
     duration: "16 maanden online",
     features: [

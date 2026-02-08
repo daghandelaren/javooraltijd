@@ -265,7 +265,7 @@ export default function PrijzenPage() {
                         <h3 className="font-heading text-2xl font-semibold text-stone-900">
                           {t(`plans.${plan.id}.name`)}
                         </h3>
-                        <p className="text-stone-500 text-sm mt-1">
+                        <p className="text-stone-500 text-sm mt-1 min-h-[2.5rem]">
                           {t(`plans.${plan.id}.description`)}
                         </p>
                       </div>
@@ -289,7 +289,7 @@ export default function PrijzenPage() {
                     </div>
 
                     {/* RSVP Feature Highlight */}
-                    <div className="mb-6 p-4 rounded-xl bg-champagne-50 border border-champagne-200">
+                    <div className="mb-6 p-4 rounded-xl bg-champagne-50 border border-champagne-200 min-h-[7.5rem] flex flex-col justify-center">
                       <h4 className="font-medium text-stone-900 mb-2">
                         {t(`plans.${plan.id}.rsvpTitle`)}
                       </h4>
