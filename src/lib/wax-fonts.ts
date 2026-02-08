@@ -1,7 +1,7 @@
 // Wax seal font configuration
 // Similar pattern to wax-colors.ts
 
-export type SealFontId = "lora" | "marcellus" | "permanent-marker";
+export type SealFontId = "lavishly-yours" | "rouge-script" | "updock";
 
 export interface SealFontConfig {
   id: SealFontId;
@@ -17,36 +17,38 @@ export interface SealFontConfig {
 
 export const SEAL_FONT_PRESETS: readonly SealFontConfig[] = [
   {
-    id: "lora",
-    label: "Lora",
-    labelNl: "Elegant",
-    cssFamily: "'Lora'",
-    threejsPath: "/fonts/Lora-SemiBold.json",
-    fallbackCss: "Georgia, serif",
-    style: "serif",
-    sizeMultiplier: 1.05,
+    id: "lavishly-yours",
+    label: "Lavishly Yours",
+    labelNl: "Sierlijk",
+    cssFamily: "'Lavishly Yours'",
+    threejsPath: "/fonts/LavishlyYours-Regular.json",
+    fallbackCss: "cursive",
+    style: "script",
+    sizeMultiplier: 1.1,
   },
   {
-    id: "permanent-marker",
-    label: "Permanent Marker",
+    id: "rouge-script",
+    label: "Rouge Script",
+    labelNl: "Kalligrafie",
+    cssFamily: "'Rouge Script'",
+    threejsPath: "/fonts/RougeScript-Regular.json",
+    fallbackCss: "cursive",
+    style: "script",
+    sizeMultiplier: 1.4,
+  },
+  {
+    id: "updock",
+    label: "Updock",
     labelNl: "Handgeschreven",
-    cssFamily: "'Permanent Marker'",
-    threejsPath: "/fonts/PermanentMarker-Regular.json",
-    fallbackCss: "'Comic Sans MS', cursive",
-    style: "display",
-  },
-  {
-    id: "marcellus",
-    label: "Marcellus",
-    labelNl: "Klassiek",
-    cssFamily: "'Marcellus'",
-    threejsPath: "/fonts/Marcellus-Regular.json",
-    fallbackCss: "Georgia, serif",
-    style: "serif",
+    cssFamily: "'Updock'",
+    threejsPath: "/fonts/Updock-Regular.json",
+    fallbackCss: "cursive",
+    style: "script",
+    sizeMultiplier: 1.47,
   },
 ] as const;
 
-export const DEFAULT_SEAL_FONT: SealFontId = "lora";
+export const DEFAULT_SEAL_FONT: SealFontId = "lavishly-yours";
 
 export function getSealFontConfig(fontId: SealFontId): SealFontConfig {
   return (

@@ -5,19 +5,19 @@
  * color palettes for the wax seal component.
  */
 
-// Default wax seal color (red/bordeaux)
-export const DEFAULT_SEAL_COLOR = "#9E1F3F";
+// Default wax seal color (Eucalyptus)
+export const DEFAULT_SEAL_COLOR = "#8B9E98";
 
 // Fixed wax seal color options
 export const SEAL_COLOR_PRESETS = [
-  { hex: "#9E1F3F", label: "Bordeaux" },
-  { hex: "#F2E6D6", label: "Champagne" },
-  { hex: "#0F5B3E", label: "Smaragd" },
-  { hex: "#B9922E", label: "Goud" },
-  { hex: "#3E5C76", label: "Dusty Blue" },
-  { hex: "#9AA0A6", label: "Stone Grey" },
-  { hex: "#4B2E24", label: "Chocolade" },
-  { hex: "#B76E79", label: "Roze Wolk" },
+  { hex: "#A89088", label: "Kasjmier" },
+  { hex: "#6AABCB", label: "Hemelsblauw" },
+  { hex: "#8B9E98", label: "Eucalyptus" },
+  { hex: "#B0AEB0", label: "Parelsteen" },
+  { hex: "#7B95A5", label: "Leisteen" },
+  { hex: "#C09878", label: "Koperkaramel" },
+  { hex: "#8EA870", label: "Olijfgaard" },
+  { hex: "#D08088", label: "Rozen" },
 ] as const;
 
 /**
@@ -31,96 +31,96 @@ export interface SealColorConfig {
 }
 
 export const SEAL_COLOR_CONFIG: Record<string, SealColorConfig> = {
-  "#9E1F3F": {
-    // Bordeaux
-    image: "/images/seals/seal-bordeaux.png",
+  "#A89088": {
+    // Kasjmier
+    image: "/images/seals/seal-Kasjmier.png",
     palette: {
-      base: "#C83A5A",
-      lighter: "#E88898",
-      darker: "#6A1A2A",
-      emboss: "#6A1A2A",
+      base: "#C0A8A0",
+      lighter: "#D8C0B8",
+      darker: "#887068",
+      emboss: "#786058",
     },
   },
-  "#F2E6D6": {
-    // Champagne - matching the seal's silvery-beige tones
-    image: "/images/seals/seal-champagne.png",
+  "#6AABCB": {
+    // Hemelsblauw
+    image: "/images/seals/seal-Hemelsblauw.png",
     palette: {
-      base: "#C8C0B8",
-      lighter: "#E0D8D0",
-      darker: "#807870",
-      emboss: "#706860",
+      base: "#88C0D8",
+      lighter: "#A0D0E8",
+      darker: "#5090B0",
+      emboss: "#4080A0",
     },
   },
-  "#0F5B3E": {
-    // Smaragd - toned down highlight
-    image: "/images/seals/seal-smaragd.png",
+  "#8B9E98": {
+    // Eucalyptus
+    image: "/images/seals/seal-Eucalyptus.png",
     palette: {
-      base: "#70B088",
-      lighter: "#72B08A",
-      darker: "#60A080",
-      emboss: "#60A080",
+      base: "#A0B8B0",
+      lighter: "#B8D0C8",
+      darker: "#708880",
+      emboss: "#607870",
     },
   },
-  "#B9922E": {
-    // Goud - golden yellow shadows matching highlight
-    image: "/images/seals/seal-goud.png",
+  "#B0AEB0": {
+    // Parelsteen
+    image: "/images/seals/seal-Parelsteen.png",
     palette: {
-      base: "#C8B848",
-      lighter: "#E0D060",
-      darker: "#B8B048",
-      emboss: "#B8B048",
+      base: "#C8C6C8",
+      lighter: "#D8D6D8",
+      darker: "#989698",
+      emboss: "#888688",
     },
   },
-  "#3E5C76": {
-    // Dusty Blue - bright muted gray-blue like Bordeaux approach
-    image: "/images/seals/seal-dusty-blue.png",
+  "#7B95A5": {
+    // Leisteen
+    image: "/images/seals/seal-Leisteen.png",
     palette: {
-      base: "#90A8B8",
-      lighter: "#A8C0D0",
-      darker: "#80A0B0",
-      emboss: "#80A0B0",
+      base: "#98B0C0",
+      lighter: "#B0C8D8",
+      darker: "#607888",
+      emboss: "#506878",
     },
   },
-  "#9AA0A6": {
-    // Stone Grey - grey tones that blend with the seal
-    image: "/images/seals/seal-stone-grey.png",
+  "#C09878": {
+    // Koperkaramel
+    image: "/images/seals/seal-Koperkaramel.png",
     palette: {
-      base: "#B8BEC4",
-      lighter: "#D0D4D8",
-      darker: "#8A9098",
-      emboss: "#6A7078",
+      base: "#D8B090",
+      lighter: "#E8C8A8",
+      darker: "#A88060",
+      emboss: "#987050",
     },
   },
-  "#4B2E24": {
-    // Chocolade - bright neutral, no red
-    image: "/images/seals/seal-chocolade.png",
+  "#8EA870": {
+    // Olijfgaard
+    image: "/images/seals/seal-Olijfgaard.png",
     palette: {
-      base: "#A8A4A4",
-      lighter: "#C0BCBC",
-      darker: "#989494",
-      emboss: "#989494",
+      base: "#A8C088",
+      lighter: "#C0D8A0",
+      darker: "#789060",
+      emboss: "#688050",
     },
   },
-  "#B76E79": {
-    // Roze Wolk - bright dusty rose like Bordeaux
-    image: "/images/seals/seal-roze-wolk.png",
+  "#D08088": {
+    // Rozen
+    image: "/images/seals/seal-Rozen.png",
     palette: {
-      base: "#C8A0A8",
-      lighter: "#E0B8C0",
-      darker: "#B89098",
-      emboss: "#B89098",
+      base: "#E098A0",
+      lighter: "#F0B0B8",
+      darker: "#B06870",
+      emboss: "#A05860",
     },
   },
 };
 
 /**
  * Get the seal image path for a given color.
- * Returns the matching pre-rendered PNG, or falls back to bordeaux.
+ * Returns the matching pre-rendered PNG, or falls back to Rozen.
  */
 export function getSealImage(color: string): string {
   const normalized = color.toUpperCase();
   const config = SEAL_COLOR_CONFIG[normalized];
-  return config?.image || "/images/seals/seal-bordeaux.png";
+  return config?.image || "/images/seals/seal-Eucalyptus.png";
 }
 
 /**

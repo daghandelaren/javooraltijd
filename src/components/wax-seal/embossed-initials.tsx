@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { createWaxColorPalette } from "@/lib/wax-colors";
 import { getSealFontCss, getSealFontConfig, DEFAULT_SEAL_FONT, type SealFontId } from "@/lib/wax-fonts";
 
 interface EmbossedInitialsProps {
@@ -14,12 +13,11 @@ interface EmbossedInitialsProps {
 }
 
 /**
- * EmbossedInitials - Renders initials with realistic SVG filter-based embossing
+ * EmbossedInitials - Renders initials with SVG lighting-based emboss effect
  *
- * Uses feDiffuseLighting and feSpecularLighting to simulate light hitting
- * a pressed-in surface, creating a convincing "stamped into wax" effect.
- *
- * Colors are now generated dynamically from the base color using createWaxColorPalette.
+ * Uses feDiffuseLighting + feSpecularLighting to compute physically-based
+ * bevel shading from a height map, combined with mix-blend-mode: soft-light
+ * so the wax texture shows through naturally.
  */
 export function EmbossedInitials({
   initials,
@@ -29,140 +27,108 @@ export function EmbossedInitials({
   fontId = DEFAULT_SEAL_FONT,
   className,
 }: EmbossedInitialsProps) {
-  // Generate colors dynamically from the input hex color
-  const palette = createWaxColorPalette(color);
-  const colors = {
-    base: palette.base,
-    dark: palette.emboss,
-    light: palette.lighter,
-  };
-
-  // Get font config for vertical offset and size multiplier (matches 3D seal behavior)
   const fontConfig = getSealFontConfig(fontId);
-  const verticalOffsetPercent = (fontConfig.verticalOffset || 0) * 18; // Convert 3D units to %
-  const yPosition = `${51 - verticalOffsetPercent}%`;
-  const adjustedFontSize = fontSize * (fontConfig.sizeMultiplier || 1);
+  const verticalOffsetPercent = (fontConfig.verticalOffset || 0) * 18;
+  const hasWideChar = /[MW]/i.test(initials);
+  const adjustedFontSize = fontSize * (fontConfig.sizeMultiplier || 1) * (hasWideChar ? 0.8 : 1);
 
-  const filterId = React.useId().replace(/:/g, '_');
+  // Scale factor normalized around "lg" size (200px)
+  const s = size / 200;
+
+  // Unique filter ID for this component instance
+  const reactId = React.useId();
+  const filterId = `engrave-${reactId.replace(/:/g, "")}`;
+
+  // Bevel parameters
+  const bevelBlur = 1.2 * s;     // Controls bevel width — rounded pressed-in look
+  const surfaceScale = 8 * s;    // Controls emboss depth — clearly visible 3D letters
+  const dc = 0.6;                // diffuseConstant — slightly bright for natural wax tone
+
+  // Drop shadow — Photoshop-style: 105° angle, 8px distance, 24% spread, 6px size, 15% opacity
+  const dsDx = 0.3 * s;
+  const dsDy = 1 * s;
+  const dsBlur = 1 * s;
+  const dsDilate = 0.5 * s;
 
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox={`0 0 ${size} ${size}`}
-      className={className}
-      style={{ overflow: "visible" }}
-    >
-      <defs>
-        {/* Embossed/inset filter - simulates pressed-in text */}
-        <filter
-          id={`emboss-${filterId}`}
-          x="-50%"
-          y="-50%"
-          width="200%"
-          height="200%"
-          filterUnits="objectBoundingBox"
-          primitiveUnits="userSpaceOnUse"
-        >
-          {/* Step 1: Create alpha channel from source */}
-          <feGaussianBlur
-            in="SourceAlpha"
-            stdDeviation="0.8"
-            result="blur"
-          />
+    <>
+      {/* Inline SVG filter definition — zero-size, invisible */}
+      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+        <defs>
+          <filter id={filterId} x="-30%" y="-30%" width="160%" height="160%">
+            {/* === DROP SHADOW (behind everything, matching PS Slagschaduw) === */}
+            <feOffset in="SourceAlpha" dx={dsDx} dy={dsDy} result="dsOff" />
+            <feMorphology in="dsOff" operator="dilate" radius={dsDilate} result="dsSpread" />
+            <feGaussianBlur in="dsSpread" stdDeviation={dsBlur} result="dsBlur" />
+            <feFlood floodColor="#000000" floodOpacity="0.50" result="dsColor" />
+            <feComposite in="dsColor" in2="dsBlur" operator="in" result="dropShadow" />
 
-          {/* Step 2: Diffuse lighting - main surface shading */}
-          {/* Light from top-left creates shadow on top-left edges (inset effect) */}
-          <feDiffuseLighting
-            in="blur"
-            result="diffuse"
-            surfaceScale="3"
-            diffuseConstant="0.8"
-            lightingColor={colors.light}
-          >
-            <fePointLight x={-size * 0.3} y={-size * 0.3} z={size * 0.4} />
-          </feDiffuseLighting>
+            {/* Create height map from text shape */}
+            <feGaussianBlur in="SourceAlpha" stdDeviation={bevelBlur} result="bump" />
 
-          {/* Step 3: Specular lighting - wax shine/highlights */}
-          <feSpecularLighting
-            in="blur"
-            result="specular"
-            surfaceScale="2"
-            specularConstant="0.6"
-            specularExponent="20"
-            lightingColor="#ffffff"
-          >
-            <fePointLight x={-size * 0.3} y={-size * 0.3} z={size * 0.5} />
-          </feSpecularLighting>
+            {/* Diffuse lighting — base shadow/highlight shading */}
+            <feDiffuseLighting
+              in="bump"
+              surfaceScale={surfaceScale}
+              diffuseConstant={dc}
+              lightingColor="#ffffff"
+              result="diffuse"
+            >
+              <feDistantLight azimuth={270} elevation={45} />
+            </feDiffuseLighting>
 
-          {/* Step 4: Multiply diffuse with base color */}
-          <feFlood floodColor={colors.base} result="baseColor" />
-          <feComposite
-            in="baseColor"
-            in2="diffuse"
-            operator="arithmetic"
-            k1="0"
-            k2="1"
-            k3="1"
-            k4="-0.5"
-            result="coloredDiffuse"
-          />
+            {/* Specular lighting — crisp edge highlights */}
+            <feSpecularLighting
+              in="bump"
+              surfaceScale={surfaceScale}
+              specularConstant={0.35}
+              specularExponent={18}
+              lightingColor="#ffffff"
+              result="specular"
+            >
+              <feDistantLight azimuth={270} elevation={45} />
+            </feSpecularLighting>
 
-          {/* Step 5: Clip to original text shape */}
-          <feComposite
-            in="coloredDiffuse"
-            in2="SourceAlpha"
-            operator="in"
-            result="clippedDiffuse"
-          />
+            {/* Combine: add specular highlights on top of diffuse base */}
+            <feBlend in="specular" in2="diffuse" mode="screen" result="lit" />
 
-          {/* Step 6: Add subtle specular highlights */}
-          <feComposite
-            in="specular"
-            in2="SourceAlpha"
-            operator="in"
-            result="clippedSpecular"
-          />
+            {/* Clip to text shape */}
+            <feComposite in="lit" in2="SourceAlpha" operator="in" result="emboss" />
 
-          {/* Step 7: Blend specular onto diffuse */}
-          <feBlend
-            in="clippedSpecular"
-            in2="clippedDiffuse"
-            mode="screen"
-            result="lit"
-          />
+            {/* Output: drop shadow + emboss */}
+            <feMerge>
+              <feMergeNode in="dropShadow" />
+              <feMergeNode in="emboss" />
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
 
-          {/* Step 8: Add inner shadow for depth */}
-          <feOffset in="SourceAlpha" dx="1" dy="1" result="offsetAlpha" />
-          <feGaussianBlur in="offsetAlpha" stdDeviation="1" result="blurredOffset" />
-          <feFlood floodColor={colors.dark} floodOpacity="0.4" result="shadowColor" />
-          <feComposite in="shadowColor" in2="blurredOffset" operator="in" result="shadow" />
-
-          {/* Step 9: Combine shadow with lit text */}
-          <feMerge>
-            <feMergeNode in="shadow" />
-            <feMergeNode in="lit" />
-          </feMerge>
-        </filter>
-      </defs>
-
-      {/* Rendered text with emboss filter */}
-      <text
-        x="50%"
-        y={yPosition}
-        dominantBaseline="middle"
-        textAnchor="middle"
+      <span
+        className={className}
+        aria-hidden="true"
         style={{
+          color: "#000000",
           fontFamily: getSealFontCss(fontId),
           fontSize: adjustedFontSize,
           fontWeight: 400,
           letterSpacing: "0.02em",
-          fill: colors.base,
-          filter: `url(#emboss-${filterId})`,
+          lineHeight: 1,
+          filter: `url(#${filterId})`,
+          mixBlendMode: "soft-light",
+          marginTop: `${-verticalOffsetPercent * 0.36}%`,
+          userSelect: "none",
+          whiteSpace: "nowrap",
         }}
       >
-        {initials}
-      </text>
-    </svg>
+        {initials.split("").map((char, i) =>
+          char === "&" ? (
+            <span key={i} style={{ fontSize: "50%", verticalAlign: "middle" }}>{char}</span>
+          ) : (
+            <React.Fragment key={i}>{char}</React.Fragment>
+          )
+        )}
+      </span>
+    </>
   );
 }

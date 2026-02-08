@@ -27,13 +27,13 @@ interface WaxSealProps {
 // Size configurations - initials should fit inside the center circle
 // Font sizes use ~0.14 ratio to fit properly in the seal's center
 const sizeConfig = {
-  sm: { size: 80, fontSize: 11 },
-  md: { size: 120, fontSize: 17 },
-  lg: { size: 160, fontSize: 22 },
-  xl: { size: 200, fontSize: 28 },
-  "2xl": { size: 280, fontSize: 39 },
-  "3xl": { size: 320, fontSize: 45 },
-  "4xl": { size: 400, fontSize: 56 },
+  sm: { size: 80, fontSize: 13 },
+  md: { size: 120, fontSize: 20 },
+  lg: { size: 160, fontSize: 25 },
+  xl: { size: 200, fontSize: 32 },
+  "2xl": { size: 280, fontSize: 44 },
+  "3xl": { size: 320, fontSize: 51 },
+  "4xl": { size: 400, fontSize: 63 },
 };
 
 export function WaxSeal({
@@ -82,8 +82,10 @@ export function WaxSeal({
               draggable={false}
             />
 
-            {/* Embossed initials overlay - SVG filter-based 3D effect */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            {/* Embossed initials overlay - SVG lighting-based bevel & emboss */}
+            <div
+              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            >
               <EmbossedInitials
                 initials={initials}
                 color={color}

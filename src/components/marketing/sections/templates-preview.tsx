@@ -18,7 +18,7 @@ const templates: Array<{
   };
 }> = [
   {
-    id: "eeuwige-elegantie",
+    id: "romantisch",
     nameKey: "elegance",
     sealColor: "#9E1F3F", // Bordeaux
     colors: {
@@ -27,7 +27,7 @@ const templates: Array<{
     },
   },
   {
-    id: "modern-minimaal",
+    id: "modern",
     nameKey: "modern",
     sealColor: "#F2E6D6", // Champagne
     colors: {
@@ -36,7 +36,7 @@ const templates: Array<{
     },
   },
   {
-    id: "botanische-droom",
+    id: "rustiek",
     nameKey: "botanical",
     sealColor: "#3E5C76", // Dusty Blue
     colors: {

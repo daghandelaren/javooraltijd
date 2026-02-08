@@ -98,8 +98,8 @@ model Invitation {
   rsvpConfig    Json?            // Flexible config for which fields are enabled
 
   // Styling
-  sealColor     String           @default("#9E1F3F")
-  sealFont      String           @default("great-vibes")
+  sealColor     String           @default("#D08088")
+  sealFont      String           @default("lavishly-yours")
   sealStyle     String           @default("classic")
   sealFloral    Boolean          @default(true)
   monogram      String?

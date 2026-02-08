@@ -48,7 +48,7 @@ export function HeroSection() {
                 </Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
-                <Link href="/demo/eeuwige-elegantie">
+                <Link href="/demo/romantisch">
                   <Play className="mr-2 h-4 w-4" />
                   {t("cta_secondary")}
                 </Link>
@@ -92,7 +92,7 @@ export function HeroSection() {
 
                 {/* Wax seal on envelope */}
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/3">
-                  <WaxSeal initials="M&J" color={DEFAULT_SEAL_COLOR} size="xl" interactive={false} />
+                  <WaxSeal initials="J&B" color={DEFAULT_SEAL_COLOR} size="xl" interactive={false} />
                 </div>
               </div>
 

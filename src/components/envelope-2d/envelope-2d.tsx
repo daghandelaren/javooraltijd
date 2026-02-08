@@ -100,8 +100,13 @@ function Flap({ state }: { state: EnvelopeState }) {
           transformStyle: "preserve-3d",
           transformOrigin: "50% 0%",
         }}
-        initial={{ rotateX: 0 }}
-        animate={{ rotateX: flapRotation }}
+        initial={{ rotateX: 0, filter: "drop-shadow(1px 2px 2px rgba(0,0,0,0.10))" }}
+        animate={{
+          rotateX: flapRotation,
+          filter: isOpening
+            ? "drop-shadow(4px 8px 6px rgba(0,0,0,0.25))"
+            : "drop-shadow(1px 2px 2px rgba(0,0,0,0.10))",
+        }}
         transition={{
           duration: ANIMATION_TIMING.flapOpen / 1000,
           ease: [0.25, 0.1, 0.25, 1],
@@ -143,34 +148,34 @@ function Seal({
   const isOpening = state === "opening" || state === "fading" || state === "complete";
 
   return (
-    <motion.div
+    <div
       className="absolute z-30 left-1/2"
-      style={{
-        // Position at flap tip - need to match where the flap triangle ends
-        // The flap is roughly 45% of viewport height on mobile, slightly less on desktop
-        top: "38%",
-        x: "-50%",
-        perspective: "1000px",
-        filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.3))",
-      }}
-      animate={{
-        scale: isOpening ? 1.05 : 1,      // Slight scale up
-        rotateX: isOpening ? 15 : 0,       // Tilt toward viewer
-        y: isOpening ? -10 : 0,            // Lift slightly
-      }}
-      transition={{
-        duration: ANIMATION_TIMING.flapOpen / 1000,
-        ease: [0.25, 0.1, 0.25, 1],
-      }}
+      style={{ top: "54%", transform: "translate(-50%, -50%)" }}
     >
-      <WaxSeal
-        initials={monogram}
-        color={sealColor}
-        font={sealFont}
-        size="4xl"
-        interactive={isInteractive}
-        onClick={onClick}
-      />
-    </motion.div>
+      <motion.div
+        style={{ perspective: "1000px" }}
+        animate={{
+          scale: isOpening ? 1.08 : 1,
+          rotateX: isOpening ? 20 : 0,
+          y: isOpening ? -15 : 0,
+          filter: isOpening
+            ? "drop-shadow(4px 12px 20px rgba(0,0,0,0.4))"
+            : "drop-shadow(0px 8px 16px rgba(0,0,0,0.3))",
+        }}
+        transition={{
+          duration: 4,
+          ease: [0.34, 1.56, 0.64, 1],
+        }}
+      >
+        <WaxSeal
+          initials={monogram}
+          color={sealColor}
+          font={sealFont}
+          size="4xl"
+          interactive={isInteractive}
+          onClick={onClick}
+        />
+      </motion.div>
+    </div>
   );
 }
