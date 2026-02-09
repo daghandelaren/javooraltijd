@@ -41,9 +41,10 @@ export function Envelope2D({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           className={cn("fixed inset-0 w-full h-screen overflow-hidden", className)}
+          style={{ backgroundColor: "#E8DFD4" }}
         >
           {/* Full-screen envelope background (body without flap) */}
-          <picture className="absolute inset-0">
+          <picture className="absolute top-0 left-0 w-full">
             <source
               media="(min-width: 768px)"
               srcSet="/images/envelope/under-desktop.png"
@@ -51,7 +52,7 @@ export function Envelope2D({
             <img
               src="/images/envelope/under-mobile.png"
               alt=""
-              className="w-full h-full object-cover"
+              className="w-full h-auto block"
             />
           </picture>
 
@@ -118,7 +119,7 @@ function Flap({ state }: { state: EnvelopeState }) {
           },
         }}
       >
-        <picture className="block w-full h-[100vh] sm:h-[70vh] md:h-auto">
+        <picture className="block w-full">
           <source
             media="(min-width: 768px)"
             srcSet="/images/envelope/flap-desktop.png"
@@ -126,7 +127,7 @@ function Flap({ state }: { state: EnvelopeState }) {
           <img
             src="/images/envelope/flap-mobile.png"
             alt=""
-            className="w-full h-[100vh] sm:h-[70vh] object-cover object-top md:h-auto md:object-contain"
+            className="w-full h-auto block"
             style={{ backfaceVisibility: "hidden" }}
           />
         </picture>
@@ -155,7 +156,7 @@ function Seal({
 
   return (
     <div
-      className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[54%] xl:top-[56%] scale-[0.7] md:scale-100"
+      className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[101vw] md:top-[33.5vw] scale-[0.7] md:scale-100"
     >
       <motion.div
         animate={{
