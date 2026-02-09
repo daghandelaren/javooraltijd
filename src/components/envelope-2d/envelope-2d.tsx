@@ -118,7 +118,7 @@ function Flap({ state }: { state: EnvelopeState }) {
           },
         }}
       >
-        <picture className="block w-full h-[100vh] md:h-auto">
+        <picture className="block w-full h-[100vh] sm:h-[70vh] md:h-auto">
           <source
             media="(min-width: 768px)"
             srcSet="/images/envelope/flap-desktop.png"
@@ -126,7 +126,7 @@ function Flap({ state }: { state: EnvelopeState }) {
           <img
             src="/images/envelope/flap-mobile.png"
             alt=""
-            className="w-full h-[100vh] object-cover object-top md:h-auto md:object-contain"
+            className="w-full h-[100vh] sm:h-[70vh] object-cover object-top md:h-auto md:object-contain"
             style={{ backfaceVisibility: "hidden" }}
           />
         </picture>
@@ -155,7 +155,7 @@ function Seal({
 
   return (
     <div
-      className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[54%] xl:top-[56%] scale-[0.5] md:scale-100"
+      className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[54%] xl:top-[56%] scale-[0.7] md:scale-100"
     >
       <motion.div
         animate={{
