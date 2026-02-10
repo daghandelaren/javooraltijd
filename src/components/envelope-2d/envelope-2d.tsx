@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { WaxSeal } from "@/components/wax-seal/wax-seal";
 import { useEnvelopeAnimation, ANIMATION_TIMING, type EnvelopeState } from "./use-envelope-animation";
-import { type SealFontId } from "@/lib/wax-fonts";
+import { type SealFontId, getSealFontCss } from "@/lib/wax-fonts";
 
 interface Envelope2DProps {
   sealColor: string;
   sealFont?: SealFontId;
   monogram?: string;
+  sealText?: string;
   onOpen?: () => void;
   onMusicStart?: () => void;
   enableMusic?: boolean;
@@ -20,6 +21,7 @@ export function Envelope2D({
   sealColor,
   sealFont,
   monogram = "J&B",
+  sealText,
   onOpen,
   onMusicStart,
   enableMusic = true,
@@ -65,6 +67,7 @@ export function Envelope2D({
             sealColor={sealColor}
             sealFont={sealFont}
             monogram={monogram}
+            sealText={sealText}
             onClick={handleClick}
             isInteractive={isInteractive}
           />
@@ -85,37 +88,35 @@ export function Envelope2D({
 // Flap - just the flap image with rotation animation
 function Flap({ state }: { state: EnvelopeState }) {
   const isOpening = state === "opening" || state === "fading" || state === "complete";
-  const flapRotation = isOpening ? -20 : 0;
+  const flapY = isOpening ? -23 : 0;
 
   return (
     <div
       className="absolute top-0 left-0 right-0 z-20"
-      style={{
-        perspective: "1000px",
-        perspectiveOrigin: "50% 0%",
-      }}
     >
       <motion.div
         className="w-full relative"
-        style={{
-          transformStyle: "preserve-3d",
-          transformOrigin: "50% 0%",
-        }}
-        initial={{ rotateX: 0, filter: "drop-shadow(8px 6px 3px rgba(0,0,0,0.28))" }}
+        initial={{ y: 0, filter: "drop-shadow(8px 6px 3px rgba(0,0,0,0.28))" }}
         animate={{
-          rotateX: flapRotation,
+          y: flapY,
           filter: isOpening
-            ? "drop-shadow(24px 18px 18px rgba(0,0,0,0.35))"
+            ? [
+                "drop-shadow(8px 6px 3px rgba(0,0,0,0.28))",
+                "drop-shadow(50px 10px 30px rgba(0,0,0,0.45))",
+                "drop-shadow(110px 6px 60px rgba(0,0,0,0.45))",
+                "drop-shadow(160px 3px 80px rgba(0,0,0,0.4))",
+              ]
             : "drop-shadow(8px 6px 3px rgba(0,0,0,0.28))",
         }}
         transition={{
-          rotateX: {
-            duration: ANIMATION_TIMING.flapOpen / 1000,
+          y: {
+            duration: 1.5,
             ease: "linear",
           },
           filter: {
-            duration: 0.6,
-            ease: "easeOut",
+            duration: 2.2,
+            ease: "linear",
+            times: [0, 0.25, 0.6, 1],
           },
         }}
       >
@@ -128,7 +129,6 @@ function Flap({ state }: { state: EnvelopeState }) {
             src="/images/envelope/flap-mobile.png"
             alt=""
             className="w-full h-auto block"
-            style={{ backfaceVisibility: "hidden" }}
           />
         </picture>
       </motion.div>
@@ -142,6 +142,7 @@ function Seal({
   sealColor,
   sealFont,
   monogram,
+  sealText,
   onClick,
   isInteractive,
 }: {
@@ -149,6 +150,7 @@ function Seal({
   sealColor: string;
   sealFont?: SealFontId;
   monogram: string;
+  sealText?: string;
   onClick: () => void;
   isInteractive: boolean;
 }) {
@@ -156,28 +158,54 @@ function Seal({
 
   return (
     <div
-      className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[101vw] md:top-[33.5vw] scale-[0.7] md:scale-100"
+      className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[103vw] md:top-[34.5vw] scale-[0.7] md:scale-100"
     >
       <motion.div
-        animate={{
-          y: isOpening ? -23 : 0,
-          filter: isOpening
-            ? "drop-shadow(10px 16px 24px rgba(0,0,0,0.25))"
-            : "drop-shadow(6px 6px 8px rgba(0,0,0,0.6))",
-        }}
-        transition={{
-          duration: 1.5,
-          ease: "linear",
-        }}
+        className="relative"
+        animate={{ y: isOpening ? -23 : 0 }}
+        transition={{ y: { duration: 1.5, ease: "linear" } }}
       >
-        <WaxSeal
-          initials={monogram}
-          color={sealColor}
-          font={sealFont}
-          size="4xl"
-          interactive={isInteractive}
-          onClick={onClick}
-        />
+        {sealText && (
+          <p
+            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap select-none pointer-events-none"
+            style={{
+              bottom: "calc(100% + 0.25rem)",
+              fontFamily: getSealFontCss(sealFont ?? "lavishly-yours"),
+              fontSize: "4rem",
+              color: "rgba(90, 78, 65, 0.45)",
+              filter: "blur(0.5px)",
+              textShadow:
+                "0 1px 1px rgba(255, 255, 255, 0.5), 0 -1px 1px rgba(60, 50, 40, 0.12), 1px 0 1px rgba(255, 255, 255, 0.25), -1px 0 1px rgba(60, 50, 40, 0.06)",
+              letterSpacing: "0.02em",
+            }}
+          >
+            {sealText}
+          </p>
+        )}
+        <motion.div
+          animate={{
+            filter: isOpening
+              ? [
+                  "drop-shadow(6px 6px 8px rgba(0,0,0,0.6))",
+                  "drop-shadow(18px 14px 24px rgba(0,0,0,0.6))",
+                  "drop-shadow(35px 22px 50px rgba(0,0,0,0.55))",
+                  "drop-shadow(50px 30px 70px rgba(0,0,0,0.5))",
+                ]
+              : "drop-shadow(6px 6px 8px rgba(0,0,0,0.6))",
+          }}
+          transition={{
+            filter: { duration: 2.2, ease: "linear", times: [0, 0.25, 0.6, 1] },
+          }}
+        >
+          <WaxSeal
+            initials={monogram}
+            color={sealColor}
+            font={sealFont}
+            size="4xl"
+            interactive={isInteractive}
+            onClick={onClick}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );

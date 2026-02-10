@@ -149,6 +149,7 @@ function InvitationContent({ template }: { template: Template }) {
             <Envelope2D
               sealColor={template.sealColor}
               monogram={demoData.monogram}
+              sealText="21 juni 2026"
               onOpen={() => setIsRevealed(true)}
               enableMusic={false}
             />

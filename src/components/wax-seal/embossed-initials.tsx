@@ -114,7 +114,7 @@ export function EmbossedInitials({
           fontWeight: 400,
           letterSpacing: "0.02em",
           lineHeight: 1,
-          filter: `url(#${filterId})`,
+          filter: `url(#${filterId}) blur(0.5px)`,
           mixBlendMode: "soft-light",
           marginTop: `${-verticalOffsetPercent * 0.36}%`,
           userSelect: "none",
