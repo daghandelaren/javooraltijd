@@ -157,15 +157,13 @@ function Seal({
   const isOpening = state === "opening" || state === "fading" || state === "complete";
 
   return (
-    <div
-      className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[103vw] md:top-[34.5vw] scale-[0.7] md:scale-100"
-    >
+    <div className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[103vw] md:top-[34.5vw]">
       <motion.div
-        className="relative"
         initial={{ y: 0 }}
         animate={{ y: isOpening ? -23 : 0 }}
         transition={{ y: { duration: 1.5, ease: "linear" } }}
       >
+        <div className="relative scale-[0.7] md:scale-100">
         {sealText && (
           <p
             className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap select-none pointer-events-none"
@@ -207,6 +205,7 @@ function Seal({
             onClick={onClick}
           />
         </motion.div>
+        </div>
       </motion.div>
     </div>
   );
