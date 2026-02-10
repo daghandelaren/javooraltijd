@@ -162,6 +162,7 @@ function Seal({
     >
       <motion.div
         className="relative"
+        initial={{ y: 0 }}
         animate={{ y: isOpening ? -23 : 0 }}
         transition={{ y: { duration: 1.5, ease: "linear" } }}
       >
@@ -186,12 +187,12 @@ function Seal({
           animate={{
             filter: isOpening
               ? [
-                  "drop-shadow(6px 6px 8px rgba(0,0,0,0.6))",
-                  "drop-shadow(18px 14px 24px rgba(0,0,0,0.6))",
-                  "drop-shadow(35px 22px 50px rgba(0,0,0,0.55))",
-                  "drop-shadow(50px 30px 70px rgba(0,0,0,0.5))",
+                  "drop-shadow(2px 6px 8px rgba(0,0,0,0.6))",
+                  "drop-shadow(4px 18px 24px rgba(0,0,0,0.6))",
+                  "drop-shadow(6px 35px 50px rgba(0,0,0,0.55))",
+                  "drop-shadow(8px 50px 70px rgba(0,0,0,0.5))",
                 ]
-              : "drop-shadow(6px 6px 8px rgba(0,0,0,0.6))",
+              : "drop-shadow(2px 6px 8px rgba(0,0,0,0.6))",
           }}
           transition={{
             filter: { duration: 2.2, ease: "linear", times: [0, 0.25, 0.6, 1] },
