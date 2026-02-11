@@ -82,7 +82,7 @@ export function HeroSection() {
 
                 {/* Phone screen */}
                 <div
-                  className="relative w-full h-full rounded-[2.25rem] overflow-hidden"
+                  className="relative w-full h-full rounded-[2.25rem] overflow-hidden isolate"
                   style={{ backgroundColor: "#E8DFD4" }}
                 >
                   {/* Envelope wrapper — scales all elements together to fill
