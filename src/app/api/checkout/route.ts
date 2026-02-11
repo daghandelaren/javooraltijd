@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe, PLANS, ADDONS, type PlanId, type AddonId } from "@/lib/stripe";
+import { mollieClient, PLANS, ADDONS, centsToMollieAmount, Locale, type PlanId, type AddonId } from "@/lib/mollie";
 import { getCurrentUser } from "@/lib/auth-server";
 import { db } from "@/lib/db";
 
@@ -45,78 +45,50 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Build line items
-    const lineItems: {
-      price_data: {
-        currency: string;
-        product_data: { name: string; description?: string };
-        unit_amount: number;
-      };
-      quantity: number;
-    }[] = [
-      {
-        price_data: {
-          currency: "eur",
-          product_data: {
-            name: `${plan.name} Pakket`,
-            description: `Digitale trouwuitnodiging - ${plan.features.durationMonths} maanden online`,
-          },
-          unit_amount: plan.price,
-        },
-        quantity: 1,
-      },
-    ];
+    // Calculate total in cents
+    let totalCents = plan.price;
 
-    // Add selected addons
     if (addonIds?.length) {
       for (const addonId of addonIds) {
         const addon = ADDONS[addonId];
         if (addon) {
-          lineItems.push({
-            price_data: {
-              currency: "eur",
-              product_data: {
-                name: addon.name,
-              },
-              unit_amount: addon.price,
-            },
-            quantity: 1,
-          });
+          totalCents += addon.price;
         }
       }
     }
 
     // Get base URL for redirects
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const webhookUrl = process.env.NEXTAUTH_URL || baseUrl;
 
-    // Create Stripe checkout session
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card", "ideal"],
-      line_items: lineItems,
-      mode: "payment",
-      success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/builder/checkout?canceled=true`,
-      customer_email: user.email || undefined,
+    // Create Mollie payment
+    const payment = await mollieClient.payments.create({
+      amount: {
+        currency: "EUR",
+        value: centsToMollieAmount(totalCents),
+      },
+      description: `${plan.name} Pakket - Digitale trouwuitnodiging`,
+      redirectUrl: `${baseUrl}/checkout/success?id=${invitationId}`,
+      webhookUrl: `${webhookUrl}/api/webhooks/mollie`,
       metadata: {
         userId: user.id,
         invitationId,
         planId,
         addonIds: addonIds?.join(",") || "",
       },
-      locale: "nl",
-      allow_promotion_codes: true,
+      locale: Locale.nl_NL,
     });
 
-    // Store session ID in invitation
+    // Store payment ID in invitation
     await db.invitation.update({
       where: { id: invitationId },
       data: {
-        stripeSessionId: session.id,
+        molliePaymentId: payment.id,
         planId,
       },
     });
 
-    return NextResponse.json({ url: session.url });
+    return NextResponse.json({ url: payment.getCheckoutUrl() });
   } catch (error) {
     console.error("Checkout error:", error);
     return NextResponse.json(

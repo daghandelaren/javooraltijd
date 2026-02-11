@@ -19,13 +19,13 @@ interface InvitationData {
 
 function SuccessContent() {
   const searchParams = useSearchParams();
-  const sessionId = searchParams.get("session_id");
+  const invitationId = searchParams.get("id");
   const [invitation, setInvitation] = useState<InvitationData | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (!sessionId) {
+    if (!invitationId) {
       setLoading(false);
       return;
     }
@@ -33,7 +33,7 @@ function SuccessContent() {
     // Fetch invitation details
     async function fetchInvitation() {
       try {
-        const response = await fetch(`/api/checkout/verify?session_id=${sessionId}`);
+        const response = await fetch(`/api/checkout/verify?id=${invitationId}`);
         if (response.ok) {
           const data = await response.json();
           setInvitation(data.invitation);
@@ -46,7 +46,7 @@ function SuccessContent() {
     }
 
     fetchInvitation();
-  }, [sessionId]);
+  }, [invitationId]);
 
   const shareUrl = invitation
     ? `${window.location.origin}/u/${invitation.shareId}`

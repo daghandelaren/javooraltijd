@@ -84,7 +84,7 @@ export function ComparisonTableSection() {
 
                   {/* Traditional */}
                   <div className="p-5 flex items-center justify-center gap-2 border-l border-stone-200 bg-stone-50/20">
-                    <X className="w-5 h-5 text-stone-400 flex-shrink-0" />
+                    <X className="w-5 h-5 text-red-400 flex-shrink-0" />
                     <span className="text-stone-500 text-sm">{row.traditional}</span>
                   </div>
 
@@ -126,7 +126,7 @@ export function ComparisonTableSection() {
                 <div className="divide-y divide-stone-100">
                   {/* Traditional */}
                   <div className="p-4 flex items-start gap-3 bg-stone-50/50">
-                    <X className="w-5 h-5 text-stone-400 mt-0.5 flex-shrink-0" />
+                    <X className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
                     <div>
                       <span className="text-xs font-medium text-stone-400 uppercase tracking-wide">
                         {t("traditional")}

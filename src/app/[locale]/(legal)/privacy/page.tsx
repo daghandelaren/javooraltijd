@@ -73,7 +73,7 @@ export default function PrivacyPage() {
           {t("sections.dataSharing.content")}
         </p>
         <ul className="list-disc pl-6 text-stone-600 space-y-2">
-          <li>{t("sections.dataSharing.items.stripe")}</li>
+          <li>{t("sections.dataSharing.items.mollie")}</li>
           <li>{t("sections.dataSharing.items.email")}</li>
           <li>{t("sections.dataSharing.items.hosting")}</li>
         </ul>

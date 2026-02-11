@@ -217,7 +217,7 @@ export default function PackagePage() {
 
       {/* Trust line */}
       <p className="text-center text-sm text-stone-500">
-        Eenmalig betalen • Veilig via Stripe • Direct aan de slag
+        Eenmalig betalen • Veilig via Mollie • Direct aan de slag
       </p>
 
       {/* Navigation */}

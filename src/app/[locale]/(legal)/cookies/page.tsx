@@ -159,7 +159,7 @@ export default function CookiesPage() {
         </p>
         <ul className="list-disc pl-6 text-stone-600 space-y-2">
           <li>
-            <strong>Stripe</strong> - {t("sections.thirdParty.services.stripe")}
+            <strong>Mollie</strong> - {t("sections.thirdParty.services.mollie")}
           </li>
           <li>
             <strong>Railway</strong> - {t("sections.thirdParty.services.railway")}

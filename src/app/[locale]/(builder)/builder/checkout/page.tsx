@@ -156,7 +156,7 @@ function CheckoutContent() {
       const { url } = await response.json();
 
       if (url) {
-        // Redirect to Stripe Checkout
+        // Redirect to Mollie checkout
         window.location.href = url;
       } else {
         throw new Error("Geen checkout URL ontvangen");
@@ -265,7 +265,7 @@ function CheckoutContent() {
           <div className="space-y-3 text-sm text-stone-400 mb-6">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
-              <span>Veilig betalen via Stripe</span>
+              <span>Veilig betalen via Mollie</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />

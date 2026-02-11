@@ -1,38 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { mollieClient } from "@/lib/mollie";
 import { db } from "@/lib/db";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const sessionId = searchParams.get("session_id");
+    const invitationId = searchParams.get("id");
 
-    if (!sessionId) {
+    if (!invitationId) {
       return NextResponse.json(
-        { error: "Missing session_id" },
+        { error: "Missing id" },
         { status: 400 }
       );
     }
 
-    // Retrieve session from Stripe
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
-
-    if (!session.metadata?.invitationId) {
-      return NextResponse.json(
-        { error: "Invalid session" },
-        { status: 400 }
-      );
-    }
-
-    // Get invitation
+    // Get invitation and check its Mollie payment
     const invitation = await db.invitation.findUnique({
-      where: { id: session.metadata.invitationId },
+      where: { id: invitationId },
       select: {
         id: true,
         shareId: true,
         partner1Name: true,
         partner2Name: true,
         status: true,
+        molliePaymentId: true,
       },
     });
 
@@ -43,9 +34,44 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // If already published, it's paid
+    if (invitation.status === "PUBLISHED") {
+      return NextResponse.json({
+        success: true,
+        invitation: {
+          id: invitation.id,
+          shareId: invitation.shareId,
+          partner1Name: invitation.partner1Name,
+          partner2Name: invitation.partner2Name,
+          status: invitation.status,
+        },
+      });
+    }
+
+    // Otherwise check with Mollie
+    if (invitation.molliePaymentId) {
+      const payment = await mollieClient.payments.get(invitation.molliePaymentId);
+      return NextResponse.json({
+        success: payment.status === "paid",
+        invitation: {
+          id: invitation.id,
+          shareId: invitation.shareId,
+          partner1Name: invitation.partner1Name,
+          partner2Name: invitation.partner2Name,
+          status: invitation.status,
+        },
+      });
+    }
+
     return NextResponse.json({
-      success: session.payment_status === "paid",
-      invitation,
+      success: false,
+      invitation: {
+        id: invitation.id,
+        shareId: invitation.shareId,
+        partner1Name: invitation.partner1Name,
+        partner2Name: invitation.partner2Name,
+        status: invitation.status,
+      },
     });
   } catch (error) {
     console.error("Verify error:", error);

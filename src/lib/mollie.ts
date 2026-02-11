@@ -1,14 +1,12 @@
-import Stripe from "stripe";
+import createMollieClient, { Locale } from "@mollie/api-client";
 
-// Create stripe instance - will be null during build if key not set
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const mollieApiKey = process.env.MOLLIE_API_KEY;
 
-export const stripe = stripeSecretKey
-  ? new Stripe(stripeSecretKey, {
-      apiVersion: "2025-12-15.clover",
-      typescript: true,
-    })
-  : (null as unknown as Stripe);
+export const mollieClient = mollieApiKey
+  ? createMollieClient({ apiKey: mollieApiKey })
+  : (null as unknown as ReturnType<typeof createMollieClient>);
+
+export { Locale };
 
 // Pricing configuration
 export const PLANS = {
@@ -16,7 +14,6 @@ export const PLANS = {
     id: "basis",
     name: "Basis",
     price: 4900, // in cents
-    priceId: process.env.STRIPE_PRICE_BASIS,
     features: {
       maxGuests: 100,
       allTemplates: false,
@@ -30,7 +27,6 @@ export const PLANS = {
     id: "premium",
     name: "Premium",
     price: 7900,
-    priceId: process.env.STRIPE_PRICE_PREMIUM,
     features: {
       maxGuests: -1, // unlimited
       allTemplates: true,
@@ -44,7 +40,6 @@ export const PLANS = {
     id: "deluxe",
     name: "Deluxe",
     price: 11900,
-    priceId: process.env.STRIPE_PRICE_DELUXE,
     features: {
       maxGuests: -1,
       allTemplates: true,
@@ -61,21 +56,23 @@ export const ADDONS = {
     id: "extension",
     name: "12 maanden verlenging",
     price: 1900,
-    priceId: process.env.STRIPE_PRICE_EXTENSION,
   },
   monogram: {
     id: "monogram",
     name: "Custom monogram design",
     price: 2900,
-    priceId: process.env.STRIPE_PRICE_MONOGRAM,
   },
   rush: {
     id: "rush",
     name: "Rush delivery (24u)",
     price: 1500,
-    priceId: process.env.STRIPE_PRICE_RUSH,
   },
 } as const;
 
 export type PlanId = keyof typeof PLANS;
 export type AddonId = keyof typeof ADDONS;
+
+/** Convert cents to Mollie decimal string format (e.g. 4900 → "49.00") */
+export function centsToMollieAmount(cents: number): string {
+  return (cents / 100).toFixed(2);
+}

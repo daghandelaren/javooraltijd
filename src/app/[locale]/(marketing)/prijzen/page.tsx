@@ -147,7 +147,7 @@ export default function PrijzenPage() {
       return t("months", { count: value });
     }
     if (feature === "extraQuestions") {
-      if (value === false) return <X className="w-5 h-5 text-stone-300 mx-auto" />;
+      if (value === false) return <X className="w-5 h-5 text-red-400 mx-auto" />;
       if (value === "unlimited") return t("unlimited");
       return value;
     }
@@ -155,7 +155,7 @@ export default function PrijzenPage() {
       return value ? (
         <Check className="w-5 h-5 text-green-600 mx-auto" />
       ) : (
-        <X className="w-5 h-5 text-stone-300 mx-auto" />
+        <X className="w-5 h-5 text-red-400 mx-auto" />
       );
     }
     return value;
@@ -533,9 +533,9 @@ export default function PrijzenPage() {
               <WaxSeal
                 initials="JA"
                 color={DEFAULT_SEAL_COLOR}
-                size="lg"
+                size="xl"
                 interactive={false}
-                className="mx-auto mb-8"
+                className="mx-auto mb-4"
               />
 
               <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-stone-900 mb-4">
@@ -565,7 +565,7 @@ export default function PrijzenPage() {
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     <path d="M9 12l2 2 4-4" />
                   </svg>
-                  <span>Veilig via Stripe</span>
+                  <span>Veilig via Mollie</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <svg

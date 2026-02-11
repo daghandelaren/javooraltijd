@@ -208,7 +208,7 @@ export default function OverOnsPage() {
                     <WaxSeal
                       initials="♥"
                       color="#D08088"
-                      size="lg"
+                      size="xl"
                       interactive={false}
                     />
                   </div>
@@ -283,7 +283,7 @@ export default function OverOnsPage() {
             className="text-center"
           >
             {/* Decorative wax seals */}
-            <div className="flex justify-center gap-4 mb-10">
+            <div className="flex justify-center gap-2 md:gap-6 mb-10 scale-[0.8] md:scale-100">
               <motion.div
                 animate={{ rotate: [-5, 5, -5] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -291,7 +291,7 @@ export default function OverOnsPage() {
                 <WaxSeal
                   initials="E&L"
                   color="#C09878"
-                  size="md"
+                  size="lg"
                   interactive={false}
                 />
               </motion.div>
@@ -302,7 +302,7 @@ export default function OverOnsPage() {
                 <WaxSeal
                   initials="JA"
                   color="#8EA870"
-                  size="lg"
+                  size="xl"
                   interactive={false}
                 />
               </motion.div>
@@ -313,7 +313,7 @@ export default function OverOnsPage() {
                 <WaxSeal
                   initials="S&D"
                   color="#9B89B6"
-                  size="md"
+                  size="lg"
                   interactive={false}
                 />
               </motion.div>

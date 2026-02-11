@@ -30,7 +30,7 @@ export function WaxSealStorySection() {
             </div>
 
             {/* Multiple seals composition */}
-            <div className="relative">
+            <div className="relative scale-[0.7] md:scale-100">
               {/* Background seal - top left */}
               <motion.div
                 animate={{ rotate: [0, 5, 0] }}
@@ -40,7 +40,7 @@ export function WaxSealStorySection() {
                 <WaxSeal
                   initials="E&L"
                   color="#8B9E98"
-                  size="md"
+                  size="lg"
                   interactive={false}
                 />
               </motion.div>
@@ -50,7 +50,7 @@ export function WaxSealStorySection() {
                 <WaxSeal
                   initials="J&M"
                   color="#8EA870"
-                  size="xl"
+                  size="2xl"
                   interactive={false}
                 />
               </div>
@@ -64,7 +64,7 @@ export function WaxSealStorySection() {
                 <WaxSeal
                   initials="S&D"
                   color="#B0AEB0"
-                  size="md"
+                  size="lg"
                   interactive={false}
                 />
               </motion.div>

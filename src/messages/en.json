@@ -229,7 +229,7 @@
     "unlimited": "Unlimited",
     "months": "{count} months",
     "guestsCount": "Up to {count} guests",
-    "trustLine": "One-time payment • Secure via Stripe • Live immediately after purchase",
+    "trustLine": "One-time payment • Secure via Mollie • Live immediately after purchase",
     "plans": {
       "basic": {
         "name": "Basic",
@@ -307,7 +307,7 @@
         },
         {
           "question": "Is the payment secure?",
-          "answer": "Yes, all payments are processed via Stripe, one of the world's most secure payment platforms."
+          "answer": "Yes, all payments are processed via Mollie, a trusted Dutch payment platform with native iDEAL support."
         }
       ]
     },
@@ -432,7 +432,7 @@
             "names": "Names of the couple for the invitation",
             "weddingDetails": "Wedding date, locations and program information",
             "rsvp": "RSVP data from guests (name, email, dietary requirements, message)",
-            "payment": "Payment information (processed by Stripe, not stored by us)"
+            "payment": "Payment information (processed by Mollie, not stored by us)"
           }
         },
         "dataUsage": {
@@ -449,7 +449,7 @@
           "title": "Who do we share your data with?",
           "content": "We only share your data with:",
           "items": {
-            "stripe": "Stripe for payment processing",
+            "mollie": "Mollie for payment processing",
             "email": "Resend for email delivery",
             "hosting": "Railway for hosting and infrastructure"
           }
@@ -503,10 +503,10 @@
         },
         "payment": {
           "title": "Payment",
-          "content": "All payments are processed through Stripe. Prices include VAT.",
+          "content": "All payments are processed through Mollie. Prices include VAT.",
           "items": {
             "pricing": "Prices are as listed on our website at the time of purchase",
-            "processing": "Payments are securely processed by Stripe",
+            "processing": "Payments are securely processed by Mollie",
             "refunds": "Our digital invitations are custom-made and personalized. Therefore, the right of withdrawal is excluded once delivery has started with your consent. Of course, we always resolve technical issues."
           }
         },
@@ -598,7 +598,7 @@
           "title": "Third-party cookies",
           "content": "Some services we use place their own cookies:",
           "services": {
-            "stripe": "For secure payment processing",
+            "mollie": "For secure payment processing",
             "railway": "For hosting and infrastructure"
           }
         },

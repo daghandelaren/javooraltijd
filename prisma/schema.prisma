@@ -122,8 +122,7 @@ model Invitation {
 
   // Payment
   planId        String?
-  stripePaymentId String?
-  stripeSessionId String?
+  molliePaymentId String?
   paidAt        DateTime?
 
   // Relations

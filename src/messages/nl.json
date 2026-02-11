@@ -229,7 +229,7 @@
     "unlimited": "Onbeperkt",
     "months": "{count} maanden",
     "guestsCount": "Tot {count} gasten",
-    "trustLine": "Eenmalig betalen • Veilig via Stripe • Direct live na aankoop",
+    "trustLine": "Eenmalig betalen • Veilig via Mollie • Direct live na aankoop",
     "plans": {
       "basic": {
         "name": "Basic",
@@ -307,7 +307,7 @@
         },
         {
           "question": "Is de betaling veilig?",
-          "answer": "Ja, alle betalingen verlopen via Stripe, een van de veiligste betaalplatformen ter wereld."
+          "answer": "Ja, alle betalingen verlopen via Mollie, een betrouwbaar Nederlands betaalplatform met iDEAL-ondersteuning."
         }
       ]
     },
@@ -432,7 +432,7 @@
             "names": "Namen van het bruidspaar voor de uitnodiging",
             "weddingDetails": "Trouwdatum, locaties en programma-informatie",
             "rsvp": "RSVP-gegevens van gasten (naam, e-mail, dieetwensen, bericht)",
-            "payment": "Betalingsinformatie (verwerkt door Stripe, niet door ons opgeslagen)"
+            "payment": "Betalingsinformatie (verwerkt door Mollie, niet door ons opgeslagen)"
           }
         },
         "dataUsage": {
@@ -449,7 +449,7 @@
           "title": "Met wie delen wij uw gegevens?",
           "content": "Wij delen uw gegevens alleen met:",
           "items": {
-            "stripe": "Stripe voor betalingsverwerking",
+            "mollie": "Mollie voor betalingsverwerking",
             "email": "Resend voor e-mailbezorging",
             "hosting": "Railway voor hosting en infrastructuur"
           }
@@ -503,10 +503,10 @@
         },
         "payment": {
           "title": "Betaling",
-          "content": "Alle betalingen worden verwerkt via Stripe. Prijzen zijn inclusief BTW.",
+          "content": "Alle betalingen worden verwerkt via Mollie. Prijzen zijn inclusief BTW.",
           "items": {
             "pricing": "Prijzen zijn zoals vermeld op onze website op het moment van aankoop",
-            "processing": "Betalingen worden veilig verwerkt door Stripe",
+            "processing": "Betalingen worden veilig verwerkt door Mollie",
             "refunds": "Onze digitale uitnodigingen worden op maat en persoonsgebonden geleverd. Daarom is het herroepingsrecht uitgesloten zodra de levering is gestart met jouw toestemming. Uiteraard lossen we technische problemen altijd op."
           }
         },
@@ -598,7 +598,7 @@
           "title": "Cookies van derden",
           "content": "Sommige diensten die wij gebruiken plaatsen hun eigen cookies:",
           "services": {
-            "stripe": "Voor veilige betalingsverwerking",
+            "mollie": "Voor veilige betalingsverwerking",
             "railway": "Voor hosting en infrastructuur"
           }
         },
