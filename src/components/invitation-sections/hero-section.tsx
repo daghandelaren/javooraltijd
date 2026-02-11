@@ -69,6 +69,7 @@ export function HeroSection({
             color={sealColor}
             font={sealFont}
             size="lg"
+            blur={0.5}
             interactive={false}
           />
         </motion.div>

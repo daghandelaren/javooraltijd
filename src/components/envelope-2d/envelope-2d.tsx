@@ -201,6 +201,7 @@ function Seal({
             color={sealColor}
             font={sealFont}
             size="4xl"
+            blur={0.5}
             interactive={isInteractive}
             onClick={onClick}
           />

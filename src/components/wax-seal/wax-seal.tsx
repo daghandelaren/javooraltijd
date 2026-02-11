@@ -21,6 +21,7 @@ interface WaxSealProps {
   initialsFontSize?: number;
   onClick?: () => void;
   isOpen?: boolean;
+  blur?: number;
   className?: string;
   interactive?: boolean;
 }
@@ -45,6 +46,7 @@ export function WaxSeal({
   initialsFontSize,
   onClick,
   isOpen = false,
+  blur,
   className,
   interactive = true,
 }: WaxSealProps) {
@@ -95,6 +97,7 @@ export function WaxSeal({
                 size={config.size}
                 fontSize={effectiveFontSize}
                 fontId={font}
+                blur={blur}
               />
             </div>
           </motion.button>

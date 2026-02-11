@@ -9,6 +9,7 @@ interface EmbossedInitialsProps {
   size: number; // Size in pixels
   fontSize: number;
   fontId?: SealFontId;
+  blur?: number;
   className?: string;
 }
 
@@ -25,6 +26,7 @@ export function EmbossedInitials({
   size,
   fontSize,
   fontId = DEFAULT_SEAL_FONT,
+  blur = 0.3,
   className,
 }: EmbossedInitialsProps) {
   const fontConfig = getSealFontConfig(fontId);
@@ -114,7 +116,7 @@ export function EmbossedInitials({
           fontWeight: 400,
           letterSpacing: "0.02em",
           lineHeight: 1,
-          filter: `url(#${filterId}) blur(0.5px)`,
+          filter: `url(#${filterId}) blur(${blur}px)`,
           mixBlendMode: "soft-light",
           marginTop: `${-verticalOffsetPercent * 0.36}%`,
           userSelect: "none",
