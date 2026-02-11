@@ -6,12 +6,14 @@ import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WaxSeal, DEFAULT_SEAL_COLOR } from "@/components/wax-seal";
+import { getSealFontCss } from "@/lib/wax-fonts";
+import Image from "next/image";
 
 export function HeroSection() {
   const t = useTranslations("home.hero");
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-20 sm:pt-24 lg:pt-0">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden px-6 sm:px-4 pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-0 lg:pb-0">
       {/* Background pattern */}
       <div
         className="absolute inset-0 opacity-30"
@@ -65,7 +67,7 @@ export function HeroSection() {
             </motion.p>
           </motion.div>
 
-          {/* Wax seal visual */}
+          {/* Phone mockup */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -73,26 +75,84 @@ export function HeroSection() {
             className="flex justify-center lg:justify-end"
           >
             <div className="relative">
-              {/* Decorative envelope background */}
-              <div className="relative w-64 h-80 sm:w-80 sm:h-96 bg-gradient-to-br from-champagne-100 to-champagne-200 rounded-lg shadow-2xl transform rotate-2">
-                {/* Envelope flap */}
+              {/* Phone frame */}
+              <div className="relative w-[260px] h-[520px] sm:w-[300px] sm:h-[600px] bg-stone-900 rounded-[3rem] p-2.5 shadow-2xl">
+                {/* Phone notch */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-stone-900 rounded-b-2xl z-20" />
+
+                {/* Phone screen */}
                 <div
-                  className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-br from-champagne-200 to-champagne-300 rounded-t-lg"
-                  style={{
-                    clipPath: "polygon(0 0, 100% 0, 100% 100%, 50% 60%, 0 100%)",
-                  }}
-                />
+                  className="relative w-full h-full rounded-[2.25rem] overflow-hidden"
+                  style={{ backgroundColor: "#E8DFD4" }}
+                >
+                  {/* Envelope wrapper — scales all elements together to fill
+                       the phone screen height (image is 1:2 but screen is slightly taller) */}
+                  <div
+                    className="absolute top-0 left-0 w-full origin-top"
+                    style={{ aspectRatio: "1/2", minHeight: "100%" }}
+                  >
+                    {/* Envelope body */}
+                    <Image
+                      src="/images/envelope/under-mobile.png"
+                      alt=""
+                      width={300}
+                      height={600}
+                      className="absolute top-0 left-0 w-full h-full"
+                      priority
+                    />
 
-                {/* Envelope body lines */}
-                <div className="absolute bottom-8 left-8 right-8">
-                  <div className="h-2 bg-champagne-300/50 rounded mb-3" />
-                  <div className="h-2 bg-champagne-300/50 rounded mb-3 w-3/4" />
-                  <div className="h-2 bg-champagne-300/50 rounded w-1/2" />
-                </div>
+                    {/* Envelope flap */}
+                    <div
+                      className="absolute top-0 left-0 right-0 z-10"
+                      style={{
+                        filter: "drop-shadow(8px 8px 6px rgba(0,0,0,0.32))",
+                      }}
+                    >
+                      <Image
+                        src="/images/envelope/flap-mobile.png"
+                        alt=""
+                        width={300}
+                        height={200}
+                        className="w-full h-auto"
+                        priority
+                      />
+                    </div>
 
-                {/* Wax seal on envelope */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/3">
-                  <WaxSeal initials="J&B" color={DEFAULT_SEAL_COLOR} size="xl" interactive={false} />
+                    {/* Seal + text container */}
+                    <div
+                      className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center"
+                      style={{ top: "47%" }}
+                    >
+                    {/* Seal text */}
+                    <p
+                      style={{
+                        fontFamily: getSealFontCss("lavishly-yours"),
+                        fontSize: "1.5rem",
+                        color: "rgba(90, 78, 65, 0.45)",
+                        filter: "blur(0.3px)",
+                        textShadow:
+                          "0 1px 2px rgba(90, 78, 65, 0.2), 0 0 1px rgba(90, 78, 65, 0.1)",
+                        letterSpacing: "0.02em",
+                        marginBottom: "0.15rem",
+                      }}
+                    >
+                      15 juni 2026
+                    </p>
+                    {/* Wax seal */}
+                    <div
+                      style={{
+                        filter: "drop-shadow(2px 6px 8px rgba(0,0,0,0.6))",
+                      }}
+                    >
+                      <WaxSeal
+                        initials="J&B"
+                        color={DEFAULT_SEAL_COLOR}
+                        size="lg"
+                        interactive={false}
+                      />
+                    </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
