@@ -665,7 +665,8 @@
       "invalid_email": "Voer een geldig e-mailadres in",
       "send_failed": "Er ging iets mis. Probeer het opnieuw.",
       "default": "Er is een fout opgetreden. Probeer het opnieuw."
-    }
+    },
+    "back_to_site": "Terug naar site"
   },
   "errors": {
     "not_found": {

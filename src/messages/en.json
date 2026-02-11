@@ -16,7 +16,7 @@
   },
   "home": {
     "hero": {
-      "title": "Your love, sealed with style",
+      "title": "Your love,\nsealed with style",
       "subtitle": "Digital wedding invitations that feel like a personal letter. Elegant, interactive, and unforgettable.",
       "cta_primary": "Start with a template",
       "cta_secondary": "View a demo",
@@ -665,7 +665,8 @@
       "invalid_email": "Please enter a valid email address",
       "send_failed": "Something went wrong. Please try again.",
       "default": "An error occurred. Please try again."
-    }
+    },
+    "back_to_site": "Back to site"
   },
   "errors": {
     "not_found": {

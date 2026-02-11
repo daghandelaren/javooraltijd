@@ -69,14 +69,14 @@ export function Navigation() {
               <Globe className="h-4 w-4" />
               <span className="uppercase">{otherLocale}</span>
             </Link>
+            <Button asChild size="sm">
+              <Link href="/builder/template">{t("start")}</Link>
+            </Button>
             <Button asChild variant="outline" size="sm">
               <Link href={isAuthenticated ? "/dashboard" : "/login"}>
                 <LogIn className="h-4 w-4 mr-1.5" />
                 {isAuthenticated ? t("dashboard") : t("login")}
               </Link>
-            </Button>
-            <Button asChild size="sm">
-              <Link href="/builder/template">{t("start")}</Link>
             </Button>
           </div>
 
@@ -115,6 +115,11 @@ export function Navigation() {
                 </Link>
               ))}
               <div className="flex flex-col gap-3 pt-4 border-t border-stone-100">
+                <Button asChild size="sm" className="w-full">
+                  <Link href="/builder/template" onClick={() => setIsOpen(false)}>
+                    {t("start")}
+                  </Link>
+                </Button>
                 <div className="flex items-center justify-between">
                   <Link
                     href={switchLocaleHref}
@@ -133,11 +138,6 @@ export function Navigation() {
                     </Link>
                   </Button>
                 </div>
-                <Button asChild size="sm" className="w-full">
-                  <Link href="/builder/template" onClick={() => setIsOpen(false)}>
-                    {t("start")}
-                  </Link>
-                </Button>
               </div>
             </div>
           </motion.div>

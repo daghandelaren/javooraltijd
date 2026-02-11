@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/marketing/sections/hero";
-import { FeaturesSection } from "@/components/marketing/sections/features";
 import { HowItWorksSection } from "@/components/marketing/sections/how-it-works";
 import { WaxSealStorySection } from "@/components/marketing/sections/wax-seal-story";
 import { TestimonialsSection } from "@/components/marketing/sections/testimonials";
@@ -29,12 +28,11 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <FeaturesSection />
       <ComparisonTableSection />
-      <TemplatesPreviewSection />
       <HowItWorksSection />
       <DashboardPreviewSection />
       <WaxSealStorySection />
+      <TemplatesPreviewSection />
       <TestimonialsSection />
       <FAQSection />
       <FinalCTASection />
