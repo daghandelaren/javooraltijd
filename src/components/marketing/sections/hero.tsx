@@ -74,16 +74,20 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex justify-center lg:justify-end"
           >
-            <div className="relative">
+            <div className="relative max-w-full">
               {/* Phone frame */}
-              <div className="relative w-[260px] h-[520px] sm:w-[300px] sm:h-[600px] bg-stone-900 rounded-[3rem] p-2.5 shadow-2xl">
+              <div className="relative w-[240px] h-[480px] sm:w-[300px] sm:h-[600px] bg-stone-900 rounded-[3rem] p-2.5 shadow-2xl">
                 {/* Phone notch */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-stone-900 rounded-b-2xl z-20" />
 
                 {/* Phone screen */}
                 <div
-                  className="relative w-full h-full rounded-[2.25rem] overflow-hidden isolate"
-                  style={{ backgroundColor: "#E8DFD4" }}
+                  className="relative w-full h-full rounded-[2.25rem] overflow-hidden"
+                  style={{
+                    backgroundColor: "#E8DFD4",
+                    WebkitMaskImage: "-webkit-radial-gradient(white, black)",
+                    transform: "translateZ(0)",
+                  }}
                 >
                   {/* Envelope wrapper — scales all elements together to fill
                        the phone screen height (image is 1:2 but screen is slightly taller) */}
