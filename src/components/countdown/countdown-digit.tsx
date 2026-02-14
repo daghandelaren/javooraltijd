@@ -26,7 +26,7 @@ export function CountdownDigit({
       <div className="flex flex-col items-center">
         <AnimatePresence mode="popLayout">
           <motion.span
-            key={displayValue}
+            key={formattedValue}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 20, opacity: 0 }}
