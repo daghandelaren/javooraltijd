@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Gift, ChevronDown, Copy, Check, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -28,6 +28,21 @@ export function GiftSection({
 }: GiftSectionProps) {
   const [showIban, setShowIban] = useState(false);
   const [copied, setCopied] = useState(false);
+  const confettiFired = useRef(false);
+
+  const isBotanical = template.style === "botanical";
+
+  const fireConfetti = useCallback(async () => {
+    if (confettiFired.current) return;
+    confettiFired.current = true;
+    const confetti = (await import("canvas-confetti")).default;
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: [template.colors.primary, "#D4AF37", "#8FBC8F", "#F5DEB3"],
+    });
+  }, [template.colors.primary]);
 
   if (!config.enabled) return null;
 
@@ -63,7 +78,7 @@ export function GiftSection({
           }}
         >
           <Gift className="w-6 h-6 inline-block mr-2 -mt-1" style={{ color: template.colors.primary }} />
-          Cadeau
+          {isBotanical ? "Cadeau tip" : "Cadeau"}
         </h2>
 
         <div
@@ -86,27 +101,15 @@ export function GiftSection({
             </p>
           )}
 
-          {/* Money preference indicator */}
-          {config.preferMoney && (
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
-              style={{
-                backgroundColor: `${template.colors.primary}15`,
-                color: template.colors.primary,
-              }}
-            >
-              <Gift className="w-4 h-4" />
-              <span className="text-sm font-medium">
-                Een bijdrage in een envelop wordt zeer gewaardeerd
-              </span>
-            </div>
-          )}
-
           {/* IBAN expandable section */}
           {config.iban && (
             <div className="mt-4">
               <button
-                onClick={() => setShowIban(!showIban)}
+                onClick={() => {
+                  const willOpen = !showIban;
+                  setShowIban(willOpen);
+                  if (willOpen) fireConfetti();
+                }}
                 className="inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-80"
                 style={{ color: template.colors.primary }}
               >

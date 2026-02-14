@@ -36,7 +36,7 @@ const templates: Array<{
     },
   },
   {
-    id: "rustiek",
+    id: "bloementuin",
     nameKey: "botanical",
     sealColor: "#7B95A5", // Leisteen
     colors: {

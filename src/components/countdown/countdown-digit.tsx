@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +8,7 @@ interface CountdownDigitProps {
   label: string;
   accentColor?: string;
   variant?: "inline" | "card";
+  theme?: "botanical";
 }
 
 export function CountdownDigit({
@@ -16,26 +16,10 @@ export function CountdownDigit({
   label,
   accentColor = "#333D2C",
   variant = "card",
+  theme,
 }: CountdownDigitProps) {
-  const [displayValue, setDisplayValue] = useState(value);
-  const [isFlipping, setIsFlipping] = useState(false);
-  const prevValueRef = useRef(value);
-
   // Format value to always show 2 digits
-  const formattedValue = String(displayValue).padStart(2, "0");
-
-  useEffect(() => {
-    if (value !== prevValueRef.current) {
-      setIsFlipping(true);
-      // Small delay before changing the number for flip effect
-      const timer = setTimeout(() => {
-        setDisplayValue(value);
-        setIsFlipping(false);
-        prevValueRef.current = value;
-      }, 150);
-      return () => clearTimeout(timer);
-    }
-  }, [value]);
+  const formattedValue = String(value).padStart(2, "0");
 
   if (variant === "inline") {
     return (
@@ -60,76 +44,90 @@ export function CountdownDigit({
     );
   }
 
+  const isBotanical = theme === "botanical";
+
   // Card variant with flip animation
   return (
     <div className="flex flex-col items-center">
       <div
         className={cn(
-          "relative overflow-hidden rounded-lg shadow-md",
-          "bg-white border border-stone-200",
-          "w-16 h-20 md:w-20 md:h-24"
+          "relative overflow-hidden rounded-lg",
+          isBotanical
+            ? "w-20 h-24 md:w-28 md:h-32"
+            : "w-16 h-20 md:w-20 md:h-24 shadow-md bg-white border border-stone-200"
         )}
+        style={isBotanical ? {
+          backgroundColor: "rgba(255,255,255,0.15)",
+          border: "1px solid rgba(255,255,255,0.25)",
+        } : undefined}
       >
-        {/* Top half background */}
-        <div
-          className="absolute inset-x-0 top-0 h-1/2"
-          style={{ backgroundColor: `${accentColor}08` }}
-        />
+        {/* Top half background — default only */}
+        {!isBotanical && (
+          <div
+            className="absolute inset-x-0 top-0 h-1/2"
+            style={{ backgroundColor: `${accentColor}08` }}
+          />
+        )}
 
         {/* Middle line */}
-        <div className="absolute inset-x-0 top-1/2 h-px bg-stone-200 z-10" />
+        {!isBotanical && (
+          <div className="absolute inset-x-0 top-1/2 h-px bg-stone-200 z-10" />
+        )}
+        {isBotanical && (
+          <div className="absolute inset-x-0 top-1/2 h-px z-10" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
+        )}
 
         {/* Number display */}
         <div className="absolute inset-0 flex items-center justify-center">
           <AnimatePresence mode="popLayout">
             <motion.div
-              key={displayValue}
-              initial={{ rotateX: -90, opacity: 0 }}
-              animate={{ rotateX: 0, opacity: 1 }}
-              exit={{ rotateX: 90, opacity: 0 }}
-              transition={{
-                duration: 0.4,
-                ease: [0.4, 0, 0.2, 1],
-              }}
-              className="text-3xl md:text-4xl font-bold tabular-nums"
-              style={{ color: accentColor }}
+              key={value}
+              initial={{ y: -8, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 8, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className={cn(
+                "font-bold tabular-nums",
+                isBotanical ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"
+              )}
+              style={{ color: isBotanical ? "#FDFBF7" : accentColor }}
             >
               {formattedValue}
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Flip effect overlay during animation */}
-        {isFlipping && (
-          <motion.div
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            exit={{ scaleY: 0 }}
-            className="absolute inset-0 bg-gradient-to-b from-white/50 to-transparent origin-top"
-          />
+        {/* Subtle corner accents — default only */}
+        {!isBotanical && (
+          <>
+            <div
+              className="absolute top-0 left-0 w-2 h-2 border-l-2 border-t-2 rounded-tl-lg"
+              style={{ borderColor: accentColor }}
+            />
+            <div
+              className="absolute top-0 right-0 w-2 h-2 border-r-2 border-t-2 rounded-tr-lg"
+              style={{ borderColor: accentColor }}
+            />
+            <div
+              className="absolute bottom-0 left-0 w-2 h-2 border-l-2 border-b-2 rounded-bl-lg"
+              style={{ borderColor: accentColor }}
+            />
+            <div
+              className="absolute bottom-0 right-0 w-2 h-2 border-r-2 border-b-2 rounded-br-lg"
+              style={{ borderColor: accentColor }}
+            />
+          </>
         )}
-
-        {/* Subtle corner accents */}
-        <div
-          className="absolute top-0 left-0 w-2 h-2 border-l-2 border-t-2 rounded-tl-lg"
-          style={{ borderColor: accentColor }}
-        />
-        <div
-          className="absolute top-0 right-0 w-2 h-2 border-r-2 border-t-2 rounded-tr-lg"
-          style={{ borderColor: accentColor }}
-        />
-        <div
-          className="absolute bottom-0 left-0 w-2 h-2 border-l-2 border-b-2 rounded-bl-lg"
-          style={{ borderColor: accentColor }}
-        />
-        <div
-          className="absolute bottom-0 right-0 w-2 h-2 border-r-2 border-b-2 rounded-br-lg"
-          style={{ borderColor: accentColor }}
-        />
       </div>
 
       {/* Label */}
-      <span className="text-xs md:text-sm text-stone-500 uppercase tracking-wider mt-2 font-medium">
+      <span
+        className={cn(
+          "text-xs md:text-sm uppercase tracking-wider mt-2 font-medium",
+          !isBotanical && "text-stone-500"
+        )}
+        style={isBotanical ? { color: "rgba(253,251,247,0.8)" } : undefined}
+      >
         {label}
       </span>
     </div>

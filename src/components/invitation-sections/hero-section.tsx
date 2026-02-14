@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { WaxSeal } from "@/components/wax-seal/wax-seal";
 import { type SealFontId } from "@/lib/wax-fonts";
 import { type Template } from "@/lib/templates";
+import { BloementuinFloralBackground } from "@/components/bloementuin-floral-bg";
 
 interface HeroSectionProps {
   partner1Name: string;
@@ -40,6 +41,7 @@ export function HeroSection({
   });
 
   const displayMonogram = monogram || `${partner1Name.charAt(0)}&${partner2Name.charAt(0)}`;
+  const isBotanical = template.style === "botanical";
 
   return (
     <section
@@ -53,26 +55,28 @@ export function HeroSection({
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {template.style === "romantic" && <RomanticBackground color={template.colors.primary} />}
         {template.style === "modern" && <ModernBackground color={template.colors.secondary} />}
-        {template.style === "rustic" && <RusticBackground color={template.colors.primary} />}
+        {template.style === "botanical" && <BloementuinFloralBackground />}
       </div>
 
-      <div className="relative z-10 text-center max-w-2xl mx-auto">
-        {/* Wax seal */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex justify-center mb-8"
-        >
-          <WaxSeal
-            initials={displayMonogram}
-            color={sealColor}
-            font={sealFont}
-            size="lg"
-            blur={0.5}
-            interactive={false}
-          />
-        </motion.div>
+      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isBotanical && "-mt-16")}>
+        {/* Wax seal — hidden for botanical style */}
+        {!isBotanical && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex justify-center mb-8"
+          >
+            <WaxSeal
+              initials={displayMonogram}
+              color={sealColor}
+              font={sealFont}
+              size="lg"
+              blur={0.5}
+              interactive={false}
+            />
+          </motion.div>
+        )}
 
         {/* Headline */}
         {headline && (
@@ -84,6 +88,7 @@ export function HeroSection({
             style={{
               color: template.colors.textMuted,
               fontFamily: `'${template.fonts.accent}', cursive`,
+              ...(isBotanical && { textShadow: "0 1px 8px rgba(253,251,247,0.8)" }),
             }}
           >
             {headline}
@@ -99,6 +104,7 @@ export function HeroSection({
           style={{
             color: template.colors.text,
             fontFamily: `'${template.fonts.heading}', serif`,
+            ...(isBotanical && { textShadow: "0 2px 12px rgba(253,251,247,0.9), 0 0px 4px rgba(253,251,247,0.6)" }),
           }}
         >
           {partner1Name}
@@ -118,43 +124,97 @@ export function HeroSection({
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-8 space-y-2"
         >
-          <p
-            className="text-lg sm:text-xl capitalize"
-            style={{
-              color: template.colors.text,
-              fontFamily: `'${template.fonts.body}', serif`,
-            }}
-          >
-            {formattedDate}
-          </p>
-          {weddingTime && (
-            <p
-              className="text-lg"
-              style={{ color: template.colors.textMuted }}
-            >
-              {weddingTime} uur
-            </p>
+          {isBotanical ? (
+            /* Elegant date display for botanical — no time, accent font with decorative lines */
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+              <p
+                className="text-xl sm:text-2xl capitalize"
+                style={{
+                  color: template.colors.text,
+                  fontFamily: `'${template.fonts.accent}', cursive`,
+                  ...(isBotanical && { textShadow: "0 1px 8px rgba(253,251,247,0.8)" }),
+                }}
+              >
+                {formattedDate}
+              </p>
+              <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+            </div>
+          ) : (
+            <>
+              <p
+                className="text-lg sm:text-xl capitalize"
+                style={{
+                  color: template.colors.text,
+                  fontFamily: `'${template.fonts.body}', serif`,
+                }}
+              >
+                {formattedDate}
+              </p>
+              {weddingTime && (
+                <p
+                  className="text-lg"
+                  style={{ color: template.colors.textMuted }}
+                >
+                  {weddingTime} uur
+                </p>
+              )}
+            </>
           )}
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
+      {/* CTA button + chevron at bottom — Bloementuin only */}
+      {isBotanical ? (
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="absolute bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10"
         >
-          <ChevronDown
-            className="w-8 h-8"
-            style={{ color: template.colors.textMuted }}
-          />
+          <button
+            onClick={() => {
+              document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="flex flex-col items-center gap-3 px-8 py-3 transition-opacity duration-200 hover:opacity-80 cursor-pointer"
+          >
+            <span
+              className="text-xs font-semibold tracking-[0.2em] uppercase"
+              style={{ color: "#FDFBF7", textShadow: "0 1px 12px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.3)" }}
+            >
+              Bevestig aanwezigheid
+            </span>
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              style={{ filter: "drop-shadow(0 1px 8px rgba(0,0,0,0.4))" }}
+            >
+              <ChevronDown
+                className="w-6 h-6"
+                style={{ color: "#FDFBF7" }}
+              />
+            </motion.div>
+          </button>
         </motion.div>
-      </motion.div>
+      ) : (
+        /* Scroll indicator for non-botanical */
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.5 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown
+              className="w-8 h-8"
+              style={{ color: template.colors.textMuted }}
+            />
+          </motion.div>
+        </motion.div>
+      )}
     </section>
   );
 }
@@ -196,18 +256,3 @@ function ModernBackground({ color }: { color: string }) {
   );
 }
 
-function RusticBackground({ color }: { color: string }) {
-  return (
-    <>
-      {/* Organic shapes */}
-      <div
-        className="absolute top-1/4 -left-20 w-40 h-80 rounded-full blur-2xl opacity-10 rotate-45"
-        style={{ backgroundColor: color }}
-      />
-      <div
-        className="absolute bottom-1/4 -right-10 w-32 h-64 rounded-full blur-2xl opacity-10 -rotate-12"
-        style={{ backgroundColor: color }}
-      />
-    </>
-  );
-}

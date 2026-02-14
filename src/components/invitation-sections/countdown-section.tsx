@@ -17,13 +17,15 @@ export function CountdownSection({
   template,
   className,
 }: CountdownSectionProps) {
+  const isBotanical = template.style === "botanical";
+
   return (
     <section
       className={cn(
-        "py-16 px-4",
+        isBotanical ? "py-16 px-4 sm:py-20" : "py-16 px-4",
         className
       )}
-      style={{ background: template.colors.background }}
+      style={{ background: isBotanical ? "#4A5D4A" : template.colors.background }}
     >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -35,7 +37,7 @@ export function CountdownSection({
         <h2
           className="font-heading text-2xl sm:text-3xl mb-2"
           style={{
-            color: template.colors.text,
+            color: isBotanical ? "#FDFBF7" : template.colors.text,
             fontFamily: `'${template.fonts.heading}', serif`,
           }}
         >
@@ -43,23 +45,26 @@ export function CountdownSection({
         </h2>
         <p
           className="text-sm mb-8"
-          style={{ color: template.colors.textMuted }}
+          style={{ color: isBotanical ? "rgba(253,251,247,0.7)" : template.colors.textMuted }}
         >
           Tot de grote dag
         </p>
 
         <CountdownTimer
           targetDate={weddingDate}
-          accentColor={template.colors.primary}
+          accentColor={isBotanical ? "#FDFBF7" : template.colors.primary}
           variant="card"
           showSeconds={false}
+          theme={isBotanical ? "botanical" : undefined}
         />
 
-        <SectionDivider
-          style={template.dividerStyle}
-          color={template.colors.primary}
-          className="mt-8"
-        />
+        {!isBotanical && (
+          <SectionDivider
+            style={template.dividerStyle}
+            color={template.colors.primary}
+            className="mt-8"
+          />
+        )}
       </motion.div>
     </section>
   );

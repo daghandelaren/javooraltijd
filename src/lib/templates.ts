@@ -7,7 +7,7 @@ export interface Template {
   nameEn: string;
   description: string;
   descriptionEn: string;
-  style: "romantic" | "modern" | "rustic";
+  style: "romantic" | "modern" | "botanical";
   sealColor: string; // Hex color
   colors: {
     primary: string;
@@ -84,23 +84,23 @@ export const templates: Template[] = [
   },
   {
     id: "3",
-    slug: "rustiek",
-    name: "Rustiek",
-    nameEn: "Rustic",
+    slug: "bloementuin",
+    name: "Bloementuin",
+    nameEn: "Flower Garden",
     description:
-      "Natuurlijk en warm design met aardse tinten en organische elementen. Perfect voor een boerderij- of buitenbruiloft.",
+      "Romantische bloementuin met aquarel-wildbloemillustraties en zachte botanische tinten. Perfect voor een tuinfeest of natuurlijke bruiloft.",
     descriptionEn:
-      "Natural and warm design with earthy tones and organic elements. Perfect for a farm or outdoor wedding.",
-    style: "rustic",
-    sealColor: "#5C4033", // Warm brown
+      "Romantic flower garden with watercolor wildflower illustrations and soft botanical tones. Perfect for a garden party or natural wedding.",
+    style: "botanical",
+    sealColor: "#5C7C5C", // Sage green
     colors: {
-      primary: "#5C7C5C", // Sage green
-      secondary: "#C67B5C", // Terracotta
-      accent: "#E8DDD0", // Kraft/natural paper
-      background: "#F9F6F1", // Warm off-white
-      backgroundGradient: "linear-gradient(180deg, #F9F6F1 0%, #F5F0E6 50%, #EDE5D8 100%)",
+      primary: "#6B8F6B", // Soft garden green
+      secondary: "#D4A0A0", // Blush pink
+      accent: "#F0EBE3", // Warm ivory
+      background: "#FDFBF7", // Ivory
+      backgroundGradient: "linear-gradient(180deg, #FDFBF7 0%, #F8F4EC 50%, #F0EBE3 100%)",
       text: "#3D3D3D", // Dark charcoal
-      textMuted: "#6B6B6B", // Medium gray
+      textMuted: "#7A7A6E", // Warm gray
     },
     fonts: {
       heading: "Libre Baskerville",

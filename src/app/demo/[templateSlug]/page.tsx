@@ -4,22 +4,27 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, X, MapPin, Clock, Calendar } from "lucide-react";
+import { ArrowRight, X, MapPin, ChevronDown, Heart } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { WaxSeal } from "@/components/wax-seal/wax-seal";
 import { ProgramIcon } from "@/components/builder/icon-picker";
 import { getTemplateBySlug, type Template } from "@/lib/templates";
 import { Envelope2D } from "@/components/envelope-2d";
 import { CountdownTimer } from "@/components/countdown";
-import { cn } from "@/lib/utils";
+import {
+  BloementuinFloralBackground,
+  BloementuinSectionAccent,
+} from "@/components/bloementuin-floral-bg";
+import { RSVPSection } from "@/components/invitation-sections/rsvp-section";
+import { DresscodeSection } from "@/components/invitation-sections/dresscode-section";
+import { GiftSection } from "@/components/invitation-sections/gift-section";
 
 // Demo data with generic placeholders
 const demoData = {
-  partner1: "Partner 1",
-  partner2: "Partner 2",
+  partner1: "Matthew",
+  partner2: "Evelyn",
   monogram: "J&B", // Ja Voor Altijd
-  date: "15 juni 2025",
+  date: "15 juni 2026",
   time: "14:00",
   headline: "Wij gaan trouwen!",
   locations: [
@@ -160,71 +165,163 @@ function InvitationContent({ template }: { template: Template }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="pt-16 pb-24"
+            className="pb-24"
           >
-            {/* Hero section */}
-            <section className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
+            {/* Hero section — names, date, CTA only */}
+            <section className="min-h-screen flex flex-col items-center justify-center px-4 pt-16 text-center relative">
+              {/* Botanical floral background */}
+              {template.style === "botanical" && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  <BloementuinFloralBackground />
+                </div>
+              )}
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
+                className="relative z-10 -mt-16"
               >
-                <WaxSeal
-                  initials={demoData.monogram}
-                  color={template.sealColor}
-                  size="lg"
-                  interactive={false}
-                />
                 <p
-                  className="font-accent text-2xl mt-6 mb-4"
+                  className="font-accent text-2xl mb-6"
                   style={{
                     color: template.colors.textMuted,
                     fontFamily: `'${template.fonts.accent}', cursive`,
+                    ...(template.style === "botanical" && { textShadow: "0 1px 8px rgba(253,251,247,0.8)" }),
                   }}
                 >
                   {demoData.headline}
                 </p>
                 <h1
-                  className="font-heading text-5xl sm:text-6xl lg:text-7xl font-semibold"
+                  className="font-heading text-5xl sm:text-6xl lg:text-7xl font-semibold leading-tight"
                   style={{
                     color: template.colors.text,
                     fontFamily: `'${template.fonts.heading}', serif`,
+                    ...(template.style === "botanical" && { textShadow: "0 2px 12px rgba(253,251,247,0.9), 0 0px 4px rgba(253,251,247,0.6)" }),
                   }}
                 >
-                  {demoData.partner1} & {demoData.partner2}
+                  {demoData.partner1}
+                  <span
+                    className="block text-2xl sm:text-3xl my-2 font-normal"
+                    style={{ color: template.colors.textMuted }}
+                  >
+                    &
+                  </span>
+                  {demoData.partner2}
                 </h1>
-                <div className="mt-8 flex items-center justify-center gap-4 text-lg">
-                  <span
-                    className="flex items-center gap-2"
-                    style={{ color: template.colors.textMuted }}
+                {template.style === "botanical" ? (
+                  /* Elegant date for botanical — no time, accent font with decorative lines */
+                  <div className="mt-8 flex items-center justify-center gap-4">
+                    <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+                    <p
+                      className="text-xl sm:text-2xl capitalize"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.accent}', cursive`,
+                        textShadow: "0 1px 8px rgba(253,251,247,0.8)",
+                      }}
+                    >
+                      {demoData.date}
+                    </p>
+                    <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+                  </div>
+                ) : (
+                  <p
+                    className="mt-8 text-lg capitalize"
+                    style={{
+                      color: template.colors.text,
+                      fontFamily: `'${template.fonts.body}', serif`,
+                    }}
                   >
-                    <Calendar className="w-5 h-5" />
-                    {demoData.date}
-                  </span>
-                  <span style={{ color: template.colors.secondary }}>-</span>
-                  <span
-                    className="flex items-center gap-2"
-                    style={{ color: template.colors.textMuted }}
-                  >
-                    <Clock className="w-5 h-5" />
-                    {demoData.time}
-                  </span>
-                </div>
-
-                {/* Countdown Timer */}
-                <div className="mt-12">
-                  <CountdownTimer
-                    targetDate={demoWeddingDate}
-                    accentColor={template.colors.primary}
-                    variant="card"
-                    showSeconds={false}
-                  />
-                </div>
+                    {demoData.date} - {demoData.time} uur
+                  </p>
+                )}
               </motion.div>
+
+              {/* CTA button + chevron at bottom — botanical */}
+              {template.style === "botanical" ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="absolute bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10"
+                >
+                  <button
+                    onClick={() => {
+                      document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="flex flex-col items-center gap-3 px-8 py-3 transition-opacity duration-200 hover:opacity-80 cursor-pointer"
+                  >
+                    <span
+                      className="text-xs font-semibold tracking-[0.2em] uppercase"
+                      style={{ color: "#FDFBF7", textShadow: "0 1px 12px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.3)" }}
+                    >
+                      Bevestig aanwezigheid
+                    </span>
+                    <motion.div
+                      animate={{ y: [0, 6, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ filter: "drop-shadow(0 1px 8px rgba(0,0,0,0.4))" }}
+                    >
+                      <ChevronDown
+                        className="w-6 h-6"
+                        style={{ color: "#FDFBF7" }}
+                      />
+                    </motion.div>
+                  </button>
+                </motion.div>
+              ) : (
+                <div className="mt-10">
+                  <button
+                    onClick={() => {
+                      document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-colors duration-200"
+                    style={{
+                      backgroundColor: template.colors.primary,
+                      color: "#FDFBF7",
+                    }}
+                  >
+                    Bevestig aanwezigheid
+                  </button>
+                </div>
+              )}
+            </section>
+
+            {/* Countdown */}
+            <section
+              className={`${template.style === "botanical" ? "py-16 sm:py-20" : "py-16"} px-4`}
+              style={{ background: template.style === "botanical" ? "#4A5D4A" : undefined }}
+            >
+              <div className="max-w-2xl mx-auto text-center">
+                {template.style === "botanical" && (
+                  <>
+                    <h2
+                      className="font-heading text-2xl sm:text-3xl mb-2"
+                      style={{
+                        color: "#FDFBF7",
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                      }}
+                    >
+                      Nog even geduld...
+                    </h2>
+                    <p className="text-sm mb-8" style={{ color: "rgba(253,251,247,0.7)" }}>
+                      Tot de grote dag
+                    </p>
+                  </>
+                )}
+                <CountdownTimer
+                  targetDate={demoWeddingDate}
+                  accentColor={template.style === "botanical" ? "#FDFBF7" : template.colors.primary}
+                  variant="card"
+                  showSeconds={true}
+                  theme={template.style === "botanical" ? "botanical" : undefined}
+                />
+              </div>
             </section>
 
             {/* Locations */}
-            <section className="py-16 px-4">
+            <section className="py-16 px-4 relative">
               <div className="max-w-2xl mx-auto">
                 <h2
                   className="font-heading text-3xl text-center mb-12"
@@ -282,105 +379,203 @@ function InvitationContent({ template }: { template: Template }) {
                   ))}
                 </div>
               </div>
+              {template.style === "botanical" && (
+                <BloementuinSectionAccent position="bottom" />
+              )}
             </section>
 
             {/* Timeline */}
-            <section className="py-16 px-4 bg-white/40">
-              <div className="max-w-2xl mx-auto">
-                <h2
-                  className="font-heading text-3xl text-center mb-12"
-                  style={{
-                    color: template.colors.text,
-                    fontFamily: `'${template.fonts.heading}', serif`,
-                  }}
-                >
-                  Programma
-                </h2>
-                <div className="relative">
-                  {/* Vertical line */}
-                  <div
-                    className="absolute left-6 top-0 bottom-0 w-0.5"
-                    style={{ backgroundColor: template.colors.secondary }}
-                  />
-
-                  <div className="space-y-8">
-                    {demoData.timeline.map((item, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.7 + index * 0.1 }}
-                        className="relative pl-16"
-                      >
-                        {/* Dot */}
-                        <div
-                          className="absolute left-4 w-5 h-5 rounded-full border-2 bg-white"
-                          style={{ borderColor: template.colors.primary }}
-                        />
-
-                        <div className="flex items-center gap-4">
+            {template.style === "botanical" ? (
+              /* Horizontal timeline for botanical */
+              <section className="py-16 px-4 overflow-hidden" style={{ background: template.colors.background }}>
+                <div className="max-w-4xl mx-auto">
+                  <h2
+                    className="font-heading text-3xl text-center mb-12"
+                    style={{
+                      color: template.colors.text,
+                      fontFamily: `'${template.fonts.heading}', serif`,
+                    }}
+                  >
+                    Dagprogramma
+                  </h2>
+                  <div className="relative">
+                    {/* Horizontal connecting line */}
+                    <div
+                      className="hidden sm:block absolute left-0 right-0 h-px top-7"
+                      style={{ backgroundColor: template.colors.accent }}
+                    />
+                    <div className="flex flex-wrap justify-center gap-6 sm:gap-2 sm:flex-nowrap">
+                      {demoData.timeline.map((item, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.7 + index * 0.1 }}
+                          className="flex flex-col items-center text-center relative w-[calc(50%-12px)] sm:w-0 sm:flex-1"
+                        >
                           <div
-                            className="w-12 h-12 rounded-xl flex items-center justify-center"
+                            className="w-14 h-14 rounded-full flex items-center justify-center relative z-10 border-2"
                             style={{
-                              backgroundColor: `${template.colors.primary}15`,
+                              backgroundColor: template.colors.background,
+                              borderColor: template.colors.primary,
                               color: template.colors.primary,
                             }}
                           >
-                            <ProgramIcon
-                              iconId={item.icon}
-                              size="lg"
-                            />
+                            <ProgramIcon iconId={item.icon} size="lg" />
                           </div>
-                          <div>
-                            <p
-                              className="text-sm font-medium"
-                              style={{ color: template.colors.primary }}
-                            >
-                              {item.time}
-                            </p>
-                            <h3
-                              className="font-heading text-lg font-semibold"
-                              style={{
-                                color: template.colors.text,
-                                fontFamily: `'${template.fonts.heading}', serif`,
-                              }}
-                            >
-                              {item.title}
-                            </h3>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
+                          <p
+                            className="text-sm font-semibold mt-3"
+                            style={{ color: template.colors.primary }}
+                          >
+                            {item.time}
+                          </p>
+                          <h3
+                            className="font-heading text-base font-medium mt-1"
+                            style={{
+                              color: template.colors.text,
+                              fontFamily: `'${template.fonts.heading}', serif`,
+                            }}
+                          >
+                            {item.title}
+                          </h3>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
+            ) : (
+              /* Vertical timeline for other templates */
+              <section className="py-16 px-4 bg-white/40">
+                <div className="max-w-2xl mx-auto">
+                  <h2
+                    className="font-heading text-3xl text-center mb-12"
+                    style={{
+                      color: template.colors.text,
+                      fontFamily: `'${template.fonts.heading}', serif`,
+                    }}
+                  >
+                    Programma
+                  </h2>
+                  <div className="relative">
+                    <div
+                      className="absolute left-6 top-0 bottom-0 w-0.5"
+                      style={{ backgroundColor: template.colors.secondary }}
+                    />
+                    <div className="space-y-8">
+                      {demoData.timeline.map((item, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.7 + index * 0.1 }}
+                          className="relative pl-16"
+                        >
+                          <div
+                            className="absolute left-4 w-5 h-5 rounded-full border-2 bg-white"
+                            style={{ borderColor: template.colors.primary }}
+                          />
+                          <div className="flex items-center gap-4">
+                            <div
+                              className="w-12 h-12 rounded-xl flex items-center justify-center"
+                              style={{
+                                backgroundColor: `${template.colors.primary}15`,
+                                color: template.colors.primary,
+                              }}
+                            >
+                              <ProgramIcon iconId={item.icon} size="lg" />
+                            </div>
+                            <div>
+                              <p
+                                className="text-sm font-medium"
+                                style={{ color: template.colors.primary }}
+                              >
+                                {item.time}
+                              </p>
+                              <h3
+                                className="font-heading text-lg font-semibold"
+                                style={{
+                                  color: template.colors.text,
+                                  fontFamily: `'${template.fonts.heading}', serif`,
+                                }}
+                              >
+                                {item.title}
+                              </h3>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
 
-            {/* RSVP Preview (disabled in demo) */}
-            <section className="py-16 px-4">
-              <div className="max-w-md mx-auto text-center">
-                <h2
-                  className="font-heading text-3xl mb-4"
+            {/* Dresscode */}
+            <DresscodeSection
+              dresscode="Feestelijk chic"
+              template={template}
+              colors={[{ hex: "#6B8F6B", name: "Salie groen" }, { hex: "#F0EBE3", name: "Ivoor" }]}
+            />
+
+            {/* Gift section */}
+            <GiftSection
+              config={{
+                enabled: true,
+                message: "Jullie aanwezigheid is het mooiste cadeau. Mochten jullie toch iets willen geven, dan is een bijdrage in de envelop zeer gewaardeerd.",
+                preferMoney: true,
+                iban: "NL00 BANK 0000 0000 00",
+                accountHolder: "Partner 1 & Partner 2",
+              }}
+              template={template}
+            />
+
+            {/* RSVP */}
+            <div id="rsvp" className="relative">
+              {template.style === "botanical" && (
+                <BloementuinSectionAccent side="left" />
+              )}
+              <RSVPSection
+                invitationId="demo"
+                enabled={true}
+                template={template}
+                demo={true}
+              />
+            </div>
+
+            {/* Footer with names & date */}
+            {template.style === "botanical" && (
+              <section
+                className="py-20 px-4 text-center"
+                style={{ backgroundColor: "#4A5D4A" }}
+              >
+                <Heart className="w-6 h-6 mx-auto mb-4" style={{ color: "rgba(253,251,247,0.5)" }} />
+                <h3
+                  className="text-2xl sm:text-3xl font-semibold mb-2"
                   style={{
-                    color: template.colors.text,
+                    color: "#FDFBF7",
                     fontFamily: `'${template.fonts.heading}', serif`,
                   }}
                 >
-                  RSVP
-                </h2>
+                  {demoData.partner1} & {demoData.partner2}
+                </h3>
                 <p
-                  className="mb-8"
-                  style={{ color: template.colors.textMuted }}
+                  className="text-sm mb-8 capitalize"
+                  style={{
+                    color: "rgba(253,251,247,0.7)",
+                    fontFamily: `'${template.fonts.body}', serif`,
+                  }}
                 >
-                  Laat ons weten of je erbij bent
+                  {demoData.date}
                 </p>
-                <div className="bg-white/60 rounded-xl p-6 shadow-sm blur-[2px]">
-                  <p className="text-stone-400 text-sm">
-                    RSVP formulier (niet beschikbaar in demo)
-                  </p>
-                </div>
-              </div>
-            </section>
+                <p
+                  className="text-xs tracking-wider"
+                  style={{ color: "rgba(253,251,247,0.4)" }}
+                >
+                  Ja, Voor Altijd
+                </p>
+              </section>
+            )}
 
             {/* Bottom CTA */}
             <section className="py-16 px-4">
@@ -408,3 +603,4 @@ function InvitationContent({ template }: { template: Template }) {
     </div>
   );
 }
+

@@ -11,6 +11,7 @@ interface CountdownTimerProps {
   variant?: "inline" | "card";
   className?: string;
   showSeconds?: boolean;
+  theme?: "botanical";
 }
 
 interface TimeLeft {
@@ -55,6 +56,7 @@ export function CountdownTimer({
   variant = "card",
   className,
   showSeconds = true,
+  theme,
 }: CountdownTimerProps) {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(() =>
     calculateTimeLeft(targetDate)
@@ -138,6 +140,7 @@ export function CountdownTimer({
         label="Dagen"
         accentColor={accentColor}
         variant={variant}
+        theme={theme}
       />
 
       {variant === "inline" && (
@@ -151,6 +154,7 @@ export function CountdownTimer({
         label="Uren"
         accentColor={accentColor}
         variant={variant}
+        theme={theme}
       />
 
       {variant === "inline" && (
@@ -164,6 +168,7 @@ export function CountdownTimer({
         label="Minuten"
         accentColor={accentColor}
         variant={variant}
+        theme={theme}
       />
 
       {showSeconds && (
@@ -179,6 +184,7 @@ export function CountdownTimer({
             label="Seconden"
             accentColor={accentColor}
             variant={variant}
+            theme={theme}
           />
         </>
       )}

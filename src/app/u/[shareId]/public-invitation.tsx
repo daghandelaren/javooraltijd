@@ -17,6 +17,7 @@ import {
   FloatingMusicToggle,
   useMusicControl,
 } from "@/components/invitation-sections";
+import { BloementuinSectionAccent } from "@/components/bloementuin-floral-bg";
 
 interface Location {
   id: string;
@@ -196,7 +197,12 @@ function InvitationContent({
 
       {/* Location Section */}
       {invitation.locations.length > 0 && (
-        <LocationSection locations={invitation.locations} template={template} />
+        <div className="relative">
+          <LocationSection locations={invitation.locations} template={template} />
+          {template.style === "botanical" && (
+            <BloementuinSectionAccent position="bottom" />
+          )}
+        </div>
       )}
 
       {/* Timeline Section */}
