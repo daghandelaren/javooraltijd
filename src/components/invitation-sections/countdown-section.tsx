@@ -18,14 +18,21 @@ export function CountdownSection({
   className,
 }: CountdownSectionProps) {
   const isBotanical = template.style === "botanical";
+  const isMediterranean = template.style === "mediterranean";
 
   return (
     <section
       className={cn(
-        isBotanical ? "py-16 px-4 sm:py-20" : "py-16 px-4",
+        (isBotanical || isMediterranean) ? "py-16 px-4 sm:py-20" : "py-16 px-4",
         className
       )}
-      style={{ background: isBotanical ? "#4A5D4A" : template.colors.background }}
+      style={{
+        background: isBotanical
+          ? "#4A5D4A"
+          : isMediterranean
+          ? template.colors.accent
+          : template.colors.background,
+      }}
     >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -55,16 +62,14 @@ export function CountdownSection({
           accentColor={isBotanical ? "#FDFBF7" : template.colors.primary}
           variant="card"
           showSeconds={false}
-          theme={isBotanical ? "botanical" : undefined}
+          theme={isBotanical ? "botanical" : isMediterranean ? "mediterranean" : undefined}
         />
 
-        {!isBotanical && (
-          <SectionDivider
-            style={template.dividerStyle}
-            color={template.colors.primary}
-            className="mt-8"
-          />
-        )}
+        <SectionDivider
+          style={template.dividerStyle}
+          color={template.colors.primary}
+          className="mt-8"
+        />
       </motion.div>
     </section>
   );

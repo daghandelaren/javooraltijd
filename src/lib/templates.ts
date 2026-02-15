@@ -7,7 +7,7 @@ export interface Template {
   nameEn: string;
   description: string;
   descriptionEn: string;
-  style: "romantic" | "modern" | "botanical";
+  style: "romantic" | "modern" | "botanical" | "mediterranean";
   sealColor: string; // Hex color
   colors: {
     primary: string;
@@ -24,7 +24,7 @@ export interface Template {
     accent: string;
   };
   // Section divider style
-  dividerStyle: "floral" | "geometric" | "botanical";
+  dividerStyle: "floral" | "geometric" | "botanical" | "citrus";
 }
 
 export const templates: Template[] = [
@@ -57,30 +57,30 @@ export const templates: Template[] = [
   },
   {
     id: "2",
-    slug: "modern",
-    name: "Modern",
-    nameEn: "Modern",
+    slug: "la-dolce-vita",
+    name: "La Dolce Vita",
+    nameEn: "La Dolce Vita",
     description:
-      "Strak en minimalistisch design met clean lijnen en gouden accenten. Ideaal voor een moderne, verfijnde bruiloft.",
+      "Mediterraans en zonnig design met citrus accenten en warme crème tinten. Perfect voor een Italiaanse, zomerse bruiloft.",
     descriptionEn:
-      "Clean and minimalist design with sleek lines and golden accents. Ideal for a modern, sophisticated wedding.",
-    style: "modern",
-    sealColor: "#2C3E50", // Slate/navy
+      "Mediterranean and sunny design with citrus accents and warm cream tones. Perfect for an Italian-inspired, summery wedding.",
+    style: "mediterranean",
+    sealColor: "#1B3A5F", // Navy
     colors: {
-      primary: "#1A1A1A", // Near black
-      secondary: "#C9A86C", // Warm gold
-      accent: "#F5F5F5", // Light gray
-      background: "#FFFFFF", // Pure white
-      backgroundGradient: "linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 50%, #F5F5F5 100%)",
-      text: "#1A1A1A", // Near black
-      textMuted: "#6B6B6B", // Medium gray
+      primary: "#1B3A5F", // Navy blue
+      secondary: "#E8A735", // Golden orange
+      accent: "#FFF8E7", // Warm cream
+      background: "#FFFCF5", // Off-white base
+      backgroundGradient: "linear-gradient(180deg, #FFFCF5 0%, #FFF8E7 50%, #FFF3D6 100%)",
+      text: "#1B3A5F", // Navy blue
+      textMuted: "#5F7896", // Muted blue-gray
     },
     fonts: {
       heading: "Playfair Display",
-      body: "Inter",
-      accent: "Inter",
+      body: "Lora",
+      accent: "Dancing Script",
     },
-    dividerStyle: "geometric",
+    dividerStyle: "citrus",
   },
   {
     id: "3",

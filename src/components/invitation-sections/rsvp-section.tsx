@@ -30,12 +30,13 @@ export function RSVPSection({
 
   const deadlinePassed = deadline ? new Date(deadline) < new Date() : false;
   const isBotanical = template.style === "botanical";
+  const isMediterranean = template.style === "mediterranean";
 
   return (
     <section
       className={cn("py-16 px-4", className)}
       style={{
-        background: isBotanical ? template.colors.background : template.colors.primary,
+        background: (isBotanical || isMediterranean) ? template.colors.background : template.colors.primary,
       }}
     >
       <motion.div
@@ -45,7 +46,7 @@ export function RSVPSection({
         transition={{ duration: 0.5 }}
         className="max-w-xl mx-auto"
       >
-        {isBotanical ? (
+        {(isBotanical || isMediterranean) ? (
           /* Botanical card-style RSVP */
           <div
             className="rounded-2xl border p-8 sm:p-10 shadow-sm"

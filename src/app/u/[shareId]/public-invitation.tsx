@@ -18,6 +18,7 @@ import {
   useMusicControl,
 } from "@/components/invitation-sections";
 import { BloementuinSectionAccent } from "@/components/bloementuin-floral-bg";
+import { LaDolceVitaSectionAccent } from "@/components/ladolcevita-citrus-bg";
 
 interface Location {
   id: string;
@@ -201,6 +202,9 @@ function InvitationContent({
           <LocationSection locations={invitation.locations} template={template} />
           {template.style === "botanical" && (
             <BloementuinSectionAccent position="bottom" />
+          )}
+          {template.style === "mediterranean" && (
+            <LaDolceVitaSectionAccent position="bottom" />
           )}
         </div>
       )}

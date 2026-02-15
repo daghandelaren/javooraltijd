@@ -15,14 +15,18 @@ import {
   BloementuinFloralBackground,
   BloementuinSectionAccent,
 } from "@/components/bloementuin-floral-bg";
+import {
+  LaDolceVitaCitrusBackground,
+  LaDolceVitaSectionAccent,
+} from "@/components/ladolcevita-citrus-bg";
 import { RSVPSection } from "@/components/invitation-sections/rsvp-section";
 import { DresscodeSection } from "@/components/invitation-sections/dresscode-section";
 import { GiftSection } from "@/components/invitation-sections/gift-section";
 
 // Demo data with generic placeholders
 const demoData = {
-  partner1: "Matthew",
-  partner2: "Evelyn",
+  partner1: "Jarno",
+  partner2: "Bryonie",
   monogram: "J&B", // Ja Voor Altijd
   date: "15 juni 2026",
   time: "14:00",
@@ -134,6 +138,9 @@ function DemoCTABar({ templateSlug }: { templateSlug: string }) {
 
 function InvitationContent({ template }: { template: Template }) {
   const [isRevealed, setIsRevealed] = useState(false);
+  const isMediterranean = template.style === "mediterranean";
+  const isBotanical = template.style === "botanical";
+  const isBotanicalOrMed = isBotanical || isMediterranean;
 
   // Demo wedding date (future date for countdown)
   const demoWeddingDate = new Date();
@@ -170,9 +177,15 @@ function InvitationContent({ template }: { template: Template }) {
             {/* Hero section — names, date, CTA only */}
             <section className="min-h-screen flex flex-col items-center justify-center px-4 pt-16 text-center relative">
               {/* Botanical floral background */}
-              {template.style === "botanical" && (
+              {isBotanical && (
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                   <BloementuinFloralBackground />
+                </div>
+              )}
+              {/* Mediterranean citrus background */}
+              {isMediterranean && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  <LaDolceVitaCitrusBackground />
                 </div>
               )}
 
@@ -180,37 +193,106 @@ function InvitationContent({ template }: { template: Template }) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="relative z-10 -mt-16"
+                className={`relative z-10 ${isBotanicalOrMed ? "-mt-16" : ""}`}
               >
-                <p
-                  className="font-accent text-2xl mb-6"
-                  style={{
-                    color: template.colors.textMuted,
-                    fontFamily: `'${template.fonts.accent}', cursive`,
-                    ...(template.style === "botanical" && { textShadow: "0 1px 8px rgba(253,251,247,0.8)" }),
-                  }}
-                >
-                  {demoData.headline}
-                </p>
-                <h1
-                  className="font-heading text-5xl sm:text-6xl lg:text-7xl font-semibold leading-tight"
-                  style={{
-                    color: template.colors.text,
-                    fontFamily: `'${template.fonts.heading}', serif`,
-                    ...(template.style === "botanical" && { textShadow: "0 2px 12px rgba(253,251,247,0.9), 0 0px 4px rgba(253,251,247,0.6)" }),
-                  }}
-                >
-                  {demoData.partner1}
-                  <span
-                    className="block text-2xl sm:text-3xl my-2 font-normal"
-                    style={{ color: template.colors.textMuted }}
+                {/* Headline — above names for non-mediterranean, below for mediterranean */}
+                {!isMediterranean && (
+                  <p
+                    className="font-accent text-2xl mb-6"
+                    style={{
+                      color: template.colors.textMuted,
+                      fontFamily: `'${template.fonts.accent}', cursive`,
+                      ...(isBotanical && { textShadow: "0 1px 8px rgba(255,252,245,0.8)" }),
+                    }}
                   >
-                    &
-                  </span>
-                  {demoData.partner2}
-                </h1>
-                {template.style === "botanical" ? (
-                  /* Elegant date for botanical — no time, accent font with decorative lines */
+                    {demoData.headline}
+                  </p>
+                )}
+                {isMediterranean ? (
+                  /* Italian-style: names on one line, left-centered */
+                  <h1
+                    className="leading-tight text-left"
+                    style={{
+                      textShadow: "0 2px 12px rgba(255,252,245,0.9), 0 0px 4px rgba(255,252,245,0.6)",
+                    }}
+                  >
+                    <span
+                      className="text-5xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-[0.12em]"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                      }}
+                    >
+                      {demoData.partner1}
+                    </span>
+                    <span
+                      className="inline-block text-4xl sm:text-5xl lg:text-6xl mx-2 sm:mx-3"
+                      style={{
+                        color: template.colors.primary,
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                        fontStyle: "italic",
+                        fontWeight: 400,
+                      }}
+                    >
+                      &
+                    </span>
+                    <br />
+                    <span
+                      className="text-5xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-[0.12em]"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                      }}
+                    >
+                      {demoData.partner2}
+                    </span>
+                  </h1>
+                ) : (
+                  <h1
+                    className="font-heading text-5xl sm:text-6xl lg:text-7xl font-semibold leading-tight"
+                    style={{
+                      color: template.colors.text,
+                      fontFamily: `'${template.fonts.heading}', serif`,
+                      ...(isBotanical && { textShadow: "0 2px 12px rgba(255,252,245,0.9), 0 0px 4px rgba(255,252,245,0.6)" }),
+                    }}
+                  >
+                    {demoData.partner1}
+                    <span
+                      className="block text-2xl sm:text-3xl my-2 font-normal"
+                      style={{ color: template.colors.textMuted }}
+                    >
+                      &
+                    </span>
+                    {demoData.partner2}
+                  </h1>
+                )}
+                {/* Mediterranean headline + date below names */}
+                {isMediterranean && (
+                  <div className="text-left mt-8">
+                    <p
+                      className="text-base sm:text-lg font-semibold uppercase tracking-[0.2em]"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                        textShadow: "0 1px 8px rgba(255,252,245,0.8)",
+                      }}
+                    >
+                      Bruiloft
+                    </p>
+                    <p
+                      className="text-lg sm:text-xl capitalize mt-1 tracking-wide"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                        textShadow: "0 1px 8px rgba(255,252,245,0.8)",
+                      }}
+                    >
+                      {demoData.date}
+                    </p>
+                  </div>
+                )}
+                {isBotanical && (
+                  /* Elegant date for botanical — accent font with decorative lines */
                   <div className="mt-8 flex items-center justify-center gap-4">
                     <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
                     <p
@@ -218,14 +300,15 @@ function InvitationContent({ template }: { template: Template }) {
                       style={{
                         color: template.colors.text,
                         fontFamily: `'${template.fonts.accent}', cursive`,
-                        textShadow: "0 1px 8px rgba(253,251,247,0.8)",
+                        textShadow: "0 1px 8px rgba(255,252,245,0.8)",
                       }}
                     >
                       {demoData.date}
                     </p>
                     <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
                   </div>
-                ) : (
+                )}
+                {!isBotanicalOrMed && (
                   <p
                     className="mt-8 text-lg capitalize"
                     style={{
@@ -238,8 +321,8 @@ function InvitationContent({ template }: { template: Template }) {
                 )}
               </motion.div>
 
-              {/* CTA button + chevron at bottom — botanical */}
-              {template.style === "botanical" ? (
+              {/* CTA button + chevron at bottom */}
+              {isBotanicalOrMed ? (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -254,18 +337,27 @@ function InvitationContent({ template }: { template: Template }) {
                   >
                     <span
                       className="text-xs font-semibold tracking-[0.2em] uppercase"
-                      style={{ color: "#FDFBF7", textShadow: "0 1px 12px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.3)" }}
+                      style={{
+                        color: isMediterranean ? template.colors.primary : "#FDFBF7",
+                        textShadow: isMediterranean
+                          ? "0 1px 12px rgba(255,252,245,0.8), 0 0px 4px rgba(255,252,245,0.5)"
+                          : "0 1px 12px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.3)",
+                      }}
                     >
                       Bevestig aanwezigheid
                     </span>
                     <motion.div
                       animate={{ y: [0, 6, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                      style={{ filter: "drop-shadow(0 1px 8px rgba(0,0,0,0.4))" }}
+                      style={{
+                        filter: isMediterranean
+                          ? "drop-shadow(0 1px 8px rgba(255,252,245,0.5))"
+                          : "drop-shadow(0 1px 8px rgba(0,0,0,0.4))",
+                      }}
                     >
                       <ChevronDown
                         className="w-6 h-6"
-                        style={{ color: "#FDFBF7" }}
+                        style={{ color: isMediterranean ? template.colors.primary : "#FDFBF7" }}
                       />
                     </motion.div>
                   </button>
@@ -290,11 +382,17 @@ function InvitationContent({ template }: { template: Template }) {
 
             {/* Countdown */}
             <section
-              className={`${template.style === "botanical" ? "py-16 sm:py-20" : "py-16"} px-4`}
-              style={{ background: template.style === "botanical" ? "#4A5D4A" : undefined }}
+              className={`${isBotanicalOrMed ? "py-16 sm:py-20" : "py-16"} px-4`}
+              style={{
+                background: isBotanical
+                  ? "#4A5D4A"
+                  : isMediterranean
+                    ? template.colors.accent
+                    : undefined,
+              }}
             >
               <div className="max-w-2xl mx-auto text-center">
-                {template.style === "botanical" && (
+                {isBotanical && (
                   <>
                     <h2
                       className="font-heading text-2xl sm:text-3xl mb-2"
@@ -310,12 +408,28 @@ function InvitationContent({ template }: { template: Template }) {
                     </p>
                   </>
                 )}
+                {isMediterranean && (
+                  <>
+                    <h2
+                      className="font-heading text-2xl sm:text-3xl mb-2"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                      }}
+                    >
+                      Nog even geduld...
+                    </h2>
+                    <p className="text-sm mb-8" style={{ color: template.colors.textMuted }}>
+                      Tot de grote dag
+                    </p>
+                  </>
+                )}
                 <CountdownTimer
                   targetDate={demoWeddingDate}
-                  accentColor={template.style === "botanical" ? "#FDFBF7" : template.colors.primary}
+                  accentColor={isBotanical ? "#FDFBF7" : template.colors.primary}
                   variant="card"
                   showSeconds={true}
-                  theme={template.style === "botanical" ? "botanical" : undefined}
+                  theme={isBotanical ? "botanical" : isMediterranean ? "mediterranean" : undefined}
                 />
               </div>
             </section>
@@ -379,13 +493,16 @@ function InvitationContent({ template }: { template: Template }) {
                   ))}
                 </div>
               </div>
-              {template.style === "botanical" && (
+              {isBotanical && (
                 <BloementuinSectionAccent position="bottom" />
+              )}
+              {isMediterranean && (
+                <LaDolceVitaSectionAccent position="bottom" />
               )}
             </section>
 
             {/* Timeline */}
-            {template.style === "botanical" ? (
+            {isBotanicalOrMed ? (
               /* Horizontal timeline for botanical */
               <section className="py-16 px-4 overflow-hidden" style={{ background: template.colors.background }}>
                 <div className="max-w-4xl mx-auto">
@@ -515,7 +632,10 @@ function InvitationContent({ template }: { template: Template }) {
             <DresscodeSection
               dresscode="Feestelijk chic"
               template={template}
-              colors={[{ hex: "#6B8F6B", name: "Salie groen" }, { hex: "#F0EBE3", name: "Ivoor" }]}
+              colors={isMediterranean
+                ? [{ hex: "#1B3A5F", name: "Blauw" }, { hex: "#8C939A", name: "Grijs" }]
+                : [{ hex: "#6B8F6B", name: "Salie groen" }, { hex: "#F0EBE3", name: "Ivoor" }]
+              }
             />
 
             {/* Gift section */}
@@ -532,8 +652,11 @@ function InvitationContent({ template }: { template: Template }) {
 
             {/* RSVP */}
             <div id="rsvp" className="relative">
-              {template.style === "botanical" && (
+              {isBotanical && (
                 <BloementuinSectionAccent side="left" />
+              )}
+              {isMediterranean && (
+                <LaDolceVitaSectionAccent position="top" />
               )}
               <RSVPSection
                 invitationId="demo"
@@ -544,7 +667,7 @@ function InvitationContent({ template }: { template: Template }) {
             </div>
 
             {/* Footer with names & date */}
-            {template.style === "botanical" && (
+            {isBotanical && (
               <section
                 className="py-20 px-4 text-center"
                 style={{ backgroundColor: "#4A5D4A" }}
@@ -571,6 +694,38 @@ function InvitationContent({ template }: { template: Template }) {
                 <p
                   className="text-xs tracking-wider"
                   style={{ color: "rgba(253,251,247,0.4)" }}
+                >
+                  Ja, Voor Altijd
+                </p>
+              </section>
+            )}
+            {isMediterranean && (
+              <section
+                className="py-20 px-4 text-center"
+                style={{ backgroundColor: template.colors.accent }}
+              >
+                <Heart className="w-6 h-6 mx-auto mb-4" style={{ color: `${template.colors.secondary}80` }} />
+                <h3
+                  className="text-2xl sm:text-3xl font-semibold mb-2"
+                  style={{
+                    color: template.colors.text,
+                    fontFamily: `'${template.fonts.heading}', serif`,
+                  }}
+                >
+                  {demoData.partner1} & {demoData.partner2}
+                </h3>
+                <p
+                  className="text-sm mb-8 capitalize"
+                  style={{
+                    color: template.colors.textMuted,
+                    fontFamily: `'${template.fonts.body}', serif`,
+                  }}
+                >
+                  {demoData.date}
+                </p>
+                <p
+                  className="text-xs tracking-wider"
+                  style={{ color: `${template.colors.textMuted}80` }}
                 >
                   Ja, Voor Altijd
                 </p>

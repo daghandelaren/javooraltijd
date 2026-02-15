@@ -88,7 +88,7 @@ function LocationCard({
     <div
       className="relative rounded-2xl overflow-hidden shadow-sm"
       style={{
-        backgroundColor: template.style === "modern" ? "#FFFFFF" : "rgba(255,255,255,0.8)",
+        backgroundColor: template.style === "mediterranean" ? "#FFF8E7" : "rgba(255,255,255,0.8)",
         border: `1px solid ${template.colors.accent}`,
       }}
     >

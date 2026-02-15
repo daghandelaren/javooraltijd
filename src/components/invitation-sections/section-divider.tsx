@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 
 interface SectionDividerProps {
-  style?: "floral" | "geometric" | "botanical";
+  style?: "floral" | "geometric" | "botanical" | "citrus";
   color?: string;
   className?: string;
 }
@@ -18,6 +18,7 @@ export function SectionDivider({
       {style === "floral" && <FloralDivider color={color} />}
       {style === "geometric" && <GeometricDivider color={color} />}
       {style === "botanical" && <BotanicalDivider color={color} />}
+      {style === "citrus" && <CitrusDivider color={color} />}
     </div>
   );
 }
@@ -155,6 +156,36 @@ function BotanicalDivider({ color }: { color: string }) {
         strokeWidth="1"
         fill="none"
       />
+    </svg>
+  );
+}
+
+function CitrusDivider({ color }: { color: string }) {
+  return (
+    <svg
+      width="200"
+      height="40"
+      viewBox="0 0 200 40"
+      fill="none"
+      className="opacity-60"
+    >
+      {/* Left line */}
+      <line x1="10" y1="20" x2="75" y2="20" stroke={color} strokeWidth="1" />
+      {/* Left leaf */}
+      <path d="M70 20 Q62 12 58 18 Q64 22 70 20Z" fill="#4A7C59" opacity="0.7" />
+      {/* Center lemon slice cross-section */}
+      <circle cx="100" cy="20" r="12" fill="#F9E547" opacity="0.6" />
+      <circle cx="100" cy="20" r="8" fill="#FFF8E7" opacity="0.5" />
+      {/* Lemon segments */}
+      <line x1="100" y1="10" x2="100" y2="30" stroke="#F9E547" strokeWidth="0.8" opacity="0.5" />
+      <line x1="90" y1="20" x2="110" y2="20" stroke="#F9E547" strokeWidth="0.8" opacity="0.5" />
+      <line x1="93" y1="13" x2="107" y2="27" stroke="#F9E547" strokeWidth="0.8" opacity="0.5" />
+      <line x1="107" y1="13" x2="93" y2="27" stroke="#F9E547" strokeWidth="0.8" opacity="0.5" />
+      <circle cx="100" cy="20" r="3" fill="#E8A735" opacity="0.6" />
+      {/* Right leaf */}
+      <path d="M130 20 Q138 12 142 18 Q136 22 130 20Z" fill="#4A7C59" opacity="0.7" />
+      {/* Right line */}
+      <line x1="125" y1="20" x2="190" y2="20" stroke={color} strokeWidth="1" />
     </svg>
   );
 }

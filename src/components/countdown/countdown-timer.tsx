@@ -11,7 +11,7 @@ interface CountdownTimerProps {
   variant?: "inline" | "card";
   className?: string;
   showSeconds?: boolean;
-  theme?: "botanical";
+  theme?: "botanical" | "mediterranean";
 }
 
 interface TimeLeft {

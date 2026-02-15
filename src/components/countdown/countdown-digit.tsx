@@ -8,7 +8,7 @@ interface CountdownDigitProps {
   label: string;
   accentColor?: string;
   variant?: "inline" | "card";
-  theme?: "botanical";
+  theme?: "botanical" | "mediterranean";
 }
 
 export function CountdownDigit({
@@ -45,6 +45,7 @@ export function CountdownDigit({
   }
 
   const isBotanical = theme === "botanical";
+  const isMediterranean = theme === "mediterranean";
 
   // Card variant with flip animation
   return (
@@ -54,15 +55,20 @@ export function CountdownDigit({
           "relative overflow-hidden rounded-lg",
           isBotanical
             ? "w-20 h-24 md:w-28 md:h-32"
+            : isMediterranean
+            ? "w-20 h-24 md:w-28 md:h-32"
             : "w-16 h-20 md:w-20 md:h-24 shadow-md bg-white border border-stone-200"
         )}
         style={isBotanical ? {
           backgroundColor: "rgba(255,255,255,0.15)",
           border: "1px solid rgba(255,255,255,0.25)",
+        } : isMediterranean ? {
+          backgroundColor: "#FFF8E7",
+          border: "1px solid #E8A73540",
         } : undefined}
       >
         {/* Top half background — default only */}
-        {!isBotanical && (
+        {!isBotanical && !isMediterranean && (
           <div
             className="absolute inset-x-0 top-0 h-1/2"
             style={{ backgroundColor: `${accentColor}08` }}
@@ -70,11 +76,14 @@ export function CountdownDigit({
         )}
 
         {/* Middle line */}
-        {!isBotanical && (
+        {!isBotanical && !isMediterranean && (
           <div className="absolute inset-x-0 top-1/2 h-px bg-stone-200 z-10" />
         )}
         {isBotanical && (
           <div className="absolute inset-x-0 top-1/2 h-px z-10" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
+        )}
+        {isMediterranean && (
+          <div className="absolute inset-x-0 top-1/2 h-px z-10" style={{ backgroundColor: "#E8A73525" }} />
         )}
 
         {/* Number display */}
@@ -88,7 +97,7 @@ export function CountdownDigit({
               transition={{ duration: 0.3, ease: "easeOut" }}
               className={cn(
                 "font-bold tabular-nums",
-                isBotanical ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"
+                (isBotanical || isMediterranean) ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"
               )}
               style={{ color: isBotanical ? "#FDFBF7" : accentColor }}
             >
@@ -98,7 +107,7 @@ export function CountdownDigit({
         </div>
 
         {/* Subtle corner accents — default only */}
-        {!isBotanical && (
+        {!isBotanical && !isMediterranean && (
           <>
             <div
               className="absolute top-0 left-0 w-2 h-2 border-l-2 border-t-2 rounded-tl-lg"
@@ -124,9 +133,9 @@ export function CountdownDigit({
       <span
         className={cn(
           "text-xs md:text-sm uppercase tracking-wider mt-2 font-medium",
-          !isBotanical && "text-stone-500"
+          !isBotanical && !isMediterranean && "text-stone-500"
         )}
-        style={isBotanical ? { color: "rgba(253,251,247,0.8)" } : undefined}
+        style={isBotanical ? { color: "rgba(253,251,247,0.8)" } : isMediterranean ? { color: "#5F7896" } : undefined}
       >
         {label}
       </span>
