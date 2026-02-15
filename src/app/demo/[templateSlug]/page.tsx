@@ -19,15 +19,16 @@ import {
   LaDolceVitaCitrusBackground,
   LaDolceVitaSectionAccent,
 } from "@/components/ladolcevita-citrus-bg";
+import { RivieraBackground } from "@/components/riviera-bg";
 import { RSVPSection } from "@/components/invitation-sections/rsvp-section";
 import { DresscodeSection } from "@/components/invitation-sections/dresscode-section";
 import { GiftSection } from "@/components/invitation-sections/gift-section";
 
-// Demo data with generic placeholders
-const demoData = {
+// Demo data per template
+const defaultDemoData = {
   partner1: "Jarno",
   partner2: "Bryonie",
-  monogram: "J&B", // Ja Voor Altijd
+  monogram: "J&B",
   date: "15 juni 2026",
   time: "14:00",
   headline: "Wij gaan trouwen!",
@@ -52,6 +53,23 @@ const demoData = {
     { time: "21:00", title: "Feest", icon: "party-popper" },
   ],
 };
+
+const templateDemoData: Record<string, Partial<typeof defaultDemoData>> = {
+  bloementuin: {
+    partner1: "Matthew",
+    partner2: "Evelyn",
+    monogram: "M&E",
+  },
+  riviera: {
+    partner1: "Thomas",
+    partner2: "Suzanna",
+    monogram: "T&S",
+  },
+};
+
+function getDemoData(templateSlug: string) {
+  return { ...defaultDemoData, ...templateDemoData[templateSlug] };
+}
 
 export default function DemoPage({
   params,
@@ -92,7 +110,7 @@ export default function DemoPage({
       <DemoCTABar templateSlug={params.templateSlug} />
 
       {/* Invitation content */}
-      <InvitationContent template={template} />
+      <InvitationContent template={template} templateSlug={params.templateSlug} />
     </div>
   );
 }
@@ -136,11 +154,13 @@ function DemoCTABar({ templateSlug }: { templateSlug: string }) {
   );
 }
 
-function InvitationContent({ template }: { template: Template }) {
+function InvitationContent({ template, templateSlug }: { template: Template; templateSlug: string }) {
+  const demoData = getDemoData(templateSlug);
   const [isRevealed, setIsRevealed] = useState(false);
   const isMediterranean = template.style === "mediterranean";
   const isBotanical = template.style === "botanical";
-  const isBotanicalOrMed = isBotanical || isMediterranean;
+  const isCoastal = template.style === "coastal";
+  const isBotanicalOrMed = isBotanical || isMediterranean || isCoastal;
 
   // Demo wedding date (future date for countdown)
   const demoWeddingDate = new Date();
@@ -188,27 +208,87 @@ function InvitationContent({ template }: { template: Template }) {
                   <LaDolceVitaCitrusBackground />
                 </div>
               )}
+              {/* Coastal tile background */}
+              {isCoastal && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  <RivieraBackground />
+                </div>
+              )}
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className={`relative z-10 ${isBotanicalOrMed ? "-mt-16" : ""}`}
+                className={`relative z-10 ${isCoastal ? "mt-8 sm:mt-12" : isBotanicalOrMed ? "-mt-16" : ""}`}
               >
-                {/* Headline — above names for non-mediterranean, below for mediterranean */}
-                {!isMediterranean && (
+                {/* Headline — above names for non-mediterranean/coastal, below for those */}
+                {!isMediterranean && !isCoastal && (
                   <p
                     className="font-accent text-2xl mb-6"
                     style={{
                       color: template.colors.textMuted,
                       fontFamily: `'${template.fonts.accent}', cursive`,
-                      ...(isBotanical && { textShadow: "0 1px 8px rgba(255,252,245,0.8)" }),
+                      ...(isBotanical && { textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)" }),
                     }}
                   >
                     {demoData.headline}
                   </p>
                 )}
-                {isMediterranean ? (
+                {/* Botanical date — above names */}
+                {isBotanical && (
+                  <div className="mb-6 flex items-center justify-center gap-4">
+                    <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+                    <p
+                      className="text-xl sm:text-2xl capitalize"
+                      style={{
+                        color: template.colors.textMuted,
+                        fontFamily: `'${template.fonts.accent}', cursive`,
+                        textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)",
+                      }}
+                    >
+                      {demoData.date}
+                    </p>
+                    <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+                  </div>
+                )}
+                {isCoastal ? (
+                  /* Coastal: uppercase names with script "&", centered, constrained to arch */
+                  <h1
+                    className="leading-tight text-center max-w-[58vw] sm:max-w-md mx-auto"
+                    style={{
+                      textShadow: "0 2px 12px rgba(253,252,250,0.9), 0 0px 4px rgba(253,252,250,0.6)",
+                    }}
+                  >
+                    <span
+                      className="text-[2.5rem] sm:text-5xl lg:text-6xl font-bold uppercase tracking-[0.08em]"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                      }}
+                    >
+                      {demoData.partner1}
+                    </span>
+                    <span
+                      className="block text-2xl sm:text-4xl lg:text-5xl my-0.5 sm:my-1"
+                      style={{
+                        color: template.colors.primary,
+                        fontFamily: `'${template.fonts.accent}', cursive`,
+                        fontWeight: 400,
+                      }}
+                    >
+                      &
+                    </span>
+                    <span
+                      className="text-[2.5rem] sm:text-5xl lg:text-6xl font-bold uppercase tracking-[0.08em]"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                      }}
+                    >
+                      {demoData.partner2}
+                    </span>
+                  </h1>
+                ) : isMediterranean ? (
                   /* Italian-style: names on one line, left-centered */
                   <h1
                     className="leading-tight text-left"
@@ -253,7 +333,7 @@ function InvitationContent({ template }: { template: Template }) {
                     style={{
                       color: template.colors.text,
                       fontFamily: `'${template.fonts.heading}', serif`,
-                      ...(isBotanical && { textShadow: "0 2px 12px rgba(255,252,245,0.9), 0 0px 4px rgba(255,252,245,0.6)" }),
+                      ...(isBotanical && { textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)" }),
                     }}
                   >
                     {demoData.partner1}
@@ -265,6 +345,35 @@ function InvitationContent({ template }: { template: Template }) {
                     </span>
                     {demoData.partner2}
                   </h1>
+                )}
+                {/* Coastal invitation text + date below names */}
+                {isCoastal && (
+                  <div className="text-center mt-4 sm:mt-8 max-w-[55vw] sm:max-w-sm mx-auto">
+                    <p
+                      className="text-xs sm:text-sm leading-relaxed"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.body}', serif`,
+                        textShadow: "0 1px 8px rgba(253,252,250,0.8)",
+                      }}
+                    >
+                      Nodigen je uit om deel te nemen aan hun vreugde wanneer zij elkaar het jawoord geven!
+                    </p>
+                    <div className="flex items-center justify-center gap-3 mt-10 sm:mt-12">
+                      <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
+                      <p
+                        className="text-lg sm:text-2xl capitalize tracking-wide"
+                        style={{
+                          color: template.colors.text,
+                          fontFamily: `'${template.fonts.heading}', serif`,
+                          textShadow: "0 1px 8px rgba(253,252,250,0.8)",
+                        }}
+                      >
+                        {demoData.date}
+                      </p>
+                      <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
+                    </div>
+                  </div>
                 )}
                 {/* Mediterranean headline + date below names */}
                 {isMediterranean && (
@@ -291,23 +400,6 @@ function InvitationContent({ template }: { template: Template }) {
                     </p>
                   </div>
                 )}
-                {isBotanical && (
-                  /* Elegant date for botanical — accent font with decorative lines */
-                  <div className="mt-8 flex items-center justify-center gap-4">
-                    <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
-                    <p
-                      className="text-xl sm:text-2xl capitalize"
-                      style={{
-                        color: template.colors.text,
-                        fontFamily: `'${template.fonts.accent}', cursive`,
-                        textShadow: "0 1px 8px rgba(255,252,245,0.8)",
-                      }}
-                    >
-                      {demoData.date}
-                    </p>
-                    <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
-                  </div>
-                )}
                 {!isBotanicalOrMed && (
                   <p
                     className="mt-8 text-lg capitalize"
@@ -327,7 +419,7 @@ function InvitationContent({ template }: { template: Template }) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  className="absolute bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10"
+                  className="absolute bottom-32 sm:bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10"
                 >
                   <button
                     onClick={() => {
@@ -338,8 +430,8 @@ function InvitationContent({ template }: { template: Template }) {
                     <span
                       className="text-xs font-semibold tracking-[0.2em] uppercase"
                       style={{
-                        color: isMediterranean ? template.colors.primary : "#FDFBF7",
-                        textShadow: isMediterranean
+                        color: (isMediterranean || isCoastal) ? template.colors.primary : "#FDFBF7",
+                        textShadow: (isMediterranean || isCoastal)
                           ? "0 1px 12px rgba(255,252,245,0.8), 0 0px 4px rgba(255,252,245,0.5)"
                           : "0 1px 12px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.3)",
                       }}
@@ -350,14 +442,14 @@ function InvitationContent({ template }: { template: Template }) {
                       animate={{ y: [0, 6, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                       style={{
-                        filter: isMediterranean
+                        filter: (isMediterranean || isCoastal)
                           ? "drop-shadow(0 1px 8px rgba(255,252,245,0.5))"
                           : "drop-shadow(0 1px 8px rgba(0,0,0,0.4))",
                       }}
                     >
                       <ChevronDown
                         className="w-6 h-6"
-                        style={{ color: isMediterranean ? template.colors.primary : "#FDFBF7" }}
+                        style={{ color: (isMediterranean || isCoastal) ? template.colors.primary : "#FDFBF7" }}
                       />
                     </motion.div>
                   </button>
@@ -387,8 +479,10 @@ function InvitationContent({ template }: { template: Template }) {
                 background: isBotanical
                   ? "#4A5D4A"
                   : isMediterranean
-                    ? template.colors.accent
-                    : undefined,
+                    ? template.colors.text
+                    : isCoastal
+                      ? "#C4A47C"
+                      : undefined,
               }}
             >
               <div className="max-w-2xl mx-auto text-center">
@@ -413,30 +507,52 @@ function InvitationContent({ template }: { template: Template }) {
                     <h2
                       className="font-heading text-2xl sm:text-3xl mb-2"
                       style={{
-                        color: template.colors.text,
+                        color: "#FDFBF7",
                         fontFamily: `'${template.fonts.heading}', serif`,
                       }}
                     >
                       Nog even geduld...
                     </h2>
-                    <p className="text-sm mb-8" style={{ color: template.colors.textMuted }}>
+                    <p className="text-sm mb-8" style={{ color: "rgba(253,251,247,0.7)" }}>
+                      Tot de grote dag
+                    </p>
+                  </>
+                )}
+                {isCoastal && (
+                  <>
+                    <h2
+                      className="font-heading text-2xl sm:text-3xl mb-2"
+                      style={{
+                        color: "#FDFBF7",
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                      }}
+                    >
+                      Nog even geduld...
+                    </h2>
+                    <p className="text-sm mb-8" style={{ color: "rgba(253,251,247,0.7)" }}>
                       Tot de grote dag
                     </p>
                   </>
                 )}
                 <CountdownTimer
                   targetDate={demoWeddingDate}
-                  accentColor={isBotanical ? "#FDFBF7" : template.colors.primary}
+                  accentColor={isBotanical ? "#FDFBF7" : (isMediterranean || isCoastal) ? "#FDFBF7" : template.colors.primary}
                   variant="card"
                   showSeconds={true}
-                  theme={isBotanical ? "botanical" : isMediterranean ? "mediterranean" : undefined}
+                  theme={isBotanical ? "botanical" : (isMediterranean || isCoastal) ? "mediterranean" : undefined}
                 />
               </div>
             </section>
 
             {/* Locations */}
             <section className="py-16 px-4 relative">
-              <div className="max-w-2xl mx-auto">
+              {isBotanical && (
+                <>
+                  <BloementuinSectionAccent side="left" />
+                  <BloementuinSectionAccent side="right" />
+                </>
+              )}
+              <div className="max-w-2xl mx-auto relative z-10">
                 <h2
                   className="font-heading text-3xl text-center mb-12"
                   style={{
@@ -493,11 +609,11 @@ function InvitationContent({ template }: { template: Template }) {
                   ))}
                 </div>
               </div>
-              {isBotanical && (
-                <BloementuinSectionAccent position="bottom" />
-              )}
               {isMediterranean && (
-                <LaDolceVitaSectionAccent position="bottom" />
+                <>
+                  <LaDolceVitaSectionAccent side="left" />
+                  <LaDolceVitaSectionAccent side="right" />
+                </>
               )}
             </section>
 
@@ -634,6 +750,8 @@ function InvitationContent({ template }: { template: Template }) {
               template={template}
               colors={isMediterranean
                 ? [{ hex: "#1B3A5F", name: "Blauw" }, { hex: "#8C939A", name: "Grijs" }]
+                : isCoastal
+                ? [{ hex: "#6B9CC3", name: "Blauw" }, { hex: "#8B6B4A", name: "Bruin" }]
                 : [{ hex: "#6B8F6B", name: "Salie groen" }, { hex: "#F0EBE3", name: "Ivoor" }]
               }
             />
@@ -655,15 +773,14 @@ function InvitationContent({ template }: { template: Template }) {
               {isBotanical && (
                 <BloementuinSectionAccent side="left" />
               )}
-              {isMediterranean && (
-                <LaDolceVitaSectionAccent position="top" />
-              )}
-              <RSVPSection
-                invitationId="demo"
-                enabled={true}
-                template={template}
-                demo={true}
-              />
+              <div className="relative z-10">
+                <RSVPSection
+                  invitationId="demo"
+                  enabled={true}
+                  template={template}
+                  demo={true}
+                />
+              </div>
             </div>
 
             {/* Footer with names & date */}
@@ -681,6 +798,49 @@ function InvitationContent({ template }: { template: Template }) {
                   }}
                 >
                   {demoData.partner1} & {demoData.partner2}
+                </h3>
+                <p
+                  className="text-sm mb-8 capitalize"
+                  style={{
+                    color: "rgba(253,251,247,0.7)",
+                    fontFamily: `'${template.fonts.body}', serif`,
+                  }}
+                >
+                  {demoData.date}
+                </p>
+                <p
+                  className="text-xs tracking-wider"
+                  style={{ color: "rgba(253,251,247,0.4)" }}
+                >
+                  Ja, Voor Altijd
+                </p>
+              </section>
+            )}
+            {isCoastal && (
+              <section
+                className="py-20 px-4 text-center"
+                style={{ backgroundColor: "#C4A47C" }}
+              >
+                <Heart className="w-6 h-6 mx-auto mb-4" style={{ color: "rgba(253,251,247,0.5)" }} />
+                <h3 className="text-2xl sm:text-3xl mb-2">
+                  <span
+                    className="font-bold uppercase tracking-[0.08em]"
+                    style={{ color: "#FDFBF7", fontFamily: `'${template.fonts.heading}', serif` }}
+                  >
+                    {demoData.partner1}
+                  </span>
+                  <span
+                    className="inline-block mx-2 text-xl sm:text-2xl"
+                    style={{ color: "rgba(253,251,247,0.8)", fontFamily: `'${template.fonts.accent}', cursive`, fontWeight: 400 }}
+                  >
+                    &
+                  </span>
+                  <span
+                    className="font-bold uppercase tracking-[0.08em]"
+                    style={{ color: "#FDFBF7", fontFamily: `'${template.fonts.heading}', serif` }}
+                  >
+                    {demoData.partner2}
+                  </span>
                 </h3>
                 <p
                   className="text-sm mb-8 capitalize"

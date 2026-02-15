@@ -8,6 +8,7 @@ import { type SealFontId } from "@/lib/wax-fonts";
 import { type Template } from "@/lib/templates";
 import { BloementuinFloralBackground } from "@/components/bloementuin-floral-bg";
 import { LaDolceVitaCitrusBackground } from "@/components/ladolcevita-citrus-bg";
+import { RivieraBackground } from "@/components/riviera-bg";
 
 interface HeroSectionProps {
   partner1Name: string;
@@ -44,6 +45,8 @@ export function HeroSection({
   const displayMonogram = monogram || `${partner1Name.charAt(0)}&${partner2Name.charAt(0)}`;
   const isBotanical = template.style === "botanical";
   const isMediterranean = template.style === "mediterranean";
+  const isCoastal = template.style === "coastal";
+  const isBotanicalOrMedOrCoastal = isBotanical || isMediterranean || isCoastal;
 
   return (
     <section
@@ -55,15 +58,15 @@ export function HeroSection({
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {template.style === "romantic" && <RomanticBackground color={template.colors.primary} />}
         {template.style === "modern" && <ModernBackground color={template.colors.secondary} />}
         {template.style === "botanical" && <BloementuinFloralBackground />}
         {template.style === "mediterranean" && <LaDolceVitaCitrusBackground />}
+        {template.style === "coastal" && <RivieraBackground />}
       </div>
 
-      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", (isBotanical || isMediterranean) && "-mt-16")}>
+      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isCoastal ? "mt-8 sm:mt-12" : isBotanicalOrMedOrCoastal && "-mt-16")}>
         {/* Wax seal — hidden for botanical & mediterranean style */}
-        {!isBotanical && !isMediterranean && (
+        {!isBotanical && !isMediterranean && !isCoastal && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -82,7 +85,7 @@ export function HeroSection({
         )}
 
         {/* Headline — above names for non-mediterranean, below for mediterranean */}
-        {headline && !isMediterranean && (
+        {headline && !isMediterranean && !isCoastal && (
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -91,15 +94,77 @@ export function HeroSection({
             style={{
               color: template.colors.textMuted,
               fontFamily: `'${template.fonts.accent}', cursive`,
-              ...(isBotanical && { textShadow: "0 1px 8px rgba(255,252,245,0.8)" }),
+              ...(isBotanical && { textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)" }),
             }}
           >
             {headline}
           </motion.p>
         )}
 
+        {/* Botanical date — between headline and names */}
+        {isBotanical && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="mb-6 flex items-center justify-center gap-4"
+          >
+            <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+            <p
+              className="text-xl sm:text-2xl capitalize"
+              style={{
+                color: template.colors.textMuted,
+                fontFamily: `'${template.fonts.accent}', cursive`,
+                textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)",
+              }}
+            >
+              {formattedDate}
+            </p>
+            <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+          </motion.div>
+        )}
+
         {/* Names */}
-        {isMediterranean ? (
+        {isCoastal ? (
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="leading-tight text-center max-w-[58vw] sm:max-w-md mx-auto"
+            style={{
+              textShadow: "0 2px 12px rgba(253,252,250,0.9), 0 0px 4px rgba(253,252,250,0.6)",
+            }}
+          >
+            <span
+              className="text-[2.5rem] sm:text-5xl md:text-6xl font-bold uppercase tracking-[0.08em]"
+              style={{
+                color: template.colors.text,
+                fontFamily: `'${template.fonts.heading}', serif`,
+              }}
+            >
+              {partner1Name}
+            </span>
+            <span
+              className="block text-2xl sm:text-4xl md:text-5xl my-0.5 sm:my-1"
+              style={{
+                color: template.colors.primary,
+                fontFamily: `'${template.fonts.accent}', cursive`,
+                fontWeight: 400,
+              }}
+            >
+              &
+            </span>
+            <span
+              className="text-[2.5rem] sm:text-5xl md:text-6xl font-bold uppercase tracking-[0.08em]"
+              style={{
+                color: template.colors.text,
+                fontFamily: `'${template.fonts.heading}', serif`,
+              }}
+            >
+              {partner2Name}
+            </span>
+          </motion.h1>
+        ) : isMediterranean ? (
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -149,7 +214,7 @@ export function HeroSection({
             style={{
               color: template.colors.text,
               fontFamily: `'${template.fonts.heading}', serif`,
-              ...(isBotanical && { textShadow: "0 2px 12px rgba(255,252,245,0.9), 0 0px 4px rgba(255,252,245,0.6)" }),
+              ...(isBotanical && { textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)" }),
             }}
           >
             {partner1Name}
@@ -161,6 +226,41 @@ export function HeroSection({
             </span>
             {partner2Name}
           </motion.h1>
+        )}
+
+        {/* Coastal invitation text + date below names, centered */}
+        {isCoastal && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.45 }}
+            className="text-center mt-4 sm:mt-8 max-w-[55vw] sm:max-w-sm mx-auto"
+          >
+            <p
+              className="text-xs sm:text-sm leading-relaxed"
+              style={{
+                color: template.colors.text,
+                fontFamily: `'${template.fonts.body}', serif`,
+                textShadow: "0 1px 8px rgba(253,252,250,0.8)",
+              }}
+            >
+              Nodigen je uit om deel te nemen aan hun vreugde wanneer zij elkaar het jawoord geven!
+            </p>
+            <div className="flex items-center justify-center gap-3 mt-10 sm:mt-12">
+              <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
+              <p
+                className="text-lg sm:text-2xl capitalize tracking-wide"
+                style={{
+                  color: template.colors.text,
+                  fontFamily: `'${template.fonts.heading}', serif`,
+                  textShadow: "0 1px 8px rgba(253,252,250,0.8)",
+                }}
+              >
+                {formattedDate}
+              </p>
+              <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
+            </div>
+          </motion.div>
         )}
 
         {/* Mediterranean headline + date below names, left-aligned */}
@@ -197,30 +297,14 @@ export function HeroSection({
         )}
 
         {/* Date and time */}
-        {!isMediterranean && (
+        {!isMediterranean && !isCoastal && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-8 space-y-2"
         >
-          {isBotanical ? (
-            /* Elegant date display — accent font with decorative lines */
-            <div className="flex items-center justify-center gap-4">
-              <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
-              <p
-                className="text-xl sm:text-2xl capitalize"
-                style={{
-                  color: template.colors.text,
-                  fontFamily: `'${template.fonts.accent}', cursive`,
-                  textShadow: "0 1px 8px rgba(255,252,245,0.8)",
-                }}
-              >
-                {formattedDate}
-              </p>
-              <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
-            </div>
-          ) : (
+          {isBotanical ? null : (
             <>
               <p
                 className="text-lg sm:text-xl capitalize"
@@ -245,13 +329,13 @@ export function HeroSection({
         )}
       </div>
 
-      {/* CTA button + chevron at bottom — Bloementuin & La Dolce Vita */}
-      {(isBotanical || isMediterranean) ? (
+      {/* CTA button + chevron at bottom — Bloementuin, La Dolce Vita & Riviera */}
+      {isBotanicalOrMedOrCoastal ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className="absolute bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10"
+          className="absolute bottom-32 sm:bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10"
         >
           <button
             onClick={() => {
@@ -262,8 +346,8 @@ export function HeroSection({
             <span
               className="text-xs font-semibold tracking-[0.2em] uppercase"
               style={{
-                color: isMediterranean ? template.colors.primary : "#FDFBF7",
-                textShadow: isMediterranean
+                color: (isMediterranean || isCoastal) ? template.colors.primary : "#FDFBF7",
+                textShadow: (isMediterranean || isCoastal)
                   ? "0 1px 12px rgba(255,252,245,0.8), 0 0px 4px rgba(255,252,245,0.5)"
                   : "0 1px 12px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.3)",
               }}
@@ -273,11 +357,11 @@ export function HeroSection({
             <motion.div
               animate={{ y: [0, 6, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              style={{ filter: isMediterranean ? "drop-shadow(0 1px 8px rgba(255,252,245,0.5))" : "drop-shadow(0 1px 8px rgba(0,0,0,0.4))" }}
+              style={{ filter: (isMediterranean || isCoastal) ? "drop-shadow(0 1px 8px rgba(255,252,245,0.5))" : "drop-shadow(0 1px 8px rgba(0,0,0,0.4))" }}
             >
               <ChevronDown
                 className="w-6 h-6"
-                style={{ color: isMediterranean ? template.colors.primary : "#FDFBF7" }}
+                style={{ color: (isMediterranean || isCoastal) ? template.colors.primary : "#FDFBF7" }}
               />
             </motion.div>
           </button>
@@ -306,22 +390,6 @@ export function HeroSection({
 }
 
 // Background decorative elements for each style
-function RomanticBackground({ color }: { color: string }) {
-  return (
-    <>
-      {/* Soft circles */}
-      <div
-        className="absolute top-20 left-10 w-64 h-64 rounded-full blur-3xl opacity-10"
-        style={{ backgroundColor: color }}
-      />
-      <div
-        className="absolute bottom-40 right-10 w-80 h-80 rounded-full blur-3xl opacity-10"
-        style={{ backgroundColor: color }}
-      />
-    </>
-  );
-}
-
 function ModernBackground({ color }: { color: string }) {
   return (
     <>

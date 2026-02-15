@@ -19,11 +19,13 @@ export function CountdownSection({
 }: CountdownSectionProps) {
   const isBotanical = template.style === "botanical";
   const isMediterranean = template.style === "mediterranean";
+  const isCoastal = template.style === "coastal";
+  const isDarkCountdown = isBotanical || isMediterranean || isCoastal;
 
   return (
     <section
       className={cn(
-        (isBotanical || isMediterranean) ? "py-16 px-4 sm:py-20" : "py-16 px-4",
+        isDarkCountdown ? "py-16 px-4 sm:py-20" : "py-16 px-4",
         className
       )}
       style={{
@@ -31,6 +33,8 @@ export function CountdownSection({
           ? "#4A5D4A"
           : isMediterranean
           ? template.colors.accent
+          : isCoastal
+          ? "#C4A47C"
           : template.colors.background,
       }}
     >
@@ -44,7 +48,7 @@ export function CountdownSection({
         <h2
           className="font-heading text-2xl sm:text-3xl mb-2"
           style={{
-            color: isBotanical ? "#FDFBF7" : template.colors.text,
+            color: (isBotanical || isCoastal) ? "#FDFBF7" : template.colors.text,
             fontFamily: `'${template.fonts.heading}', serif`,
           }}
         >
@@ -52,17 +56,17 @@ export function CountdownSection({
         </h2>
         <p
           className="text-sm mb-8"
-          style={{ color: isBotanical ? "rgba(253,251,247,0.7)" : template.colors.textMuted }}
+          style={{ color: (isBotanical || isCoastal) ? "rgba(253,251,247,0.7)" : template.colors.textMuted }}
         >
           Tot de grote dag
         </p>
 
         <CountdownTimer
           targetDate={weddingDate}
-          accentColor={isBotanical ? "#FDFBF7" : template.colors.primary}
+          accentColor={(isBotanical || isCoastal) ? "#FDFBF7" : template.colors.primary}
           variant="card"
           showSeconds={false}
-          theme={isBotanical ? "botanical" : isMediterranean ? "mediterranean" : undefined}
+          theme={isBotanical ? "botanical" : (isMediterranean || isCoastal) ? "mediterranean" : undefined}
         />
 
         <SectionDivider

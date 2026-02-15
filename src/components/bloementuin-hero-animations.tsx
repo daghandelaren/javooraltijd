@@ -41,7 +41,7 @@ function FallingPetals() {
           className="absolute top-0"
           style={{
             left: `${p.left}%`,
-            animation: `bloementuin-petal-fall ${p.duration}s ${p.delay}s ease-in-out infinite`,
+            animation: `bloementuin-petal-fall ${p.duration}s ${p.delay}s ease-in-out infinite both`,
             ["--sway" as string]: `${p.sway}px`,
             ["--rotate-end" as string]: `${p.rotate}deg`,
           }}
@@ -119,10 +119,13 @@ export function BloementuinHeroAnimations() {
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes bloementuin-petal-fall {
           0% {
-            transform: translateY(-10%) translateX(0) rotate(0deg);
+            transform: translateY(-20px) translateX(0) rotate(0deg);
             opacity: 0;
           }
-          10% {
+          5% {
+            opacity: 0;
+          }
+          15% {
             opacity: 1;
           }
           65% {

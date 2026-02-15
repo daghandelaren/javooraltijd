@@ -26,8 +26,9 @@ export function DresscodeSection({
 
   const isBotanical = template.style === "botanical";
   const isMediterranean = template.style === "mediterranean";
+  const isCoastal = template.style === "coastal";
 
-  if (isBotanical || isMediterranean) {
+  if (isBotanical || isMediterranean || isCoastal) {
     return (
       <section
         className={cn("py-16 px-4", className)}

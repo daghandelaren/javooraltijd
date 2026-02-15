@@ -18,12 +18,12 @@ const templates: Array<{
   };
 }> = [
   {
-    id: "romantisch",
-    nameKey: "elegance",
-    sealColor: "#8EA870", // Olijfgaard
+    id: "riviera",
+    nameKey: "coastal",
+    sealColor: "#A89088", // Kasjmier
     colors: {
-      bg: "from-[#FFFFF0] to-[#FFF8E7]",
-      accent: "#D4AF37",
+      bg: "from-[#FDFCFA] to-[#EEF4F9]",
+      accent: "#6B9CC3",
     },
   },
   {
@@ -47,7 +47,7 @@ const templates: Array<{
 ];
 
 const templateNames = {
-  elegance: { nl: "Eeuwige Elegantie", en: "Eternal Elegance" },
+  coastal: { nl: "Riviera", en: "Riviera" },
   modern: { nl: "Modern Minimaal", en: "Modern Minimal" },
   botanical: { nl: "Botanische Droom", en: "Botanical Dream" },
 };

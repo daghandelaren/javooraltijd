@@ -93,7 +93,7 @@ export function WaxSealStorySection() {
 
             <div className="mt-8">
               <Button asChild variant="secondary" size="lg">
-                <Link href="/demo/romantisch">
+                <Link href="/demo/riviera">
                   {t("cta")}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

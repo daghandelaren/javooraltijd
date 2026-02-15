@@ -8,7 +8,7 @@ interface CountdownDigitProps {
   label: string;
   accentColor?: string;
   variant?: "inline" | "card";
-  theme?: "botanical" | "mediterranean";
+  theme?: "botanical" | "mediterranean" | "coastal";
 }
 
 export function CountdownDigit({
@@ -63,8 +63,8 @@ export function CountdownDigit({
           backgroundColor: "rgba(255,255,255,0.15)",
           border: "1px solid rgba(255,255,255,0.25)",
         } : isMediterranean ? {
-          backgroundColor: "#FFF8E7",
-          border: "1px solid #E8A73540",
+          backgroundColor: "rgba(255,255,255,0.15)",
+          border: "1px solid rgba(255,255,255,0.25)",
         } : undefined}
       >
         {/* Top half background — default only */}
@@ -83,7 +83,7 @@ export function CountdownDigit({
           <div className="absolute inset-x-0 top-1/2 h-px z-10" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
         )}
         {isMediterranean && (
-          <div className="absolute inset-x-0 top-1/2 h-px z-10" style={{ backgroundColor: "#E8A73525" }} />
+          <div className="absolute inset-x-0 top-1/2 h-px z-10" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
         )}
 
         {/* Number display */}
@@ -99,7 +99,7 @@ export function CountdownDigit({
                 "font-bold tabular-nums",
                 (isBotanical || isMediterranean) ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"
               )}
-              style={{ color: isBotanical ? "#FDFBF7" : accentColor }}
+              style={{ color: (isBotanical || isMediterranean) ? "#FDFBF7" : accentColor }}
             >
               {formattedValue}
             </motion.div>
@@ -135,7 +135,7 @@ export function CountdownDigit({
           "text-xs md:text-sm uppercase tracking-wider mt-2 font-medium",
           !isBotanical && !isMediterranean && "text-stone-500"
         )}
-        style={isBotanical ? { color: "rgba(253,251,247,0.8)" } : isMediterranean ? { color: "#5F7896" } : undefined}
+        style={isBotanical ? { color: "rgba(253,251,247,0.8)" } : isMediterranean ? { color: "rgba(253,251,247,0.8)" } : undefined}
       >
         {label}
       </span>

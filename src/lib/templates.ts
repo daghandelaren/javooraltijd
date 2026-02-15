@@ -7,7 +7,7 @@ export interface Template {
   nameEn: string;
   description: string;
   descriptionEn: string;
-  style: "romantic" | "modern" | "botanical" | "mediterranean";
+  style: "romantic" | "modern" | "botanical" | "mediterranean" | "coastal";
   sealColor: string; // Hex color
   colors: {
     primary: string;
@@ -24,36 +24,36 @@ export interface Template {
     accent: string;
   };
   // Section divider style
-  dividerStyle: "floral" | "geometric" | "botanical" | "citrus";
+  dividerStyle: "floral" | "geometric" | "botanical" | "citrus" | "shell";
 }
 
 export const templates: Template[] = [
   {
     id: "1",
-    slug: "romantisch",
-    name: "Romantisch",
-    nameEn: "Romantic",
+    slug: "riviera",
+    name: "Riviera",
+    nameEn: "Riviera",
     description:
-      "Zacht en elegant design met blush tinten en rose goud accenten. Perfect voor een dromerige, romantische bruiloft.",
+      "Portugees tegelpatroon met boogkader en duiven. Perfect voor een kustbruiloft met mediterrane invloeden.",
     descriptionEn:
-      "Soft and elegant design with blush tones and rose gold accents. Perfect for a dreamy, romantic wedding.",
-    style: "romantic",
-    sealColor: DEFAULT_SEAL_COLOR, // Olijfgaard
+      "Portuguese tile pattern with arch frame and doves. Perfect for a coastal wedding with Mediterranean influences.",
+    style: "coastal",
+    sealColor: "#A89088", // Kasjmier
     colors: {
-      primary: "#9AAB8C", // Sage olive
-      secondary: "#D4AF37", // Champagne gold
-      accent: "#F8E8E8", // Soft blush
-      background: "#FDF8F6", // Warm cream
-      backgroundGradient: "linear-gradient(180deg, #FDF8F6 0%, #F9F0ED 50%, #F5E6E0 100%)",
-      text: "#4A3C3C", // Warm dark brown
-      textMuted: "#8B7B7B", // Muted mauve
+      primary: "#6B9CC3", // Blue tile
+      secondary: "#D4A0A0", // Shell pink
+      accent: "#EEF4F9", // Light blue tint
+      background: "#FDFCFA", // Off-white
+      backgroundGradient: "linear-gradient(180deg, #FDFCFA 0%, #F5F8FB 50%, #EEF4F9 100%)",
+      text: "#2C3E50", // Dark navy
+      textMuted: "#6B8299", // Muted blue-gray
     },
     fonts: {
-      heading: "Cormorant Garamond",
-      body: "Cormorant Garamond",
-      accent: "Great Vibes",
+      heading: "Playfair Display",
+      body: "Lora",
+      accent: "Dancing Script",
     },
-    dividerStyle: "floral",
+    dividerStyle: "shell",
   },
   {
     id: "2",
@@ -65,7 +65,7 @@ export const templates: Template[] = [
     descriptionEn:
       "Mediterranean and sunny design with citrus accents and warm cream tones. Perfect for an Italian-inspired, summery wedding.",
     style: "mediterranean",
-    sealColor: "#1B3A5F", // Navy
+    sealColor: "#B0AEB0", // Parelsteen
     colors: {
       primary: "#1B3A5F", // Navy blue
       secondary: "#E8A735", // Golden orange

@@ -57,6 +57,24 @@ export function BloementuinSectionAccent({
     );
   }
 
+  if (side === "right") {
+    return (
+      <div
+        className={`absolute top-0 right-0 w-48 sm:w-64 h-full pointer-events-none overflow-hidden ${className ?? ""}`}
+        style={{ transform: "scaleX(-1)" }}
+      >
+        <Image
+          src="/images/bloementuin/garden-accent.png"
+          alt=""
+          fill
+          className="object-cover object-top-left"
+          style={{ objectPosition: "top left" }}
+          sizes="33vw"
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`absolute inset-x-0 ${position === "bottom" ? "bottom-0" : "top-0"} h-[28rem] pointer-events-none overflow-hidden ${className ?? ""}`}

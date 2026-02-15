@@ -155,7 +155,9 @@ function TemplateSelectionContent() {
                         template.style === "mediterranean" &&
                           "bg-amber-100 text-amber-700",
                         template.style === "botanical" &&
-                          "bg-emerald-100 text-emerald-700"
+                          "bg-emerald-100 text-emerald-700",
+                        template.style === "coastal" &&
+                          "bg-sky-100 text-sky-700"
                       )}
                     >
                       {t(`filter.${template.style}`)}

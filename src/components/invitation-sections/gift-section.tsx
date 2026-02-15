@@ -32,6 +32,7 @@ export function GiftSection({
 
   const isBotanical = template.style === "botanical";
   const isMediterranean = template.style === "mediterranean";
+  const isCoastal = template.style === "coastal";
 
   const fireConfetti = useCallback(async () => {
     if (confettiFired.current) return;
@@ -79,7 +80,7 @@ export function GiftSection({
           }}
         >
           <Gift className="w-6 h-6 inline-block mr-2 -mt-1" style={{ color: template.colors.primary }} />
-          {(isBotanical || isMediterranean) ? "Cadeau tip" : "Cadeau"}
+          {(isBotanical || isMediterranean || isCoastal) ? "Cadeau tip" : "Cadeau"}
         </h2>
 
         <div

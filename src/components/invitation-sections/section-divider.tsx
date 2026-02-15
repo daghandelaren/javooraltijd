@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 
 interface SectionDividerProps {
-  style?: "floral" | "geometric" | "botanical" | "citrus";
+  style?: "floral" | "geometric" | "botanical" | "citrus" | "shell";
   color?: string;
   className?: string;
 }
@@ -19,6 +19,7 @@ export function SectionDivider({
       {style === "geometric" && <GeometricDivider color={color} />}
       {style === "botanical" && <BotanicalDivider color={color} />}
       {style === "citrus" && <CitrusDivider color={color} />}
+      {style === "shell" && <ShellDivider color={color} />}
     </div>
   );
 }
@@ -156,6 +157,49 @@ function BotanicalDivider({ color }: { color: string }) {
         strokeWidth="1"
         fill="none"
       />
+    </svg>
+  );
+}
+
+function ShellDivider({ color }: { color: string }) {
+  return (
+    <svg
+      width="200"
+      height="40"
+      viewBox="0 0 200 40"
+      fill="none"
+      className="opacity-60"
+    >
+      {/* Left line */}
+      <line x1="10" y1="20" x2="80" y2="20" stroke={color} strokeWidth="1" />
+      {/* Center shell */}
+      <path
+        d="M100 8 C92 14, 88 24, 92 32 Q96 28, 100 24 Q104 28, 108 32 C112 24, 108 14, 100 8Z"
+        fill={color}
+        fillOpacity="0.4"
+      />
+      <path
+        d="M100 8 L100 32"
+        stroke={color}
+        strokeWidth="0.8"
+        opacity="0.5"
+      />
+      <path
+        d="M100 8 Q94 18, 92 32"
+        stroke={color}
+        strokeWidth="0.6"
+        opacity="0.4"
+        fill="none"
+      />
+      <path
+        d="M100 8 Q106 18, 108 32"
+        stroke={color}
+        strokeWidth="0.6"
+        opacity="0.4"
+        fill="none"
+      />
+      {/* Right line */}
+      <line x1="120" y1="20" x2="190" y2="20" stroke={color} strokeWidth="1" />
     </svg>
   );
 }

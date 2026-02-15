@@ -29,8 +29,9 @@ export function TimelineSection({
 
   const isBotanical = template.style === "botanical";
   const isMediterranean = template.style === "mediterranean";
+  const isCoastal = template.style === "coastal";
 
-  if (isBotanical || isMediterranean) {
+  if (isBotanical || isMediterranean || isCoastal) {
     return (
       <HorizontalTimeline
         timeline={timeline}
