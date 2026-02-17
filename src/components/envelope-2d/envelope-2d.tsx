@@ -45,32 +45,35 @@ export function Envelope2D({
           className={cn("fixed inset-0 w-full h-screen overflow-hidden", className)}
           style={{ backgroundColor: "#E8DFD4" }}
         >
-          {/* Full-screen envelope background (body without flap) */}
-          <picture className="absolute top-0 left-0 w-full">
-            <source
-              media="(min-width: 768px)"
-              srcSet="/images/envelope/under-desktop.png"
-            />
-            <img
-              src="/images/envelope/under-mobile.png"
-              alt=""
-              className="w-full h-auto block"
-            />
-          </picture>
+          {/* Zoom wrapper — scales up on desktop for a closer crop */}
+          <div className="absolute inset-0 md:scale-[1.35] md:origin-center md:translate-y-[6%]">
+            {/* Full-screen envelope background (body without flap) */}
+            <picture className="absolute top-0 left-0 w-full">
+              <source
+                media="(min-width: 768px)"
+                srcSet="/images/envelope/under-desktop.png"
+              />
+              <img
+                src="/images/envelope/under-mobile.png"
+                alt=""
+                className="w-full h-auto block"
+              />
+            </picture>
 
-          {/* Flap - rotates backward */}
-          <Flap state={state} />
+            {/* Flap - rotates backward */}
+            <Flap state={state} />
 
-          {/* Seal - independent, pops toward viewer */}
-          <Seal
-            state={state}
-            sealColor={sealColor}
-            sealFont={sealFont}
-            monogram={monogram}
-            sealText={sealText}
-            onClick={handleClick}
-            isInteractive={isInteractive}
-          />
+            {/* Seal - independent, pops toward viewer */}
+            <Seal
+              state={state}
+              sealColor={sealColor}
+              sealFont={sealFont}
+              monogram={monogram}
+              sealText={sealText}
+              onClick={handleClick}
+              isInteractive={isInteractive}
+            />
+          </div>
 
           {/* White fade overlay */}
           <motion.div
@@ -96,17 +99,17 @@ function Flap({ state }: { state: EnvelopeState }) {
     >
       <motion.div
         className="w-full relative"
-        initial={{ y: 0, filter: "drop-shadow(8px 6px 3px rgba(0,0,0,0.28))" }}
+        initial={{ y: 0, filter: "drop-shadow(4px 3px 3px rgba(0,0,0,0.4))" }}
         animate={{
           y: flapY,
           filter: isOpening
             ? [
-                "drop-shadow(8px 6px 3px rgba(0,0,0,0.28))",
-                "drop-shadow(50px 10px 30px rgba(0,0,0,0.45))",
-                "drop-shadow(110px 6px 60px rgba(0,0,0,0.45))",
-                "drop-shadow(160px 3px 80px rgba(0,0,0,0.4))",
+                "drop-shadow(4px 3px 3px rgba(0,0,0,0.4))",
+                "drop-shadow(30px 8px 20px rgba(0,0,0,0.5))",
+                "drop-shadow(70px 5px 40px rgba(0,0,0,0.5))",
+                "drop-shadow(110px 3px 60px rgba(0,0,0,0.45))",
               ]
-            : "drop-shadow(8px 6px 3px rgba(0,0,0,0.28))",
+            : "drop-shadow(4px 3px 3px rgba(0,0,0,0.4))",
         }}
         transition={{
           y: {
@@ -157,20 +160,20 @@ function Seal({
   const isOpening = state === "opening" || state === "fading" || state === "complete";
 
   return (
-    <div className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[103vw] md:top-[34.5vw]">
+    <div className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[87.5vw] md:top-[26vw]">
       <motion.div
         initial={{ y: 0 }}
         animate={{ y: isOpening ? -23 : 0 }}
         transition={{ y: { duration: 1.5, ease: "linear" } }}
       >
-        <div className="relative scale-[0.7] md:scale-100">
+        <div className="relative scale-[0.65] md:scale-[0.9]">
         {sealText && (
           <p
             className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap select-none pointer-events-none"
             style={{
-              bottom: "calc(100% + 0.25rem)",
+              bottom: "calc(100% + 0.75rem)",
               fontFamily: getSealFontCss(sealFont ?? "lavishly-yours"),
-              fontSize: "4rem",
+              fontSize: "3.5rem",
               color: "rgba(90, 78, 65, 0.45)",
               filter: "blur(0.5px)",
               textShadow:
@@ -185,12 +188,12 @@ function Seal({
           animate={{
             filter: isOpening
               ? [
-                  "drop-shadow(2px 6px 8px rgba(0,0,0,0.6))",
-                  "drop-shadow(4px 18px 24px rgba(0,0,0,0.6))",
+                  "drop-shadow(5px 4px 8px rgba(0,0,0,0.7))",
+                  "drop-shadow(6px 18px 24px rgba(0,0,0,0.65))",
                   "drop-shadow(6px 35px 50px rgba(0,0,0,0.55))",
                   "drop-shadow(8px 50px 70px rgba(0,0,0,0.5))",
                 ]
-              : "drop-shadow(2px 6px 8px rgba(0,0,0,0.6))",
+              : "drop-shadow(5px 4px 8px rgba(0,0,0,0.7))",
           }}
           transition={{
             filter: { duration: 2.2, ease: "linear", times: [0, 0.25, 0.6, 1] },
