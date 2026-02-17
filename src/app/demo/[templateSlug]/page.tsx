@@ -20,6 +20,7 @@ import {
   LaDolceVitaSectionAccent,
 } from "@/components/ladolcevita-citrus-bg";
 import { RivieraBackground } from "@/components/riviera-bg";
+import { RivieraTileAccent } from "@/components/riviera-tile-accent";
 import { RSVPSection } from "@/components/invitation-sections/rsvp-section";
 import { DresscodeSection } from "@/components/invitation-sections/dresscode-section";
 import { GiftSection } from "@/components/invitation-sections/gift-section";
@@ -545,13 +546,14 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
             </section>
 
             {/* Locations */}
-            <section className="py-16 px-4 relative">
+            <section className="py-16 px-4 relative overflow-hidden">
               {isBotanical && (
                 <>
                   <BloementuinSectionAccent side="left" />
                   <BloementuinSectionAccent side="right" />
                 </>
               )}
+              {isCoastal && <RivieraTileAccent />}
               <div className="max-w-2xl mx-auto relative z-10">
                 <h2
                   className="font-heading text-3xl text-center mb-12"

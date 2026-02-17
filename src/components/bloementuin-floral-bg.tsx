@@ -43,7 +43,7 @@ export function BloementuinSectionAccent({
   if (side === "left") {
     return (
       <div
-        className={`absolute top-0 left-0 w-48 sm:w-64 h-full pointer-events-none overflow-hidden ${className ?? ""}`}
+        className={`absolute top-0 -left-8 sm:left-0 w-48 sm:w-64 h-full pointer-events-none overflow-hidden ${className ?? ""}`}
       >
         <Image
           src="/images/bloementuin/garden-accent.png"
@@ -60,7 +60,7 @@ export function BloementuinSectionAccent({
   if (side === "right") {
     return (
       <div
-        className={`absolute top-0 right-0 w-48 sm:w-64 h-full pointer-events-none overflow-hidden ${className ?? ""}`}
+        className={`absolute top-0 -right-8 sm:right-0 w-48 sm:w-64 h-full pointer-events-none overflow-hidden ${className ?? ""}`}
         style={{ transform: "scaleX(-1)" }}
       >
         <Image

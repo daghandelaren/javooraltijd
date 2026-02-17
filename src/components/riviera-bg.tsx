@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { RivieraHeroAnimations } from "./riviera-hero-animations";
 
 /**
  * Image-based Portuguese tile background for the Riviera template.
@@ -26,8 +25,6 @@ export function RivieraBackground() {
             "radial-gradient(ellipse 50% 35% at 50% 55%, rgba(253,252,250,0.55) 0%, rgba(253,252,250,0.2) 65%, transparent 100%)",
         }}
       />
-      {/* Flying bird animations */}
-      <RivieraHeroAnimations />
     </div>
   );
 }

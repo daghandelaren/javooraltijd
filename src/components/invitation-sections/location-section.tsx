@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type Template } from "@/lib/templates";
+import { RivieraTileAccent } from "@/components/riviera-tile-accent";
 
 interface Location {
   id: string;
@@ -38,15 +39,16 @@ export function LocationSection({
 
   return (
     <section
-      className={cn("py-16 px-4", className)}
+      className={cn("py-16 px-4 relative overflow-hidden", className)}
       style={{ background: template.colors.backgroundGradient }}
     >
+      {template.style === "coastal" && <RivieraTileAccent />}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.5 }}
-        className="max-w-2xl mx-auto"
+        className="max-w-2xl mx-auto relative z-10"
       >
         <h2
           className="font-heading text-2xl sm:text-3xl text-center mb-10"
