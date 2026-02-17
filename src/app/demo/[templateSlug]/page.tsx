@@ -360,7 +360,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                     >
                       Nodigen je uit om deel te nemen aan hun vreugde wanneer zij elkaar het jawoord geven!
                     </p>
-                    <div className="flex items-center justify-center gap-3 mt-10 sm:mt-12">
+                    <div className="flex items-center justify-center gap-3 mt-3 sm:mt-12">
                       <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
                       <p
                         className="text-lg sm:text-2xl capitalize tracking-wide"
@@ -420,7 +420,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  className="absolute bottom-32 sm:bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10"
+                  className="absolute bottom-4 sm:bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10"
                 >
                   <button
                     onClick={() => {
