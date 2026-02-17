@@ -420,7 +420,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  className="absolute bottom-4 sm:bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10"
+                  className={`absolute ${isCoastal ? "bottom-20" : "bottom-4"} sm:bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10`}
                 >
                   <button
                     onClick={() => {
