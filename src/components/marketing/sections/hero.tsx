@@ -89,63 +89,41 @@ export function HeroSection() {
                     transform: "translateZ(0)",
                   }}
                 >
-                  {/* Envelope wrapper — scales all elements together to fill
-                       the phone screen height (image is 1:2 but screen is slightly taller) */}
+                  {/* Combined envelope image */}
+                  <Image
+                    src="/images/envelope/envelope-mobile.png"
+                    alt="Envelope preview"
+                    fill
+                    className="object-cover object-top lg:scale-[1.15] lg:origin-center"
+                    priority
+                  />
+
+
+                  {/* Seal + text container */}
                   <div
-                    className="absolute top-0 left-0 w-full origin-top"
-                    style={{ aspectRatio: "1/2", minHeight: "100%" }}
+                    className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center lg:scale-[1.15]"
+                    style={{ top: "48%" }}
                   >
-                    {/* Envelope body */}
-                    <Image
-                      src="/images/envelope/under-mobile.png"
-                      alt=""
-                      width={300}
-                      height={600}
-                      className="absolute top-0 left-0 w-full h-full"
-                      priority
-                    />
-
-                    {/* Envelope flap */}
-                    <div
-                      className="absolute top-0 left-0 right-0 z-10"
-                      style={{
-                        filter: "drop-shadow(8px 8px 6px rgba(0,0,0,0.32))",
-                      }}
-                    >
-                      <Image
-                        src="/images/envelope/flap-mobile.png"
-                        alt=""
-                        width={300}
-                        height={200}
-                        className="w-full h-auto"
-                        priority
-                      />
-                    </div>
-
-                    {/* Seal + text container */}
-                    <div
-                      className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center"
-                      style={{ top: "47%" }}
-                    >
                     {/* Seal text */}
                     <p
                       style={{
                         fontFamily: getSealFontCss("lavishly-yours"),
-                        fontSize: "1.5rem",
+                        fontSize: "1.15rem",
                         color: "rgba(90, 78, 65, 0.45)",
                         filter: "blur(0.3px)",
                         textShadow:
                           "0 1px 2px rgba(90, 78, 65, 0.2), 0 0 1px rgba(90, 78, 65, 0.1)",
                         letterSpacing: "0.02em",
-                        marginBottom: "0.15rem",
+                        marginBottom: "0.2rem",
                       }}
                     >
                       15 juni 2026
                     </p>
                     {/* Wax seal */}
                     <div
+                      className="scale-75"
                       style={{
-                        filter: "drop-shadow(2px 6px 8px rgba(0,0,0,0.6))",
+                        filter: "drop-shadow(5px 4px 8px rgba(0,0,0,0.7))",
                       }}
                     >
                       <WaxSeal
@@ -154,7 +132,6 @@ export function HeroSection() {
                         size="lg"
                         interactive={false}
                       />
-                    </div>
                     </div>
                   </div>
                 </div>
