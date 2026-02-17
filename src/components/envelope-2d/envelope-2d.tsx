@@ -43,7 +43,7 @@ export function Envelope2D({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           className={cn("fixed inset-0 w-full h-screen overflow-hidden", className)}
-          style={{ backgroundColor: "#E8DFD4" }}
+          style={{ backgroundColor: "#F0EEEc" }}
         >
           {/* Zoom wrapper — scales up on desktop for a closer crop */}
           <div className="absolute inset-0 md:scale-[1.35] md:origin-center md:translate-y-[6%]">
