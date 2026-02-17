@@ -84,7 +84,7 @@ export function HeroSection() {
                 <div
                   className="relative w-full h-full rounded-[2.25rem] overflow-hidden"
                   style={{
-                    backgroundColor: "#F0EEEC",
+                    backgroundColor: "#E8DFD4",
                     WebkitMaskImage: "-webkit-radial-gradient(white, black)",
                     transform: "translateZ(0)",
                   }}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { WaxSeal } from "@/components/wax-seal/wax-seal";
@@ -33,6 +34,16 @@ export function Envelope2D({
     enableMusic,
   });
 
+  // Lock body scroll while envelope is visible
+  useEffect(() => {
+    if (state !== "complete") {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [state]);
+
   return (
     <AnimatePresence mode="wait">
       {state !== "complete" ? (
@@ -43,7 +54,7 @@ export function Envelope2D({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           className={cn("fixed inset-0 w-full h-screen overflow-hidden", className)}
-          style={{ backgroundColor: "#F0EEEc" }}
+          style={{ backgroundColor: "#E8DFD4" }}
         >
           {/* Zoom wrapper — scales up on desktop for a closer crop */}
           <div className="absolute inset-0 md:scale-[1.35] md:origin-center md:translate-y-[6%]">
