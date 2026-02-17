@@ -24,8 +24,8 @@ const rsvpStats = {
 };
 
 const viewStats = {
-  totalViews: 138,
-  responses: 92,
+  totalViews: 101,
+  responses: 67,
 };
 
 export function DashboardPreviewSection() {
