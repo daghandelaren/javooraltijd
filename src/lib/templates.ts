@@ -7,7 +7,7 @@ export interface Template {
   nameEn: string;
   description: string;
   descriptionEn: string;
-  style: "romantic" | "modern" | "botanical" | "mediterranean" | "coastal";
+  style: "romantic" | "modern" | "botanical" | "mediterranean" | "coastal" | "minimalist";
   sealColor: string; // Hex color
   colors: {
     primary: string;
@@ -24,7 +24,7 @@ export interface Template {
     accent: string;
   };
   // Section divider style
-  dividerStyle: "floral" | "geometric" | "botanical" | "citrus" | "shell";
+  dividerStyle: "floral" | "geometric" | "botanical" | "citrus" | "shell" | "line";
 }
 
 export const templates: Template[] = [
@@ -108,6 +108,33 @@ export const templates: Template[] = [
       accent: "Amatic SC",
     },
     dividerStyle: "botanical",
+  },
+  {
+    id: "4",
+    slug: "minimalist",
+    name: "Minimalist",
+    nameEn: "Minimalist",
+    description:
+      "Puur en elegant ontwerp met grote serif namen op een strak wit canvas. Geen decoraties, alleen typografie. Perfect voor een moderne, minimalistische bruiloft.",
+    descriptionEn:
+      "Pure and elegant design with large serif names on a clean white canvas. No decorations, just typography. Perfect for a modern, minimalist wedding.",
+    style: "minimalist",
+    sealColor: "#2C2C2C",
+    colors: {
+      primary: "#2C2C2C",
+      secondary: "#999999",
+      accent: "#F5F5F5",
+      background: "#FFFFFF",
+      backgroundGradient: "#FFFFFF",
+      text: "#3D3D3D",
+      textMuted: "#999999",
+    },
+    fonts: {
+      heading: "Cormorant Garamond",
+      body: "Cormorant Garamond",
+      accent: "Lavishly Yours",
+    },
+    dividerStyle: "line",
   },
 ];
 

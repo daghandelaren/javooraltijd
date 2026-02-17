@@ -210,17 +210,29 @@
   "templates": {
     "title": "Onze Templates",
     "subtitle": "Vind de perfecte stijl voor jullie grote dag",
-    "filter": {
-      "all": "Alle stijlen",
-      "romantic": "Romantisch",
-      "modern": "Modern",
-      "mediterranean": "Mediterraans",
-      "minimal": "Minimaal",
-      "botanical": "Botanisch",
-      "coastal": "Kust"
-    },
     "view_demo": "Bekijk demo",
-    "select": "Kies deze template"
+    "coming_soon": "Binnenkort beschikbaar",
+    "coming_soon_sub": "Nieuwe stijlen in de maak",
+    "cant_find": {
+      "title": "Kan je stijl niet vinden?",
+      "description": "Vertel ons welke stijl je zoekt en we kijken wat we kunnen doen.",
+      "cta": "Vertel ons je idee"
+    },
+    "idea_form": {
+      "title": "Deel je template idee",
+      "description": "Beschrijf de stijl die je zoekt en we nemen het mee in onze planning.",
+      "name": "Naam",
+      "name_placeholder": "Jullie namen",
+      "email": "E-mail",
+      "email_placeholder": "jullie@email.nl",
+      "message": "Beschrijf je droomstijl",
+      "message_placeholder": "Bijv. een bohemian stijl met droogbloemen en aardse tinten...",
+      "submit": "Verstuur idee",
+      "submitting": "Versturen...",
+      "error": "Er ging iets mis. Probeer het opnieuw.",
+      "success_title": "Bedankt!",
+      "success_message": "We hebben je idee ontvangen en nemen het mee in onze planning."
+    }
   },
   "pricing": {
     "badge": "Eenvoudige, eerlijke prijzen",

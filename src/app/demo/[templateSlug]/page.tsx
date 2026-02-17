@@ -66,6 +66,11 @@ const templateDemoData: Record<string, Partial<typeof defaultDemoData>> = {
     partner2: "Suzanna",
     monogram: "T&S",
   },
+  minimalist: {
+    partner1: "Ian",
+    partner2: "Indy",
+    monogram: "I&I",
+  },
 };
 
 function getDemoData(templateSlug: string) {
@@ -161,7 +166,8 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
   const isMediterranean = template.style === "mediterranean";
   const isBotanical = template.style === "botanical";
   const isCoastal = template.style === "coastal";
-  const isBotanicalOrMed = isBotanical || isMediterranean || isCoastal;
+  const isMinimalist = template.style === "minimalist";
+  const isBotanicalOrMed = isBotanical || isMediterranean || isCoastal || isMinimalist;
 
   // Demo wedding date (future date for countdown)
   const demoWeddingDate = new Date();
@@ -220,10 +226,10 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className={`relative z-10 ${isCoastal ? "mt-8 sm:mt-12" : isBotanicalOrMed ? "-mt-16" : ""}`}
+                className={`relative z-10 ${isMinimalist ? "" : isCoastal ? "mt-8 sm:mt-12" : isBotanicalOrMed ? "-mt-16" : ""}`}
               >
-                {/* Headline — above names for non-mediterranean/coastal, below for those */}
-                {!isMediterranean && !isCoastal && (
+                {/* Headline — above names for non-mediterranean/coastal/minimalist, below for those */}
+                {!isMediterranean && !isCoastal && !isMinimalist && (
                   <p
                     className="font-accent text-2xl mb-6"
                     style={{
@@ -252,7 +258,39 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                     <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
                   </div>
                 )}
-                {isCoastal ? (
+                {isMinimalist ? (
+                  /* Minimalist: very large serif names with script "&" */
+                  <h1 className="leading-[0.85] text-center">
+                    <span
+                      className="block text-[5rem] sm:text-[8rem] font-light uppercase tracking-[0.15em]"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                      }}
+                    >
+                      {demoData.partner1}
+                    </span>
+                    <span
+                      className="block text-[3rem] sm:text-[4.5rem] my-1 sm:my-2"
+                      style={{
+                        color: template.colors.textMuted,
+                        fontFamily: `'${template.fonts.accent}', cursive`,
+                        fontWeight: 400,
+                      }}
+                    >
+                      &
+                    </span>
+                    <span
+                      className="block text-[5rem] sm:text-[8rem] font-light uppercase tracking-[0.15em]"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                      }}
+                    >
+                      {demoData.partner2}
+                    </span>
+                  </h1>
+                ) : isCoastal ? (
                   /* Coastal: uppercase names with script "&", centered, constrained to arch */
                   <h1
                     className="leading-tight text-center max-w-[58vw] sm:max-w-md mx-auto"
@@ -347,6 +385,31 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                     {demoData.partner2}
                   </h1>
                 )}
+                {/* Minimalist date + invitation text */}
+                {isMinimalist && (
+                  <div className="text-center mt-8 sm:mt-12">
+                    <p
+                      className="text-sm sm:text-base uppercase tracking-[0.3em] font-light"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.body}', serif`,
+                      }}
+                    >
+                      {demoData.date}
+                    </p>
+                    <p
+                      className="mt-6 text-base sm:text-lg italic font-light leading-relaxed"
+                      style={{
+                        color: template.colors.textMuted,
+                        fontFamily: `'${template.fonts.body}', serif`,
+                      }}
+                    >
+                      Nodigen je uit om hun
+                      <br />
+                      bruiloft te vieren!
+                    </p>
+                  </div>
+                )}
                 {/* Coastal invitation text + date below names */}
                 {isCoastal && (
                   <div className="text-center mt-4 sm:mt-8 max-w-[55vw] sm:max-w-sm mx-auto">
@@ -420,7 +483,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  className={`absolute ${isCoastal ? "bottom-20" : "bottom-4"} sm:bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10`}
+                  className={`absolute ${isCoastal ? "bottom-28 sm:bottom-16" : isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
                 >
                   <button
                     onClick={() => {
@@ -431,10 +494,10 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                     <span
                       className="text-xs font-semibold tracking-[0.2em] uppercase"
                       style={{
-                        color: (isMediterranean || isCoastal) ? template.colors.primary : "#FDFBF7",
+                        color: (isMediterranean || isCoastal) ? template.colors.primary : isMinimalist ? template.colors.textMuted : "#FDFBF7",
                         textShadow: (isMediterranean || isCoastal)
                           ? "0 1px 12px rgba(255,252,245,0.8), 0 0px 4px rgba(255,252,245,0.5)"
-                          : "0 1px 12px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.3)",
+                          : isMinimalist ? "none" : "0 1px 12px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.3)",
                       }}
                     >
                       Bevestig aanwezigheid
@@ -445,12 +508,12 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                       style={{
                         filter: (isMediterranean || isCoastal)
                           ? "drop-shadow(0 1px 8px rgba(255,252,245,0.5))"
-                          : "drop-shadow(0 1px 8px rgba(0,0,0,0.4))",
+                          : isMinimalist ? "none" : "drop-shadow(0 1px 8px rgba(0,0,0,0.4))",
                       }}
                     >
                       <ChevronDown
                         className="w-6 h-6"
-                        style={{ color: (isMediterranean || isCoastal) ? template.colors.primary : "#FDFBF7" }}
+                        style={{ color: (isMediterranean || isCoastal) ? template.colors.primary : isMinimalist ? template.colors.textMuted : "#FDFBF7" }}
                       />
                     </motion.div>
                   </button>
@@ -483,7 +546,9 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                     ? template.colors.text
                     : isCoastal
                       ? "#C4A47C"
-                      : undefined,
+                      : isMinimalist
+                        ? "#3D3D3D"
+                        : undefined,
               }}
             >
               <div className="max-w-2xl mx-auto text-center">
@@ -535,12 +600,28 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                     </p>
                   </>
                 )}
+                {isMinimalist && (
+                  <>
+                    <h2
+                      className="font-heading text-2xl sm:text-3xl mb-2 font-light tracking-wide"
+                      style={{
+                        color: "#FDFBF7",
+                        fontFamily: `'${template.fonts.heading}', serif`,
+                      }}
+                    >
+                      Nog even geduld...
+                    </h2>
+                    <p className="text-sm mb-8" style={{ color: "rgba(253,251,247,0.7)" }}>
+                      Tot de grote dag
+                    </p>
+                  </>
+                )}
                 <CountdownTimer
                   targetDate={demoWeddingDate}
-                  accentColor={isBotanical ? "#FDFBF7" : (isMediterranean || isCoastal) ? "#FDFBF7" : template.colors.primary}
+                  accentColor={isBotanical ? "#FDFBF7" : (isMediterranean || isCoastal || isMinimalist) ? "#FDFBF7" : template.colors.primary}
                   variant="card"
                   showSeconds={true}
-                  theme={isBotanical ? "botanical" : (isMediterranean || isCoastal) ? "mediterranean" : undefined}
+                  theme={isBotanical ? "botanical" : (isMediterranean || isCoastal || isMinimalist) ? "mediterranean" : undefined}
                 />
               </div>
             </section>
@@ -754,6 +835,8 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                 ? [{ hex: "#1B3A5F", name: "Blauw" }, { hex: "#8C939A", name: "Grijs" }]
                 : isCoastal
                 ? [{ hex: "#6B9CC3", name: "Blauw" }, { hex: "#8B6B4A", name: "Bruin" }]
+                : isMinimalist
+                ? [{ hex: "#3D3D3D", name: "Antraciet" }, { hex: "#F5F0EB", name: "Crème" }]
                 : [{ hex: "#6B8F6B", name: "Salie groen" }, { hex: "#F0EBE3", name: "Ivoor" }]
               }
             />
@@ -891,6 +974,36 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                 >
                   Ja, Voor Altijd
                 </p>
+              </section>
+            )}
+            {isMinimalist && (
+              <section className="py-20 px-4 text-center" style={{ backgroundColor: "#FFFFFF" }}>
+                <div className="max-w-md mx-auto">
+                  <h3 className="text-2xl sm:text-3xl font-light tracking-[0.1em] uppercase mb-3">
+                    <span style={{ color: template.colors.text, fontFamily: `'${template.fonts.heading}', serif` }}>
+                      {demoData.partner1}
+                    </span>
+                    <span
+                      className="inline-block mx-3 text-xl sm:text-2xl normal-case tracking-normal"
+                      style={{ color: template.colors.textMuted, fontFamily: `'${template.fonts.accent}', cursive`, fontWeight: 400 }}
+                    >
+                      &
+                    </span>
+                    <span style={{ color: template.colors.text, fontFamily: `'${template.fonts.heading}', serif` }}>
+                      {demoData.partner2}
+                    </span>
+                  </h3>
+                  <div className="w-16 h-px mx-auto mb-3" style={{ backgroundColor: "#E0E0E0" }} />
+                  <p
+                    className="text-sm capitalize tracking-wide"
+                    style={{
+                      color: template.colors.textMuted,
+                      fontFamily: `'${template.fonts.body}', serif`,
+                    }}
+                  >
+                    {demoData.date}
+                  </p>
+                </div>
               </section>
             )}
 

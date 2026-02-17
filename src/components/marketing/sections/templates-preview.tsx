@@ -44,12 +44,22 @@ const templates: Array<{
       accent: "#84A98C",
     },
   },
+  {
+    id: "minimalist",
+    nameKey: "minimalist",
+    sealColor: "#2C2C2C",
+    colors: {
+      bg: "from-white to-[#F5F5F5]",
+      accent: "#3D3D3D",
+    },
+  },
 ];
 
 const templateNames = {
   coastal: { nl: "Riviera", en: "Riviera" },
   modern: { nl: "Modern Minimaal", en: "Modern Minimal" },
   botanical: { nl: "Botanische Droom", en: "Botanical Dream" },
+  minimalist: { nl: "Minimalist", en: "Minimalist" },
 };
 
 export function TemplatesPreviewSection() {
@@ -72,7 +82,7 @@ export function TemplatesPreviewSection() {
           <p className="mt-4 text-lg text-stone-600">{t("subtitle")}</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {templates.map((template, index) => (
             <motion.div
               key={template.id}

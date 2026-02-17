@@ -210,17 +210,29 @@
   "templates": {
     "title": "Our Templates",
     "subtitle": "Find the perfect style for your big day",
-    "filter": {
-      "all": "All styles",
-      "romantic": "Romantic",
-      "modern": "Modern",
-      "mediterranean": "Mediterranean",
-      "minimal": "Minimal",
-      "botanical": "Botanical",
-      "coastal": "Coastal"
-    },
     "view_demo": "View demo",
-    "select": "Choose this template"
+    "coming_soon": "Coming soon",
+    "coming_soon_sub": "New styles in the works",
+    "cant_find": {
+      "title": "Can't find your style?",
+      "description": "Tell us what style you're looking for and we'll see what we can do.",
+      "cta": "Share your idea"
+    },
+    "idea_form": {
+      "title": "Share your template idea",
+      "description": "Describe the style you're looking for and we'll consider it for our roadmap.",
+      "name": "Name",
+      "name_placeholder": "Your names",
+      "email": "Email",
+      "email_placeholder": "you@email.com",
+      "message": "Describe your dream style",
+      "message_placeholder": "E.g. a bohemian style with dried flowers and earthy tones...",
+      "submit": "Submit idea",
+      "submitting": "Submitting...",
+      "error": "Something went wrong. Please try again.",
+      "success_title": "Thank you!",
+      "success_message": "We've received your idea and will consider it for our planning."
+    }
   },
   "pricing": {
     "badge": "Simple, honest pricing",

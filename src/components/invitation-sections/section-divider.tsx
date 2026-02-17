@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 
 interface SectionDividerProps {
-  style?: "floral" | "geometric" | "botanical" | "citrus" | "shell";
+  style?: "floral" | "geometric" | "botanical" | "citrus" | "shell" | "line";
   color?: string;
   className?: string;
 }
@@ -20,6 +20,7 @@ export function SectionDivider({
       {style === "botanical" && <BotanicalDivider color={color} />}
       {style === "citrus" && <CitrusDivider color={color} />}
       {style === "shell" && <ShellDivider color={color} />}
+      {style === "line" && <LineDivider color={color} />}
     </div>
   );
 }
@@ -201,6 +202,12 @@ function ShellDivider({ color }: { color: string }) {
       {/* Right line */}
       <line x1="120" y1="20" x2="190" y2="20" stroke={color} strokeWidth="1" />
     </svg>
+  );
+}
+
+function LineDivider({ color }: { color: string }) {
+  return (
+    <div className="w-16 h-px opacity-40" style={{ backgroundColor: color }} />
   );
 }
 

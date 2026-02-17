@@ -46,7 +46,8 @@ export function HeroSection({
   const isBotanical = template.style === "botanical";
   const isMediterranean = template.style === "mediterranean";
   const isCoastal = template.style === "coastal";
-  const isBotanicalOrMedOrCoastal = isBotanical || isMediterranean || isCoastal;
+  const isMinimalist = template.style === "minimalist";
+  const isBotanicalOrMedOrCoastal = isBotanical || isMediterranean || isCoastal || isMinimalist;
 
   return (
     <section
@@ -64,9 +65,9 @@ export function HeroSection({
         {template.style === "coastal" && <RivieraBackground />}
       </div>
 
-      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isCoastal ? "mt-8 sm:mt-12" : isBotanicalOrMedOrCoastal && "-mt-16")}>
-        {/* Wax seal — hidden for botanical & mediterranean style */}
-        {!isBotanical && !isMediterranean && !isCoastal && (
+      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isMinimalist ? "" : isCoastal ? "mt-8 sm:mt-12" : isBotanicalOrMedOrCoastal && "-mt-16")}>
+        {/* Wax seal — hidden for botanical, mediterranean, coastal & minimalist */}
+        {!isBotanical && !isMediterranean && !isCoastal && !isMinimalist && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -85,7 +86,7 @@ export function HeroSection({
         )}
 
         {/* Headline — above names for non-mediterranean, below for mediterranean */}
-        {headline && !isMediterranean && !isCoastal && (
+        {headline && !isMediterranean && !isCoastal && !isMinimalist && (
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -125,7 +126,43 @@ export function HeroSection({
         )}
 
         {/* Names */}
-        {isCoastal ? (
+        {isMinimalist ? (
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="leading-[0.85] text-center"
+          >
+            <span
+              className="block text-[5rem] sm:text-[8rem] font-light uppercase tracking-[0.15em]"
+              style={{
+                color: template.colors.text,
+                fontFamily: `'${template.fonts.heading}', serif`,
+              }}
+            >
+              {partner1Name}
+            </span>
+            <span
+              className="block text-[3rem] sm:text-[4.5rem] my-1 sm:my-2"
+              style={{
+                color: template.colors.textMuted,
+                fontFamily: `'${template.fonts.accent}', cursive`,
+                fontWeight: 400,
+              }}
+            >
+              &
+            </span>
+            <span
+              className="block text-[5rem] sm:text-[8rem] font-light uppercase tracking-[0.15em]"
+              style={{
+                color: template.colors.text,
+                fontFamily: `'${template.fonts.heading}', serif`,
+              }}
+            >
+              {partner2Name}
+            </span>
+          </motion.h1>
+        ) : isCoastal ? (
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -228,6 +265,37 @@ export function HeroSection({
           </motion.h1>
         )}
 
+        {/* Minimalist date + invitation text */}
+        {isMinimalist && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="text-center mt-8 sm:mt-12"
+          >
+            <p
+              className="text-sm sm:text-base uppercase tracking-[0.3em] font-light"
+              style={{
+                color: template.colors.text,
+                fontFamily: `'${template.fonts.body}', serif`,
+              }}
+            >
+              {formattedDate}
+            </p>
+            <p
+              className="mt-6 text-base sm:text-lg italic font-light leading-relaxed"
+              style={{
+                color: template.colors.textMuted,
+                fontFamily: `'${template.fonts.body}', serif`,
+              }}
+            >
+              Nodigen je uit om hun
+              <br />
+              bruiloft te vieren!
+            </p>
+          </motion.div>
+        )}
+
         {/* Coastal invitation text + date below names, centered */}
         {isCoastal && (
           <motion.div
@@ -297,7 +365,7 @@ export function HeroSection({
         )}
 
         {/* Date and time */}
-        {!isMediterranean && !isCoastal && (
+        {!isMediterranean && !isCoastal && !isMinimalist && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -335,7 +403,7 @@ export function HeroSection({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className={`absolute ${isCoastal ? "bottom-20" : "bottom-4"} sm:bottom-10 left-0 right-0 flex flex-col items-center gap-3 z-10`}
+          className={`absolute ${isCoastal ? "bottom-28 sm:bottom-16" : isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
         >
           <button
             onClick={() => {
@@ -346,10 +414,10 @@ export function HeroSection({
             <span
               className="text-xs font-semibold tracking-[0.2em] uppercase"
               style={{
-                color: (isMediterranean || isCoastal) ? template.colors.primary : "#FDFBF7",
+                color: (isMediterranean || isCoastal) ? template.colors.primary : isMinimalist ? template.colors.textMuted : "#FDFBF7",
                 textShadow: (isMediterranean || isCoastal)
                   ? "0 1px 12px rgba(255,252,245,0.8), 0 0px 4px rgba(255,252,245,0.5)"
-                  : "0 1px 12px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.3)",
+                  : isMinimalist ? "none" : "0 1px 12px rgba(0,0,0,0.5), 0 0px 4px rgba(0,0,0,0.3)",
               }}
             >
               Bevestig aanwezigheid
@@ -357,11 +425,11 @@ export function HeroSection({
             <motion.div
               animate={{ y: [0, 6, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              style={{ filter: (isMediterranean || isCoastal) ? "drop-shadow(0 1px 8px rgba(255,252,245,0.5))" : "drop-shadow(0 1px 8px rgba(0,0,0,0.4))" }}
+              style={{ filter: (isMediterranean || isCoastal) ? "drop-shadow(0 1px 8px rgba(255,252,245,0.5))" : isMinimalist ? "none" : "drop-shadow(0 1px 8px rgba(0,0,0,0.4))" }}
             >
               <ChevronDown
                 className="w-6 h-6"
-                style={{ color: (isMediterranean || isCoastal) ? template.colors.primary : "#FDFBF7" }}
+                style={{ color: (isMediterranean || isCoastal) ? template.colors.primary : isMinimalist ? template.colors.textMuted : "#FDFBF7" }}
               />
             </motion.div>
           </button>
