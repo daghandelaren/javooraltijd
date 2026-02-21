@@ -89,13 +89,20 @@ export function HeroSection() {
                     transform: "translateZ(0)",
                   }}
                 >
-                  {/* Combined envelope image */}
+                  {/* Envelope under (body) */}
                   <Image
-                    src="/images/envelope/envelope-mobile.png"
+                    src="/images/envelope/under-mobile.png"
                     alt="Envelope preview"
                     fill
                     className="object-cover object-top lg:scale-[1.15] lg:origin-center"
                     priority
+                  />
+                  {/* Envelope flap */}
+                  <Image
+                    src="/images/envelope/flap-mobile.png"
+                    alt=""
+                    fill
+                    className="object-cover object-top lg:scale-[1.15] lg:origin-center"
                   />
 
 

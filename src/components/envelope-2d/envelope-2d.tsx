@@ -52,7 +52,7 @@ export function Envelope2D({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.53 }}
           className={cn("fixed inset-0 w-full h-screen overflow-hidden", className)}
           style={{ backgroundColor: "#E8DFD4" }}
         >
@@ -102,7 +102,6 @@ export function Envelope2D({
 // Flap - just the flap image with rotation animation
 function Flap({ state }: { state: EnvelopeState }) {
   const isOpening = state === "opening" || state === "fading" || state === "complete";
-  const flapY = isOpening ? -23 : 0;
 
   return (
     <div
@@ -110,28 +109,16 @@ function Flap({ state }: { state: EnvelopeState }) {
     >
       <motion.div
         className="w-full relative"
-        initial={{ y: 0, filter: "drop-shadow(4px 3px 3px rgba(0,0,0,0.4))" }}
+        initial={false}
         animate={{
-          y: flapY,
+          y: isOpening ? -60 : 0,
           filter: isOpening
-            ? [
-                "drop-shadow(4px 3px 3px rgba(0,0,0,0.4))",
-                "drop-shadow(30px 8px 20px rgba(0,0,0,0.5))",
-                "drop-shadow(70px 5px 40px rgba(0,0,0,0.5))",
-                "drop-shadow(110px 3px 60px rgba(0,0,0,0.45))",
-              ]
-            : "drop-shadow(4px 3px 3px rgba(0,0,0,0.4))",
+            ? "drop-shadow(120px 3px 20px rgba(90,50,20,0))"
+            : "drop-shadow(6px 3px 10px rgba(90,50,20,0.3))",
         }}
         transition={{
-          y: {
-            duration: 1.5,
-            ease: "linear",
-          },
-          filter: {
-            duration: 2.2,
-            ease: "linear",
-            times: [0, 0.25, 0.6, 1],
-          },
+          y: { duration: 3.0, ease: "easeIn" },
+          filter: { duration: 3.0, ease: "easeIn" },
         }}
       >
         <picture className="block w-full">
@@ -174,8 +161,8 @@ function Seal({
     <div className="absolute z-30 left-1/2 -translate-x-1/2 -translate-y-1/2 top-[87.5vw] md:top-[26vw]">
       <motion.div
         initial={{ y: 0 }}
-        animate={{ y: isOpening ? -23 : 0 }}
-        transition={{ y: { duration: 1.5, ease: "linear" } }}
+        animate={{ y: isOpening ? -60 : 0 }}
+        transition={{ y: { duration: 3.0, ease: "easeIn" } }}
       >
         <div className="relative scale-[0.65] md:scale-[0.9]">
         {sealText && (
@@ -196,18 +183,14 @@ function Seal({
           </p>
         )}
         <motion.div
+          initial={false}
           animate={{
             filter: isOpening
-              ? [
-                  "drop-shadow(5px 4px 8px rgba(0,0,0,0.7))",
-                  "drop-shadow(6px 18px 24px rgba(0,0,0,0.65))",
-                  "drop-shadow(6px 35px 50px rgba(0,0,0,0.55))",
-                  "drop-shadow(8px 50px 70px rgba(0,0,0,0.5))",
-                ]
-              : "drop-shadow(5px 4px 8px rgba(0,0,0,0.7))",
+              ? "drop-shadow(70px 90px 22px rgba(70,42,18,0))"
+              : "drop-shadow(6px 8px 10px rgba(70,42,18,0.45))",
           }}
           transition={{
-            filter: { duration: 2.2, ease: "linear", times: [0, 0.25, 0.6, 1] },
+            filter: { duration: 3.0, ease: "easeIn" },
           }}
         >
           <WaxSeal

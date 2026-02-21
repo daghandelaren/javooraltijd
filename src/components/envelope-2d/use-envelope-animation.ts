@@ -19,10 +19,10 @@ interface UseEnvelopeAnimationReturn {
 
 // Animation timing (in ms)
 export const ANIMATION_TIMING = {
-  flapOpen: 6000,       // Full flap animation duration
-  fadeStart: 1000,      // Wait 1 second before starting fade
-  fadeToWhite: 400,     // Fade duration (0.4 seconds)
-  totalSequence: 1400,  // Total time before complete (1s delay + 0.4s fade)
+  flapOpen: 12000,      // Full flap animation duration
+  fadeStart: 2000,      // Wait 2 seconds before starting fade
+  fadeToWhite: 427,     // Fade duration (0.427 seconds)
+  totalSequence: 2427,  // Total time before complete (2s delay + 0.427s fade)
 };
 
 export function useEnvelopeAnimation(
