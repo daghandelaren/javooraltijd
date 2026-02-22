@@ -176,7 +176,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
   return (
     <div
       className="min-h-screen"
-      style={{ background: template.colors.backgroundGradient }}
+      style={{ background: isRevealed ? template.colors.backgroundGradient : "#FFFFFF" }}
     >
       <AnimatePresence mode="wait">
         {!isRevealed ? (

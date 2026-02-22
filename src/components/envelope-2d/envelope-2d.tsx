@@ -113,8 +113,8 @@ function Flap({ state }: { state: EnvelopeState }) {
         animate={{
           y: isOpening ? -60 : 0,
           filter: isOpening
-            ? "drop-shadow(120px 3px 20px rgba(90,50,20,0))"
-            : "drop-shadow(6px 3px 10px rgba(90,50,20,0.3))",
+            ? "drop-shadow(6px 200px 20px rgba(90,50,20,0))"
+            : "drop-shadow(6px 3px 16px rgba(90,50,20,0.55))",
         }}
         transition={{
           y: { duration: 3.0, ease: "easeIn" },
@@ -186,7 +186,7 @@ function Seal({
           initial={false}
           animate={{
             filter: isOpening
-              ? "drop-shadow(70px 90px 22px rgba(70,42,18,0))"
+              ? "drop-shadow(6px 200px 22px rgba(70,42,18,0))"
               : "drop-shadow(6px 8px 10px rgba(70,42,18,0.45))",
           }}
           transition={{

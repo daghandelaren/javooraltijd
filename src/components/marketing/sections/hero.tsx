@@ -98,12 +98,17 @@ export function HeroSection() {
                     priority
                   />
                   {/* Envelope flap */}
-                  <Image
-                    src="/images/envelope/flap-mobile.png"
-                    alt=""
-                    fill
-                    className="object-cover object-top lg:scale-[1.15] lg:origin-center"
-                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{ filter: "drop-shadow(6px 3px 12px rgba(90,50,20,0.3))" }}
+                  >
+                    <Image
+                      src="/images/envelope/flap-mobile.png"
+                      alt=""
+                      fill
+                      className="object-cover object-top lg:scale-[1.15] lg:origin-center"
+                    />
+                  </div>
 
 
                   {/* Seal + text container */}
@@ -130,7 +135,7 @@ export function HeroSection() {
                     <div
                       className="scale-75"
                       style={{
-                        filter: "drop-shadow(5px 4px 8px rgba(0,0,0,0.7))",
+                        filter: "drop-shadow(6px 8px 10px rgba(70,42,18,0.45))",
                       }}
                     >
                       <WaxSeal
