@@ -506,7 +506,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="relative z-10 text-center mt-16 sm:mt-6"
+                    className="relative z-10 text-center mt-8 sm:mt-6"
                   >
                     <p
                       className="font-accent text-2xl mb-6"
