@@ -202,7 +202,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
             className="pb-24"
           >
             {/* Hero section — names, date, CTA only */}
-            <section className="min-h-screen flex flex-col items-center justify-center px-4 pt-16 text-center relative">
+            <section className={`min-h-screen flex flex-col items-center px-4 relative ${isBotanical ? "justify-start pt-36 sm:pt-28" : "justify-center pt-16 text-center"}`}>
               {/* Botanical floral background */}
               {isBotanical && (
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -222,6 +222,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                 </div>
               )}
 
+              {isBotanical ? null : (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -476,6 +477,64 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                   </p>
                 )}
               </motion.div>
+              )}
+
+              {/* Botanical layout — names at top, headline + date above the green bush */}
+              {isBotanical && (
+                <>
+                  {/* Names at top */}
+                  <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="relative z-10 text-center font-heading text-[3.25rem] sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight"
+                    style={{
+                      color: template.colors.text,
+                      fontFamily: `'${template.fonts.heading}', serif`,
+                      textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)",
+                    }}
+                  >
+                    {demoData.partner1}
+                    <span className="block text-2xl sm:text-3xl my-2 font-normal" style={{ color: template.colors.textMuted }}>
+                      &
+                    </span>
+                    {demoData.partner2}
+                  </motion.h1>
+
+                  {/* Headline + date near bottom, just above the green bush */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="relative z-10 text-center mt-4 sm:mt-6"
+                  >
+                    <p
+                      className="font-accent text-2xl mb-6"
+                      style={{
+                        color: template.colors.textMuted,
+                        fontFamily: `'${template.fonts.accent}', cursive`,
+                        textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)",
+                      }}
+                    >
+                      {demoData.headline}
+                    </p>
+                    <div className="flex items-center justify-center gap-4">
+                      <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+                      <p
+                        className="text-xl sm:text-2xl capitalize"
+                        style={{
+                          color: template.colors.textMuted,
+                          fontFamily: `'${template.fonts.accent}', cursive`,
+                          textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)",
+                        }}
+                      >
+                        {demoData.date}
+                      </p>
+                      <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+                    </div>
+                  </motion.div>
+                </>
+              )}
 
               {/* CTA button + chevron at bottom */}
               {isBotanicalOrMed ? (

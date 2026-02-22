@@ -52,7 +52,8 @@ export function HeroSection({
   return (
     <section
       className={cn(
-        "min-h-screen flex flex-col items-center justify-center px-4 py-12 relative",
+        "min-h-screen flex flex-col items-center px-4 relative",
+        isBotanical ? "justify-start pt-36 sm:pt-28" : "justify-center py-12",
         className
       )}
       style={{ background: template.colors.backgroundGradient }}
@@ -65,6 +66,7 @@ export function HeroSection({
         {template.style === "coastal" && <RivieraBackground />}
       </div>
 
+      {isBotanical ? null : (
       <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isMinimalist ? "" : isCoastal ? "mt-8 sm:mt-12" : isBotanicalOrMedOrCoastal && "-mt-16")}>
         {/* Wax seal — hidden for botanical, mediterranean, coastal & minimalist */}
         {!isBotanical && !isMediterranean && !isCoastal && !isMinimalist && (
@@ -396,6 +398,66 @@ export function HeroSection({
         </motion.div>
         )}
       </div>
+      )}
+
+      {/* Botanical layout — names at top, headline + date above the green bush */}
+      {isBotanical && (
+        <>
+          {/* Names at top */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="relative z-10 text-center font-heading text-[3.25rem] sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight"
+            style={{
+              color: template.colors.text,
+              fontFamily: `'${template.fonts.heading}', serif`,
+              textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)",
+            }}
+          >
+            {partner1Name}
+            <span className="block text-2xl sm:text-3xl my-2 font-normal" style={{ color: template.colors.textMuted }}>
+              &
+            </span>
+            {partner2Name}
+          </motion.h1>
+
+          {/* Headline + date near bottom, just above the green bush */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="relative z-10 text-center mt-4 sm:mt-6"
+          >
+            {headline && (
+              <p
+                className="font-accent text-2xl sm:text-3xl mb-6"
+                style={{
+                  color: template.colors.textMuted,
+                  fontFamily: `'${template.fonts.accent}', cursive`,
+                  textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)",
+                }}
+              >
+                {headline}
+              </p>
+            )}
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+              <p
+                className="text-xl sm:text-2xl capitalize"
+                style={{
+                  color: template.colors.textMuted,
+                  fontFamily: `'${template.fonts.accent}', cursive`,
+                  textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)",
+                }}
+              >
+                {formattedDate}
+              </p>
+              <div className="h-px w-12" style={{ backgroundColor: `${template.colors.primary}40` }} />
+            </div>
+          </motion.div>
+        </>
+      )}
 
       {/* CTA button + chevron at bottom — Bloementuin, La Dolce Vita & Riviera */}
       {isBotanicalOrMedOrCoastal ? (
