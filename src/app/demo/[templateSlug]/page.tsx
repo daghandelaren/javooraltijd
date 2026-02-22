@@ -236,7 +236,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                     style={{
                       color: template.colors.textMuted,
                       fontFamily: `'${template.fonts.accent}', cursive`,
-                      ...(isBotanical && { textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)" }),
+                      ...(isBotanical ? { textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)" } : {}),
                     }}
                   >
                     {demoData.headline}
@@ -373,7 +373,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                     style={{
                       color: template.colors.text,
                       fontFamily: `'${template.fonts.heading}', serif`,
-                      ...(isBotanical && { textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)" }),
+                      ...(isBotanical ? { textShadow: "0 0 20px rgba(253,251,247,1), 0 0 40px rgba(253,251,247,0.8), 0 0 60px rgba(253,251,247,0.5)" } : {}),
                     }}
                   >
                     {demoData.partner1}
