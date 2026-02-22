@@ -202,7 +202,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
             className="pb-24"
           >
             {/* Hero section — names, date, CTA only */}
-            <section className={`min-h-screen flex flex-col items-center px-4 relative ${isBotanical ? "justify-start pt-32 sm:pt-28" : "justify-center pt-16 text-center"}`}>
+            <section className={`min-h-screen flex flex-col items-center px-4 relative ${isBotanical ? "justify-start pt-20 sm:pt-28" : "justify-center pt-16 text-center"}`}>
               {/* Botanical floral background */}
               {isBotanical && (
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">

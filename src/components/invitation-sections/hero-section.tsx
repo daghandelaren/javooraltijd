@@ -53,7 +53,7 @@ export function HeroSection({
     <section
       className={cn(
         "min-h-screen flex flex-col items-center px-4 relative",
-        isBotanical ? "justify-start pt-32 sm:pt-28" : "justify-center py-12",
+        isBotanical ? "justify-start pt-20 sm:pt-28" : "justify-center py-12",
         className
       )}
       style={{ background: template.colors.backgroundGradient }}
