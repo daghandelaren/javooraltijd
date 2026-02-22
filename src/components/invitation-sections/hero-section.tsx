@@ -53,7 +53,7 @@ export function HeroSection({
     <section
       className={cn(
         "min-h-screen flex flex-col items-center px-4 relative",
-        isBotanical ? "justify-start pt-36 sm:pt-28" : "justify-center py-12",
+        isBotanical ? "justify-start pt-16 sm:pt-28" : "justify-center py-12",
         className
       )}
       style={{ background: template.colors.backgroundGradient }}
@@ -408,7 +408,7 @@ export function HeroSection({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="relative z-10 text-center font-heading text-[3.25rem] sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight"
+            className="relative z-10 text-center font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight"
             style={{
               color: template.colors.text,
               fontFamily: `'${template.fonts.heading}', serif`,
