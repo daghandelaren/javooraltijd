@@ -408,7 +408,7 @@ export function HeroSection({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="relative z-10 text-center font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight"
+            className="relative z-10 text-center font-heading text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight"
             style={{
               color: template.colors.text,
               fontFamily: `'${template.fonts.heading}', serif`,
