@@ -9,47 +9,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WaxSeal } from "@/components/wax-seal/wax-seal";
+import { EnvelopePreview } from "@/components/envelope-2d/envelope-preview";
 import { MusicSelector } from "@/components/builder/music-selector";
 import { useBuilderStore } from "@/stores/builder-store";
+import { useBuilderGuard } from "@/hooks/use-builder-guard";
 import { getTemplateById } from "@/lib/templates";
 import { SEAL_COLOR_PRESETS, DEFAULT_SEAL_COLOR, isValidHexColor } from "@/lib/wax-colors";
-import { SEAL_FONT_PRESETS, DEFAULT_SEAL_FONT, getSealFontConfig } from "@/lib/wax-fonts";
-import { ENVELOPE_COLORS, ENVELOPE_LINERS, DEFAULT_ENVELOPE_COLOR, DEFAULT_ENVELOPE_LINER } from "@/lib/envelope-colors";
+import { SEAL_FONT_PRESETS, DEFAULT_SEAL_FONT } from "@/lib/wax-fonts";
+import { DEFAULT_ENVELOPE_COLOR, DEFAULT_ENVELOPE_LINER } from "@/lib/envelope-colors";
 import { cn } from "@/lib/utils";
 import { Mail, Sparkles } from "lucide-react";
-
-const FONT_PAIRINGS = [
-  {
-    name: "Elegant",
-    value: "elegant",
-    description: "Cormorant + Inter",
-    headingFont: "'Cormorant Garamond', serif",
-    bodyFont: "'Inter', sans-serif",
-  },
-  {
-    name: "Modern",
-    value: "modern",
-    description: "Playfair + Inter",
-    headingFont: "'Playfair Display', serif",
-    bodyFont: "'Inter', sans-serif",
-  },
-  {
-    name: "Romantisch",
-    value: "romantic",
-    description: "Libre Baskerville + Lora",
-    headingFont: "'Libre Baskerville', serif",
-    bodyFont: "'Lora', serif",
-  },
-] as const;
 
 export default function StylingPage() {
   const tCta = useTranslations("cta");
   const router = useRouter();
+  useBuilderGuard(2);
 
   const {
     styling,
     partner1Name,
     partner2Name,
+    weddingDate,
     templateId,
     setStyling,
     setCurrentStep,
@@ -58,12 +38,8 @@ export default function StylingPage() {
   const selectedTemplate = templateId ? getTemplateById(templateId) : null;
 
   useEffect(() => {
-    if (!templateId) {
-      router.push("/builder/template");
-      return;
-    }
     setCurrentStep(7);
-  }, [templateId, router, setCurrentStep]);
+  }, [setCurrentStep]);
 
   // Auto-generate monogram from names
   useEffect(() => {
@@ -102,6 +78,28 @@ export default function StylingPage() {
           Personaliseer de look van jullie uitnodiging
         </p>
       </div>
+
+      {/* Template context banner */}
+      {selectedTemplate && (
+        <div
+          className="flex items-center gap-3 px-4 py-3 rounded-lg border text-sm"
+          style={{
+            borderColor: selectedTemplate.colors.primary + "40",
+            backgroundColor: selectedTemplate.colors.accent,
+            color: selectedTemplate.colors.text,
+          }}
+        >
+          <div
+            className="w-3 h-3 rounded-full shrink-0"
+            style={{ backgroundColor: selectedTemplate.sealColor }}
+          />
+          <span>
+            <span className="font-medium">{selectedTemplate.name}</span>
+            {" — "}
+            <span className="capitalize">{selectedTemplate.style}</span>
+          </span>
+        </div>
+      )}
 
       <div className="max-w-2xl mx-auto space-y-8">
         {/* Wax Seal Section */}
@@ -215,170 +213,77 @@ export default function StylingPage() {
           </div>
         </motion.div>
 
-        {/* Typography Section */}
+        {/* Envelope Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
           className="bg-white rounded-xl p-6 shadow-sm border border-stone-200"
         >
-          <h2 className="font-heading text-xl font-semibold text-stone-900 mb-6">
-            Typografie
-          </h2>
-
-          <div className="space-y-4">
-            <Label>Lettertype combinatie</Label>
-            <div className="grid sm:grid-cols-3 gap-3">
-              {FONT_PAIRINGS.map((pairing) => (
-                <button
-                  key={pairing.value}
-                  onClick={() => setStyling({ fontPairing: pairing.value })}
-                  className={cn(
-                    "p-4 rounded-lg border-2 text-left transition-all",
-                    styling.fontPairing === pairing.value
-                      ? "border-olive-500 bg-olive-50"
-                      : "border-stone-200 hover:border-stone-300"
-                  )}
-                >
-                  <span
-                    className="block text-lg font-semibold text-stone-900"
-                    style={{ fontFamily: pairing.headingFont }}
-                  >
-                    {pairing.name}
-                  </span>
-                  <span className="text-xs text-stone-500">{pairing.description}</span>
-                  <div className="mt-3 text-sm text-stone-600">
-                    <span style={{ fontFamily: pairing.headingFont }}>
-                      {partner1Name || "Naam"} & {partner2Name || "Naam"}
-                    </span>
-                  </div>
-                </button>
-              ))}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-full bg-olive-50 flex items-center justify-center">
+              <Mail className="w-5 h-5 text-olive-600" />
             </div>
-          </div>
-        </motion.div>
-
-        {/* Envelope Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="bg-white rounded-xl p-6 shadow-sm border border-stone-200"
-        >
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-olive-50 flex items-center justify-center">
-                <Mail className="w-5 h-5 text-olive-600" />
-              </div>
-              <div>
-                <h2 className="font-heading text-xl font-semibold text-stone-900">
-                  Envelop Animatie
-                </h2>
-                <p className="text-sm text-stone-500">
-                  Interactieve opening ervaring
-                </p>
-              </div>
-            </div>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={styling.envelopeConfig?.enabled ?? true}
-                onChange={(e) =>
-                  setStyling({
-                    envelopeConfig: {
-                      ...styling.envelopeConfig,
-                      enabled: e.target.checked,
-                      color: styling.envelopeConfig?.color || DEFAULT_ENVELOPE_COLOR,
-                      linerPattern: styling.envelopeConfig?.linerPattern || DEFAULT_ENVELOPE_LINER,
-                      personalizedText: styling.envelopeConfig?.personalizedText || "Deze uitnodiging is speciaal voor jou",
-                    },
-                  })
-                }
-                className="sr-only peer"
-              />
-              <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-olive-100 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-olive-600"></div>
-            </label>
+            <h2 className="font-heading text-xl font-semibold text-stone-900">
+              Envelop
+            </h2>
           </div>
 
-          {(styling.envelopeConfig?.enabled ?? true) && (
-            <div className="space-y-6">
-              {/* Personalized Text */}
-              <div className="space-y-2">
-                <Label htmlFor="envelopeText">Persoonlijke tekst</Label>
-                <Input
-                  id="envelopeText"
-                  value={styling.envelopeConfig?.personalizedText || "Deze uitnodiging is speciaal voor jou"}
-                  onChange={(e) =>
-                    setStyling({
-                      envelopeConfig: {
-                        ...styling.envelopeConfig,
-                        enabled: styling.envelopeConfig?.enabled ?? true,
-                        color: styling.envelopeConfig?.color || DEFAULT_ENVELOPE_COLOR,
-                        linerPattern: styling.envelopeConfig?.linerPattern || DEFAULT_ENVELOPE_LINER,
-                        personalizedText: e.target.value,
-                      },
-                    })
-                  }
-                  placeholder="Deze uitnodiging is speciaal voor jou"
-                  maxLength={60}
-                  className="text-center"
-                />
-                <p className="text-xs text-stone-500">
-                  Tekst die onder de lakzegel wordt getoond
-                </p>
-              </div>
-
-              {/* Info note */}
-              <div className="flex items-start gap-3 p-4 bg-champagne-50 rounded-lg border border-champagne-200">
-                <Sparkles className="w-5 h-5 text-olive-600 flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-stone-600">
-                  Gasten zien een elegante envelop met jullie lakzegel.
-                  Door op de zegel te klikken &quot;breekt&quot; deze open en verschijnt de uitnodiging met een mooie animatie.
-                </p>
+          <div className="space-y-6">
+            {/* Show date on envelope toggle */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label>Trouwdatum tonen op envelop</Label>
+                  <p className="text-xs text-stone-500 mt-1">
+                    De trouwdatum verschijnt boven de lakzegel op de envelop.
+                  </p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={styling.envelopeConfig?.showDateOnEnvelope ?? true}
+                    onChange={(e) =>
+                      setStyling({
+                        envelopeConfig: {
+                          ...styling.envelopeConfig,
+                          enabled: true,
+                          color: styling.envelopeConfig?.color || DEFAULT_ENVELOPE_COLOR,
+                          linerPattern: styling.envelopeConfig?.linerPattern || DEFAULT_ENVELOPE_LINER,
+                          personalizedText: styling.envelopeConfig?.personalizedText || "",
+                          showDateOnEnvelope: e.target.checked,
+                        },
+                      })
+                    }
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-olive-100 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-olive-600"></div>
+                </label>
               </div>
             </div>
-          )}
+
+            {/* Info note */}
+            <div className="flex items-start gap-3 p-4 bg-champagne-50 rounded-lg border border-champagne-200">
+              <Sparkles className="w-5 h-5 text-olive-600 flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-stone-600">
+                Gasten zien een elegante envelop met jullie lakzegel.
+                Door op de zegel te klikken &quot;breekt&quot; deze open en verschijnt de uitnodiging met een mooie animatie.
+              </p>
+            </div>
+          </div>
         </motion.div>
 
         {/* Background Music Section */}
         <MusicSelector />
 
-        {/* Overall Preview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-stone-100 rounded-xl p-8 text-center"
-        >
-          <h3 className="font-heading text-lg font-semibold text-stone-700 mb-4">
-            Preview
-          </h3>
-          <div
-            className="bg-white rounded-lg p-8 shadow-sm"
-            style={{
-              background: selectedTemplate?.colors.backgroundGradient,
-            }}
-          >
-            <WaxSeal
-              initials={styling.monogram || "J&B"}
-              color={currentColor}
-              font={styling.sealFont || DEFAULT_SEAL_FONT}
-              size="lg"
-            />
-            <h2
-              className="mt-6 font-heading text-2xl font-semibold"
-              style={{ color: selectedTemplate?.colors.text || "#1C1917" }}
-            >
-              {partner1Name || "Naam"} & {partner2Name || "Naam"}
-            </h2>
-            <p
-              className="mt-2 font-accent text-lg"
-              style={{ color: selectedTemplate?.colors.textMuted || "#78716C" }}
-            >
-              Wij gaan trouwen!
-            </p>
-          </div>
-        </motion.div>
+        {/* Envelope Preview */}
+        <EnvelopePreviewSection
+          sealColor={currentColor}
+          sealFont={styling.sealFont || DEFAULT_SEAL_FONT}
+          monogram={styling.monogram || "J&B"}
+          showDate={styling.envelopeConfig?.showDateOnEnvelope ?? true}
+          weddingDate={weddingDate}
+        />
       </div>
 
       {/* Navigation */}
@@ -393,5 +298,47 @@ export default function StylingPage() {
         </Button>
       </div>
     </div>
+  );
+}
+
+function EnvelopePreviewSection({
+  sealColor,
+  sealFont,
+  monogram,
+  showDate,
+  weddingDate,
+}: {
+  sealColor: string;
+  sealFont: string;
+  monogram: string;
+  showDate: boolean;
+  weddingDate: string;
+}) {
+  const sealText = showDate && weddingDate
+    ? new Date(weddingDate).toLocaleDateString("nl-NL", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    : undefined;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+      className="bg-stone-100 rounded-xl p-6"
+    >
+      <h3 className="font-heading text-lg font-semibold text-stone-700 mb-4 text-center">
+        Envelop preview
+      </h3>
+      <EnvelopePreview
+        sealColor={sealColor}
+        sealFont={sealFont as import("@/lib/wax-fonts").SealFontId}
+        monogram={monogram}
+        sealText={sealText}
+        className="w-full"
+      />
+    </motion.div>
   );
 }
