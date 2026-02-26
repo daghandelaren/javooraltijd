@@ -520,7 +520,7 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
             order: item.order,
           })),
           rsvpConfig: invitation.rsvpConfig
-            ? { customQuestions: [], ...invitation.rsvpConfig }
+            ? { ...invitation.rsvpConfig, customQuestions: invitation.rsvpConfig.customQuestions ?? [] }
             : {
                 enabled: invitation.rsvpEnabled,
                 deadline: invitation.rsvpDeadline || undefined,
