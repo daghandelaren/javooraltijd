@@ -14,12 +14,12 @@ import {
   Ribbon,
   // Food & Drink
   Wine,
+  Martini,
   Utensils,
   Coffee,
   Cake,
   CakeSlice,
   Beer,
-  Glasses,
   GlassWater,
   Soup,
   // Activities
@@ -100,7 +100,7 @@ const ICON_CATEGORIES = [
     color: "amber",
     icons: [
       { id: "wine", icon: Wine, label: "Wijn" },
-      { id: "champagne", icon: Glasses, label: "Champagne" },
+      { id: "champagne", icon: Martini, label: "Champagne" },
       { id: "beer", icon: Beer, label: "Bier" },
       { id: "coffee", icon: Coffee, label: "Koffie" },
       { id: "glass-water", icon: GlassWater, label: "Water" },
@@ -340,7 +340,7 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   "award": Award,
   // Food & Drink
   "wine": Wine,
-  "champagne": Glasses,
+  "champagne": Martini,
   "beer": Beer,
   "coffee": Coffee,
   "glass-water": GlassWater,
@@ -476,9 +476,15 @@ export const DEFAULT_ICON = "map-pin";
 // Preset program items with Lucide icons
 export const PROGRAM_PRESETS = [
   { title: "Ceremonie", icon: "church" },
-  { title: "Borrel", icon: "champagne" },
+  { title: "Borrel", icon: "wine" },
   { title: "Diner", icon: "utensils" },
   { title: "Taart aansnijden", icon: "cake" },
   { title: "Openingsdans", icon: "music" },
   { title: "Feest", icon: "party-popper" },
+  { title: "Aankomst", icon: "users" },
+  { title: "Fotoshoot", icon: "camera" },
+  { title: "Aperitief", icon: "wine" },
+  { title: "Speeches", icon: "mic-2" },
+  { title: "Dansen", icon: "music" },
+  { title: "Koffie & taart", icon: "coffee" },
 ];

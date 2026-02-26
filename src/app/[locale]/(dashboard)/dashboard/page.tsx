@@ -100,7 +100,7 @@ export default async function DashboardPage() {
             </Link>
           </Button>
           <Button asChild>
-            <Link href="/builder/template">
+            <Link href="/builder/package">
               <Plus className="w-4 h-4 mr-2" />
               Nieuwe uitnodiging
             </Link>
@@ -131,7 +131,7 @@ export default async function DashboardPage() {
                 Begin met het ontwerpen van jullie digitale trouwuitnodiging.
               </p>
               <Button asChild size="lg" className="bg-olive-600 hover:bg-olive-700">
-                <Link href="/builder/template">
+                <Link href="/builder/package">
                   <Sparkles className="w-4 h-4 mr-2" />
                   Maak jullie uitnodiging
                 </Link>

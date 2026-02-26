@@ -3,19 +3,20 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { CountdownTimer } from "@/components/countdown";
-import { SectionDivider } from "./section-divider";
 import { type Template } from "@/lib/templates";
 
 interface CountdownSectionProps {
   weddingDate: Date;
   template: Template;
   className?: string;
+  compact?: boolean;
 }
 
 export function CountdownSection({
   weddingDate,
   template,
   className,
+  compact = false,
 }: CountdownSectionProps) {
   const isBotanical = template.style === "botanical";
   const isMediterranean = template.style === "mediterranean";
@@ -32,7 +33,7 @@ export function CountdownSection({
         background: isBotanical
           ? "#4A5D4A"
           : isMediterranean
-          ? template.colors.accent
+          ? template.colors.text
           : isCoastal
           ? "#C4A47C"
           : template.colors.background,
@@ -48,7 +49,7 @@ export function CountdownSection({
         <h2
           className="font-heading text-2xl sm:text-3xl mb-2"
           style={{
-            color: (isBotanical || isCoastal) ? "#FDFBF7" : template.colors.text,
+            color: (isBotanical || isMediterranean || isCoastal) ? "#FDFBF7" : template.colors.text,
             fontFamily: `'${template.fonts.heading}', serif`,
           }}
         >
@@ -56,24 +57,19 @@ export function CountdownSection({
         </h2>
         <p
           className="text-sm mb-8"
-          style={{ color: (isBotanical || isCoastal) ? "rgba(253,251,247,0.7)" : template.colors.textMuted }}
+          style={{ color: (isBotanical || isMediterranean || isCoastal) ? "rgba(253,251,247,0.7)" : template.colors.textMuted }}
         >
           Tot de grote dag
         </p>
 
         <CountdownTimer
           targetDate={weddingDate}
-          accentColor={(isBotanical || isCoastal) ? "#FDFBF7" : template.colors.primary}
+          accentColor={(isBotanical || isMediterranean || isCoastal) ? "#FDFBF7" : template.colors.primary}
           variant="card"
-          showSeconds={false}
           theme={isBotanical ? "botanical" : (isMediterranean || isCoastal) ? "mediterranean" : undefined}
+          compact={compact}
         />
 
-        <SectionDivider
-          style={template.dividerStyle}
-          color={template.colors.primary}
-          className="mt-8"
-        />
       </motion.div>
     </section>
   );

@@ -4,10 +4,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Check, ChevronLeft, Save, Eye, Loader2, Cloud, CloudOff } from "lucide-react";
+import { Check, ChevronLeft, Save, Eye, Loader2, Cloud, CloudOff, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useBuilderStore } from "@/stores/builder-store";
 import { useBuilderSync } from "@/hooks/use-builder-sync";
+import { getTemplateById } from "@/lib/templates";
 import { cn } from "@/lib/utils";
 
 const STEPS = [
@@ -22,6 +23,15 @@ const STEPS = [
   { key: "checkout", path: "/builder/checkout" },
 ];
 
+function getMaxAllowedStep(
+  selectedPlan: string | null,
+  templateId: string | null
+): number {
+  if (!selectedPlan) return 1;
+  if (!templateId) return 2;
+  return 9;
+}
+
 export default function BuilderLayout({
   children,
 }: {
@@ -30,8 +40,11 @@ export default function BuilderLayout({
   const t = useTranslations("builder");
   const pathname = usePathname();
   const router = useRouter();
-  const { lastSaved } = useBuilderStore();
+  const { lastSaved, selectedPlan, templateId } = useBuilderStore();
   const { isAuthenticated, isSaving, isDirty, forceSave } = useBuilderSync();
+  const selectedTemplate = templateId ? getTemplateById(templateId) : null;
+  const primaryColor = selectedTemplate?.colors.primary ?? "#5C6B4A"; // olive-700 fallback
+  const primaryColorLight = primaryColor + "33"; // ~20% opacity
 
   // Get current step from pathname
   const getCurrentStepIndex = () => {
@@ -41,6 +54,7 @@ export default function BuilderLayout({
   };
 
   const activeStep = getCurrentStepIndex();
+  const maxAllowedStep = getMaxAllowedStep(selectedPlan, templateId);
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -118,6 +132,25 @@ export default function BuilderLayout({
                 const isActive = index + 1 === activeStep;
                 const isCompleted = index + 1 < activeStep;
                 const stepNumber = index + 1;
+                const isLocked = stepNumber > maxAllowedStep;
+
+                if (isLocked) {
+                  return (
+                    <div
+                      key={step.key}
+                      className="flex-1 relative py-3 text-center cursor-default"
+                    >
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="w-6 h-6 rounded-full flex items-center justify-center bg-stone-100">
+                          <Lock className="w-3 h-3 text-stone-300" />
+                        </div>
+                        <span className="text-xs hidden md:block text-stone-300">
+                          {t(`steps.${step.key}`)}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                }
 
                 return (
                   <Link
@@ -127,17 +160,22 @@ export default function BuilderLayout({
                       "flex-1 relative py-3 text-center transition-colors",
                       isActive && "bg-white",
                       !isActive && !isCompleted && "text-stone-400",
-                      isCompleted && "text-olive-700"
                     )}
+                    style={isCompleted ? { color: primaryColor } : undefined}
                   >
                     <div className="flex flex-col items-center gap-1">
                       <div
                         className={cn(
                           "w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium transition-colors",
-                          isActive && "bg-olive-700 text-white",
-                          isCompleted && "bg-olive-100 text-olive-700",
                           !isActive && !isCompleted && "bg-stone-200 text-stone-500"
                         )}
+                        style={
+                          isActive
+                            ? { backgroundColor: primaryColor, color: "#fff" }
+                            : isCompleted
+                            ? { backgroundColor: primaryColorLight, color: primaryColor }
+                            : undefined
+                        }
                       >
                         {isCompleted ? (
                           <Check className="w-3 h-3" />
@@ -154,7 +192,8 @@ export default function BuilderLayout({
                     {isActive && (
                       <motion.div
                         layoutId="activeStep"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-olive-700"
+                        className="absolute bottom-0 left-0 right-0 h-0.5"
+                        style={{ backgroundColor: primaryColor }}
                       />
                     )}
                   </Link>
@@ -167,7 +206,9 @@ export default function BuilderLayout({
 
       {/* Main content */}
       <main className="py-8">
-        <div className="container-narrow">{children}</div>
+        <div className={activeStep === 1 ? "container-wide" : "container-narrow"}>
+          {children}
+        </div>
       </main>
     </div>
   );

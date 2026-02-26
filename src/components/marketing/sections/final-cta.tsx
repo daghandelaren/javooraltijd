@@ -29,7 +29,7 @@ export function FinalCTASection() {
               size="lg"
               className="bg-white text-olive-700 hover:bg-champagne-100"
             >
-              <Link href="/builder/template">
+              <Link href="/builder/package">
                 {t("cta")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

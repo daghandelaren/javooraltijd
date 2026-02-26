@@ -78,20 +78,26 @@ const cardStyles: Record<
   },
   bloementuin: {
     bgImage: "/images/bloementuin/hero-garden.png",
-    bgGradient: "linear-gradient(160deg, #F0EBE3 0%, #E2DDD2 40%, #D4CFBF 100%)",
+    bgGradient: "linear-gradient(160deg, #FDFBF7 0%, #F8F4EC 40%, #F0EBE3 100%)",
     textColor: "text-[#3D3D3D]",
     mutedColor: "text-[#7A7A6E]",
     buttonClass: "bg-[#6B8F6B] text-white hover:bg-[#5A7E5A] border-0",
     badgeClass: "bg-[#6B8F6B]/15 text-[#6B8F6B]",
-    bottomGradient: "linear-gradient(to top, rgba(253,251,247,0.97) 0%, rgba(240,235,227,0.8) 40%, transparent 100%)",
+    bottomGradient: "linear-gradient(to top, rgba(253,251,247,0.75) 0%, rgba(253,251,247,0.3) 45%, transparent 80%)",
     demoNames: { name1: "Matthew", name2: "Evelyn" },
     namePreview: (
-      <div className="flex flex-col items-center -translate-y-4 sm:-translate-y-6" style={{ textShadow: "0 1px 8px rgba(255,255,255,0.6)" }}>
-        <span style={{ fontFamily: "'Amatic SC', cursive", fontWeight: 700 }} className="text-[#6B8F6B] text-xl sm:text-3xl tracking-widest uppercase">
-          Wij gaan trouwen
+      <div className="absolute inset-0 flex flex-col items-center justify-start pt-[28%]" style={{ textShadow: "0 1px 10px rgba(255,255,255,0.9)" }}>
+        <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 700 }} className="text-[#2C2C2C] text-base sm:text-2xl leading-tight">
+          Matthew
         </span>
-        <span style={{ fontFamily: "'Libre Baskerville', serif" }} className="text-[#3D3D3D] text-base sm:text-lg mt-0.5">
-          Matthew &amp; Evelyn
+        <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 400 }} className="text-[#2C2C2C] text-sm sm:text-xl leading-tight">
+          &amp;
+        </span>
+        <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 700 }} className="text-[#2C2C2C] text-base sm:text-2xl leading-tight">
+          Evelyn
+        </span>
+        <span style={{ fontFamily: "'Amatic SC', cursive", fontWeight: 400 }} className="text-[#7A7A6A] text-[10px] sm:text-sm tracking-widest uppercase mt-1">
+          wij gaan trouwen
         </span>
       </div>
     ),

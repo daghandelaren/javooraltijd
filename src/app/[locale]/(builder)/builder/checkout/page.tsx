@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, CreditCard, Shield, Clock, AlertCircle, Loader2, Check, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useBuilderStore, type PlanId } from "@/stores/builder-store";
+import { useBuilderGuard } from "@/hooks/use-builder-guard";
 import { useBuilderSync } from "@/hooks/use-builder-sync";
 
 interface PlanDetails {
@@ -80,7 +81,6 @@ function CheckoutContent() {
   const [error, setError] = useState<string | null>(null);
 
   const {
-    templateId,
     partner1Name,
     partner2Name,
     invitationId,
@@ -89,14 +89,11 @@ function CheckoutContent() {
   } = useBuilderStore();
 
   const { isAuthenticated, forceSave } = useBuilderSync();
+  useBuilderGuard(2);
 
   useEffect(() => {
-    if (!templateId) {
-      router.push("/builder/template");
-      return;
-    }
     setCurrentStep(9);
-  }, [templateId, router, setCurrentStep]);
+  }, [setCurrentStep]);
 
   // Show canceled message
   useEffect(() => {
@@ -104,13 +101,6 @@ function CheckoutContent() {
       setError("Betaling geannuleerd. Probeer het opnieuw.");
     }
   }, [canceled]);
-
-  // Redirect if no plan selected
-  useEffect(() => {
-    if (!selectedPlan) {
-      router.push("/builder/package");
-    }
-  }, [selectedPlan, router]);
 
   const planDetails = selectedPlan ? PLAN_DETAILS[selectedPlan] : null;
   const total = planDetails?.price || 0;

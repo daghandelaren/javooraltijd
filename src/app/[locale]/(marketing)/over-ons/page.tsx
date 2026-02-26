@@ -329,7 +329,7 @@ export default function OverOnsPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-olive-700 hover:bg-olive-800">
-                <Link href="/builder/template">
+                <Link href="/builder/package">
                   {t("cta.primaryButton")}
                 </Link>
               </Button>

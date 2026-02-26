@@ -44,7 +44,7 @@ export function HeroSection() {
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button asChild size="lg">
-                <Link href="/builder/template">
+                <Link href="/builder/package">
                   {t("cta_primary")}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

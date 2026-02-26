@@ -15,29 +15,25 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { IconButton, ProgramIcon } from "@/components/builder/icon-picker";
 import { useBuilderStore, type Location } from "@/stores/builder-store";
+import { useBuilderGuard } from "@/hooks/use-builder-guard";
 import { cn } from "@/lib/utils";
 
-const LOCATION_TYPES = [
-  { value: "ceremony", label: "Ceremonie", icon: "💒" },
-  { value: "reception", label: "Receptie", icon: "🥂" },
-  { value: "dinner", label: "Diner", icon: "🍽️" },
-  { value: "party", label: "Feest", icon: "💃" },
-  { value: "other", label: "Anders", icon: "📍" },
+const QUICK_PICKS = [
+  { label: "Ceremonie", icon: "church" },
+  { label: "Receptie", icon: "champagne" },
+  { label: "Diner", icon: "utensils" },
+  { label: "Feest", icon: "party-popper" },
+  { label: "Andere", icon: "map-pin" },
 ];
 
 interface LocationFormData {
   name: string;
   address: string;
   time: string;
-  type: Location["type"];
+  type: string;
+  icon: string;
   notes: string;
 }
 
@@ -45,20 +41,21 @@ const emptyForm: LocationFormData = {
   name: "",
   address: "",
   time: "",
-  type: "ceremony",
+  type: "Ceremonie",
+  icon: "church",
   notes: "",
 };
 
 export default function LocationsPage() {
   const tCta = useTranslations("cta");
   const router = useRouter();
+  useBuilderGuard(2);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<LocationFormData>(emptyForm);
 
   const {
     locations,
-    templateId,
     addLocation,
     updateLocation,
     removeLocation,
@@ -66,12 +63,8 @@ export default function LocationsPage() {
   } = useBuilderStore();
 
   useEffect(() => {
-    if (!templateId) {
-      router.push("/builder/template");
-      return;
-    }
     setCurrentStep(4);
-  }, [templateId, router, setCurrentStep]);
+  }, [setCurrentStep]);
 
   const handleAddNew = () => {
     setFormData(emptyForm);
@@ -85,6 +78,7 @@ export default function LocationsPage() {
       address: location.address,
       time: location.time,
       type: location.type,
+      icon: location.icon ?? "map-pin",
       notes: location.notes || "",
     });
     setEditingId(location.id);
@@ -122,10 +116,6 @@ export default function LocationsPage() {
     router.push("/builder/program");
   };
 
-  const getTypeInfo = (type: string) => {
-    return LOCATION_TYPES.find((t) => t.value === type) || LOCATION_TYPES[4];
-  };
-
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -141,63 +131,64 @@ export default function LocationsPage() {
       {/* Locations list */}
       <div className="max-w-xl mx-auto space-y-4">
         <AnimatePresence mode="popLayout">
-          {locations.map((location, index) => {
-            const typeInfo = getTypeInfo(location.type);
-            return (
-              <motion.div
-                key={location.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                className="bg-white rounded-xl p-4 shadow-sm border border-stone-200"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center gap-2 text-stone-400">
-                    <GripVertical className="w-5 h-5 cursor-grab" />
-                    <span className="text-2xl">{typeInfo.icon}</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <p className="text-xs font-medium text-olive-700">
-                          {typeInfo.label} • {location.time}
+          {locations.map((location) => (
+            <motion.div
+              key={location.id}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              className="bg-white rounded-xl p-4 shadow-sm border border-stone-200"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex items-center gap-2 text-stone-400 pt-0.5">
+                  <GripVertical className="w-5 h-5 cursor-grab" />
+                  <ProgramIcon
+                    iconId={location.icon ?? "map-pin"}
+                    size="sm"
+                    className="text-olive-600"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="text-xs font-medium text-olive-700">
+                        {location.type} • {location.time}
+                      </p>
+                      <h3 className="font-heading text-lg font-semibold text-stone-900">
+                        {location.name}
+                      </h3>
+                      <p className="text-sm text-stone-600">
+                        {location.address}
+                      </p>
+                      {location.notes && (
+                        <p className="text-sm text-stone-500 mt-1">
+                          {location.notes}
                         </p>
-                        <h3 className="font-heading text-lg font-semibold text-stone-900">
-                          {location.name}
-                        </h3>
-                        <p className="text-sm text-stone-600">
-                          {location.address}
-                        </p>
-                        {location.notes && (
-                          <p className="text-sm text-stone-500 mt-1">
-                            {location.notes}
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex gap-1">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleEdit(location)}
-                        >
-                          Bewerk
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDelete(location.id)}
-                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
+                      )}
+                    </div>
+                    <div className="flex gap-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleEdit(location)}
+                      >
+                        Bewerk
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDelete(location.id)}
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </AnimatePresence>
 
         {/* Empty state */}
@@ -247,31 +238,53 @@ export default function LocationsPage() {
                   {editingId ? "Locatie bewerken" : "Nieuwe locatie"}
                 </h3>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2 sm:col-span-2">
-                    <Label htmlFor="locationType">Type *</Label>
-                    <Select
-                      value={formData.type}
-                      onValueChange={(value: Location["type"]) =>
-                        setFormData({ ...formData, type: value })
+                {/* Icon + Type row */}
+                <div className="space-y-2">
+                  <Label>Type</Label>
+                  <div className="flex items-center gap-3">
+                    <IconButton
+                      value={formData.icon}
+                      onChange={(iconId) =>
+                        setFormData({ ...formData, icon: iconId })
                       }
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {LOCATION_TYPES.map((type) => (
-                          <SelectItem key={type.value} value={type.value}>
-                            <span className="flex items-center gap-2">
-                              <span>{type.icon}</span>
-                              <span>{type.label}</span>
-                            </span>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    />
+                    <Input
+                      value={formData.type}
+                      onChange={(e) =>
+                        setFormData({ ...formData, type: e.target.value })
+                      }
+                      placeholder="bijv. Ceremonie"
+                      className="flex-1"
+                    />
                   </div>
+                  {/* Quick-pick chips */}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {QUICK_PICKS.map((pick) => (
+                      <button
+                        key={pick.label}
+                        type="button"
+                        onClick={() =>
+                          setFormData({
+                            ...formData,
+                            type: pick.label,
+                            icon: pick.icon,
+                          })
+                        }
+                        className={cn(
+                          "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border transition-all",
+                          formData.type === pick.label && formData.icon === pick.icon
+                            ? "bg-olive-100 border-olive-400 text-olive-700"
+                            : "bg-white border-stone-200 text-stone-600 hover:border-stone-300 hover:bg-stone-50"
+                        )}
+                      >
+                        <ProgramIcon iconId={pick.icon} size="sm" />
+                        {pick.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
+                <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2 sm:col-span-2">
                     <Label htmlFor="locationName">Naam *</Label>
                     <Input

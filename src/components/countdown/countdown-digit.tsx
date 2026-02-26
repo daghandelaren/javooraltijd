@@ -9,6 +9,7 @@ interface CountdownDigitProps {
   accentColor?: string;
   variant?: "inline" | "card";
   theme?: "botanical" | "mediterranean" | "coastal";
+  compact?: boolean;
 }
 
 export function CountdownDigit({
@@ -17,6 +18,7 @@ export function CountdownDigit({
   accentColor = "#333D2C",
   variant = "card",
   theme,
+  compact = false,
 }: CountdownDigitProps) {
   // Format value to always show 2 digits
   const formattedValue = String(value).padStart(2, "0");
@@ -54,10 +56,10 @@ export function CountdownDigit({
         className={cn(
           "relative overflow-hidden rounded-lg",
           isBotanical
-            ? "w-20 h-24 md:w-28 md:h-32"
+            ? compact ? "w-20 h-24" : "w-20 h-24 md:w-28 md:h-32"
             : isMediterranean
-            ? "w-20 h-24 md:w-28 md:h-32"
-            : "w-16 h-20 md:w-20 md:h-24 shadow-md bg-white border border-stone-200"
+            ? compact ? "w-20 h-24" : "w-20 h-24 md:w-28 md:h-32"
+            : compact ? "w-16 h-20 shadow-md bg-white border border-stone-200" : "w-16 h-20 md:w-20 md:h-24 shadow-md bg-white border border-stone-200"
         )}
         style={isBotanical ? {
           backgroundColor: "rgba(255,255,255,0.15)",
@@ -97,7 +99,9 @@ export function CountdownDigit({
               transition={{ duration: 0.3, ease: "easeOut" }}
               className={cn(
                 "font-bold tabular-nums",
-                (isBotanical || isMediterranean) ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"
+                (isBotanical || isMediterranean)
+                  ? compact ? "text-4xl" : "text-4xl md:text-5xl"
+                  : compact ? "text-3xl" : "text-3xl md:text-4xl"
               )}
               style={{ color: (isBotanical || isMediterranean) ? "#FDFBF7" : accentColor }}
             >
@@ -132,7 +136,7 @@ export function CountdownDigit({
       {/* Label */}
       <span
         className={cn(
-          "text-xs md:text-sm uppercase tracking-wider mt-2 font-medium",
+          compact ? "text-xs uppercase tracking-wider mt-2 font-medium" : "text-xs md:text-sm uppercase tracking-wider mt-2 font-medium",
           !isBotanical && !isMediterranean && "text-stone-500"
         )}
         style={isBotanical ? { color: "rgba(253,251,247,0.8)" } : isMediterranean ? { color: "rgba(253,251,247,0.8)" } : undefined}

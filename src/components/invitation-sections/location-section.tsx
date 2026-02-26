@@ -5,6 +5,9 @@ import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type Template } from "@/lib/templates";
 import { RivieraTileAccent } from "@/components/riviera-tile-accent";
+import { BloementuinSectionAccent } from "@/components/bloementuin-floral-bg";
+import { LaDolceVitaSectionAccent } from "@/components/ladolcevita-citrus-bg";
+import { ProgramIcon } from "@/components/builder/icon-picker";
 
 interface Location {
   id: string;
@@ -12,6 +15,7 @@ interface Location {
   address: string;
   time: string;
   type: string;
+  icon?: string;
   notes?: string | null;
   mapsUrl?: string | null;
 }
@@ -43,6 +47,18 @@ export function LocationSection({
       style={{ background: template.colors.backgroundGradient }}
     >
       {template.style === "coastal" && <RivieraTileAccent />}
+      {template.style === "botanical" && (
+        <>
+          <BloementuinSectionAccent side="left" />
+          <BloementuinSectionAccent side="right" />
+        </>
+      )}
+      {template.style === "mediterranean" && (
+        <>
+          <LaDolceVitaSectionAccent side="left" />
+          <LaDolceVitaSectionAccent side="right" />
+        </>
+      )}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -109,7 +125,11 @@ function LocationCard({
             color: template.colors.primary,
           }}
         >
-          <Clock className="w-3 h-3" />
+          {location.icon ? (
+            <ProgramIcon iconId={location.icon} size="sm" />
+          ) : (
+            <Clock className="w-3 h-3" />
+          )}
           {locationTypeLabels[location.type] || location.type} - {location.time}
         </div>
 

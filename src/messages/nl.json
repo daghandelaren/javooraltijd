@@ -371,6 +371,7 @@
   "builder": {
     "progress": "Stap {current} van {total}",
     "steps": {
+      "package": "Pakketten",
       "template": "Template",
       "details": "Details",
       "locations": "Locaties",

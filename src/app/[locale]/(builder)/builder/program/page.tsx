@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useBuilderStore, type TimelineItem } from "@/stores/builder-store";
+import { useBuilderGuard } from "@/hooks/use-builder-guard";
 import {
   IconButton,
   ProgramIcon,
@@ -42,13 +43,13 @@ const emptyForm: TimelineFormData = {
 export default function ProgramPage() {
   const tCta = useTranslations("cta");
   const router = useRouter();
+  useBuilderGuard(2);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<TimelineFormData>(emptyForm);
 
   const {
     timeline,
-    templateId,
     addTimelineItem,
     updateTimelineItem,
     removeTimelineItem,
@@ -56,12 +57,8 @@ export default function ProgramPage() {
   } = useBuilderStore();
 
   useEffect(() => {
-    if (!templateId) {
-      router.push("/builder/template");
-      return;
-    }
     setCurrentStep(5);
-  }, [templateId, router, setCurrentStep]);
+  }, [setCurrentStep]);
 
   const handleAddPreset = (preset: { title: string; icon: string }) => {
     setFormData({

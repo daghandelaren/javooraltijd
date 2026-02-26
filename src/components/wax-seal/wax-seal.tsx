@@ -64,6 +64,7 @@ export function WaxSeal({
     <div className={cn("relative inline-block", className)}>
       <AnimatePresence mode="wait">
         {!isOpen ? (
+          interactive ? (
           <motion.button
             key="sealed"
             initial={false}
@@ -71,10 +72,8 @@ export function WaxSeal({
             exit={{ scale: 1.2, opacity: 0, rotate: 10 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
             onClick={handleClick}
-            disabled={!interactive}
             className={cn(
-              "relative block",
-              interactive && "cursor-pointer",
+              "relative block cursor-pointer",
               "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-olive-500"
             )}
             style={{ width: config.size, height: config.size }}
@@ -101,6 +100,34 @@ export function WaxSeal({
               />
             </div>
           </motion.button>
+          ) : (
+          <motion.div
+            key="sealed"
+            initial={false}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 1.2, opacity: 0, rotate: 10 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="relative block"
+            style={{ width: config.size, height: config.size }}
+          >
+            <img
+              src={sealImagePath}
+              alt="Wax seal"
+              className="w-full h-full object-contain pointer-events-none select-none"
+              draggable={false}
+            />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <EmbossedInitials
+                initials={initials}
+                color={color}
+                size={config.size}
+                fontSize={effectiveFontSize}
+                fontId={font}
+                blur={blur}
+              />
+            </div>
+          </motion.div>
+          )
         ) : (
           <motion.div
             key="opened"

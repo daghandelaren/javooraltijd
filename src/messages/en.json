@@ -371,6 +371,7 @@
   "builder": {
     "progress": "Step {current} of {total}",
     "steps": {
+      "package": "Package",
       "template": "Template",
       "details": "Details",
       "locations": "Locations",

@@ -1,9 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
@@ -12,12 +12,25 @@ import {
   Smartphone,
   Check,
   AlertCircle,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { WaxSeal } from "@/components/wax-seal/wax-seal";
+import { Envelope2D } from "@/components/envelope-2d/envelope-2d";
 import { PreviewWatermark } from "@/components/builder/preview-watermark";
+import {
+  HeroSection,
+  CountdownSection,
+  LocationSection,
+  TimelineSection,
+  DresscodeSection,
+  FAQSection,
+  GiftSection,
+  RSVPSection,
+} from "@/components/invitation-sections";
 import { useBuilderStore } from "@/stores/builder-store";
-import { getTemplateById } from "@/lib/templates";
+import { useBuilderGuard } from "@/hooks/use-builder-guard";
+import { getTemplateById, templates } from "@/lib/templates";
+import { type SealFontId } from "@/lib/wax-fonts";
 import { cn } from "@/lib/utils";
 
 type DeviceView = "desktop" | "tablet" | "mobile";
@@ -31,8 +44,11 @@ const DEVICE_WIDTHS: Record<DeviceView, string> = {
 export default function PreviewPage() {
   const tCta = useTranslations("cta");
   const router = useRouter();
+  const { locale } = useParams<{ locale: string }>();
+  useBuilderGuard(2);
   const [deviceView, setDeviceView] = useState<DeviceView>("desktop");
-  const [isRevealed, setIsRevealed] = useState(false);
+  const [isAnimationOpen, setIsAnimationOpen] = useState(false);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
   const {
     templateId,
@@ -41,22 +57,22 @@ export default function PreviewPage() {
     weddingDate,
     weddingTime,
     headline,
+    dresscode,
+    dresscodeColors,
     locations,
     timeline,
+    faqItems,
+    giftConfig,
     styling,
     rsvpConfig,
     setCurrentStep,
   } = useBuilderStore();
 
-  const selectedTemplate = templateId ? getTemplateById(templateId) : null;
+  const selectedTemplate = getTemplateById(templateId || "") || templates[0];
 
   useEffect(() => {
-    if (!templateId) {
-      router.push("/builder/template");
-      return;
-    }
     setCurrentStep(8);
-  }, [templateId, router, setCurrentStep]);
+  }, [setCurrentStep]);
 
   // Validation checks
   const validationChecks = [
@@ -69,24 +85,19 @@ export default function PreviewPage() {
 
   const isValid = validationChecks.every((check) => check.valid);
 
-  const handleBack = () => {
-    router.push("/builder/styling");
-  };
-
-  const handleNext = () => {
-    if (isValid) {
-      router.push("/builder/checkout");
-    }
-  };
-
-  const formattedDate = weddingDate
-    ? new Date(weddingDate).toLocaleDateString("nl-NL", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
+  const envelopeSealText = (() => {
+    const showDate = styling.envelopeConfig?.showDateOnEnvelope ?? true;
+    if (showDate && weddingDate) {
+      return new Date(weddingDate).toLocaleDateString("nl-NL", {
         day: "numeric",
-      })
-    : "";
+        month: "long",
+        year: "numeric",
+      });
+    }
+    return undefined;
+  })();
+
+  const weddingDateObj = weddingDate ? new Date(weddingDate) : new Date();
 
   return (
     <div className="space-y-8">
@@ -165,193 +176,180 @@ export default function PreviewPage() {
           </Button>
         </div>
 
+        {/* Template badge */}
+        <div className="flex justify-center">
+          <span
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border"
+            style={{
+              backgroundColor: selectedTemplate.colors.accent,
+              borderColor: selectedTemplate.colors.primary + "40",
+              color: selectedTemplate.colors.text,
+            }}
+          >
+            Template: {selectedTemplate.name}
+          </span>
+        </div>
+
+        {/* Animation button */}
+        <div className="flex justify-center">
+          <button
+            onClick={() => setIsAnimationOpen(true)}
+            className="text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1.5"
+          >
+            ▶ Bekijk volledige animatie
+          </button>
+        </div>
+
         {/* Preview frame */}
         <motion.div
           layout
-          className="mx-auto bg-stone-800 rounded-xl p-2 shadow-xl overflow-hidden"
+          className="mx-auto rounded-xl border border-stone-300 shadow-sm overflow-hidden relative"
           style={{ maxWidth: DEVICE_WIDTHS[deviceView] }}
         >
           <div
-            className="bg-white rounded-lg overflow-auto relative"
-            style={{
-              height: deviceView === "mobile" ? "600px" : "500px",
-              background: selectedTemplate?.colors.backgroundGradient,
-            }}
+            className="relative overflow-hidden"
+            style={{ height: deviceView === "mobile" ? "680px" : "600px" }}
           >
-            {/* Watermark overlay */}
             <PreviewWatermark />
-            <AnimatePresence mode="wait">
-              {!isRevealed ? (
-                <motion.div
-                  key="sealed"
-                  className="min-h-full flex flex-col items-center justify-center p-6"
-                  exit={{ opacity: 0, scale: 0.95 }}
-                >
-                  <p
-                    className="font-accent text-xl mb-6"
-                    style={{ color: selectedTemplate?.colors.textMuted }}
-                  >
-                    Jullie zijn uitgenodigd
-                  </p>
-                  <WaxSeal
-                    initials={styling.monogram || "J&J"}
-                    color={styling.sealColor}
-                    font={styling.sealFont}
-                    size="lg"
-                    onClick={() => setIsRevealed(true)}
-                  />
-                  <p className="mt-6 text-sm text-stone-400">
-                    Klik om te openen
-                  </p>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="revealed"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="p-6 space-y-8"
-                >
-                  {/* Hero */}
-                  <div className="text-center py-8">
-                    {headline && (
-                      <p
-                        className="font-accent text-lg mb-2"
-                        style={{ color: selectedTemplate?.colors.textMuted }}
-                      >
-                        {headline}
-                      </p>
-                    )}
-                    <h1
-                      className="font-heading text-3xl sm:text-4xl font-semibold"
-                      style={{ color: selectedTemplate?.colors.text }}
-                    >
-                      {partner1Name || "Partner 1"} &{" "}
-                      {partner2Name || "Partner 2"}
-                    </h1>
-                    <p
-                      className="mt-4"
-                      style={{ color: selectedTemplate?.colors.textMuted }}
-                    >
-                      {formattedDate}
-                      {weddingTime && ` om ${weddingTime}`}
-                    </p>
-                  </div>
-
-                  {/* Locations */}
-                  {locations.length > 0 && (
-                    <div className="space-y-4">
-                      <h2
-                        className="font-heading text-xl text-center"
-                        style={{ color: selectedTemplate?.colors.text }}
-                      >
-                        Locatie
-                      </h2>
-                      {locations.map((location) => (
-                        <div
-                          key={location.id}
-                          className="bg-white/60 rounded-lg p-4"
-                        >
-                          <p
-                            className="text-xs font-medium"
-                            style={{ color: selectedTemplate?.colors.primary }}
-                          >
-                            {location.type} • {location.time}
-                          </p>
-                          <h3
-                            className="font-heading font-semibold"
-                            style={{ color: selectedTemplate?.colors.text }}
-                          >
-                            {location.name}
-                          </h3>
-                          <p
-                            className="text-sm"
-                            style={{ color: selectedTemplate?.colors.textMuted }}
-                          >
-                            {location.address}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Timeline */}
-                  {timeline.length > 0 && (
-                    <div className="space-y-4">
-                      <h2
-                        className="font-heading text-xl text-center"
-                        style={{ color: selectedTemplate?.colors.text }}
-                      >
-                        Programma
-                      </h2>
-                      <div className="space-y-2">
-                        {timeline.map((item) => (
-                          <div
-                            key={item.id}
-                            className="flex items-center gap-3 p-3 bg-white/60 rounded-lg"
-                          >
-                            <span className="text-xl">{item.icon}</span>
-                            <div>
-                              <p
-                                className="text-xs font-medium"
-                                style={{ color: selectedTemplate?.colors.primary }}
-                              >
-                                {item.time}
-                              </p>
-                              <p
-                                className="font-medium"
-                                style={{ color: selectedTemplate?.colors.text }}
-                              >
-                                {item.title}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* RSVP placeholder */}
-                  {rsvpConfig.enabled && (
-                    <div className="text-center py-4">
-                      <h2
-                        className="font-heading text-xl mb-2"
-                        style={{ color: selectedTemplate?.colors.text }}
-                      >
-                        RSVP
-                      </h2>
-                      <div className="bg-white/60 rounded-lg p-4 blur-[2px]">
-                        <p className="text-stone-400 text-sm">
-                          RSVP formulier (beschikbaar na publicatie)
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Reset button */}
-                  <div className="text-center pt-4">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setIsRevealed(false)}
-                    >
-                      Terug naar zegel
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <iframe
+              src={`/${locale}/invitation-preview`}
+              style={deviceView === "desktop" ? {
+                position: "absolute",
+                top: 0,
+                left: "50%",
+                marginLeft: "-720px",
+                width: "1440px",
+                height: "900px",
+                transform: "scale(0.667)",
+                transformOrigin: "top center",
+                border: "none",
+                display: "block",
+              } : {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                border: "none",
+                display: "block",
+              }}
+              title="Uitnodiging preview"
+            />
           </div>
         </motion.div>
       </div>
 
+      {/* Full-screen animation overlay */}
+      {isAnimationOpen && (
+        <div className="fixed inset-0 z-[100]">
+          {/* Watermark covers both envelope animation and content */}
+          <PreviewWatermark className="z-[110]" />
+          {!isAnimationComplete ? (
+            <Envelope2D
+              sealColor={styling.sealColor}
+              sealFont={styling.sealFont as SealFontId}
+              monogram={styling.monogram || `${partner1Name.charAt(0) || "J"}&${partner2Name.charAt(0) || "B"}`}
+              sealText={envelopeSealText}
+              onOpen={() => setIsAnimationComplete(true)}
+              enableMusic={false}
+            />
+          ) : (
+            <div
+              className="relative h-full overflow-y-auto"
+              style={{ background: selectedTemplate.colors.backgroundGradient }}
+            >
+              {/* Close button */}
+              <button
+                onClick={() => { setIsAnimationOpen(false); setIsAnimationComplete(false); }}
+                className="fixed top-4 right-4 z-10 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-colors"
+              >
+                <X className="w-5 h-5 text-stone-700" />
+              </button>
+
+              <HeroSection
+                partner1Name={partner1Name || "Partner 1"}
+                partner2Name={partner2Name || "Partner 2"}
+                headline={headline || undefined}
+                weddingDate={weddingDateObj}
+                weddingTime={weddingTime || undefined}
+                sealColor={styling.sealColor}
+                sealFont={styling.sealFont as SealFontId}
+                monogram={styling.monogram || undefined}
+                template={selectedTemplate}
+                rsvpId="rsvp-overlay"
+              />
+
+              <CountdownSection
+                weddingDate={weddingDateObj}
+                template={selectedTemplate}
+              />
+
+              {locations.length > 0 && (
+                <LocationSection
+                  locations={locations}
+                  template={selectedTemplate}
+                />
+              )}
+
+              {timeline.length > 0 && (
+                <TimelineSection
+                  timeline={timeline}
+                  template={selectedTemplate}
+                />
+              )}
+
+              {dresscode && (
+                <DresscodeSection
+                  dresscode={dresscode}
+                  colors={dresscodeColors.length > 0 ? dresscodeColors : undefined}
+                  template={selectedTemplate}
+                />
+              )}
+
+              {faqItems && faqItems.length > 0 && (
+                <FAQSection
+                  items={faqItems}
+                  template={selectedTemplate}
+                />
+              )}
+
+              {giftConfig?.enabled && (
+                <GiftSection
+                  config={giftConfig}
+                  template={selectedTemplate}
+                />
+              )}
+
+              <RSVPSection
+                invitationId="preview"
+                enabled={rsvpConfig.enabled}
+                deadline={rsvpConfig.deadline ? new Date(rsvpConfig.deadline) : undefined}
+                template={selectedTemplate}
+                demo={true}
+                rsvpId="rsvp-overlay"
+              />
+
+              <div className="py-6 text-center">
+                <Button
+                  variant="ghost"
+                  onClick={() => { setIsAnimationOpen(false); setIsAnimationComplete(false); }}
+                >
+                  ← Sluiten
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Navigation */}
       <div className="flex justify-between pt-6 border-t border-stone-200">
-        <Button variant="ghost" onClick={handleBack}>
+        <Button variant="ghost" onClick={() => router.push("/builder/styling")}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           {tCta("back")}
         </Button>
         <Button
-          onClick={handleNext}
+          onClick={() => isValid && router.push("/builder/checkout")}
           disabled={!isValid}
           className="min-w-[140px]"
         >

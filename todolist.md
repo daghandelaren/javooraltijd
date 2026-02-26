@@ -155,7 +155,7 @@
 - ✅ Guest segmentation (custom groups with event selection)
 - ✅ Custom program blocks with icon picker
 
-### K) BUILDER OVERHAUL
+### K) BUILDER OVERHAUL FASE 1 ✅
 - ✅ Remove wax seal particles on click (already removed)
 - ✅ Restructure flow: Package → Template → Details → etc. (already implemented)
 - ✅ Delete optional add-ons from checkout page
@@ -167,6 +167,66 @@
 - ✅ RSVP form beautification
 - ✅ Background music for Signature/Premium (vinyl player UI, music library, volume controls)
 - ✅ Custom program blocks with icon picker (Lucide icons, categorized picker, search)
+- ✅ `useBuilderGuard(minRequired)` hook → redirects to /builder/package if no plan, /builder/template if no template
+- ✅ Step locking in builder layout.tsx → locked steps show Lock icon, are non-clickable
+- ✅ Auto-apply template styling defaults (sealColor, fontPairing) when template is selected
+- ✅ Upgrade chips in RSVP step (dietary/message locked for Basic plan with "Upgrade naar Signature" chip)
+- ✅ Premium upsell banner in Program step for custom program blocks
+- ✅ Template context banner in Styling step (template name + style + accent dot)
+- ✅ "Aanbevolen" badge on recommended font pairing per template
+
+### L) BUILDER OVERHAUL FASE 2 — DESIGN & PREVIEW ✅ DONE
+> Plan file: `C:\Users\ieyuh\.claude\plans\cryptic-sprouting-babbage.md`
+> All steps below are PENDING — none have been implemented yet.
+
+**Step 0 — Todolist**
+- ✅ Update todolist.md with Phase 2 plan (this update)
+
+**Step 1 — Fix `/builder` entry point**
+- ✅ Create `src/app/[locale]/(builder)/builder/page.tsx` — redirects `/builder` → `/builder/package`
+- ✅ Fix marketing CTAs: `href="/builder/template"` → `href="/builder/package"` in prijzen, over-ons, navigation, hero, final-cta, dashboard
+
+**Step 2 — Redesign Step 1 (Package page)**
+- ✅ Rich card design: icon badge, WaxSeal, RSVP highlight box, decorative gradient corner, feature list
+- ✅ Selected state: border + ring uses plan's accentColor
+- ✅ "Meest gekozen" banner on Signature card
+- ✅ Plan colors: Basic #B0AEB0, Signature DEFAULT_SEAL_COLOR, Premium #C09878
+
+**Step 3 — Redesign Step 2 (Template page)**
+- ✅ Port TemplateCard + cardStyles from marketing templates page
+- ✅ Cards: aspect-[3/4], hero image, namePreview, bottom gradient, number badge
+- ✅ Selected state: ring-2 ring-olive-500 + checkmark badge
+- ✅ "Bekijk demo" opens `/demo/{slug}` in new tab
+- ✅ Grid: 2 cols mobile, 4 cols lg
+
+**Step 4 — Dresscode color picker in Details page**
+- ✅ Store: `dresscodeColors: DresscodeColor[]` + `setDresscodeColors` (persisted)
+- ✅ Template color suggestion map (2 swatches per template)
+- ✅ UI: heading, suggestion chips, "Gebruik aanbevolen kleuren", clear (×), custom hex+name input (max 3)
+- ✅ Wired to `DresscodeSection` in preview and real invitation rendering
+
+**Step 5 — Real RSVPSection preview in RSVP page**
+- ✅ Replaced hand-coded preview with real `RSVPSection` (invitationId="preview", demo=true)
+
+**Step 6 — Static envelope preview in Styling page**
+- ✅ Created `src/components/envelope-2d/envelope-preview.tsx` — static envelope with body+flap PNGs + WaxSeal
+- ✅ Store: `showDateOnEnvelope: boolean` added to `EnvelopeConfig`
+- ✅ Styling page: removed old preview, added EnvelopePreview, date toggle, removed personalizedText input
+
+**Step 7 — Real invitation rendering in Preview page**
+- ✅ Sealed state: EnvelopePreview + "Klik om te openen →" button
+- ✅ Revealed: real sections (HeroSection, CountdownSection, LocationSection, TimelineSection, DresscodeSection, FAQSection, GiftSection, RSVPSection)
+- ✅ Wrapped in overflow-auto device frame
+
+**Key files for Phase 2 implementation:**
+- `src/app/[locale]/(marketing)/prijzen/page.tsx` — copy card visual from here
+- `src/app/[locale]/(marketing)/templates/page.tsx` — copy TemplateCard + cardStyles from here
+- `src/components/invitation-sections/rsvp-section.tsx` — use in step 6 preview
+- `src/components/invitation-sections/dresscode-section.tsx` — accepts `colors?: { hex, name }[]`
+- `src/components/envelope-2d/envelope-2d.tsx` — reference for envelope image paths + seal positioning
+- `src/app/u/[shareId]/public-invitation.tsx` — InvitationContent component to reuse in step 8
+- `src/stores/builder-store.ts` — add dresscodeColors + showDateOnEnvelope
+- `src/lib/templates.ts` — getTemplateById + template slugs
 
 ---
 

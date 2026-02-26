@@ -12,6 +12,7 @@ interface CountdownTimerProps {
   className?: string;
   showSeconds?: boolean;
   theme?: "botanical" | "mediterranean";
+  compact?: boolean;
 }
 
 interface TimeLeft {
@@ -57,6 +58,7 @@ export function CountdownTimer({
   className,
   showSeconds = true,
   theme,
+  compact = false,
 }: CountdownTimerProps) {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(() =>
     calculateTimeLeft(targetDate)
@@ -86,7 +88,7 @@ export function CountdownTimer({
   if (!mounted) {
     return (
       <div
-        className={cn("flex items-center justify-center gap-3 md:gap-4", className)}
+        className={cn("flex items-center justify-center", compact ? "gap-3" : "gap-3 md:gap-4", className)}
       >
         {/* Placeholder during SSR */}
         {[...Array(showSeconds ? 4 : 3)].map((_, i) => (
@@ -94,7 +96,7 @@ export function CountdownTimer({
             <div
               className={cn(
                 "rounded-lg bg-stone-100 animate-pulse",
-                variant === "card" ? "w-16 h-20 md:w-20 md:h-24" : "w-10 h-8"
+                variant === "card" ? (compact ? "w-16 h-20" : "w-16 h-20 md:w-20 md:h-24") : "w-10 h-8"
               )}
             />
             <div className="w-8 h-3 bg-stone-100 rounded mt-2 animate-pulse" />
@@ -131,7 +133,7 @@ export function CountdownTimer({
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={cn(
         "flex items-center justify-center",
-        variant === "card" ? "gap-2 md:gap-3" : "gap-4 md:gap-6",
+        variant === "card" ? (compact ? "gap-2" : "gap-2 md:gap-3") : "gap-4 md:gap-6",
         className
       )}
     >
@@ -141,6 +143,7 @@ export function CountdownTimer({
         accentColor={accentColor}
         variant={variant}
         theme={theme}
+        compact={compact}
       />
 
       {variant === "inline" && (
@@ -155,6 +158,7 @@ export function CountdownTimer({
         accentColor={accentColor}
         variant={variant}
         theme={theme}
+        compact={compact}
       />
 
       {variant === "inline" && (
@@ -169,6 +173,7 @@ export function CountdownTimer({
         accentColor={accentColor}
         variant={variant}
         theme={theme}
+        compact={compact}
       />
 
       {showSeconds && (
@@ -185,6 +190,7 @@ export function CountdownTimer({
             accentColor={accentColor}
             variant={variant}
             theme={theme}
+            compact={compact}
           />
         </>
       )}

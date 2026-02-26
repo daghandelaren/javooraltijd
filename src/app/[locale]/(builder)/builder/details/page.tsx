@@ -2,18 +2,44 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Heart, Shirt, Gift } from "lucide-react";
+import { ArrowLeft, ArrowRight, Heart, Shirt, Gift, X, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useBuilderStore } from "@/stores/builder-store";
+import { useBuilderStore, type DresscodeColor } from "@/stores/builder-store";
+import { useBuilderGuard } from "@/hooks/use-builder-guard";
+import { getTemplateById } from "@/lib/templates";
+
+// Template color suggestions for the dresscode color picker
+const TEMPLATE_COLOR_SUGGESTIONS: Record<string, DresscodeColor[]> = {
+  bloementuin: [
+    { hex: "#5C7C5C", name: "Saliegroen" },
+    { hex: "#D4A0A0", name: "Blozend roze" },
+  ],
+  riviera: [
+    { hex: "#6B9CC3", name: "Azuurblauw" },
+    { hex: "#D4A0A0", name: "Schelp roze" },
+  ],
+  "la-dolce-vita": [
+    { hex: "#1B3A5F", name: "Marineblauw" },
+    { hex: "#E8A735", name: "Mediterraan goud" },
+  ],
+  minimalist: [
+    { hex: "#2C2C2C", name: "Antraciet" },
+    { hex: "#999999", name: "Zilvergrijs" },
+  ],
+};
 
 export default function DetailsPage() {
   const t = useTranslations("builder");
   const tCta = useTranslations("cta");
   const router = useRouter();
+  useBuilderGuard(2);
+
+  const [customHex, setCustomHex] = useState("#");
+  const [customName, setCustomName] = useState("");
 
   const {
     partner1Name,
@@ -22,6 +48,7 @@ export default function DetailsPage() {
     weddingTime,
     headline,
     dresscode,
+    dresscodeColors,
     giftConfig,
     templateId,
     setPartner1Name,
@@ -30,18 +57,40 @@ export default function DetailsPage() {
     setWeddingTime,
     setHeadline,
     setDresscode,
+    setDresscodeColors,
     setGiftConfig,
     setCurrentStep,
   } = useBuilderStore();
 
+  const selectedTemplate = templateId ? getTemplateById(templateId) : null;
+  const suggestions = selectedTemplate
+    ? TEMPLATE_COLOR_SUGGESTIONS[selectedTemplate.slug] ?? []
+    : [];
+
+  const addSuggestedColors = () => {
+    const toAdd = suggestions.filter(
+      (s) => !dresscodeColors.some((c) => c.hex === s.hex)
+    );
+    setDresscodeColors([...dresscodeColors, ...toAdd].slice(0, 3));
+  };
+
+  const removeColor = (hex: string) => {
+    setDresscodeColors(dresscodeColors.filter((c) => c.hex !== hex));
+  };
+
+  const addCustomColor = () => {
+    const hex = customHex.trim();
+    if (!/^#[0-9A-Fa-f]{6}$/.test(hex)) return;
+    if (dresscodeColors.length >= 3) return;
+    if (dresscodeColors.some((c) => c.hex.toLowerCase() === hex.toLowerCase())) return;
+    setDresscodeColors([...dresscodeColors, { hex, name: customName.trim() || hex }]);
+    setCustomHex("#");
+    setCustomName("");
+  };
+
   useEffect(() => {
-    // Redirect if no template selected
-    if (!templateId) {
-      router.push("/builder/template");
-      return;
-    }
     setCurrentStep(3);
-  }, [templateId, router, setCurrentStep]);
+  }, [setCurrentStep]);
 
   const isValid = partner1Name.trim() && partner2Name.trim() && weddingDate;
 
@@ -188,6 +237,113 @@ export default function DetailsPage() {
                 maxLength={100}
               />
             </div>
+
+            {/* Dresscode color picker */}
+            {dresscode && (
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center justify-between">
+                  <Label className="text-sm font-medium text-stone-700">
+                    Kleurpalet (optioneel)
+                  </Label>
+                  <span className="text-xs text-stone-400">{dresscodeColors.length}/3 kleuren</span>
+                </div>
+                <p className="text-xs text-stone-500">
+                  Laat gasten zien welke kleuren bij de dresscode passen.
+                </p>
+
+                {/* Template suggestions */}
+                {suggestions.length > 0 && (
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <span className="text-xs text-stone-500">Aanbevolen:</span>
+                    {suggestions.map((s) => (
+                      <div key={s.hex} className="flex items-center gap-1.5">
+                        <div
+                          className="w-5 h-5 rounded-full border border-stone-200 shrink-0"
+                          style={{ backgroundColor: s.hex }}
+                        />
+                        <span className="text-xs text-stone-600">{s.name}</span>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={addSuggestedColors}
+                      disabled={dresscodeColors.length >= 3}
+                      className="text-xs text-olive-700 underline hover:text-olive-900 disabled:opacity-40 disabled:no-underline"
+                    >
+                      Gebruik aanbevolen kleuren
+                    </button>
+                  </div>
+                )}
+
+                {/* Selected colors */}
+                {dresscodeColors.length > 0 && (
+                  <div className="flex flex-wrap gap-3">
+                    {dresscodeColors.map((color) => (
+                      <div key={color.hex} className="flex items-center gap-2 bg-stone-50 border border-stone-200 rounded-full px-3 py-1.5">
+                        <div
+                          className="w-4 h-4 rounded-full shrink-0"
+                          style={{ backgroundColor: color.hex }}
+                        />
+                        <span className="text-xs text-stone-700">{color.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => removeColor(color.hex)}
+                          className="text-stone-400 hover:text-stone-700 transition-colors"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Custom color input */}
+                {dresscodeColors.length < 3 && (
+                  <div className="flex items-end gap-2">
+                    <div className="space-y-1">
+                      <Label htmlFor="customHex" className="text-xs text-stone-500">Hex code</Label>
+                      <div className="flex items-center gap-1.5">
+                        <input
+                          type="color"
+                          value={customHex.startsWith("#") && customHex.length === 7 ? customHex : "#ffffff"}
+                          onChange={(e) => setCustomHex(e.target.value)}
+                          className="w-8 h-8 rounded cursor-pointer border-0 p-0.5 bg-transparent"
+                        />
+                        <Input
+                          id="customHex"
+                          value={customHex}
+                          onChange={(e) => setCustomHex(e.target.value)}
+                          placeholder="#A3C4A3"
+                          className="w-28 font-mono text-sm"
+                          maxLength={7}
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-1 flex-1">
+                      <Label htmlFor="customName" className="text-xs text-stone-500">Naam (optioneel)</Label>
+                      <Input
+                        id="customName"
+                        value={customName}
+                        onChange={(e) => setCustomName(e.target.value)}
+                        placeholder="bv. Saliegroen"
+                        className="text-sm"
+                        maxLength={30}
+                      />
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={addCustomColor}
+                      disabled={!/^#[0-9A-Fa-f]{6}$/.test(customHex)}
+                      className="shrink-0"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Cadeau tip / Gift */}
@@ -262,15 +418,26 @@ export default function DetailsPage() {
                   />
                 </div>
 
-                {/* Registry URL */}
+                {/* IBAN / bank details */}
                 <div className="space-y-2">
-                  <Label htmlFor="registryUrl">Verlanglijst URL (optioneel)</Label>
+                  <Label htmlFor="accountHolder">Naam rekeninghouder (optioneel)</Label>
                   <Input
-                    id="registryUrl"
-                    type="url"
-                    value={giftConfig.registryUrl || ""}
-                    onChange={(e) => setGiftConfig({ registryUrl: e.target.value })}
-                    placeholder="https://..."
+                    id="accountHolder"
+                    type="text"
+                    value={giftConfig.accountHolder || ""}
+                    onChange={(e) => setGiftConfig({ accountHolder: e.target.value })}
+                    placeholder="Jan & Marie Jansen"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="iban">Rekeningnummer / IBAN (optioneel)</Label>
+                  <Input
+                    id="iban"
+                    type="text"
+                    value={giftConfig.iban || ""}
+                    onChange={(e) => setGiftConfig({ iban: e.target.value })}
+                    placeholder="NL00 BANK 0000 0000 00"
+                    className="font-mono"
                   />
                 </div>
               </div>
@@ -282,17 +449,23 @@ export default function DetailsPage() {
             <h2 className="font-heading text-xl font-semibold text-stone-900 mb-4">
               Preview
             </h2>
-            <div className="bg-champagne-50 rounded-lg p-6 text-center">
+            <div
+              className="rounded-lg p-6 text-center"
+              style={{
+                background: selectedTemplate?.colors.backgroundGradient ?? "#fdf8f3",
+                color: selectedTemplate?.colors.text ?? "#1c1917",
+              }}
+            >
               {headline && (
-                <p className="font-accent text-lg text-stone-600 mb-2">
+                <p className="font-accent text-lg mb-2" style={{ color: "inherit" }}>
                   {headline}
                 </p>
               )}
-              <h3 className="font-heading text-2xl font-semibold text-stone-900">
+              <h3 className="font-heading text-2xl font-semibold" style={{ color: "inherit" }}>
                 {partner1Name || "Partner 1"} & {partner2Name || "Partner 2"}
               </h3>
               {weddingDate && (
-                <p className="mt-2 text-stone-600">
+                <p className="mt-2" style={{ color: selectedTemplate?.colors.textMuted ?? "#78716c" }}>
                   {new Date(weddingDate).toLocaleDateString("nl-NL", {
                     weekday: "long",
                     year: "numeric",

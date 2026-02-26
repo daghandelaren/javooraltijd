@@ -23,7 +23,8 @@ export interface Location {
   name: string;
   address: string;
   time: string;
-  type: "ceremony" | "reception" | "dinner" | "party" | "other";
+  type: string;
+  icon?: string;
   notes?: string;
   mapsUrl?: string;
   order: number;
@@ -39,6 +40,11 @@ export interface TimelineItem {
   order: number;
 }
 
+export interface CustomQuestion {
+  id: string;
+  question: string;
+}
+
 export interface RSVPConfig {
   enabled: boolean;
   deadline?: string;
@@ -50,6 +56,7 @@ export interface RSVPConfig {
     message: boolean;
     events: boolean;
   };
+  customQuestions: CustomQuestion[];
 }
 
 export interface MusicConfig {
@@ -66,6 +73,13 @@ export interface GiftConfig {
   message: string;
   preferMoney: boolean;
   registryUrl?: string;
+  iban?: string;
+  accountHolder?: string;
+}
+
+export interface DresscodeColor {
+  hex: string;
+  name: string;
 }
 
 export interface EnvelopeConfig {
@@ -73,6 +87,7 @@ export interface EnvelopeConfig {
   color: string;
   linerPattern: string;
   personalizedText: string; // Text below seal, e.g., "Deze uitnodiging is speciaal voor jou"
+  showDateOnEnvelope: boolean; // Show formatted wedding date as seal text
 }
 
 export interface FAQItem {
@@ -115,6 +130,7 @@ export interface BuilderState {
   weddingTime: string;
   headline: string;
   dresscode: string;
+  dresscodeColors: DresscodeColor[];
 
   // Step 4: Locations
   locations: Location[];
@@ -166,6 +182,7 @@ interface BuilderActions {
   setWeddingTime: (time: string) => void;
   setHeadline: (headline: string) => void;
   setDresscode: (dresscode: string) => void;
+  setDresscodeColors: (colors: DresscodeColor[]) => void;
 
   // Step 4: Locations
   addLocation: (location: Omit<Location, "id" | "order">) => void;
@@ -254,6 +271,7 @@ const initialState: BuilderState = {
   weddingTime: "",
   headline: "",
   dresscode: "",
+  dresscodeColors: [],
   locations: [],
   timeline: [],
   rsvpConfig: {
@@ -266,6 +284,7 @@ const initialState: BuilderState = {
       message: true,
       events: false,
     },
+    customQuestions: [],
   },
   styling: {
     sealColor: DEFAULT_SEAL_COLOR,
@@ -281,6 +300,7 @@ const initialState: BuilderState = {
       color: DEFAULT_ENVELOPE_COLOR,
       linerPattern: DEFAULT_ENVELOPE_LINER,
       personalizedText: "Deze uitnodiging is speciaal voor jou",
+      showDateOnEnvelope: true,
     },
   },
   giftConfig: {
@@ -329,6 +349,7 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
       setWeddingTime: (time) => set({ weddingTime: time, isDirty: true }),
       setHeadline: (headline) => set({ headline: headline, isDirty: true }),
       setDresscode: (dresscode) => set({ dresscode: dresscode, isDirty: true }),
+      setDresscodeColors: (colors) => set({ dresscodeColors: colors, isDirty: true }),
 
       // Step 3
       addLocation: (location) =>
@@ -484,7 +505,8 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
             name: loc.name,
             address: loc.address,
             time: loc.time,
-            type: loc.type as Location["type"],
+            type: loc.type,
+            icon: loc.icon,
             notes: loc.notes,
             mapsUrl: loc.mapsUrl,
             order: loc.order,
@@ -497,18 +519,21 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
             icon: item.icon,
             order: item.order,
           })),
-          rsvpConfig: invitation.rsvpConfig || {
-            enabled: invitation.rsvpEnabled,
-            deadline: invitation.rsvpDeadline || undefined,
-            fields: {
-              email: true,
-              guestCount: true,
-              maxGuests: 5,
-              dietary: true,
-              message: true,
-              events: false,
-            },
-          },
+          rsvpConfig: invitation.rsvpConfig
+            ? { customQuestions: [], ...invitation.rsvpConfig }
+            : {
+                enabled: invitation.rsvpEnabled,
+                deadline: invitation.rsvpDeadline || undefined,
+                fields: {
+                  email: true,
+                  guestCount: true,
+                  maxGuests: 5,
+                  dietary: true,
+                  message: true,
+                  events: false,
+                },
+                customQuestions: [],
+              },
           styling: {
             sealColor: invitation.sealColor,
             sealFont: (invitation.sealFont as SealFontId) || DEFAULT_SEAL_FONT,
@@ -524,6 +549,7 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
               color: invitation.envelopeColor || DEFAULT_ENVELOPE_COLOR,
               linerPattern: invitation.envelopeLiner || DEFAULT_ENVELOPE_LINER,
               personalizedText: invitation.envelopePersonalizedText || "Deze uitnodiging is speciaal voor jou",
+              showDateOnEnvelope: true,
             },
           },
           faqItems: invitation.faqItems || [],
@@ -605,6 +631,7 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
         weddingTime: state.weddingTime,
         headline: state.headline,
         dresscode: state.dresscode,
+        dresscodeColors: state.dresscodeColors,
         locations: state.locations,
         timeline: state.timeline,
         rsvpConfig: state.rsvpConfig,

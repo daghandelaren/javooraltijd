@@ -21,6 +21,7 @@ interface HeroSectionProps {
   monogram?: string | null;
   template: Template;
   className?: string;
+  rsvpId?: string;
 }
 
 export function HeroSection({
@@ -34,6 +35,7 @@ export function HeroSection({
   monogram,
   template,
   className,
+  rsvpId = "rsvp",
 }: HeroSectionProps) {
   const formattedDate = weddingDate.toLocaleDateString("nl-NL", {
     weekday: "long",
@@ -67,7 +69,7 @@ export function HeroSection({
       </div>
 
       {isBotanical ? null : (
-      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isMinimalist ? "" : isCoastal ? "mt-8 sm:mt-12" : isBotanicalOrMedOrCoastal && "-mt-16")}>
+      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isMinimalist ? "" : isCoastal ? "mt-14 sm:mt-12" : isBotanicalOrMedOrCoastal && "-mt-16")}>
         {/* Wax seal — hidden for botanical, mediterranean, coastal & minimalist */}
         {!isBotanical && !isMediterranean && !isCoastal && !isMinimalist && (
           <motion.div
@@ -175,7 +177,7 @@ export function HeroSection({
             }}
           >
             <span
-              className="text-[2.5rem] sm:text-5xl md:text-6xl font-bold uppercase tracking-[0.08em]"
+              className="text-[2.5rem] sm:text-4xl lg:text-6xl font-bold uppercase tracking-[0.08em]"
               style={{
                 color: template.colors.text,
                 fontFamily: `'${template.fonts.heading}', serif`,
@@ -184,7 +186,7 @@ export function HeroSection({
               {partner1Name}
             </span>
             <span
-              className="block text-2xl sm:text-4xl md:text-5xl my-0.5 sm:my-1"
+              className="block text-2xl sm:text-3xl lg:text-5xl my-0.5 sm:my-1"
               style={{
                 color: template.colors.primary,
                 fontFamily: `'${template.fonts.accent}', cursive`,
@@ -194,7 +196,7 @@ export function HeroSection({
               &
             </span>
             <span
-              className="text-[2.5rem] sm:text-5xl md:text-6xl font-bold uppercase tracking-[0.08em]"
+              className="text-[2.5rem] sm:text-4xl lg:text-6xl font-bold uppercase tracking-[0.08em]"
               style={{
                 color: template.colors.text,
                 fontFamily: `'${template.fonts.heading}', serif`,
@@ -304,22 +306,22 @@ export function HeroSection({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.45 }}
-            className="text-center mt-4 sm:mt-8 max-w-[55vw] sm:max-w-sm mx-auto"
+            className="text-center mt-4 sm:mt-8 max-w-[72vw] sm:max-w-[220px] lg:max-w-sm mx-auto"
           >
             <p
-              className="text-xs sm:text-sm leading-relaxed"
+              className="text-xs sm:text-[0.65rem] lg:text-sm leading-relaxed"
               style={{
                 color: template.colors.text,
                 fontFamily: `'${template.fonts.body}', serif`,
                 textShadow: "0 1px 8px rgba(253,252,250,0.8)",
               }}
             >
-              Nodigen je uit om deel te nemen aan hun vreugde wanneer zij elkaar het jawoord geven!
+              {headline || "Nodigen je uit om deel te nemen aan hun vreugde wanneer zij elkaar het jawoord geven!"}
             </p>
-            <div className="flex items-center justify-center gap-3 mt-5 sm:mt-12">
+            <div className="flex items-center justify-center gap-3 mt-4 sm:mt-5 lg:mt-12">
               <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
               <p
-                className="text-lg sm:text-2xl capitalize tracking-wide"
+                className="text-lg sm:text-xs lg:text-2xl capitalize tracking-wide whitespace-nowrap"
                 style={{
                   color: template.colors.text,
                   fontFamily: `'${template.fonts.heading}', serif`,
@@ -465,16 +467,16 @@ export function HeroSection({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className={`absolute ${isCoastal ? "bottom-28 sm:bottom-16" : isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
+          className={`absolute ${isCoastal ? "bottom-[17%] sm:bottom-[85px] lg:bottom-[110px]" : isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
         >
           <button
             onClick={() => {
-              document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" });
+              document.getElementById(rsvpId)?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="flex flex-col items-center gap-3 px-8 py-3 transition-opacity duration-200 hover:opacity-80 cursor-pointer"
+            className="flex flex-col items-center gap-3 sm:gap-2 lg:gap-3 px-8 py-3 transition-opacity duration-200 hover:opacity-80 cursor-pointer"
           >
             <span
-              className="text-xs font-semibold tracking-[0.2em] uppercase"
+              className="text-xs sm:text-[0.45rem] lg:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.12em] lg:tracking-[0.2em] uppercase"
               style={{
                 color: (isMediterranean || isCoastal) ? template.colors.primary : isMinimalist ? template.colors.textMuted : "#FDFBF7",
                 textShadow: (isMediterranean || isCoastal)

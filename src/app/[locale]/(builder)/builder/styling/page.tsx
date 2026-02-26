@@ -327,18 +327,20 @@ function EnvelopePreviewSection({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="bg-stone-100 rounded-xl p-6"
+      className="space-y-3"
     >
-      <h3 className="font-heading text-lg font-semibold text-stone-700 mb-4 text-center">
+      <h3 className="font-heading text-lg font-semibold text-stone-700 text-center">
         Envelop preview
       </h3>
-      <EnvelopePreview
-        sealColor={sealColor}
-        sealFont={sealFont as import("@/lib/wax-fonts").SealFontId}
-        monogram={monogram}
-        sealText={sealText}
-        className="w-full"
-      />
+      <div className="bg-stone-100 rounded-xl overflow-hidden">
+        <EnvelopePreview
+          sealColor={sealColor}
+          sealFont={sealFont as import("@/lib/wax-fonts").SealFontId}
+          monogram={monogram}
+          sealText={sealText}
+          className="w-full"
+        />
+      </div>
     </motion.div>
   );
 }

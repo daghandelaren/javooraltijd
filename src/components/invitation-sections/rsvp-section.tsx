@@ -1,11 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Heart, MessageCircle, PartyPopper, HeartCrack, HelpCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { type Template } from "@/lib/templates";
+
+interface RSVPFields {
+  email?: boolean;
+  guestCount?: boolean;
+  dietary?: boolean;
+  message?: boolean;
+}
+
+interface CustomQuestion {
+  id: string;
+  question: string;
+}
 
 interface RSVPSectionProps {
   invitationId: string;
@@ -14,6 +26,9 @@ interface RSVPSectionProps {
   template: Template;
   className?: string;
   demo?: boolean;
+  fields?: RSVPFields;
+  customQuestions?: CustomQuestion[];
+  rsvpId?: string;
 }
 
 export function RSVPSection({
@@ -23,8 +38,21 @@ export function RSVPSection({
   template,
   className,
   demo,
+  fields,
+  customQuestions,
+  rsvpId = "rsvp",
 }: RSVPSectionProps) {
   const [showForm, setShowForm] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!showForm || !formRef.current) return;
+    const el = formRef.current;
+    const timer = setTimeout(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [showForm]);
 
   if (!enabled) return null;
 
@@ -36,6 +64,7 @@ export function RSVPSection({
 
   return (
     <section
+      id={rsvpId}
       className={cn("py-16 px-4", className)}
       style={{
         background: isCardStyle ? template.colors.background : template.colors.primary,
@@ -65,12 +94,16 @@ export function RSVPSection({
                 onShowForm={() => setShowForm(true)}
               />
             ) : (
-              <BotanicalRSVPForm
-                invitationId={invitationId}
-                template={template}
-                onClose={() => setShowForm(false)}
-                demo={demo}
-              />
+              <div ref={formRef}>
+                <BotanicalRSVPForm
+                  invitationId={invitationId}
+                  template={template}
+                  onClose={() => setShowForm(false)}
+                  demo={demo}
+                  fields={fields}
+                  customQuestions={customQuestions}
+                />
+              </div>
             )}
           </div>
         ) : (
@@ -84,12 +117,16 @@ export function RSVPSection({
                 onShowForm={() => setShowForm(true)}
               />
             ) : (
-              <RSVPFormSection
-                invitationId={invitationId}
-                template={template}
-                onClose={() => setShowForm(false)}
-                demo={demo}
-              />
+              <div ref={formRef}>
+                <RSVPFormSection
+                  invitationId={invitationId}
+                  template={template}
+                  onClose={() => setShowForm(false)}
+                  demo={demo}
+                  fields={fields}
+                  customQuestions={customQuestions}
+                />
+              </div>
             )}
           </>
         )}
@@ -174,12 +211,20 @@ function BotanicalRSVPForm({
   template,
   onClose,
   demo,
+  fields,
+  customQuestions,
 }: {
   invitationId: string;
   template: Template;
   onClose: () => void;
   demo?: boolean;
+  fields?: RSVPFields;
+  customQuestions?: CustomQuestion[];
 }) {
+  const showEmail = fields?.email !== false;
+  const showGuestCount = fields?.guestCount !== false;
+  const showDietary = fields?.dietary !== false;
+  const showMessage = fields?.message !== false;
   const [step, setStep] = useState<"attending" | "details" | "success">("attending");
   const [attending, setAttending] = useState<"YES" | "NO" | "MAYBE" | null>(null);
   const [name, setName] = useState("");
@@ -344,81 +389,106 @@ function BotanicalRSVPForm({
         />
       </div>
 
-      <div>
-        <label className="block text-sm mb-1 font-medium" style={{ color: template.colors.text }}>
-          E-mail
-        </label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={inputClasses}
-          style={{
-            borderColor: `${template.colors.primary}30`,
-            color: template.colors.text,
-          }}
-          placeholder="Voor bevestiging (optioneel)"
-        />
-      </div>
+      {showEmail && (
+        <div>
+          <label className="block text-sm mb-1 font-medium" style={{ color: template.colors.text }}>
+            E-mail
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={inputClasses}
+            style={{
+              borderColor: `${template.colors.primary}30`,
+              color: template.colors.text,
+            }}
+            placeholder="Voor bevestiging (optioneel)"
+          />
+        </div>
+      )}
 
       {attending === "YES" && (
         <>
-          <div>
-            <label className="block text-sm mb-1 font-medium" style={{ color: template.colors.text }}>
-              Aantal personen
-            </label>
-            <select
-              value={guestCount}
-              onChange={(e) => setGuestCount(Number(e.target.value))}
-              className={inputClasses}
-              style={{
-                borderColor: `${template.colors.primary}30`,
-                color: template.colors.text,
-              }}
-            >
-              {[1, 2, 3, 4, 5].map((n) => (
-                <option key={n} value={n}>
-                  {n} {n === 1 ? "persoon" : "personen"}
-                </option>
-              ))}
-            </select>
-          </div>
+          {showGuestCount && (
+            <div>
+              <label className="block text-sm mb-1 font-medium" style={{ color: template.colors.text }}>
+                Aantal personen
+              </label>
+              <select
+                value={guestCount}
+                onChange={(e) => setGuestCount(Number(e.target.value))}
+                className={inputClasses}
+                style={{
+                  borderColor: `${template.colors.primary}30`,
+                  color: template.colors.text,
+                }}
+              >
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <option key={n} value={n}>
+                    {n} {n === 1 ? "persoon" : "personen"}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
-          <div>
-            <label className="block text-sm mb-1 font-medium" style={{ color: template.colors.text }}>
-              Dieetwensen
-            </label>
-            <input
-              type="text"
-              value={dietary}
-              onChange={(e) => setDietary(e.target.value)}
-              className={inputClasses}
-              style={{
-                borderColor: `${template.colors.primary}30`,
-                color: template.colors.text,
-              }}
-              placeholder="Vegetarisch, glutenvrij, etc."
-            />
-          </div>
+          {showDietary && (
+            <div>
+              <label className="block text-sm mb-1 font-medium" style={{ color: template.colors.text }}>
+                Dieetwensen
+              </label>
+              <input
+                type="text"
+                value={dietary}
+                onChange={(e) => setDietary(e.target.value)}
+                className={inputClasses}
+                style={{
+                  borderColor: `${template.colors.primary}30`,
+                  color: template.colors.text,
+                }}
+                placeholder="Vegetarisch, glutenvrij, etc."
+              />
+            </div>
+          )}
         </>
       )}
 
-      <div>
-        <label className="block text-sm mb-1 font-medium" style={{ color: template.colors.text }}>
-          Bericht
-        </label>
-        <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={3}
-          className={cn(inputClasses, "resize-none")}
-          style={{
-            borderColor: `${template.colors.primary}30`,
-            color: template.colors.text,
-          }}
-          placeholder="Een persoonlijk bericht (optioneel)"
-        />
-      </div>
+      {showMessage && (
+        <div>
+          <label className="block text-sm mb-1 font-medium" style={{ color: template.colors.text }}>
+            Bericht
+          </label>
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={3}
+            className={cn(inputClasses, "resize-none")}
+            style={{
+              borderColor: `${template.colors.primary}30`,
+              color: template.colors.text,
+            }}
+            placeholder="Een persoonlijk bericht (optioneel)"
+          />
+        </div>
+      )}
+
+      {customQuestions && customQuestions.length > 0 && customQuestions.map((q) => (
+        <div key={q.id}>
+          <label className="block text-sm mb-1 font-medium" style={{ color: template.colors.text }}>
+            {q.question}
+          </label>
+          <input
+            type="text"
+            className={inputClasses}
+            style={{
+              borderColor: `${template.colors.primary}30`,
+              color: template.colors.text,
+            }}
+            placeholder="Jouw antwoord"
+          />
+        </div>
+      ))}
 
       {error && (
         <p className="text-red-600 text-sm bg-red-50 p-3 rounded-lg">
@@ -541,12 +611,20 @@ function RSVPFormSection({
   template,
   onClose,
   demo,
+  fields,
+  customQuestions,
 }: {
   invitationId: string;
   template: Template;
   onClose: () => void;
   demo?: boolean;
+  fields?: RSVPFields;
+  customQuestions?: CustomQuestion[];
 }) {
+  const showEmail = fields?.email !== false;
+  const showGuestCount = fields?.guestCount !== false;
+  const showDietary = fields?.dietary !== false;
+  const showMessage = fields?.message !== false;
   const [step, setStep] = useState<"attending" | "details" | "success">("attending");
   const [attending, setAttending] = useState<"YES" | "NO" | "MAYBE" | null>(null);
   const [name, setName] = useState("");
@@ -680,57 +758,76 @@ function RSVPFormSection({
         />
       </div>
 
-      <div>
-        <label className="block text-white/80 text-sm mb-1">E-mail</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40"
-          placeholder="Voor bevestiging (optioneel)"
-        />
-      </div>
+      {showEmail && (
+        <div>
+          <label className="block text-white/80 text-sm mb-1">E-mail</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40"
+            placeholder="Voor bevestiging (optioneel)"
+          />
+        </div>
+      )}
 
       {attending === "YES" && (
         <>
-          <div>
-            <label className="block text-white/80 text-sm mb-1">Aantal personen</label>
-            <select
-              value={guestCount}
-              onChange={(e) => setGuestCount(Number(e.target.value))}
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-white/40"
-            >
-              {[1, 2, 3, 4, 5].map((n) => (
-                <option key={n} value={n} className="bg-stone-800">
-                  {n} {n === 1 ? "persoon" : "personen"}
-                </option>
-              ))}
-            </select>
-          </div>
+          {showGuestCount && (
+            <div>
+              <label className="block text-white/80 text-sm mb-1">Aantal personen</label>
+              <select
+                value={guestCount}
+                onChange={(e) => setGuestCount(Number(e.target.value))}
+                className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-white/40"
+              >
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <option key={n} value={n} className="bg-stone-800">
+                    {n} {n === 1 ? "persoon" : "personen"}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
-          <div>
-            <label className="block text-white/80 text-sm mb-1">Dieetwensen</label>
-            <input
-              type="text"
-              value={dietary}
-              onChange={(e) => setDietary(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40"
-              placeholder="Vegetarisch, glutenvrij, etc."
-            />
-          </div>
+          {showDietary && (
+            <div>
+              <label className="block text-white/80 text-sm mb-1">Dieetwensen</label>
+              <input
+                type="text"
+                value={dietary}
+                onChange={(e) => setDietary(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40"
+                placeholder="Vegetarisch, glutenvrij, etc."
+              />
+            </div>
+          )}
         </>
       )}
 
-      <div>
-        <label className="block text-white/80 text-sm mb-1">Bericht</label>
-        <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={3}
-          className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 resize-none"
-          placeholder="Een persoonlijk bericht (optioneel)"
-        />
-      </div>
+      {showMessage && (
+        <div>
+          <label className="block text-white/80 text-sm mb-1">Bericht</label>
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={3}
+            className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 resize-none"
+            placeholder="Een persoonlijk bericht (optioneel)"
+          />
+        </div>
+      )}
+
+      {customQuestions && customQuestions.length > 0 && customQuestions.map((q) => (
+        <div key={q.id}>
+          <label className="block text-white/80 text-sm mb-1">{q.question}</label>
+          <input
+            type="text"
+            className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40"
+            placeholder="Jouw antwoord"
+          />
+        </div>
+      ))}
 
       {error && (
         <p className="text-red-300 text-sm bg-red-500/20 p-3 rounded-lg">

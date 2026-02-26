@@ -16,6 +16,7 @@ interface Envelope2DProps {
   onMusicStart?: () => void;
   enableMusic?: boolean;
   className?: string;
+  inFrame?: boolean;
 }
 
 export function Envelope2D({
@@ -27,6 +28,7 @@ export function Envelope2D({
   onMusicStart,
   enableMusic = true,
   className,
+  inFrame,
 }: Envelope2DProps) {
   const { state, isInteractive, handleClick } = useEnvelopeAnimation({
     onOpen,
@@ -36,13 +38,14 @@ export function Envelope2D({
 
   // Lock body scroll while envelope is visible
   useEffect(() => {
+    if (inFrame) return;
     if (state !== "complete") {
       document.body.style.overflow = "hidden";
     }
     return () => {
       document.body.style.overflow = "";
     };
-  }, [state]);
+  }, [state, inFrame]);
 
   return (
     <AnimatePresence mode="wait">
@@ -53,7 +56,12 @@ export function Envelope2D({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.53 }}
-          className={cn("fixed inset-0 w-full h-screen overflow-hidden", className)}
+          className={cn(
+            inFrame
+              ? "absolute inset-0 w-full h-full overflow-hidden"
+              : "fixed inset-0 w-full h-screen overflow-hidden",
+            className
+          )}
           style={{ backgroundColor: "#E8DFD4" }}
         >
           {/* Zoom wrapper — scales up on desktop for a closer crop */}
@@ -88,7 +96,10 @@ export function Envelope2D({
 
           {/* White fade overlay */}
           <motion.div
-            className="fixed inset-0 bg-white pointer-events-none z-50"
+            className={cn(
+              inFrame ? "absolute inset-0" : "fixed inset-0",
+              "bg-white pointer-events-none z-50"
+            )}
             initial={{ opacity: 0 }}
             animate={{ opacity: state === "fading" ? 1 : 0 }}
             transition={{ duration: ANIMATION_TIMING.fadeToWhite / 1000, ease: "easeInOut" }}
@@ -170,7 +181,7 @@ function Seal({
             className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap select-none pointer-events-none"
             style={{
               bottom: "calc(100% + 0.75rem)",
-              fontFamily: getSealFontCss(sealFont ?? "lavishly-yours"),
+              fontFamily: getSealFontCss("lavishly-yours"),
               fontSize: "3.5rem",
               color: "rgba(90, 78, 65, 0.45)",
               filter: "blur(0.5px)",
