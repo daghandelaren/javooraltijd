@@ -10,6 +10,7 @@ import {
   FAQSection,
   GiftSection,
   RSVPSection,
+  ClosingSection,
 } from "@/components/invitation-sections";
 import { useBuilderStore } from "@/stores/builder-store";
 import { getTemplateById, templates } from "@/lib/templates";
@@ -37,7 +38,14 @@ export default function InvitationPreviewFrame() {
     giftConfig,
     styling,
     rsvpConfig,
+    selectedPlan,
   } = useBuilderStore();
+
+  const effectiveFields = {
+    ...rsvpConfig.fields,
+    dietary: selectedPlan === "basic" ? false : rsvpConfig.fields.dietary,
+    message: selectedPlan === "premium" ? rsvpConfig.fields.message : false,
+  };
 
   const selectedTemplate = getTemplateById(templateId || "") || templates[0];
   const weddingDateObj = weddingDate ? new Date(weddingDate) : new Date();
@@ -115,6 +123,15 @@ export default function InvitationPreviewFrame() {
         deadline={rsvpConfig.deadline ? new Date(rsvpConfig.deadline) : undefined}
         template={selectedTemplate}
         demo={true}
+        fields={effectiveFields}
+        customQuestions={rsvpConfig.customQuestions ?? []}
+      />
+
+      <ClosingSection
+        partner1Name={partner1Name || "Partner 1"}
+        partner2Name={partner2Name || "Partner 2"}
+        weddingDate={weddingDateObj}
+        template={selectedTemplate}
       />
     </div>
   );

@@ -158,26 +158,15 @@ export default function DetailsPage() {
               Wanneer is de bruiloft?
             </h2>
 
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="date">Trouwdatum *</Label>
-                <Input
-                  id="date"
-                  type="date"
-                  value={weddingDate}
-                  onChange={(e) => setWeddingDate(e.target.value)}
-                  min={new Date().toISOString().split("T")[0]}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="time">Aanvangstijd (optioneel)</Label>
-                <Input
-                  id="time"
-                  type="time"
-                  value={weddingTime}
-                  onChange={(e) => setWeddingTime(e.target.value)}
-                />
-              </div>
+            <div className="space-y-2 sm:max-w-[200px]">
+              <Label htmlFor="date">Trouwdatum *</Label>
+              <Input
+                id="date"
+                type="date"
+                value={weddingDate}
+                onChange={(e) => setWeddingDate(e.target.value)}
+                min={new Date().toISOString().split("T")[0]}
+              />
             </div>
           </div>
 

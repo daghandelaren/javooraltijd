@@ -7,4 +7,5 @@ export { GiftSection } from "./gift-section";
 export { RSVPSection } from "./rsvp-section";
 export { DresscodeSection } from "./dresscode-section";
 export { SectionDivider } from "./section-divider";
+export { ClosingSection } from "./closing-section";
 export { FloatingMusicToggle, useMusicControl } from "./floating-music-toggle";

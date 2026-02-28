@@ -26,6 +26,7 @@ import {
   FAQSection,
   GiftSection,
   RSVPSection,
+  ClosingSection,
 } from "@/components/invitation-sections";
 import { useBuilderStore } from "@/stores/builder-store";
 import { useBuilderGuard } from "@/hooks/use-builder-guard";
@@ -65,8 +66,15 @@ export default function PreviewPage() {
     giftConfig,
     styling,
     rsvpConfig,
+    selectedPlan,
     setCurrentStep,
   } = useBuilderStore();
+
+  const effectiveFields = {
+    ...rsvpConfig.fields,
+    dietary: selectedPlan === "basic" ? false : rsvpConfig.fields.dietary,
+    message: selectedPlan === "premium" ? rsvpConfig.fields.message : false,
+  };
 
   const selectedTemplate = getTemplateById(templateId || "") || templates[0];
 
@@ -327,6 +335,15 @@ export default function PreviewPage() {
                 template={selectedTemplate}
                 demo={true}
                 rsvpId="rsvp-overlay"
+                fields={effectiveFields}
+                customQuestions={rsvpConfig.customQuestions ?? []}
+              />
+
+              <ClosingSection
+                partner1Name={partner1Name || "Partner 1"}
+                partner2Name={partner2Name || "Partner 2"}
+                weddingDate={weddingDateObj}
+                template={selectedTemplate}
               />
 
               <div className="py-6 text-center">

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Clock, ExternalLink } from "lucide-react";
+import { Clock, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type Template } from "@/lib/templates";
 import { RivieraTileAccent } from "@/components/riviera-tile-accent";
@@ -73,7 +73,6 @@ export function LocationSection({
             fontFamily: `'${template.fonts.heading}', serif`,
           }}
         >
-          <MapPin className="w-6 h-6 inline-block mr-2 -mt-1" style={{ color: template.colors.primary }} />
           Locatie{locations.length > 1 ? "s" : ""}
         </h2>
 

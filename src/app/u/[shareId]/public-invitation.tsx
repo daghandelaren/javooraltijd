@@ -16,6 +16,7 @@ import {
   DresscodeSection,
   FloatingMusicToggle,
   useMusicControl,
+  ClosingSection,
 } from "@/components/invitation-sections";
 import { BloementuinSectionAccent } from "@/components/bloementuin-floral-bg";
 import { LaDolceVitaSectionAccent } from "@/components/ladolcevita-citrus-bg";
@@ -237,19 +238,12 @@ function InvitationContent({
         template={template}
       />
 
-      {/* Footer */}
-      <footer className="py-8 px-4 text-center" style={{ background: template.colors.background }}>
-        <p className="text-sm" style={{ color: template.colors.textMuted }}>
-          Gemaakt met{" "}
-          <a
-            href="https://javooraltijd.nl"
-            className="hover:underline"
-            style={{ color: template.colors.primary }}
-          >
-            Ja, Voor Altijd
-          </a>
-        </p>
-      </footer>
+      <ClosingSection
+        partner1Name={invitation.partner1Name}
+        partner2Name={invitation.partner2Name}
+        weddingDate={weddingDate}
+        template={template}
+      />
     </main>
   );
 }
