@@ -15,10 +15,11 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { planId, addonIds, invitationId } = body as {
+    const { planId, addonIds, invitationId, discountCode } = body as {
       planId: PlanId;
       addonIds?: AddonId[];
       invitationId: string;
+      discountCode?: string;
     };
 
     // Validate plan
@@ -57,6 +58,67 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Apply discount if provided
+    let discountAmount = 0;
+    let appliedCode: string | undefined;
+
+    if (discountCode) {
+      const discount = await db.discountCode.findUnique({
+        where: { code: discountCode.toUpperCase().trim() },
+      });
+
+      if (
+        discount &&
+        discount.isActive &&
+        (!discount.expiresAt || discount.expiresAt >= new Date()) &&
+        (discount.maxUsages === null || discount.currentUsages < discount.maxUsages) &&
+        (discount.minOrderCents === null || totalCents >= discount.minOrderCents)
+      ) {
+        if (discount.type === "PERCENTAGE") {
+          discountAmount = Math.round((totalCents * discount.value) / 100);
+        } else {
+          discountAmount = Math.min(discount.value, totalCents);
+        }
+
+        // Increment usage
+        await db.discountCode.update({
+          where: { id: discount.id },
+          data: { currentUsages: { increment: 1 } },
+        });
+
+        appliedCode = discount.code;
+      }
+    }
+
+    totalCents = Math.max(0, totalCents - discountAmount);
+
+    // If total is 0 after discount, skip Mollie and publish directly
+    if (totalCents === 0) {
+      const expiresAt = new Date();
+      expiresAt.setMonth(expiresAt.getMonth() + plan.features.durationMonths);
+
+      const baseUrl = process.env.NEXTAUTH_URL || process.env.NEXT_PUBLIC_APP_URL || "https://javooraltijd.nl";
+      const shareId = invitation.shareId;
+      const shareUrl = `${baseUrl}/u/${shareId}`;
+
+      await db.invitation.update({
+        where: { id: invitationId },
+        data: {
+          status: "PUBLISHED",
+          paidAt: new Date(),
+          publishedAt: new Date(),
+          planId,
+          expiresAt,
+          shareUrl,
+          discountCode: appliedCode,
+          discountAmount,
+        },
+      });
+
+      const successUrl = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/checkout/success?id=${invitationId}`;
+      return NextResponse.json({ url: successUrl });
+    }
+
     // Get base URL for redirects
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
     const webhookUrl = process.env.NEXTAUTH_URL || baseUrl;
@@ -75,16 +137,20 @@ export async function POST(request: NextRequest) {
         invitationId,
         planId,
         addonIds: addonIds?.join(",") || "",
+        discountCode: appliedCode || "",
+        discountAmount: String(discountAmount),
       },
       locale: Locale.nl_NL,
     });
 
-    // Store payment ID in invitation
+    // Store payment ID and discount info in invitation
     await db.invitation.update({
       where: { id: invitationId },
       data: {
         molliePaymentId: payment.id,
         planId,
+        discountCode: appliedCode,
+        discountAmount: discountAmount > 0 ? discountAmount : undefined,
       },
     });
 

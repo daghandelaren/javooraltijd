@@ -10,25 +10,25 @@ export { Locale };
 
 // Pricing configuration
 export const PLANS = {
-  basis: {
-    id: "basis",
-    name: "Basis",
-    price: 4900, // in cents
+  basic: {
+    id: "basic",
+    name: "Basic",
+    price: 12500, // in cents
     features: {
-      maxGuests: 100,
-      allTemplates: false,
+      maxGuests: 75,
+      allTemplates: true,
       mediaUpload: false,
       customSeal: false,
       prioritySupport: false,
-      durationMonths: 6,
+      durationMonths: 9,
     },
   },
-  premium: {
-    id: "premium",
-    name: "Premium",
-    price: 7900,
+  signature: {
+    id: "signature",
+    name: "Signature",
+    price: 17500,
     features: {
-      maxGuests: -1, // unlimited
+      maxGuests: 150,
       allTemplates: true,
       mediaUpload: true,
       customSeal: false,
@@ -36,17 +36,17 @@ export const PLANS = {
       durationMonths: 12,
     },
   },
-  deluxe: {
-    id: "deluxe",
-    name: "Deluxe",
-    price: 11900,
+  premium: {
+    id: "premium",
+    name: "Premium",
+    price: 22500,
     features: {
-      maxGuests: -1,
+      maxGuests: -1, // unlimited
       allTemplates: true,
       mediaUpload: true,
       customSeal: true,
       prioritySupport: true,
-      durationMonths: 24,
+      durationMonths: 16,
     },
   },
 } as const;

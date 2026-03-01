@@ -17,8 +17,8 @@ import {
 } from "@/components/bloementuin-floral-bg";
 import {
   LaDolceVitaCitrusBackground,
-  LaDolceVitaSectionAccent,
 } from "@/components/ladolcevita-citrus-bg";
+import { LaDolceVitaHeroAnimations } from "@/components/ladolcevita-hero-animations";
 import { RivieraBackground } from "@/components/riviera-bg";
 import { RivieraTileAccent } from "@/components/riviera-tile-accent";
 import { RSVPSection } from "@/components/invitation-sections/rsvp-section";
@@ -751,12 +751,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                   ))}
                 </div>
               </div>
-              {isMediterranean && (
-                <>
-                  <LaDolceVitaSectionAccent side="left" />
-                  <LaDolceVitaSectionAccent side="right" />
-                </>
-              )}
+              {isMediterranean && <LaDolceVitaHeroAnimations scale={1.8} />}
             </section>
 
             {/* Timeline */}

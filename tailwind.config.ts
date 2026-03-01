@@ -85,8 +85,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        heading: ["Cormorant Garamond", "Georgia", "serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
+        heading: ["var(--font-cormorant)", "Georgia", "serif"],
+        body: ["var(--font-inter)", "system-ui", "sans-serif"],
         accent: ["Caveat", "cursive"],
       },
       borderRadius: {

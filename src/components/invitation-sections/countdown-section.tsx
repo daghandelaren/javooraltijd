@@ -21,7 +21,8 @@ export function CountdownSection({
   const isBotanical = template.style === "botanical";
   const isMediterranean = template.style === "mediterranean";
   const isCoastal = template.style === "coastal";
-  const isDarkCountdown = isBotanical || isMediterranean || isCoastal;
+  const isMinimalist = template.style === "minimalist";
+  const isDarkCountdown = isBotanical || isMediterranean || isCoastal || isMinimalist;
 
   return (
     <section
@@ -36,6 +37,8 @@ export function CountdownSection({
           ? template.colors.text
           : isCoastal
           ? "#C4A47C"
+          : isMinimalist
+          ? "#3D3D3D"
           : template.colors.background,
       }}
     >
@@ -47,9 +50,9 @@ export function CountdownSection({
         className="max-w-xl mx-auto text-center"
       >
         <h2
-          className="font-heading text-2xl sm:text-3xl mb-2"
+          className={cn("font-heading text-2xl sm:text-3xl mb-2", isMinimalist && "font-light tracking-wide")}
           style={{
-            color: (isBotanical || isMediterranean || isCoastal) ? "#FDFBF7" : template.colors.text,
+            color: isDarkCountdown ? "#FDFBF7" : template.colors.text,
             fontFamily: `'${template.fonts.heading}', serif`,
           }}
         >
@@ -57,16 +60,16 @@ export function CountdownSection({
         </h2>
         <p
           className="text-sm mb-8"
-          style={{ color: (isBotanical || isMediterranean || isCoastal) ? "rgba(253,251,247,0.7)" : template.colors.textMuted }}
+          style={{ color: isDarkCountdown ? "rgba(253,251,247,0.7)" : template.colors.textMuted }}
         >
           Tot de grote dag
         </p>
 
         <CountdownTimer
           targetDate={weddingDate}
-          accentColor={(isBotanical || isMediterranean || isCoastal) ? "#FDFBF7" : template.colors.primary}
+          accentColor={isDarkCountdown ? "#FDFBF7" : template.colors.primary}
           variant="card"
-          theme={isBotanical ? "botanical" : (isMediterranean || isCoastal) ? "mediterranean" : undefined}
+          theme={isBotanical ? "botanical" : (isMediterranean || isCoastal || isMinimalist) ? "mediterranean" : undefined}
           compact={compact}
         />
 

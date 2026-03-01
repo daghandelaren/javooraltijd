@@ -124,6 +124,8 @@ model Invitation {
   planId        String?
   molliePaymentId String?
   paidAt        DateTime?
+  discountCode    String?
+  discountAmount  Int?    // cents
 
   // Relations
   rsvps         RSVP[]
@@ -203,6 +205,26 @@ enum RSVPStatus {
   YES
   NO
   MAYBE
+}
+
+// ==================== DISCOUNT CODES ====================
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+model DiscountCode {
+  id             String       @id @default(cuid())
+  code           String       @unique // uppercase
+  type           DiscountType
+  value          Int          // percentage (0-100) or cents
+  minOrderCents  Int?
+  maxUsages      Int?         // null = unlimited
+  currentUsages  Int          @default(0)
+  expiresAt      DateTime?
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
 }
 
 // ==================== TEMPLATE (reference data) ====================

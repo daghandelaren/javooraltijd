@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { type Template } from "@/lib/templates";
 import { RivieraTileAccent } from "@/components/riviera-tile-accent";
 import { BloementuinSectionAccent } from "@/components/bloementuin-floral-bg";
-import { LaDolceVitaSectionAccent } from "@/components/ladolcevita-citrus-bg";
+import { LaDolceVitaHeroAnimations } from "@/components/ladolcevita-hero-animations";
 import { ProgramIcon } from "@/components/builder/icon-picker";
 
 interface Location {
@@ -53,12 +53,7 @@ export function LocationSection({
           <BloementuinSectionAccent side="right" />
         </>
       )}
-      {template.style === "mediterranean" && (
-        <>
-          <LaDolceVitaSectionAccent side="left" />
-          <LaDolceVitaSectionAccent side="right" />
-        </>
-      )}
+      {template.style === "mediterranean" && <LaDolceVitaHeroAnimations scale={1.8} />}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +100,7 @@ function LocationCard({
     <div
       className="relative rounded-2xl overflow-hidden shadow-sm"
       style={{
-        backgroundColor: template.style === "mediterranean" ? "#FFF8E7" : "rgba(255,255,255,0.8)",
+        backgroundColor: template.style === "mediterranean" ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.8)",
         border: `1px solid ${template.colors.accent}`,
       }}
     >

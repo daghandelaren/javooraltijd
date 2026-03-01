@@ -34,7 +34,7 @@ function BlossomShape({ size }: { size: number }) {
   );
 }
 
-function FallingBlossoms() {
+function FallingBlossoms({ scale = 1 }: { scale?: number }) {
   return (
     <div className="absolute inset-0 pointer-events-none z-[5] overflow-hidden">
       {blossoms.map((b, i) => (
@@ -49,17 +49,17 @@ function FallingBlossoms() {
             ["--rotate-end" as string]: `${b.rotate}deg`,
           }}
         >
-          <BlossomShape size={b.size} />
+          <BlossomShape size={b.size * scale} />
         </div>
       ))}
     </div>
   );
 }
 
-export function LaDolceVitaHeroAnimations() {
+export function LaDolceVitaHeroAnimations({ scale = 1 }: { scale?: number } = {}) {
   return (
     <>
-      <FallingBlossoms />
+      <FallingBlossoms scale={scale} />
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes dolcevita-blossom-fall {
           0% {

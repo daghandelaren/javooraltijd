@@ -3,6 +3,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { locales, type Locale } from "@/i18n";
 import { SessionProvider } from "@/components/providers/session-provider";
+import { inter, cormorant } from "@/lib/fonts";
 import "@/app/globals.css";
 
 export function generateStaticParams() {
@@ -26,7 +27,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${inter.variable} ${cormorant.variable}`}>
       <body className="font-body antialiased">
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>

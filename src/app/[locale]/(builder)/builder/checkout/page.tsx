@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, CreditCard, Shield, Clock, AlertCircle, Loader2, Check, Users } from "lucide-react";
+import { ArrowLeft, CreditCard, Shield, Clock, AlertCircle, Loader2, Check, Users, Tag, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useBuilderStore, type PlanId } from "@/stores/builder-store";
 import { useBuilderGuard } from "@/hooks/use-builder-guard";
@@ -71,6 +71,12 @@ const PLAN_DETAILS: Record<PlanId, PlanDetails> = {
   },
 };
 
+interface AppliedDiscount {
+  code: string;
+  label: string;
+  discountCents: number;
+}
+
 function CheckoutContent() {
   const tCta = useTranslations("cta");
   const router = useRouter();
@@ -79,6 +85,12 @@ function CheckoutContent() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Discount state
+  const [discountInput, setDiscountInput] = useState("");
+  const [discountLoading, setDiscountLoading] = useState(false);
+  const [discountError, setDiscountError] = useState<string | null>(null);
+  const [appliedDiscount, setAppliedDiscount] = useState<AppliedDiscount | null>(null);
 
   const {
     partner1Name,
@@ -103,7 +115,48 @@ function CheckoutContent() {
   }, [canceled]);
 
   const planDetails = selectedPlan ? PLAN_DETAILS[selectedPlan] : null;
-  const total = planDetails?.price || 0;
+  const subtotal = planDetails?.price || 0;
+  const discountEuro = appliedDiscount ? appliedDiscount.discountCents / 100 : 0;
+  const total = Math.max(0, subtotal - discountEuro);
+
+  const handleApplyDiscount = async () => {
+    const code = discountInput.trim();
+    if (!code || !selectedPlan) return;
+
+    setDiscountLoading(true);
+    setDiscountError(null);
+
+    try {
+      const res = await fetch("/api/checkout/validate-discount", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code, planId: selectedPlan }),
+      });
+
+      const data = await res.json();
+
+      if (data.valid) {
+        setAppliedDiscount({
+          code: data.code,
+          label: data.label,
+          discountCents: data.discountCents,
+        });
+        setDiscountInput("");
+        setDiscountError(null);
+      } else {
+        setDiscountError(data.error || "Ongeldige kortingscode");
+      }
+    } catch {
+      setDiscountError("Er ging iets mis. Probeer het opnieuw.");
+    } finally {
+      setDiscountLoading(false);
+    }
+  };
+
+  const handleRemoveDiscount = () => {
+    setAppliedDiscount(null);
+    setDiscountError(null);
+  };
 
   const handleCheckout = async () => {
     setError(null);
@@ -135,6 +188,7 @@ function CheckoutContent() {
         body: JSON.stringify({
           planId: selectedPlan,
           invitationId: currentInvitationId,
+          discountCode: appliedDiscount?.code,
         }),
       });
 
@@ -146,7 +200,7 @@ function CheckoutContent() {
       const { url } = await response.json();
 
       if (url) {
-        // Redirect to Mollie checkout
+        // Redirect to Mollie checkout (or success page for 100% discount)
         window.location.href = url;
       } else {
         throw new Error("Geen checkout URL ontvangen");
@@ -230,12 +284,12 @@ function CheckoutContent() {
           </div>
         </motion.div>
 
-        {/* Order summary */}
+        {/* Order summary — olive green card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-stone-900 text-white rounded-xl p-6 mb-6"
+          className="bg-olive-700 text-white rounded-xl p-6 mb-6"
         >
           <h2 className="font-heading text-xl font-semibold mb-4">
             Overzicht
@@ -246,13 +300,74 @@ function CheckoutContent() {
               <span>{planDetails.name} pakket</span>
               <span>€{planDetails.price.toFixed(2)}</span>
             </div>
-            <div className="border-t border-stone-700 pt-3 flex justify-between text-lg font-semibold">
+
+            {appliedDiscount && (
+              <div className="flex justify-between text-green-200">
+                <span>Korting ({appliedDiscount.code})</span>
+                <span>-€{discountEuro.toFixed(2)}</span>
+              </div>
+            )}
+
+            <div className="border-t border-olive-600 pt-3 flex justify-between text-lg font-semibold">
               <span>Totaal (incl. BTW)</span>
               <span>€{total.toFixed(2)}</span>
             </div>
           </div>
 
-          <div className="space-y-3 text-sm text-stone-400 mb-6">
+          {/* Discount code section */}
+          <div className="mb-6">
+            {appliedDiscount ? (
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 bg-olive-600 text-white text-sm px-3 py-1.5 rounded-full">
+                  <Tag className="w-3.5 h-3.5" />
+                  {appliedDiscount.code} — {appliedDiscount.label}
+                  <button
+                    onClick={handleRemoveDiscount}
+                    className="ml-1 hover:text-red-200 transition-colors"
+                    aria-label="Verwijder kortingscode"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </span>
+              </div>
+            ) : (
+              <div>
+                <label className="flex items-center gap-1.5 text-sm text-olive-200 mb-2">
+                  <Tag className="w-4 h-4" />
+                  Heb je een kortingscode?
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={discountInput}
+                    onChange={(e) => {
+                      setDiscountInput(e.target.value.toUpperCase());
+                      setDiscountError(null);
+                    }}
+                    onKeyDown={(e) => e.key === "Enter" && handleApplyDiscount()}
+                    placeholder="Kortingscode"
+                    className="flex-1 px-3 py-2 rounded-lg bg-olive-600/50 border border-olive-500 text-white placeholder:text-olive-300 text-sm focus:outline-none focus:ring-2 focus:ring-olive-300"
+                  />
+                  <button
+                    onClick={handleApplyDiscount}
+                    disabled={discountLoading || !discountInput.trim()}
+                    className="px-4 py-2 rounded-lg bg-olive-500 hover:bg-olive-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium transition-colors"
+                  >
+                    {discountLoading ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      "Toepassen"
+                    )}
+                  </button>
+                </div>
+                {discountError && (
+                  <p className="mt-1.5 text-sm text-red-200">{discountError}</p>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-3 text-sm text-olive-200 mb-6">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
               <span>Veilig betalen via Mollie</span>
@@ -264,16 +379,23 @@ function CheckoutContent() {
           </div>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-900/20 border border-red-500/30 rounded-lg flex items-center gap-3">
-              <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
-              <p className="text-sm text-red-200">{error}</p>
+            <div className="mb-4 p-4 bg-red-800/30 border border-red-400/40 rounded-lg flex items-center gap-3">
+              <AlertCircle className="w-5 h-5 text-red-200 shrink-0" />
+              <p className="text-sm text-red-100">{error}</p>
             </div>
           )}
+
+          <p className="text-sm text-olive-200 text-center mb-3">
+            Door te betalen ga je akkoord met de{" "}
+            <a href="/voorwaarden" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors">algemene voorwaarden</a>
+            {" "}en het{" "}
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors">privacybeleid</a>.
+          </p>
 
           <Button
             onClick={handleCheckout}
             disabled={isLoading}
-            className="w-full bg-white text-stone-900 hover:bg-stone-100"
+            className="w-full bg-white text-olive-800 hover:bg-olive-50"
             size="lg"
           >
             {isLoading ? (

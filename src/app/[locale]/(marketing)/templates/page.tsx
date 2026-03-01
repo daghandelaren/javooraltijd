@@ -237,8 +237,6 @@ function TemplateCard({
   viewDemoLabel: string;
 }) {
   const name = locale === "en" ? template.nameEn : template.name;
-  const description =
-    locale === "en" ? template.descriptionEn : template.description;
   const style = cardStyles[template.slug] || cardStyles.minimalist;
 
   return (
@@ -291,11 +289,6 @@ function TemplateCard({
             >
               {name}
             </h3>
-            <p
-              className={`text-xs sm:text-sm leading-relaxed line-clamp-2 ${style.mutedColor}`}
-            >
-              {description}
-            </p>
             <Button
               asChild
               size="sm"
