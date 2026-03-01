@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Calculate total in cents
-    let totalCents = plan.price;
+    let totalCents: number = plan.price;
 
     if (addonIds?.length) {
       for (const addonId of addonIds) {
