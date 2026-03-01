@@ -194,7 +194,7 @@ export default function StylingPage() {
                   key={preset.id}
                   onClick={() => setStyling({ sealFont: preset.id })}
                   className={cn(
-                    "py-5 px-2 sm:px-4 rounded-xl border-2 text-center transition-all hover:shadow-md",
+                    "py-5 px-2 sm:px-4 rounded-xl border-2 text-center transition-all hover:shadow-md overflow-hidden min-w-0",
                     styling.sealFont === preset.id
                       ? "border-olive-500 bg-olive-50 shadow-sm"
                       : "border-stone-200 hover:border-stone-300 bg-white"
@@ -206,7 +206,7 @@ export default function StylingPage() {
                   >
                     {styling.monogram || "J&J"}
                   </span>
-                  <span className="text-sm text-stone-600">{preset.labelNl}</span>
+                  <span className="text-xs sm:text-sm text-stone-600 truncate block">{preset.labelNl}</span>
                 </button>
               ))}
             </div>

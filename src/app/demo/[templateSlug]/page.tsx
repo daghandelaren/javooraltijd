@@ -900,7 +900,6 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
               config={{
                 enabled: true,
                 message: "Jullie aanwezigheid is het mooiste cadeau. Mochten jullie toch iets willen geven, dan is een bijdrage in de envelop zeer gewaardeerd.",
-                preferMoney: true,
                 iban: "NL00 BANK 0000 0000 00",
                 accountHolder: "Partner 1 & Partner 2",
               }}

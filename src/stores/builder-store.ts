@@ -71,7 +71,6 @@ export interface MusicConfig {
 export interface GiftConfig {
   enabled: boolean;
   message: string;
-  preferMoney: boolean;
   registryUrl?: string;
   iban?: string;
   accountHolder?: string;
@@ -306,7 +305,6 @@ const initialState: BuilderState = {
   giftConfig: {
     enabled: false,
     message: "",
-    preferMoney: false,
   },
   guestGroups: [],
   faqItems: [],
@@ -498,7 +496,6 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
           giftConfig: invitation.giftConfig || {
             enabled: false,
             message: "",
-            preferMoney: false,
           },
           locations: invitation.locations.map((loc) => ({
             id: loc.id,

@@ -48,7 +48,6 @@ interface FAQItem {
 interface GiftConfig {
   enabled: boolean;
   message: string;
-  preferMoney: boolean;
   registryUrl?: string;
   iban?: string;
   accountHolder?: string;

@@ -47,7 +47,7 @@ export default async function PublicInvitationPage({ params }: Props) {
         ...invitation,
         sealColor: invitation.sealColor as SealColor,
         sealFont: invitation.sealFont,
-        giftConfig: invitation.giftConfig as { enabled: boolean; message: string; preferMoney: boolean; registryUrl?: string; iban?: string; accountHolder?: string } | null,
+        giftConfig: invitation.giftConfig as { enabled: boolean; message: string; registryUrl?: string; iban?: string; accountHolder?: string } | null,
         faqItems: invitation.faqItems as { id: string; question: string; answer: string }[] | null,
         envelopeEnabled: invitation.envelopeEnabled,
         envelopeColor: invitation.envelopeColor,

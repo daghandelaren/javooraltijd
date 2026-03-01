@@ -9,7 +9,6 @@ import { type Template } from "@/lib/templates";
 interface GiftConfig {
   enabled: boolean;
   message: string;
-  preferMoney: boolean;
   registryUrl?: string;
   iban?: string;
   accountHolder?: string;
@@ -26,7 +25,7 @@ export function GiftSection({
   template,
   className,
 }: GiftSectionProps) {
-  const [showIban, setShowIban] = useState(false);
+  const [showContent, setShowContent] = useState(false);
   const [copied, setCopied] = useState(false);
   const confettiFired = useRef(false);
 
@@ -90,51 +89,52 @@ export function GiftSection({
             border: `1px solid ${template.colors.primary}20`,
           }}
         >
-          {/* Message */}
-          {config.message && (
-            <p
-              className="text-base mb-6"
-              style={{
-                color: template.colors.text,
-                fontFamily: `'${template.fonts.body}', serif`,
-              }}
+          {/* Single dropdown for all gift content */}
+          <button
+            onClick={() => {
+              const willOpen = !showContent;
+              setShowContent(willOpen);
+              if (willOpen) fireConfetti();
+            }}
+            className="inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-80"
+            style={{ color: template.colors.primary }}
+          >
+            Bekijk cadeau informatie
+            <motion.div
+              animate={{ rotate: showContent ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
             >
-              {config.message}
-            </p>
-          )}
+              <ChevronDown className="w-4 h-4" />
+            </motion.div>
+          </button>
 
-          {/* IBAN expandable section */}
-          {config.iban && (
-            <div className="mt-4">
-              <button
-                onClick={() => {
-                  const willOpen = !showIban;
-                  setShowIban(willOpen);
-                  if (willOpen) fireConfetti();
-                }}
-                className="inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-80"
-                style={{ color: template.colors.primary }}
+          <AnimatePresence>
+            {showContent && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
               >
-                Toon bankgegevens
-                <motion.div
-                  animate={{ rotate: showIban ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ChevronDown className="w-4 h-4" />
-                </motion.div>
-              </button>
+                <div className="mt-4 space-y-4">
+                  {/* Message */}
+                  {config.message && (
+                    <p
+                      className="text-base"
+                      style={{
+                        color: template.colors.text,
+                        fontFamily: `'${template.fonts.body}', serif`,
+                      }}
+                    >
+                      {config.message}
+                    </p>
+                  )}
 
-              <AnimatePresence>
-                {showIban && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="overflow-hidden"
-                  >
+                  {/* Bank details */}
+                  {config.iban && (
                     <div
-                      className="mt-4 p-4 rounded-xl"
+                      className="p-4 rounded-xl"
                       style={{ backgroundColor: "rgba(255,255,255,0.6)" }}
                     >
                       {config.accountHolder && (
@@ -165,25 +165,25 @@ export function GiftSection({
                         </button>
                       </div>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
+                  )}
 
-          {/* Registry link */}
-          {config.registryUrl && (
-            <a
-              href={config.registryUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-4 text-sm font-medium transition-opacity hover:opacity-80"
-              style={{ color: template.colors.primary }}
-            >
-              Bekijk onze verlanglijst
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          )}
+                  {/* Registry link */}
+                  {config.registryUrl && (
+                    <a
+                      href={config.registryUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-80"
+                      style={{ color: template.colors.primary }}
+                    >
+                      Bekijk onze verlanglijst
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </motion.div>
     </section>
