@@ -8,6 +8,7 @@ import { TestimonialsSection } from "@/components/marketing/sections/testimonial
 import { FAQSection } from "@/components/marketing/sections/faq";
 import { FinalCTASection } from "@/components/marketing/sections/final-cta";
 import { TemplatesPreviewSection } from "@/components/marketing/sections/templates-preview";
+import { SaveTheDatePreviewSection } from "@/components/marketing/sections/save-the-date-preview";
 import { ComparisonTableSection } from "@/components/marketing/sections/comparison-table";
 import { DashboardPreviewSection } from "@/components/marketing/sections/dashboard-preview";
 
@@ -33,6 +34,7 @@ export default function HomePage() {
       <DashboardPreviewSection />
       <WaxSealStorySection />
       <TemplatesPreviewSection />
+      <SaveTheDatePreviewSection />
       <TestimonialsSection />
       <FAQSection />
       <FinalCTASection />

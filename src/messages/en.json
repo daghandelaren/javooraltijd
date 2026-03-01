@@ -384,6 +384,124 @@
     "autosave": "Automatically saved",
     "save_draft": "Save as draft"
   },
+  "std": {
+    "badge": "Save the Date",
+    "builder": {
+      "title": "Save the Date Builder",
+      "progress": "Step {current} of {total}",
+      "steps": {
+        "template": "Template",
+        "details": "Details",
+        "styling": "Style",
+        "preview": "Preview",
+        "checkout": "Checkout"
+      },
+      "save": "Save",
+      "preview_btn": "Preview",
+      "template": {
+        "title": "Choose your Save the Date style",
+        "subtitle": "Select a template as a starting point. Customize colors and styling in the next steps."
+      },
+      "details": {
+        "title": "Your details",
+        "subtitle": "This information will appear on your Save the Date.",
+        "partner1": "Partner 1 name",
+        "partner2": "Partner 2 name",
+        "partner1_placeholder": "E.g. Thomas",
+        "partner2_placeholder": "E.g. Suzanna",
+        "wedding_date": "Wedding date",
+        "headline": "Headline",
+        "headline_placeholder": "E.g. Save the Date",
+        "headline_hint": "Maximum 60 characters",
+        "preview_title": "Live preview"
+      },
+      "styling": {
+        "title": "Customize style",
+        "subtitle": "Personalize the wax seal and envelope.",
+        "seal_section": "Wax seal",
+        "seal_color": "Seal color",
+        "seal_font": "Seal text font",
+        "monogram": "Monogram",
+        "monogram_placeholder": "E.g. T&S",
+        "envelope_section": "Envelope",
+        "envelope_color": "Envelope color",
+        "liner_color": "Liner color"
+      },
+      "preview": {
+        "title": "Preview",
+        "subtitle": "See how your guests will experience the Save the Date.",
+        "device_phone": "Phone",
+        "device_tablet": "Tablet",
+        "device_desktop": "Desktop",
+        "full_preview": "Full preview",
+        "full_preview_description": "View the complete experience with envelope animation"
+      },
+      "checkout": {
+        "title": "Publish your Save the Date",
+        "subtitle": "One-time payment, no subscription.",
+        "price": "€75",
+        "price_label": "one-time",
+        "features": {
+          "duration": "12 months online",
+          "templates": "All Save the Date templates",
+          "seal": "Personalized wax seal",
+          "tracking": "Visitor tracking",
+          "share": "Shareable via all channels"
+        },
+        "discount": {
+          "label": "Discount code",
+          "placeholder": "Enter code",
+          "apply": "Apply",
+          "applied": "Discount applied",
+          "invalid": "Invalid discount code",
+          "checking": "Checking..."
+        },
+        "total": "Total",
+        "pay": "Pay via Mollie",
+        "secure": "Secure payment via iDEAL, credit card or other methods"
+      }
+    },
+    "marketing": {
+      "badge": "New",
+      "title": "Save the Date",
+      "description": "Let your guests reserve the date with an elegant digital card. The same premium envelope animation, now as a compact Save the Date.",
+      "features": {
+        "envelope": {
+          "title": "Envelope with wax seal animation",
+          "description": "The same elegant opening animation as your invitation"
+        },
+        "tracking": {
+          "title": "Visitor tracking",
+          "description": "See how many guests have opened your card"
+        },
+        "pricing": {
+          "title": "12 months online for €75",
+          "description": "One-time fee, no subscription"
+        }
+      },
+      "cta": "Discover Save the Date"
+    },
+    "templates": {
+      "tab": "Save the Date",
+      "invitations_tab": "Invitations",
+      "price_badge": "€75",
+      "view_demo": "View demo",
+      "start": "Start now"
+    },
+    "demo": {
+      "label": "This is a demo of the \"{name}\" Save the Date",
+      "cta": "Create your own Save the Date"
+    },
+    "dashboard": {
+      "type_badge": "Save the Date",
+      "new_button": "New Save the Date",
+      "views": "{count} views",
+      "share_title": "Share your Save the Date",
+      "draft_hint": "Complete your Save the Date and publish to share.",
+      "edit": "Edit",
+      "view": "View"
+    }
+  },
   "rsvp": {
     "title": "RSVP",
     "attending": {

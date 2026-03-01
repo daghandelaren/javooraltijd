@@ -9,6 +9,8 @@ import { type Template } from "@/lib/templates";
 import { BloementuinFloralBackground } from "@/components/bloementuin-floral-bg";
 import { LaDolceVitaCitrusBackground } from "@/components/ladolcevita-citrus-bg";
 import { RivieraBackground } from "@/components/riviera-bg";
+import { StdWatercolorVillaBackground } from "@/components/std-watercolor-villa-bg";
+import { StdLimoncelloBackground } from "@/components/std-limoncello-bg";
 
 interface HeroSectionProps {
   partner1Name: string;
@@ -22,6 +24,7 @@ interface HeroSectionProps {
   template: Template;
   className?: string;
   rsvpId?: string;
+  isSaveTheDate?: boolean;
 }
 
 export function HeroSection({
@@ -36,6 +39,7 @@ export function HeroSection({
   template,
   className,
   rsvpId = "rsvp",
+  isSaveTheDate = false,
 }: HeroSectionProps) {
   const formattedDate = weddingDate.toLocaleDateString("nl-NL", {
     weekday: "long",
@@ -62,10 +66,19 @@ export function HeroSection({
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {template.style === "modern" && <ModernBackground color={template.colors.secondary} />}
-        {template.style === "botanical" && <BloementuinFloralBackground />}
-        {template.style === "mediterranean" && <LaDolceVitaCitrusBackground />}
-        {template.style === "coastal" && <RivieraBackground />}
+        {template.slug?.startsWith("std-") ? (
+          <>
+            {template.style === "coastal" && <StdWatercolorVillaBackground />}
+            {template.style === "mediterranean" && <StdLimoncelloBackground />}
+          </>
+        ) : (
+          <>
+            {template.style === "modern" && <ModernBackground color={template.colors.secondary} />}
+            {template.style === "botanical" && <BloementuinFloralBackground />}
+            {template.style === "mediterranean" && <LaDolceVitaCitrusBackground />}
+            {template.style === "coastal" && <RivieraBackground />}
+          </>
+        )}
       </div>
 
       {isBotanical ? null : (
@@ -293,9 +306,15 @@ export function HeroSection({
                 fontFamily: `'${template.fonts.body}', serif`,
               }}
             >
-              Nodigen je uit om hun
-              <br />
-              bruiloft te vieren!
+              {isSaveTheDate ? (
+                headline || "Noteer de datum in je agenda"
+              ) : (
+                <>
+                  Nodigen je uit om hun
+                  <br />
+                  bruiloft te vieren!
+                </>
+              )}
             </p>
           </motion.div>
         )}
@@ -461,13 +480,13 @@ export function HeroSection({
         </>
       )}
 
-      {/* CTA button + chevron at bottom — Bloementuin, La Dolce Vita & Riviera */}
-      {isBotanicalOrMedOrCoastal ? (
+      {/* CTA button + chevron at bottom — hidden for Save the Date */}
+      {isSaveTheDate ? null : isBotanicalOrMedOrCoastal ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className={`absolute ${isCoastal ? "bottom-[17%] sm:bottom-[85px] lg:bottom-[110px]" : isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
+          className={`absolute ${isCoastal ? "bottom-[7%] sm:bottom-[85px] lg:bottom-[110px]" : isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
         >
           <button
             onClick={() => {

@@ -22,6 +22,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   invitations   Invitation[]
+  saveTheDates  SaveTheDate[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -225,6 +226,55 @@ model DiscountCode {
   expiresAt      DateTime?
   isActive       Boolean      @default(true)
   createdAt      DateTime     @default(now())
+}
+
+// ==================== SAVE THE DATE ====================
+
+model SaveTheDate {
+  id            String           @id @default(cuid())
+  userId        String
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status        InvitationStatus @default(DRAFT)
+  publishedAt   DateTime?
+  expiresAt     DateTime?
+  templateId    String
+  partner1Name  String
+  partner2Name  String
+  weddingDate   DateTime
+  headline      String?
+  sealColor     String           @default("#D08088")
+  sealFont      String           @default("lavishly-yours")
+  monogram      String?
+  fontPairing   String           @default("elegant")
+  envelopeEnabled Boolean        @default(true)
+  envelopeColor   String         @default("#FDF8F3")
+  envelopeLiner   String         @default("floral")
+  envelopePersonalizedText String?
+  shareId       String           @unique @default(cuid())
+  shareUrl      String?
+  molliePaymentId String?
+  paidAt        DateTime?
+  discountCode  String?
+  discountAmount Int?
+  viewCount     Int              @default(0)
+  views         SaveTheDateView[]
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  @@index([userId])
+  @@index([shareId])
+}
+
+model SaveTheDateView {
+  id              String       @id @default(cuid())
+  saveTheDateId   String
+  saveTheDate     SaveTheDate  @relation(fields: [saveTheDateId], references: [id], onDelete: Cascade)
+  ipHash          String
+  userAgent       String?
+  createdAt       DateTime     @default(now())
+
+  @@unique([saveTheDateId, ipHash])
+  @@index([saveTheDateId])
 }
 
 // ==================== TEMPLATE (reference data) ====================

@@ -340,7 +340,7 @@ export default function ProgramPage() {
                   </div>
 
                   {/* Time */}
-                  <div className="flex-1 space-y-2">
+                  <div className="flex-1 space-y-2 max-w-[200px]">
                     <Label htmlFor="itemTime">Tijd *</Label>
                     <Input
                       id="itemTime"

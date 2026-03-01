@@ -271,11 +271,11 @@ export default function PackagePage() {
       </div>
 
       {/* Footer row */}
-      <div className="flex items-center justify-between pt-4 border-t border-stone-200">
-        <p className="text-xs text-stone-400">
+      <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-3 pt-4 border-t border-stone-200">
+        <p className="text-xs text-stone-400 text-center sm:text-left">
           Eenmalig betalen · Veilig via Mollie · Direct aan de slag
         </p>
-        <Button onClick={handleNext} disabled={!selectedPlan} className="min-w-[160px]">
+        <Button onClick={handleNext} disabled={!selectedPlan} className="w-full sm:w-auto sm:min-w-[160px]">
           Kies template
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>

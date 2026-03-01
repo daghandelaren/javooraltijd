@@ -309,7 +309,7 @@ export default function LocationsPage() {
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2 max-w-[200px]">
                     <Label htmlFor="locationTime">Tijd *</Label>
                     <Input
                       id="locationTime"

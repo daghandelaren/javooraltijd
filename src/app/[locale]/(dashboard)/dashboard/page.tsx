@@ -5,7 +5,7 @@ import { getSession } from "@/lib/auth-server";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, ExternalLink, Users, Calendar, Settings, Share2, CreditCard, ArrowRight, Sparkles } from "lucide-react";
+import { Plus, ExternalLink, Users, Calendar, Settings, Share2, CreditCard, ArrowRight, Sparkles, Eye, CalendarHeart } from "lucide-react";
 import { WaxSeal } from "@/components/wax-seal/wax-seal";
 import { DEFAULT_SEAL_COLOR } from "@/lib/wax-colors";
 import { type SealFontId } from "@/lib/wax-fonts";
@@ -19,21 +19,27 @@ export default async function DashboardPage() {
     redirect("/login?callbackUrl=/dashboard");
   }
 
-  const invitations = await db.invitation.findMany({
-    where: { userId: session.user.id },
-    include: {
-      _count: {
-        select: { rsvps: true },
-      },
-      rsvps: {
-        select: {
-          attending: true,
-          guestCount: true,
+  const [invitations, saveTheDates] = await Promise.all([
+    db.invitation.findMany({
+      where: { userId: session.user.id },
+      include: {
+        _count: {
+          select: { rsvps: true },
+        },
+        rsvps: {
+          select: {
+            attending: true,
+            guestCount: true,
+          },
         },
       },
-    },
-    orderBy: { updatedAt: "desc" },
-  });
+      orderBy: { updatedAt: "desc" },
+    }),
+    db.saveTheDate.findMany({
+      where: { userId: session.user.id },
+      orderBy: { updatedAt: "desc" },
+    }),
+  ]);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -99,6 +105,12 @@ export default async function DashboardPage() {
               Instellingen
             </Link>
           </Button>
+          <Button asChild variant="outline">
+            <Link href="/std-builder/template">
+              <CalendarHeart className="w-4 h-4 mr-2" />
+              Save the Date
+            </Link>
+          </Button>
           <Button asChild>
             <Link href="/builder/package">
               <Plus className="w-4 h-4 mr-2" />
@@ -108,8 +120,8 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Invitations list */}
-      {invitations.length === 0 ? (
+      {/* Invitations & Save the Dates */}
+      {invitations.length === 0 && saveTheDates.length === 0 ? (
         <Card className="overflow-hidden">
           <CardContent className="py-16 text-center relative">
             {/* Decorative background */}
@@ -274,6 +286,128 @@ export default async function DashboardPage() {
                       <Link href={`/builder/template?edit=${invitation.id}`}>
                         <Settings className="w-4 h-4 mr-2" />
                         {invitation.status === "DRAFT" ? "Concept bewerken" : "Bewerken"}
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+
+          {/* Save the Date cards */}
+          {saveTheDates.map((std) => {
+            const stdShareUrl = `${process.env.NEXT_PUBLIC_APP_URL || ""}/s/${std.shareId}`;
+            const stdCanShare = std.status === "PUBLISHED";
+
+            return (
+              <Card key={std.id}>
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-4">
+                      <WaxSeal
+                        size="md"
+                        color={std.sealColor}
+                        font={std.sealFont as SealFontId | undefined}
+                        initials={std.monogram || undefined}
+                      />
+                      <div>
+                        <CardTitle className="font-heading text-xl flex items-center gap-2">
+                          {std.partner1Name} & {std.partner2Name}
+                          <span className="text-xs font-normal bg-olive-100 text-olive-700 px-2 py-0.5 rounded-full">
+                            Save the Date
+                          </span>
+                        </CardTitle>
+                        <CardDescription className="flex items-center gap-2 mt-1">
+                          <Calendar className="w-4 h-4" />
+                          {new Date(std.weddingDate).toLocaleDateString("nl-NL", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          })}
+                        </CardDescription>
+                      </div>
+                    </div>
+                    {getStatusBadge(std.status)}
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {/* Draft STD guidance */}
+                  {std.status === "DRAFT" && (
+                    <div className="mb-6 p-5 bg-gradient-to-r from-olive-50 via-champagne-50 to-olive-50 rounded-xl border border-olive-200">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-10 h-10 bg-olive-100 rounded-full flex items-center justify-center">
+                          <Sparkles className="w-5 h-5 text-olive-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-heading font-semibold text-olive-800 mb-1">
+                            Bijna klaar!
+                          </h3>
+                          <p className="text-sm text-olive-700 mb-4">
+                            Jullie Save the Date is opgeslagen als concept. Rond de betaling af om het te activeren.
+                          </p>
+                          <Button asChild className="bg-olive-600 hover:bg-olive-700">
+                            <Link href={`/std-builder/checkout?edit=${std.id}`}>
+                              <CreditCard className="w-4 h-4 mr-2" />
+                              Doorgaan naar betaling
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </Link>
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* View count stats */}
+                  {stdCanShare && (
+                    <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-stone-50 rounded-lg">
+                      <div className="text-center">
+                        <p className="text-2xl font-semibold text-olive-600">
+                          {std.viewCount}
+                        </p>
+                        <p className="text-xs text-stone-500">Unieke bezoekers</p>
+                      </div>
+                      <div className="text-center flex flex-col items-center justify-center">
+                        <Eye className="w-5 h-5 text-stone-400 mb-1" />
+                        <p className="text-xs text-stone-500">Bezoekers tracking</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Share URL */}
+                  {stdCanShare && (
+                    <div className="mb-6 p-4 bg-champagne-50 rounded-lg border border-champagne-200">
+                      <p className="text-sm text-stone-600 mb-3 flex items-center gap-2">
+                        <Share2 className="w-4 h-4" />
+                        Deel deze link met jullie gasten:
+                      </p>
+                      <div className="mb-3">
+                        <code className="block text-sm bg-white px-3 py-2 rounded border border-champagne-300 truncate">
+                          {stdShareUrl}
+                        </code>
+                      </div>
+                      <ShareButtons
+                        url={stdShareUrl}
+                        partner1Name={std.partner1Name}
+                        partner2Name={std.partner2Name}
+                        weddingDate={std.weddingDate.toISOString()}
+                      />
+                    </div>
+                  )}
+
+                  {/* Actions */}
+                  <div className="flex flex-wrap gap-3">
+                    {stdCanShare && (
+                      <Button asChild variant="outline" size="sm">
+                        <Link href={`/s/${std.shareId}`} target="_blank">
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Bekijk kaart
+                        </Link>
+                      </Button>
+                    )}
+                    <Button asChild variant="outline" size="sm">
+                      <Link href={`/std-builder/template?edit=${std.id}`}>
+                        <Settings className="w-4 h-4 mr-2" />
+                        {std.status === "DRAFT" ? "Concept bewerken" : "Bewerken"}
                       </Link>
                     </Button>
                   </div>

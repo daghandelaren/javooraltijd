@@ -110,7 +110,7 @@ const templateCards: Array<{
           style={{ fontFamily: "'Amatic SC', cursive", fontWeight: 400 }}
           className="text-[#7A7A6A] text-[10px] sm:text-sm tracking-widest uppercase mt-1"
         >
-          wij gaan trouwen
+          Wij gaan trouwen!
         </span>
       </div>
     ),

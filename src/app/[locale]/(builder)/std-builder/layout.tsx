@@ -1,52 +1,41 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Check, ChevronLeft, Save, Eye, Loader2, Cloud, CloudOff, Lock } from "lucide-react";
+import { Check, ChevronLeft, Save, Eye, Loader2, Cloud, CloudOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useBuilderStore } from "@/stores/builder-store";
-import { useBuilderSync } from "@/hooks/use-builder-sync";
-import { getTemplateById } from "@/lib/templates";
+import { useStdBuilderStore } from "@/stores/std-builder-store";
+import { useStdBuilderSync } from "@/hooks/use-std-builder-sync";
+import { getStdTemplateById } from "@/lib/std-templates";
 import { cn } from "@/lib/utils";
 
 const STEPS = [
-  { key: "package", path: "/builder/package" },
-  { key: "template", path: "/builder/template" },
-  { key: "details", path: "/builder/details" },
-  { key: "locations", path: "/builder/locations" },
-  { key: "program", path: "/builder/program" },
-  { key: "rsvp", path: "/builder/rsvp" },
-  { key: "styling", path: "/builder/styling" },
-  { key: "preview", path: "/builder/preview" },
-  { key: "checkout", path: "/builder/checkout" },
+  { key: "template", label: "Template", path: "/std-builder/template" },
+  { key: "details", label: "Details", path: "/std-builder/details" },
+  { key: "styling", label: "Styling", path: "/std-builder/styling" },
+  { key: "preview", label: "Preview", path: "/std-builder/preview" },
+  { key: "checkout", label: "Betaling", path: "/std-builder/checkout" },
 ];
 
-function getMaxAllowedStep(
-  selectedPlan: string | null,
-  templateId: string | null
-): number {
-  if (!selectedPlan) return 1;
-  if (!templateId) return 2;
-  return 9;
+function getMaxAllowedStep(templateId: string | null): number {
+  if (!templateId) return 1;
+  return 5;
 }
 
-export default function BuilderLayout({
+export default function StdBuilderLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const t = useTranslations("builder");
   const pathname = usePathname();
   const router = useRouter();
-  const { lastSaved, selectedPlan, templateId } = useBuilderStore();
-  const { isAuthenticated, isSaving, isDirty, forceSave } = useBuilderSync();
-  const selectedTemplate = templateId ? getTemplateById(templateId) : null;
-  const primaryColor = selectedTemplate?.colors.primary ?? "#5C6B4A"; // olive-700 fallback
-  const primaryColorLight = primaryColor + "33"; // ~20% opacity
+  const { lastSaved, templateId } = useStdBuilderStore();
+  const { isSaving, isDirty, forceSave } = useStdBuilderSync();
+  const selectedTemplate = templateId ? getStdTemplateById(templateId) : null;
+  const primaryColor = selectedTemplate?.colors.primary ?? "#5C6B4A";
+  const primaryColorLight = primaryColor + "33";
 
-  // Get current step from pathname
   const getCurrentStepIndex = () => {
     const stepPath = pathname.split("/").pop();
     const index = STEPS.findIndex((s) => s.path.endsWith(stepPath || ""));
@@ -54,7 +43,7 @@ export default function BuilderLayout({
   };
 
   const activeStep = getCurrentStepIndex();
-  const maxAllowedStep = getMaxAllowedStep(selectedPlan, templateId);
+  const maxAllowedStep = getMaxAllowedStep(templateId);
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -62,7 +51,6 @@ export default function BuilderLayout({
       <header className="sticky top-0 z-50 bg-white border-b border-stone-200">
         <div className="container-wide">
           <div className="flex items-center justify-between h-16">
-            {/* Back to home */}
             <Link
               href="/"
               className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition-colors"
@@ -71,14 +59,14 @@ export default function BuilderLayout({
               <span className="hidden sm:inline">Ja, Voor Altijd</span>
             </Link>
 
-            {/* Progress indicator */}
             <div className="flex items-center gap-2 text-sm text-stone-600">
-              <span>{t("progress", { current: activeStep, total: 9 })}</span>
+              <span className="text-xs bg-olive-100 text-olive-700 px-2 py-0.5 rounded-full font-medium">
+                Save the Date
+              </span>
+              <span>Stap {activeStep} van 5</span>
             </div>
 
-            {/* Actions */}
             <div className="flex items-center gap-2">
-              {/* Save status indicator */}
               {isSaving && (
                 <span className="text-xs text-stone-500 hidden sm:flex items-center gap-1">
                   <Loader2 className="w-3 h-3 animate-spin" />
@@ -94,7 +82,7 @@ export default function BuilderLayout({
               {!isSaving && !isDirty && lastSaved && (
                 <span className="text-xs text-green-600 hidden sm:flex items-center gap-1">
                   <Cloud className="w-3 h-3" />
-                  {t("autosave")}
+                  Opgeslagen
                 </span>
               )}
               <Button
@@ -108,16 +96,16 @@ export default function BuilderLayout({
                 ) : (
                   <Save className="w-4 h-4 mr-2" />
                 )}
-                <span className="hidden sm:inline">{t("save_draft")}</span>
+                <span className="hidden sm:inline">Opslaan</span>
               </Button>
               {activeStep >= 2 && (
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => router.push("/builder/preview")}
+                  onClick={() => router.push("/std-builder/preview")}
                 >
                   <Eye className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">{t("steps.preview")}</span>
+                  <span className="hidden sm:inline">Preview</span>
                 </Button>
               )}
             </div>
@@ -142,10 +130,10 @@ export default function BuilderLayout({
                     >
                       <div className="flex flex-col items-center gap-1">
                         <div className="w-6 h-6 rounded-full flex items-center justify-center bg-stone-100">
-                          <Lock className="w-3 h-3 text-stone-300" />
+                          <span className="text-xs text-stone-300">{stepNumber}</span>
                         </div>
                         <span className="text-xs hidden md:block text-stone-300">
-                          {t(`steps.${step.key}`)}
+                          {step.label}
                         </span>
                       </div>
                     </div>
@@ -184,14 +172,13 @@ export default function BuilderLayout({
                         )}
                       </div>
                       <span className="text-xs hidden md:block">
-                        {t(`steps.${step.key}`)}
+                        {step.label}
                       </span>
                     </div>
 
-                    {/* Active indicator line */}
                     {isActive && (
                       <motion.div
-                        layoutId="activeStep"
+                        layoutId="activeStdStep"
                         className="absolute bottom-0 left-0 right-0 h-0.5"
                         style={{ backgroundColor: primaryColor }}
                       />
@@ -205,8 +192,8 @@ export default function BuilderLayout({
       </header>
 
       {/* Main content */}
-      <main className="py-8 overflow-x-hidden">
-        <div className={activeStep === 1 ? "container-wide" : "container-narrow"}>
+      <main className="py-8">
+        <div className="container-narrow">
           {children}
         </div>
       </main>

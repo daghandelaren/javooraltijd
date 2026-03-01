@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { mollieClient, PLANS, type PlanId } from "@/lib/mollie";
+import { mollieClient, PLANS, STD_PLAN, type PlanId } from "@/lib/mollie";
 import { db } from "@/lib/db";
 import { sendPaymentConfirmation } from "@/lib/email";
 
@@ -20,11 +20,20 @@ export async function POST(request: NextRequest) {
 
     if (payment.status === "paid") {
       const metadata = payment.metadata as {
+        type?: string;
         userId?: string;
         invitationId?: string;
+        saveTheDateId?: string;
         planId?: string;
       };
 
+      // Handle Save the Date payments
+      if (metadata.type === "save-the-date") {
+        await handleStdPayment(payment.id, metadata);
+        return NextResponse.json({ received: true });
+      }
+
+      // Handle regular invitation payments
       const { userId, invitationId, planId } = metadata;
 
       if (!userId || !invitationId || !planId) {
@@ -98,4 +107,61 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+async function handleStdPayment(
+  molliePaymentId: string,
+  metadata: { userId?: string; saveTheDateId?: string }
+) {
+  const { userId, saveTheDateId } = metadata;
+
+  if (!userId || !saveTheDateId) {
+    console.error("Missing STD metadata in Mollie payment");
+    return;
+  }
+
+  const saveTheDate = await db.saveTheDate.findUnique({
+    where: { id: saveTheDateId },
+    select: {
+      shareId: true,
+      partner1Name: true,
+      partner2Name: true,
+      user: {
+        select: { email: true },
+      },
+    },
+  });
+
+  if (!saveTheDate) {
+    console.error("Save the Date not found:", saveTheDateId);
+    return;
+  }
+
+  const expiresAt = new Date();
+  expiresAt.setMonth(expiresAt.getMonth() + STD_PLAN.features.durationMonths);
+
+  const baseUrl = process.env.NEXTAUTH_URL || "https://javooraltijd.nl";
+  const shareUrl = `${baseUrl}/s/${saveTheDate.shareId}`;
+
+  await db.saveTheDate.update({
+    where: { id: saveTheDateId },
+    data: {
+      status: "PUBLISHED",
+      molliePaymentId,
+      paidAt: new Date(),
+      publishedAt: new Date(),
+      expiresAt,
+      shareUrl,
+    },
+  });
+
+  console.log(`Save the Date ${saveTheDateId} published with URL: ${shareUrl}`);
+
+  const coupleNames = `${saveTheDate.partner1Name} & ${saveTheDate.partner2Name}`;
+  await sendPaymentConfirmation(
+    saveTheDate.user.email,
+    coupleNames,
+    STD_PLAN.name,
+    shareUrl
+  );
 }

@@ -1,7 +1,7 @@
 import { inter, cormorant } from "@/lib/fonts";
 import "@/app/globals.css";
 
-export default function PublicInvitationLayout({
+export default function DemoStdLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -16,7 +16,9 @@ export default function PublicInvitationLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-body antialiased">{children}</body>
+      <body className="font-body antialiased">
+        {children}
+      </body>
     </html>
   );
 }

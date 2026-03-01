@@ -158,7 +158,7 @@ export default function DetailsPage() {
               Wanneer is de bruiloft?
             </h2>
 
-            <div className="space-y-2 sm:max-w-[200px]">
+            <div className="space-y-2 max-w-[200px]">
               <Label htmlFor="date">Trouwdatum *</Label>
               <Input
                 id="date"

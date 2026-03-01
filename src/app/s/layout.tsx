@@ -1,7 +1,7 @@
 import { inter, cormorant } from "@/lib/fonts";
 import "@/app/globals.css";
 
-export default function PublicInvitationLayout({
+export default function PublicSaveTheDateLayout({
   children,
 }: {
   children: React.ReactNode;

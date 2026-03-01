@@ -69,6 +69,13 @@ export const ADDONS = {
   },
 } as const;
 
+export const STD_PLAN = {
+  id: "save-the-date",
+  name: "Save the Date",
+  price: 7500, // €75.00
+  features: { durationMonths: 12 },
+} as const;
+
 export type PlanId = keyof typeof PLANS;
 export type AddonId = keyof typeof ADDONS;
 

@@ -217,7 +217,7 @@ export default function RSVPPage() {
               <h3 className="font-heading text-lg font-semibold text-stone-900 mb-4">
                 RSVP Deadline
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-2 max-w-[200px]">
                 <Label htmlFor="deadline">Reageer voor (optioneel)</Label>
                 <Input
                   id="deadline"

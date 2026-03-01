@@ -188,13 +188,13 @@ export default function StylingPage() {
           {/* Font Selection - Full width below the grid */}
           <div className="mt-8 space-y-3">
             <Label>Lettertype zegel</Label>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
               {SEAL_FONT_PRESETS.map((preset) => (
                 <button
                   key={preset.id}
                   onClick={() => setStyling({ sealFont: preset.id })}
                   className={cn(
-                    "py-5 px-4 rounded-xl border-2 text-center transition-all hover:shadow-md",
+                    "py-5 px-2 sm:px-4 rounded-xl border-2 text-center transition-all hover:shadow-md",
                     styling.sealFont === preset.id
                       ? "border-olive-500 bg-olive-50 shadow-sm"
                       : "border-stone-200 hover:border-stone-300 bg-white"
