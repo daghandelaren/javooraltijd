@@ -86,7 +86,7 @@ export function SaveTheDatePreviewSection() {
               </div>
             </div>
 
-            <Button asChild size="lg">
+            <Button asChild size="lg" className="hidden lg:inline-flex">
               <Link href="/templates?tab=save-the-date">
                 Ontdek Save the Date
                 <ArrowRight className="ml-2 w-4 h-4" />
@@ -138,6 +138,16 @@ export function SaveTheDatePreviewSection() {
               );
             })}
           </motion.div>
+
+          {/* CTA below templates on mobile */}
+          <div className="lg:hidden">
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link href="/templates?tab=save-the-date">
+                Ontdek Save the Date
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     </section>

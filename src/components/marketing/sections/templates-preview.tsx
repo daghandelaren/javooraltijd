@@ -248,9 +248,9 @@ export function TemplatesPreviewSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-14 text-center"
+          className="mt-14 sm:text-center"
         >
-          <Button asChild size="lg" className="rounded-full px-8">
+          <Button asChild size="lg" className="w-full sm:w-auto">
             <Link href="/templates">
               {tCta("templates")}
               <ArrowRight className="ml-2 h-4 w-4" />
