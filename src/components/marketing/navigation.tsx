@@ -70,7 +70,7 @@ export function Navigation() {
               <span className="uppercase">{otherLocale}</span>
             </Link>
             <Button asChild size="sm">
-              <Link href="/builder/package">{t("start")}</Link>
+              <Link href="/start">{t("start")}</Link>
             </Button>
             <Button asChild variant="outline" size="sm">
               <Link href={isAuthenticated ? "/dashboard" : "/login"}>
@@ -116,7 +116,7 @@ export function Navigation() {
               ))}
               <div className="flex flex-col gap-3 pt-4 border-t border-stone-100">
                 <Button asChild size="sm" className="w-full">
-                  <Link href="/builder/package" onClick={() => setIsOpen(false)}>
+                  <Link href="/start" onClick={() => setIsOpen(false)}>
                     {t("start")}
                   </Link>
                 </Button>

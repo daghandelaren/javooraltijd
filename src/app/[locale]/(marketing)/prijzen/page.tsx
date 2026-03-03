@@ -347,7 +347,7 @@ export default function PrijzenPage() {
                       }
                       size="lg"
                     >
-                      <Link href="/builder/package">
+                      <Link href="/start">
                         {t("selectPlan", { plan: t(`plans.${plan.id}.name`) })}
                       </Link>
                     </Button>
@@ -547,7 +547,7 @@ export default function PrijzenPage() {
               </p>
 
               <Button asChild size="lg" className="bg-olive-700 hover:bg-olive-800">
-                <Link href="/builder/package">
+                <Link href="/start">
                   {t("cta.button")}
                 </Link>
               </Button>

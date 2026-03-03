@@ -468,7 +468,7 @@
       "features": {
         "envelope": {
           "title": "Envelop met lakzegel animatie",
-          "description": "Dezelfde elegante openingsanimatie als jullie uitnodiging"
+          "description": "Dezelfde elegante openingsanimatie als onze uitnodiging"
         },
         "tracking": {
           "title": "Bezoekers-tracking",
@@ -500,6 +500,22 @@
       "draft_hint": "Rond je Save the Date af en publiceer om te delen.",
       "edit": "Bewerk",
       "view": "Bekijk"
+    }
+  },
+  "start": {
+    "title": "Wat wil je maken?",
+    "subtitle": "Kies hieronder het product dat bij jullie past",
+    "invitation": {
+      "title": "Trouwuitnodiging",
+      "description": "De complete uitnodiging met RSVP, locaties, programma en meer. Alles wat jullie gasten nodig hebben.",
+      "price": "Vanaf €125",
+      "cta": "Maak een uitnodiging"
+    },
+    "saveTheDate": {
+      "title": "Save the Date",
+      "description": "Laat jullie gasten alvast de datum reserveren met een elegante digitale kaart.",
+      "price": "€75",
+      "cta": "Maak een Save the Date"
     }
   },
   "rsvp": {

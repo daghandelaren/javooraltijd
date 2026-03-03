@@ -63,7 +63,7 @@ export function SaveTheDatePreviewSection() {
                 </div>
                 <div>
                   <p className="font-medium text-stone-800">Envelop met lakzegel animatie</p>
-                  <p className="text-sm text-stone-500">Dezelfde elegante openingsanimatie als jullie uitnodiging</p>
+                  <p className="text-sm text-stone-500">Dezelfde elegante openingsanimatie als onze uitnodiging</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">

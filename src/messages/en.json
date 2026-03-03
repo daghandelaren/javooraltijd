@@ -502,6 +502,22 @@
       "view": "View"
     }
   },
+  "start": {
+    "title": "What would you like to create?",
+    "subtitle": "Choose the product that suits you",
+    "invitation": {
+      "title": "Wedding Invitation",
+      "description": "The complete invitation with RSVP, locations, program and more. Everything your guests need.",
+      "price": "From €125",
+      "cta": "Create an invitation"
+    },
+    "saveTheDate": {
+      "title": "Save the Date",
+      "description": "Let your guests reserve the date with an elegant digital card.",
+      "price": "€75",
+      "cta": "Create a Save the Date"
+    }
+  },
   "rsvp": {
     "title": "RSVP",
     "attending": {

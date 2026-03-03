@@ -407,8 +407,9 @@ function StdTemplateCard({
 
         <div className="relative z-[3] flex flex-col justify-between h-full p-5 sm:p-6">
           <div>
-            <span className="inline-block text-[11px] font-medium px-2.5 py-1 rounded-full bg-olive-100 text-olive-700">
-              Vanaf &euro;75
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full bg-olive-100 text-olive-700">
+              <span className="line-through text-stone-400 decoration-red-400/70">&euro;100</span>
+              <span>&euro;75</span>
             </span>
           </div>
 
