@@ -60,6 +60,7 @@ export function HeroSection({
       className={cn(
         "min-h-screen flex flex-col items-center px-4 relative overflow-hidden",
         isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center py-12",
+        isCoastal && "pb-32 sm:pb-12",
         className
       )}
       style={{ background: template.colors.backgroundGradient }}
@@ -351,35 +352,6 @@ export function HeroSection({
               </p>
               <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
             </div>
-            {/* CTA for coastal — in flow below date */}
-            {!isSaveTheDate && (
-              <button
-                onClick={() => {
-                  document.getElementById(rsvpId)?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="flex flex-col items-center gap-3 sm:gap-2 lg:gap-3 px-8 py-3 mt-6 transition-opacity duration-200 hover:opacity-80 cursor-pointer mx-auto"
-              >
-                <span
-                  className="text-xs sm:text-[0.45rem] lg:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.12em] lg:tracking-[0.2em] uppercase"
-                  style={{
-                    color: template.colors.primary,
-                    textShadow: "0 1px 12px rgba(255,252,245,0.8), 0 0px 4px rgba(255,252,245,0.5)",
-                  }}
-                >
-                  Bevestig aanwezigheid
-                </span>
-                <motion.div
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  style={{ filter: "drop-shadow(0 1px 8px rgba(255,252,245,0.5))" }}
-                >
-                  <ChevronDown
-                    className="w-6 h-6"
-                    style={{ color: template.colors.primary }}
-                  />
-                </motion.div>
-              </button>
-            )}
           </motion.div>
         )}
 
@@ -510,12 +482,12 @@ export function HeroSection({
       )}
 
       {/* CTA button + chevron at bottom — hidden for Save the Date */}
-      {isSaveTheDate ? null : (isBotanicalOrMedOrCoastal && !isCoastal) ? (
+      {isSaveTheDate ? null : isBotanicalOrMedOrCoastal ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className={`absolute ${isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
+          className={`absolute ${isMinimalist ? "bottom-10" : isCoastal ? "bottom-4 sm:bottom-[85px] lg:bottom-[110px]" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
         >
           <button
             onClick={() => {
