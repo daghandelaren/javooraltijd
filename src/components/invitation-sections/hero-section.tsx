@@ -58,7 +58,7 @@ export function HeroSection({
   return (
     <section
       className={cn(
-        "min-h-screen flex flex-col items-center px-4 relative",
+        "min-h-screen flex flex-col items-center px-4 relative overflow-hidden",
         isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center py-12",
         className
       )}
