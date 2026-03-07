@@ -45,7 +45,6 @@ export default function DetailsPage() {
     partner1Name,
     partner2Name,
     weddingDate,
-    weddingTime,
     headline,
     dresscode,
     dresscodeColors,
@@ -430,7 +429,6 @@ export default function DetailsPage() {
                     month: "long",
                     day: "numeric",
                   })}
-                  {weddingTime && ` om ${weddingTime}`}
                 </p>
               )}
             </div>
