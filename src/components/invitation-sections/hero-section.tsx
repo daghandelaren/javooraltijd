@@ -486,7 +486,12 @@ export function HeroSection({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className={`absolute ${isCoastal ? "bottom-[14%] sm:bottom-[85px] lg:bottom-[110px]" : isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
+          className={cn(
+            isCoastal
+              ? "mt-6"
+              : `absolute ${isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0`,
+            "flex flex-col items-center gap-3 z-10"
+          )}
         >
           <button
             onClick={() => {
