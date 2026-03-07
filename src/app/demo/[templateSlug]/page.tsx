@@ -202,7 +202,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
             className="pb-24"
           >
             {/* Hero section — names, date, CTA only */}
-            <section className={`min-h-screen flex flex-col items-center px-4 relative ${isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center pt-16 text-center"} ${isCoastal ? "pb-28" : ""}`}>
+            <section className={`min-h-screen flex flex-col items-center px-4 relative ${isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center pt-16 text-center"}`}>
               {/* Botanical floral background */}
               {isBotanical && (
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -542,7 +542,7 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  className={`absolute ${isCoastal ? "bottom-8 sm:bottom-[72px]" : isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
+                  className={`absolute ${isCoastal ? "bottom-16 sm:bottom-[72px]" : isMinimalist ? "bottom-10" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
                 >
                   <button
                     onClick={() => {
