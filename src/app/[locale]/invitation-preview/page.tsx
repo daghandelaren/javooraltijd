@@ -11,8 +11,10 @@ import {
   GiftSection,
   RSVPSection,
   ClosingSection,
+  FloatingMusicToggle,
+  useMusicControl,
 } from "@/components/invitation-sections";
-import { useBuilderStore } from "@/stores/builder-store";
+import { useBuilderStore, getMusicUrl } from "@/stores/builder-store";
 import { getTemplateById, templates } from "@/lib/templates";
 import { type SealFontId } from "@/lib/wax-fonts";
 
@@ -39,7 +41,11 @@ export default function InvitationPreviewFrame() {
     styling,
     rsvpConfig,
     selectedPlan,
+    musicConfig,
   } = useBuilderStore();
+
+  const musicUrl = getMusicUrl(musicConfig) || undefined;
+  const { audioRef: musicAudioRef } = useMusicControl(musicUrl);
 
   const effectiveFields = {
     ...rsvpConfig.fields,
@@ -133,6 +139,10 @@ export default function InvitationPreviewFrame() {
         weddingDate={weddingDateObj}
         template={selectedTemplate}
       />
+
+      {musicConfig.enabled && musicUrl && (
+        <FloatingMusicToggle audioRef={musicAudioRef} />
+      )}
     </div>
   );
 }

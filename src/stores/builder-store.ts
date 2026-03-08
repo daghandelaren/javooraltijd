@@ -259,6 +259,21 @@ export interface DatabaseInvitation {
   faqItems: FAQItem[] | null;
 }
 
+// Map trackId to music file URL
+const TRACK_URL_MAP: Record<string, string> = {
+  "romantic-piano": "/music/romantic-piano.mp3",
+  "wedding-serenade": "/music/wedding-serenade.mp3",
+  "eternal-love": "/music/eternal-love.mp3",
+  "first-dance": "/music/first-dance.mp3",
+};
+
+export function getMusicUrl(config: MusicConfig): string | null {
+  if (!config.enabled) return null;
+  if (config.source === "upload" && config.uploadedUrl) return config.uploadedUrl;
+  if (config.trackId && TRACK_URL_MAP[config.trackId]) return TRACK_URL_MAP[config.trackId];
+  return null;
+}
+
 const initialState: BuilderState = {
   invitationId: null,
   currentStep: 1,
@@ -582,6 +597,8 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
             timeline: state.timeline,
             rsvpConfig: state.rsvpConfig,
             styling: state.styling,
+            musicEnabled: state.musicConfig.enabled,
+            musicUrl: getMusicUrl(state.musicConfig),
           };
 
           const url = state.invitationId

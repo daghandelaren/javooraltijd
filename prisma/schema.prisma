@@ -114,6 +114,10 @@ model Invitation {
   envelopeLiner   String         @default("floral")
   envelopePersonalizedText String? // Text below seal on envelope
 
+  // Music
+  musicEnabled    Boolean  @default(false)
+  musicUrl        String?
+
   // FAQ Items (stored as JSON array)
   faqItems        Json?          // Array of { question: string, answer: string }
 

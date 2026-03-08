@@ -7,41 +7,68 @@ import { cn } from "@/lib/utils";
 
 interface FloatingMusicToggleProps {
   audioSrc?: string;
+  audioRef?: React.RefObject<HTMLAudioElement | null>;
   autoPlay?: boolean;
   className?: string;
 }
 
 export function FloatingMusicToggle({
   audioSrc,
+  audioRef: externalAudioRef,
   autoPlay = false,
   className,
 }: FloatingMusicToggleProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const internalAudioRef = useRef<HTMLAudioElement | null>(null);
+  const audioRefToUse = externalAudioRef || internalAudioRef;
 
-  // Initialize audio element
+  // Initialize audio element only when no external ref is provided
   useEffect(() => {
-    if (!audioSrc) return;
+    if (externalAudioRef || !audioSrc) return;
 
     const audio = new Audio(audioSrc);
     audio.loop = true;
     audio.volume = 0.5;
-    audioRef.current = audio;
-
-    // Show button after mount
-    const timer = setTimeout(() => setIsVisible(true), 500);
+    internalAudioRef.current = audio;
 
     return () => {
-      clearTimeout(timer);
       audio.pause();
       audio.src = "";
     };
-  }, [audioSrc]);
+  }, [audioSrc, externalAudioRef]);
+
+  // Sync isPlaying state with external audio that may already be playing
+  useEffect(() => {
+    const audio = audioRefToUse.current;
+    if (!audio) return;
+
+    // Check initial state
+    if (!audio.paused) {
+      setIsPlaying(true);
+    }
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
+
+    return () => {
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
+    };
+  }, [audioRefToUse]);
+
+  // Show button after mount
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Handle autoplay trigger (e.g., after envelope opens)
   const startPlayback = useCallback(async () => {
-    const audio = audioRef.current;
+    const audio = audioRefToUse.current;
     if (!audio) return;
 
     try {
@@ -51,17 +78,17 @@ export function FloatingMusicToggle({
       // Autoplay was blocked by browser
       console.log("Autoplay blocked, user must interact first");
     }
-  }, []);
+  }, [audioRefToUse]);
 
   // Expose startPlayback to parent if needed
   useEffect(() => {
-    if (autoPlay && audioSrc) {
+    if (autoPlay && audioSrc && !externalAudioRef) {
       startPlayback();
     }
-  }, [autoPlay, audioSrc, startPlayback]);
+  }, [autoPlay, audioSrc, externalAudioRef, startPlayback]);
 
   const togglePlayback = async () => {
-    const audio = audioRef.current;
+    const audio = audioRefToUse.current;
     if (!audio) return;
 
     if (isPlaying) {
@@ -77,8 +104,8 @@ export function FloatingMusicToggle({
     }
   };
 
-  // Don't render if no audio source
-  if (!audioSrc) return null;
+  // Don't render if no audio source and no external ref
+  if (!audioSrc && !externalAudioRef) return null;
 
   return (
     <AnimatePresence>
@@ -102,22 +129,6 @@ export function FloatingMusicToggle({
           )}
           title={isPlaying ? "Pauzeer muziek" : "Speel muziek af"}
         >
-          {/* Animated rings when playing */}
-          {isPlaying && (
-            <>
-              <motion.div
-                className="absolute inset-0 rounded-full border border-olive-300"
-                animate={{ scale: [1, 1.4], opacity: [0.5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
-              <motion.div
-                className="absolute inset-0 rounded-full border border-olive-300"
-                animate={{ scale: [1, 1.4], opacity: [0.5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
-              />
-            </>
-          )}
-
           {/* Icon */}
           <motion.div
             animate={{ rotate: isPlaying ? [0, 5, -5, 0] : 0 }}
@@ -184,5 +195,5 @@ export function useMusicControl(audioSrc?: string) {
     }
   }, [isPlaying, play, pause]);
 
-  return { isPlaying, play, pause, toggle };
+  return { isPlaying, play, pause, toggle, audioRef };
 }

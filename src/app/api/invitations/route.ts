@@ -61,6 +61,8 @@ export async function POST(request: NextRequest) {
       timeline,
       rsvpConfig,
       styling,
+      musicEnabled,
+      musicUrl,
     } = body;
 
     // Validate required fields
@@ -97,6 +99,8 @@ export async function POST(request: NextRequest) {
         envelopeColor: styling?.envelopeConfig?.color ?? "#FDF8F3",
         envelopeLiner: styling?.envelopeConfig?.linerPattern ?? "floral",
         envelopePersonalizedText: styling?.envelopeConfig?.personalizedText ?? "Deze uitnodiging is speciaal voor jou",
+        musicEnabled: musicEnabled ?? false,
+        musicUrl: musicUrl ?? null,
         locations: locations?.length > 0 ? {
           create: locations.map((loc: {
             name: string;

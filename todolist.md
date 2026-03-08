@@ -151,7 +151,7 @@
 - ⬜ Hosted media (foto + video upload)
 - ⬜ Accessibility mode toggle
 - ✅ GDPR data export/delete
-- ✅ Background music (Signature/Premium) - upload + library
+- ✅ Background music (Signature/Premium) - real audio files, library selector, demo + public playback, FloatingMusicToggle
 - ✅ Guest segmentation (custom groups with event selection)
 - ✅ Custom program blocks with icon picker
 
@@ -318,18 +318,31 @@ prisma/
 
 ---
 
-## HUIDIGE SESSIE - Premium Features
+## HUIDIGE SESSIE - Music Playback Implementation
+
+### Background Music Playback (Real Audio)
+- ✅ Copy 4 real MP3 files to `public/music/` with clean names
+- ✅ Update MusicSelector: replace 5 placeholder tracks with 4 real tracks + `url` field + working preview playback
+- ✅ Wire demo pages: music starts on seal click, FloatingMusicToggle visible after envelope opens, different track per template
+- ✅ Add `musicEnabled` + `musicUrl` to Prisma schema
+- ✅ Update API routes (POST/PUT) to save/load music fields
+- ✅ Update public invitation page to pass music fields from DB
+- ✅ Add `getMusicUrl()` helper to builder store for trackId→URL resolution
+- ✅ Wire `saveToDatabase` to include music fields in payload
+
+### Previous Session - Premium Features
 
 - ⬜ Envelope animation refinements (seal position + flap speed)
 
 ### Completed Features
 - ✅ Background Music feature (Signature/Premium)
   - Vinyl record player visualization with spinning animation
-  - Curated music library with 5 romantic tracks
-  - Play/pause preview with audio wave visualization
+  - Curated music library with 4 real audio tracks (Romantische Piano, Bruiloft Serenade, Eeuwige Liefde, Eerste Dans)
+  - Play/pause preview with real audio playback + audio wave visualization
   - Volume slider and autoplay toggle
   - Upload option for Premium users
   - Locked state for Basic users with upgrade prompt
+  - FloatingMusicToggle on demo pages and real invitations
 - ✅ Guest Segmentation feature
   - Create custom guest groups (Familie, Vrienden, Collega's, Avondgasten presets)
   - Assign events/locations to each group

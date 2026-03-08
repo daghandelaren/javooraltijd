@@ -91,6 +91,8 @@ export async function PUT(
       timeline,
       rsvpConfig,
       styling,
+      musicEnabled,
+      musicUrl,
     } = body;
 
     // Update invitation with transaction for locations and timeline
@@ -138,6 +140,8 @@ export async function PUT(
             envelopeLiner: styling.envelopeConfig?.linerPattern ?? "floral",
             envelopePersonalizedText: styling.envelopeConfig?.personalizedText ?? "Deze uitnodiging is speciaal voor jou",
           }),
+          ...(musicEnabled !== undefined && { musicEnabled }),
+          ...(musicUrl !== undefined && { musicUrl: musicUrl || null }),
         },
       });
 

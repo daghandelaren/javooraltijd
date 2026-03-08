@@ -53,6 +53,8 @@ export default async function PublicInvitationPage({ params }: Props) {
         envelopeColor: invitation.envelopeColor,
         envelopeLiner: invitation.envelopeLiner,
         envelopePersonalizedText: invitation.envelopePersonalizedText,
+        musicEnabled: invitation.musicEnabled,
+        musicUrl: invitation.musicUrl,
       }}
     />
   );

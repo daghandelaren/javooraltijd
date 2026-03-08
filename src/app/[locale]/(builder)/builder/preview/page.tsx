@@ -27,8 +27,10 @@ import {
   GiftSection,
   RSVPSection,
   ClosingSection,
+  FloatingMusicToggle,
+  useMusicControl,
 } from "@/components/invitation-sections";
-import { useBuilderStore } from "@/stores/builder-store";
+import { useBuilderStore, getMusicUrl } from "@/stores/builder-store";
 import { useBuilderGuard } from "@/hooks/use-builder-guard";
 import { getTemplateById, templates } from "@/lib/templates";
 import { type SealFontId } from "@/lib/wax-fonts";
@@ -67,8 +69,12 @@ export default function PreviewPage() {
     styling,
     rsvpConfig,
     selectedPlan,
+    musicConfig,
     setCurrentStep,
   } = useBuilderStore();
+
+  const musicUrl = getMusicUrl(musicConfig) || undefined;
+  const { play: startMusic, pause: stopMusic, audioRef: musicAudioRef } = useMusicControl(musicUrl);
 
   const effectiveFields = {
     ...rsvpConfig.fields,
@@ -259,7 +265,8 @@ export default function PreviewPage() {
               monogram={styling.monogram || `${partner1Name.charAt(0) || "J"}&${partner2Name.charAt(0) || "B"}`}
               sealText={envelopeSealText}
               onOpen={() => setIsAnimationComplete(true)}
-              enableMusic={false}
+              enableMusic={musicConfig.enabled && !!musicUrl}
+              onMusicStart={startMusic}
             />
           ) : (
             <div
@@ -268,7 +275,7 @@ export default function PreviewPage() {
             >
               {/* Close button */}
               <button
-                onClick={() => { setIsAnimationOpen(false); setIsAnimationComplete(false); }}
+                onClick={() => { stopMusic(); setIsAnimationOpen(false); setIsAnimationComplete(false); }}
                 className="fixed top-4 right-4 z-10 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-colors"
               >
                 <X className="w-5 h-5 text-stone-700" />
@@ -346,10 +353,14 @@ export default function PreviewPage() {
                 template={selectedTemplate}
               />
 
+              {musicConfig.enabled && musicUrl && (
+                <FloatingMusicToggle audioRef={musicAudioRef} />
+              )}
+
               <div className="py-6 text-center">
                 <Button
                   variant="ghost"
-                  onClick={() => { setIsAnimationOpen(false); setIsAnimationComplete(false); }}
+                  onClick={() => { stopMusic(); setIsAnimationOpen(false); setIsAnimationComplete(false); }}
                 >
                   ← Sluiten
                 </Button>

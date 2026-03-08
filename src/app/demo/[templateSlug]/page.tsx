@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,6 +24,7 @@ import { RivieraTileAccent } from "@/components/riviera-tile-accent";
 import { RSVPSection } from "@/components/invitation-sections/rsvp-section";
 import { DresscodeSection } from "@/components/invitation-sections/dresscode-section";
 import { GiftSection } from "@/components/invitation-sections/gift-section";
+import { FloatingMusicToggle, useMusicControl } from "@/components/invitation-sections/floating-music-toggle";
 
 // Demo data per template
 const defaultDemoData = {
@@ -71,6 +72,14 @@ const templateDemoData: Record<string, Partial<typeof defaultDemoData>> = {
     partner2: "Indy",
     monogram: "I&I",
   },
+};
+
+// Default music track per template
+const templateMusicUrl: Record<string, string> = {
+  bloementuin: "/music/romantic-piano.mp3",
+  riviera: "/music/wedding-serenade.mp3",
+  ladolcevita: "/music/eternal-love.mp3",
+  minimalist: "/music/first-dance.mp3",
 };
 
 function getDemoData(templateSlug: string) {
@@ -169,6 +178,14 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
   const isMinimalist = template.style === "minimalist";
   const isBotanicalOrMed = isBotanical || isMediterranean || isCoastal || isMinimalist;
 
+  // Music
+  const demoMusicUrl = templateMusicUrl[templateSlug] || "/music/romantic-piano.mp3";
+  const { play: startMusic, audioRef: musicAudioRef } = useMusicControl(demoMusicUrl);
+
+  const handleMusicStart = useCallback(() => {
+    startMusic();
+  }, [startMusic]);
+
   // Demo wedding date (future date for countdown)
   const demoWeddingDate = new Date();
   demoWeddingDate.setMonth(demoWeddingDate.getMonth() + 6); // 6 months from now
@@ -190,7 +207,8 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
               monogram={demoData.monogram}
               sealText="21 juni 2026"
               onOpen={() => setIsRevealed(true)}
-              enableMusic={false}
+              enableMusic={true}
+              onMusicStart={handleMusicStart}
             />
           </motion.div>
         ) : (
@@ -1080,6 +1098,9 @@ function InvitationContent({ template, templateSlug }: { template: Template; tem
                 </Button>
               </div>
             </section>
+
+            {/* Floating music toggle */}
+            <FloatingMusicToggle audioRef={musicAudioRef} />
           </motion.div>
         )}
       </AnimatePresence>

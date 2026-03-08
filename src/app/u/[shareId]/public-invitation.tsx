@@ -95,7 +95,7 @@ export function PublicInvitation({ invitation }: Props) {
   const template = getTemplateById(invitation.templateId) || templates[0];
 
   // Music control
-  const { play: startMusic } = useMusicControl(invitation.musicUrl || undefined);
+  const { play: startMusic, audioRef: musicAudioRef } = useMusicControl(invitation.musicUrl || undefined);
 
   // Check if envelope is enabled (default to true)
   const showEnvelope = invitation.envelopeEnabled ?? true;
@@ -155,8 +155,7 @@ export function PublicInvitation({ invitation }: Props) {
             {/* Floating music toggle */}
             {invitation.musicEnabled && invitation.musicUrl && (
               <FloatingMusicToggle
-                audioSrc={invitation.musicUrl}
-                autoPlay={false} // User triggered from envelope
+                audioRef={musicAudioRef}
               />
             )}
           </motion.div>

@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Music,
   Play,
   Pause,
-  Volume2,
-  VolumeX,
   Upload,
   Lock,
   Sparkles,
@@ -26,44 +24,43 @@ const MUSIC_LIBRARY = [
   {
     id: "romantic-piano",
     title: "Romantische Piano",
-    artist: "Wedding Melodies",
-    duration: "3:24",
+    artist: "Andriig",
+    duration: "3:55",
     mood: "romantic",
     icon: Heart,
+    url: "/music/romantic-piano.mp3",
   },
   {
-    id: "string-quartet",
-    title: "Strijkkwartet Liefde",
-    artist: "Classical Hearts",
-    duration: "4:12",
+    id: "wedding-serenade",
+    title: "Bruiloft Serenade",
+    artist: "HitsLab",
+    duration: "2:40",
     mood: "elegant",
     icon: Music2,
+    url: "/music/wedding-serenade.mp3",
   },
   {
-    id: "acoustic-guitar",
-    title: "Zonsondergang Serenade",
-    artist: "Acoustic Dreams",
-    duration: "3:45",
+    id: "eternal-love",
+    title: "Eeuwige Liefde",
+    artist: "Paul Yudin",
+    duration: "3:10",
     mood: "warm",
     icon: Music3,
+    url: "/music/eternal-love.mp3",
   },
   {
-    id: "orchestral-waltz",
-    title: "Eerste Dans Wals",
-    artist: "Symphony of Love",
-    duration: "4:30",
+    id: "first-dance",
+    title: "Eerste Dans",
+    artist: "Starostin",
+    duration: "3:22",
     mood: "majestic",
     icon: Music4,
-  },
-  {
-    id: "gentle-harp",
-    title: "Hemelse Harp",
-    artist: "Ethereal Sounds",
-    duration: "3:58",
-    mood: "dreamy",
-    icon: Sparkles,
+    url: "/music/first-dance.mp3",
   },
 ];
+
+// Export for use in other modules
+export { MUSIC_LIBRARY };
 
 function VinylRecord({
   isPlaying,
@@ -141,10 +138,11 @@ function TrackCard({
       <button
         onClick={(e) => {
           e.stopPropagation();
+          onSelect();
           onTogglePlay();
         }}
         className={cn(
-          "relative w-12 h-12 rounded-full flex items-center justify-center transition-all",
+          "w-12 h-12 rounded-full flex items-center justify-center transition-all",
           isSelected
             ? "bg-olive-600 text-white shadow-lg"
             : "bg-stone-100 text-stone-500 group-hover:bg-stone-200"
@@ -154,15 +152,6 @@ function TrackCard({
           <Pause className="w-5 h-5" />
         ) : (
           <Play className="w-5 h-5 ml-0.5" />
-        )}
-
-        {/* Pulse animation when playing */}
-        {isPlaying && isSelected && (
-          <motion.div
-            className="absolute inset-0 rounded-full bg-olive-400"
-            animate={{ scale: [1, 1.3], opacity: [0.5, 0] }}
-            transition={{ duration: 1, repeat: Infinity }}
-          />
         )}
       </button>
 
@@ -185,8 +174,6 @@ function TrackCard({
           </span>
         </div>
         <div className="flex items-center gap-2 mt-0.5">
-          <span className="text-sm text-stone-500 truncate">{track.artist}</span>
-          <span className="text-xs text-stone-400">•</span>
           <span className="text-xs text-stone-400">{track.duration}</span>
         </div>
       </div>
@@ -208,9 +195,21 @@ function TrackCard({
 export function MusicSelector() {
   const { selectedPlan, musicConfig, setMusicConfig, styling } = useBuilderStore();
   const [playingTrack, setPlayingTrack] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Check if user has access (Signature or Premium)
   const hasAccess = selectedPlan === "signature" || selectedPlan === "premium";
+
+  // Clean up audio on unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   const handleTrackSelect = (trackId: string) => {
     setMusicConfig({
@@ -220,13 +219,33 @@ export function MusicSelector() {
     });
   };
 
-  const handleTogglePlay = (trackId: string) => {
+  const handleTogglePlay = useCallback((trackId: string) => {
     if (playingTrack === trackId) {
+      // Pause current track
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
       setPlayingTrack(null);
     } else {
-      setPlayingTrack(trackId);
+      // Stop previous track
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+      }
+      // Play new track
+      const track = MUSIC_LIBRARY.find((t) => t.id === trackId);
+      if (track) {
+        const audio = new Audio(track.url);
+        audio.volume = 0.5;
+        audio.onended = () => setPlayingTrack(null);
+        audioRef.current = audio;
+        audio.play().catch(() => {
+          console.log("Playback blocked");
+        });
+        setPlayingTrack(trackId);
+      }
     }
-  };
+  }, [playingTrack]);
 
   const selectedTrack = MUSIC_LIBRARY.find((t) => t.id === musicConfig.trackId);
 
@@ -323,8 +342,6 @@ export function MusicSelector() {
                   <h4 className="font-heading text-lg text-white truncate">
                     {selectedTrack.title}
                   </h4>
-                  <p className="text-sm text-stone-400">{selectedTrack.artist}</p>
-
                   {/* Audio wave visualization */}
                   <div className="flex items-end gap-0.5 mt-3 h-6">
                     {[...Array(20)].map((_, i) => (
@@ -368,47 +385,6 @@ export function MusicSelector() {
                     />
                   </motion.div>
                 ))}
-              </div>
-            </div>
-
-            {/* Volume & Autoplay controls */}
-            <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-lg bg-stone-50">
-              {/* Volume slider */}
-              <div className="flex-1 space-y-2">
-                <Label className="text-sm text-stone-600 flex items-center gap-2">
-                  {musicConfig.volume === 0 ? (
-                    <VolumeX className="w-4 h-4" />
-                  ) : (
-                    <Volume2 className="w-4 h-4" />
-                  )}
-                  Volume: {musicConfig.volume}%
-                </Label>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={musicConfig.volume}
-                  onChange={(e) =>
-                    setMusicConfig({ volume: parseInt(e.target.value) })
-                  }
-                  className="w-full h-2 rounded-full appearance-none cursor-pointer bg-stone-200 accent-olive-600"
-                />
-              </div>
-
-              {/* Autoplay toggle */}
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setMusicConfig({ autoPlay: !musicConfig.autoPlay })}
-                  className={cn(
-                    "flex items-center gap-2 px-4 py-2 rounded-lg border-2 transition-all",
-                    musicConfig.autoPlay
-                      ? "border-olive-400 bg-olive-50 text-olive-700"
-                      : "border-stone-200 bg-white text-stone-600 hover:border-stone-300"
-                  )}
-                >
-                  <Play className="w-4 h-4" />
-                  <span className="text-sm font-medium">Autoplay</span>
-                </button>
               </div>
             </div>
 
