@@ -5,6 +5,7 @@ import { useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { stdTemplates, getStdTemplateById } from "@/lib/std-templates";
 import { type Template } from "@/lib/templates";
@@ -14,18 +15,19 @@ import { cn } from "@/lib/utils";
 const stdCardStyles: Record<
   string,
   {
+    bgImage: string | null;
     bgGradient: string;
     textColor: string;
     namePreview: React.ReactNode;
     bottomGradient: string;
-    decoration: React.ReactNode;
   }
 > = {
   "std-watercolor-villa": {
-    bgGradient: "linear-gradient(160deg, #EEF4F9 0%, #D4E4F0 40%, #B8D4E8 100%)",
+    bgImage: "/images/std/watercolor-villa/hero.png",
+    bgGradient: "#FDFCFA",
     textColor: "text-[#2C3E50]",
     namePreview: (
-      <div className="flex flex-col items-center text-[#2C3E50]">
+      <div className="flex flex-col items-center text-[#2C3E50] drop-shadow-[0_1px_3px_rgba(255,255,255,0.5)]">
         <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-sm sm:text-lg uppercase">
           Thomas
         </span>
@@ -38,24 +40,11 @@ const stdCardStyles: Record<
         <span className="text-xs mt-2 tracking-widest uppercase text-[#6B8299]">Save the Date</span>
       </div>
     ),
-    bottomGradient: "linear-gradient(to top, rgba(184,212,232,0.9) 0%, rgba(212,228,240,0.5) 35%, transparent 70%)",
-    decoration: (
-      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <defs><filter id="bld-wv-wc"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="3" result="n" /><feDisplacementMap in="SourceGraphic" in2="n" scale="8" /></filter></defs>
-        <g filter="url(#bld-wv-wc)" opacity="0.5">
-          <ellipse cx="40" cy="50" rx="35" ry="28" fill="#D4A0A0" opacity="0.3" />
-          <ellipse cx="260" cy="40" rx="30" ry="24" fill="#D4A0A0" opacity="0.25" />
-          <ellipse cx="20" cy="35" rx="22" ry="7" fill="#A8C0A0" opacity="0.3" transform="rotate(-20,20,35)" />
-          <ellipse cx="280" cy="60" rx="20" ry="6" fill="#A8C0A0" opacity="0.3" transform="rotate(15,280,60)" />
-          <ellipse cx="30" cy="360" rx="28" ry="22" fill="#6B9CC3" opacity="0.2" />
-          <ellipse cx="270" cy="370" rx="25" ry="20" fill="#D4A0A0" opacity="0.2" />
-        </g>
-        <path d="M 60 400 L 60 160 Q 60 60 150 60 Q 240 60 240 160 L 240 400" fill="none" stroke="#B8D4E8" strokeWidth="0.8" opacity="0.3" />
-      </svg>
-    ),
+    bottomGradient: "linear-gradient(to top, rgba(253,252,250,0.85) 0%, rgba(253,252,250,0.4) 35%, transparent 70%)",
   },
   "std-limoncello": {
-    bgGradient: "linear-gradient(160deg, #1A2E1A 0%, #243524 40%, #1A2E1A 100%)",
+    bgImage: "/images/std/limoncello/hero.png",
+    bgGradient: "#4d583f",
     textColor: "text-[#F5F0E0]",
     namePreview: (
       <div className="flex flex-col items-center text-[#F5F0E0]">
@@ -71,25 +60,10 @@ const stdCardStyles: Record<
         <span className="text-xs mt-2 tracking-widest uppercase text-[#B8C4A8]">Save the Date</span>
       </div>
     ),
-    bottomGradient: "linear-gradient(to top, rgba(26,46,26,0.9) 0%, rgba(36,53,36,0.5) 35%, transparent 70%)",
-    decoration: (
-      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="bld-lc-wc"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="7" result="n" /><feDisplacementMap in="SourceGraphic" in2="n" scale="6" /></filter>
-          <radialGradient id="bld-lc-lm" cx="45%" cy="40%" r="50%"><stop offset="0%" stopColor="#F5D55A" stopOpacity="0.5" /><stop offset="100%" stopColor="#D4A820" stopOpacity="0.1" /></radialGradient>
-        </defs>
-        <g filter="url(#bld-lc-wc)" opacity="0.6">
-          <ellipse cx="35" cy="45" rx="20" ry="15" fill="url(#bld-lc-lm)" transform="rotate(-15,35,45)" />
-          <ellipse cx="265" cy="35" rx="18" ry="13" fill="url(#bld-lc-lm)" transform="rotate(20,265,35)" />
-          <ellipse cx="55" cy="30" rx="18" ry="5" fill="#6B8B5E" opacity="0.4" transform="rotate(-25,55,30)" />
-          <ellipse cx="245" cy="55" rx="16" ry="5" fill="#6B8B5E" opacity="0.4" transform="rotate(15,245,55)" />
-          <ellipse cx="30" cy="365" rx="16" ry="12" fill="url(#bld-lc-lm)" transform="rotate(10,30,365)" />
-          <ellipse cx="270" cy="355" rx="15" ry="11" fill="url(#bld-lc-lm)" transform="rotate(-15,270,355)" />
-        </g>
-      </svg>
-    ),
+    bottomGradient: "linear-gradient(to top, rgba(77,88,63,0.9) 0%, rgba(77,88,63,0.45) 35%, transparent 70%)",
   },
   "std-minimalist": {
+    bgImage: null,
     bgGradient: "linear-gradient(160deg, #FFFFFF 0%, #FAFAFA 40%, #F5F5F5 100%)",
     textColor: "text-[#2C2C2C]",
     namePreview: (
@@ -107,7 +81,6 @@ const stdCardStyles: Record<
       </div>
     ),
     bottomGradient: "linear-gradient(to top, rgba(120,120,120,0.7) 0%, rgba(150,150,150,0.3) 40%, transparent 100%)",
-    decoration: null,
   },
 };
 
@@ -140,11 +113,15 @@ function StdTemplateCard({
         )}
         style={{ background: style.bgGradient }}
       >
-        {/* SVG decoration */}
-        {style.decoration && (
-          <div className="absolute inset-0 pointer-events-none">
-            {style.decoration}
-          </div>
+        {/* Background hero image */}
+        {style.bgImage && (
+          <Image
+            src={style.bgImage}
+            alt=""
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 768px) 50vw, 33vw"
+          />
         )}
 
         {/* Names preview */}

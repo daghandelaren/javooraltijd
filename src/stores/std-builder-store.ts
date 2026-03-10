@@ -3,6 +3,28 @@ import { persist } from "zustand/middleware";
 import { DEFAULT_SEAL_COLOR } from "@/lib/wax-colors";
 import { DEFAULT_SEAL_FONT, type SealFontId } from "@/lib/wax-fonts";
 import { DEFAULT_ENVELOPE_COLOR, DEFAULT_ENVELOPE_LINER } from "@/lib/envelope-colors";
+import { MUSIC_LIBRARY } from "@/components/builder/music-selector";
+
+export interface StdMusicConfig {
+  enabled: boolean;
+  source: "library" | "upload" | null;
+  trackId?: string;
+  uploadedUrl?: string;
+  autoPlay: boolean;
+  volume: number;
+}
+
+// Map trackId to music file URL
+const TRACK_URL_MAP: Record<string, string> = Object.fromEntries(
+  MUSIC_LIBRARY.map((t) => [t.id, t.url])
+);
+
+export function getStdMusicUrl(config: StdMusicConfig): string | null {
+  if (!config.enabled) return null;
+  if (config.source === "upload" && config.uploadedUrl) return config.uploadedUrl;
+  if (config.trackId && TRACK_URL_MAP[config.trackId]) return TRACK_URL_MAP[config.trackId];
+  return null;
+}
 
 export interface StdEnvelopeConfig {
   enabled: boolean;
@@ -28,6 +50,7 @@ export interface StdBuilderState {
   weddingDate: string;
   headline: string;
   styling: StdStyling;
+  musicConfig: StdMusicConfig;
 
   // Meta
   lastSaved: string | null;
@@ -46,6 +69,7 @@ interface StdBuilderActions {
   setWeddingDate: (date: string) => void;
   setHeadline: (headline: string) => void;
   setStyling: (styling: Partial<StdStyling>) => void;
+  setMusicConfig: (config: Partial<StdMusicConfig>) => void;
 
   markSaved: () => void;
   resetBuilder: () => void;
@@ -71,6 +95,8 @@ export interface DatabaseSaveTheDate {
   envelopeColor: string | null;
   envelopeLiner: string | null;
   envelopePersonalizedText: string | null;
+  musicEnabled?: boolean;
+  musicUrl?: string | null;
 }
 
 const initialState: StdBuilderState = {
@@ -92,6 +118,12 @@ const initialState: StdBuilderState = {
       linerPattern: DEFAULT_ENVELOPE_LINER,
       personalizedText: "Noteer de datum in je agenda",
     },
+  },
+  musicConfig: {
+    enabled: false,
+    source: null,
+    autoPlay: true,
+    volume: 50,
   },
   lastSaved: null,
   isDirty: false,
@@ -120,6 +152,12 @@ export const useStdBuilderStore = create<StdBuilderState & StdBuilderActions>()(
           isDirty: true,
         })),
 
+      setMusicConfig: (config) =>
+        set((state) => ({
+          musicConfig: { ...state.musicConfig, ...config },
+          isDirty: true,
+        })),
+
       markSaved: () => set({ lastSaved: new Date().toISOString(), isDirty: false }),
       resetBuilder: () => set(initialState),
 
@@ -128,6 +166,25 @@ export const useStdBuilderStore = create<StdBuilderState & StdBuilderActions>()(
       setSaveError: (error) => set({ saveError: error }),
 
       loadFromDatabase: (std) => {
+        // Restore musicConfig from DB fields
+        const restoredMusic: StdMusicConfig = {
+          enabled: std.musicEnabled ?? false,
+          source: null,
+          autoPlay: true,
+          volume: 50,
+        };
+        if (std.musicUrl) {
+          // Try to find matching library track
+          const libraryTrack = MUSIC_LIBRARY.find((t) => t.url === std.musicUrl);
+          if (libraryTrack) {
+            restoredMusic.source = "library";
+            restoredMusic.trackId = libraryTrack.id;
+          } else {
+            restoredMusic.source = "upload";
+            restoredMusic.uploadedUrl = std.musicUrl;
+          }
+        }
+
         set({
           saveTheDateId: std.id,
           templateId: std.templateId,
@@ -147,6 +204,7 @@ export const useStdBuilderStore = create<StdBuilderState & StdBuilderActions>()(
               personalizedText: std.envelopePersonalizedText || "Noteer de datum in je agenda",
             },
           },
+          musicConfig: restoredMusic,
           isDirty: false,
           lastSaved: new Date().toISOString(),
         });
@@ -171,6 +229,8 @@ export const useStdBuilderStore = create<StdBuilderState & StdBuilderActions>()(
             weddingDate: state.weddingDate,
             headline: state.headline || null,
             styling: state.styling,
+            musicEnabled: state.musicConfig.enabled,
+            musicUrl: getStdMusicUrl(state.musicConfig),
           };
 
           const url = state.saveTheDateId
@@ -215,6 +275,7 @@ export const useStdBuilderStore = create<StdBuilderState & StdBuilderActions>()(
         weddingDate: state.weddingDate,
         headline: state.headline,
         styling: state.styling,
+        musicConfig: state.musicConfig,
         currentStep: state.currentStep,
       }),
     }

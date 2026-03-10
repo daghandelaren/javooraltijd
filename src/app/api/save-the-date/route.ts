@@ -53,6 +53,8 @@ export async function POST(request: NextRequest) {
       weddingDate,
       headline,
       styling,
+      musicEnabled,
+      musicUrl,
     } = body;
 
     if (!templateId || !partner1Name || !partner2Name || !weddingDate) {
@@ -78,6 +80,8 @@ export async function POST(request: NextRequest) {
         envelopeColor: styling?.envelopeConfig?.color ?? "#FDF8F3",
         envelopeLiner: styling?.envelopeConfig?.linerPattern ?? "floral",
         envelopePersonalizedText: styling?.envelopeConfig?.personalizedText ?? "Noteer de datum in je agenda",
+        musicEnabled: musicEnabled ?? false,
+        musicUrl: musicUrl || null,
       },
     });
 

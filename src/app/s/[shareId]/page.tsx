@@ -50,6 +50,8 @@ export default async function PublicSaveTheDatePage({ params }: Props) {
         envelopeColor: saveTheDate.envelopeColor,
         envelopeLiner: saveTheDate.envelopeLiner,
         envelopePersonalizedText: saveTheDate.envelopePersonalizedText,
+        musicEnabled: saveTheDate.musicEnabled,
+        musicUrl: saveTheDate.musicUrl,
       }}
     />
   );

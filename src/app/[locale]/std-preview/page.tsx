@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { HeroSection } from "@/components/invitation-sections";
-import { useStdBuilderStore } from "@/stores/std-builder-store";
+import { HeroSection, FloatingMusicToggle, useMusicControl } from "@/components/invitation-sections";
+import { useStdBuilderStore, getStdMusicUrl } from "@/stores/std-builder-store";
 import { getStdTemplateById, stdTemplates } from "@/lib/std-templates";
 import { type SealFontId } from "@/lib/wax-fonts";
 
@@ -20,7 +20,10 @@ export default function StdPreviewFrame() {
     weddingDate,
     headline,
     styling,
+    musicConfig,
   } = useStdBuilderStore();
+
+  const musicUrl = getStdMusicUrl(musicConfig) || undefined;
 
   const selectedTemplate = getStdTemplateById(templateId || "") || stdTemplates[0];
   const weddingDateObj = weddingDate ? new Date(weddingDate) : new Date();
@@ -49,6 +52,9 @@ export default function StdPreviewFrame() {
         template={selectedTemplate}
         isSaveTheDate
       />
+      {musicConfig.enabled && musicUrl && (
+        <FloatingMusicToggle audioSrc={musicUrl} />
+      )}
     </div>
   );
 }

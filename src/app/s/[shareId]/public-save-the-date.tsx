@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { type SealFontId } from "@/lib/wax-fonts";
 import { getStdTemplateById, stdTemplates } from "@/lib/std-templates";
 import { Envelope2D } from "@/components/envelope-2d";
-import { HeroSection } from "@/components/invitation-sections";
+import { HeroSection, FloatingMusicToggle, useMusicControl } from "@/components/invitation-sections";
 
 interface SaveTheDateData {
   id: string;
@@ -21,6 +21,8 @@ interface SaveTheDateData {
   envelopeColor: string;
   envelopeLiner: string;
   envelopePersonalizedText: string | null;
+  musicEnabled?: boolean;
+  musicUrl?: string | null;
 }
 
 interface Props {
@@ -34,6 +36,10 @@ export function PublicSaveTheDate({ saveTheDate }: Props) {
   const template = getStdTemplateById(saveTheDate.templateId) || stdTemplates[0];
   const weddingDate = new Date(saveTheDate.weddingDate);
   const displayMonogram = saveTheDate.monogram || `${saveTheDate.partner1Name.charAt(0)}&${saveTheDate.partner2Name.charAt(0)}`;
+  const hasMusicEnabled = saveTheDate.musicEnabled && !!saveTheDate.musicUrl;
+  const { audioRef, play: playMusic } = useMusicControl(
+    hasMusicEnabled ? saveTheDate.musicUrl! : undefined
+  );
 
   const sealText = weddingDate.toLocaleDateString("nl-NL", {
     day: "numeric",
@@ -59,7 +65,8 @@ export function PublicSaveTheDate({ saveTheDate }: Props) {
         monogram={displayMonogram}
         sealText={sealText}
         onOpen={() => setIsOpened(true)}
-        enableMusic={false}
+        enableMusic={hasMusicEnabled}
+        onMusicStart={playMusic}
       />
     );
   }
@@ -84,6 +91,10 @@ export function PublicSaveTheDate({ saveTheDate }: Props) {
           template={template}
           isSaveTheDate
         />
+
+        {hasMusicEnabled && (
+          <FloatingMusicToggle audioRef={audioRef} />
+        )}
       </motion.div>
     </AnimatePresence>
   );

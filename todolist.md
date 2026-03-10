@@ -316,6 +316,20 @@ prisma/
 └── schema.prisma                 # Database models
 ```
 
+### M) SAVE THE DATE (STD) ✅
+- ✅ STD templates: Watercolor Villa (coastal), Limoncello (mediterranean), Minimalist
+- ✅ STD builder (5-step flow): template → details → styling → preview → checkout
+- ✅ STD music support (MusicSelector, FloatingMusicToggle, DB schema with musicEnabled/musicUrl)
+- ✅ Watercolor villa real image background (arch + florals hero illustration)
+- ✅ STD demo pages with music (`/demo-std/[templateSlug]`)
+- ✅ STD sharing & public view (`/s/[shareId]`)
+- ✅ STD API routes (POST/PUT save-the-date)
+- ✅ STD Prisma schema (SaveTheDate model)
+- ✅ STD 3-line date format (month / weekday day / year) for coastal
+- ✅ Watercolor villa desktop fix: `object-contain object-top` for full arch visibility
+- ✅ STD coastal names: single-line flowing script (accent font, not stacked uppercase)
+- ✅ Demo CTA / music toggle overlap fix (`!bottom-28` on FloatingMusicToggle)
+
 ---
 
 ## HUIDIGE SESSIE - Music Playback Implementation

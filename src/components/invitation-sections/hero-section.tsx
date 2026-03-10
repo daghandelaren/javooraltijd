@@ -53,14 +53,18 @@ export function HeroSection({
   const isMediterranean = template.style === "mediterranean";
   const isCoastal = template.style === "coastal";
   const isMinimalist = template.style === "minimalist";
+  const isStdCoastal = isCoastal && isSaveTheDate && !!template.slug?.startsWith("std-");
+  const isStdMediterranean = isMediterranean && isSaveTheDate && !!template.slug?.startsWith("std-");
   const isBotanicalOrMedOrCoastal = isBotanical || isMediterranean || isCoastal || isMinimalist;
 
   return (
     <section
       className={cn(
         "min-h-screen flex flex-col items-center px-4 relative overflow-hidden",
-        isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center py-12",
-        isCoastal && "pb-32 sm:pb-12",
+        isStdCoastal
+          ? "justify-end pb-[14rem] sm:pb-20"
+          : isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center py-12",
+        !isStdCoastal && isCoastal && "pb-32 sm:pb-12",
         className
       )}
       style={{ background: template.colors.backgroundGradient }}
@@ -83,7 +87,7 @@ export function HeroSection({
       </div>
 
       {isBotanical ? null : (
-      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isMinimalist ? "" : isCoastal ? "mt-14 sm:mt-12" : isBotanicalOrMedOrCoastal && "-mt-16")}>
+      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isStdCoastal ? "" : isMinimalist ? "" : isCoastal ? "mt-14 sm:mt-12" : isBotanicalOrMedOrCoastal && "-mt-16")}>
         {/* Wax seal — hidden for botanical, mediterranean, coastal & minimalist */}
         {!isBotanical && !isMediterranean && !isCoastal && !isMinimalist && (
           <motion.div
@@ -180,7 +184,30 @@ export function HeroSection({
               {partner2Name}
             </span>
           </motion.h1>
+        ) : isCoastal && template.slug?.startsWith("std-") && isSaveTheDate ? (
+          /* STD coastal: single-line flowing script names */
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-center mx-auto"
+            style={{
+              textShadow: "0 2px 16px rgba(253,252,250,0.95), 0 0px 6px rgba(253,252,250,0.7)",
+            }}
+          >
+            <span
+              className="text-3xl sm:text-4xl lg:text-5xl whitespace-nowrap"
+              style={{
+                color: template.colors.text,
+                fontFamily: `'${template.fonts.accent}', cursive`,
+                fontWeight: 400,
+              }}
+            >
+              {partner1Name} <span style={{ color: template.colors.primary }}>&amp;</span> {partner2Name}
+            </span>
+          </motion.h1>
         ) : isCoastal ? (
+          /* Wedding invitation coastal: stacked uppercase names */
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -219,6 +246,82 @@ export function HeroSection({
               {partner2Name}
             </span>
           </motion.h1>
+        ) : isStdMediterranean ? (
+          /* STD Mediterranean: centered with curved "save the date" + single-line names */
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-center"
+          >
+            {/* Curved "save the date" arc */}
+            <svg
+              viewBox="0 0 200 30"
+              className="w-[26rem] sm:w-[30rem] ml-auto mr-0 mb-3"
+              aria-hidden="true"
+            >
+              <defs>
+                <path id="std-med-arc" d="M 15,28 Q 100,2 185,28" fill="none" />
+              </defs>
+              <text
+                fill={template.colors.textMuted}
+                fontSize="12"
+                letterSpacing="1.5"
+                style={{ fontFamily: `'${template.fonts.accent}', cursive` }}
+              >
+                <textPath href="#std-med-arc" startOffset="65%" textAnchor="middle">
+                  save the date
+                </textPath>
+              </text>
+            </svg>
+
+            {/* Names stacked: "NAME &" / "NAME" */}
+            <h1 className="leading-tight">
+              <span
+                className="text-4xl sm:text-5xl md:text-6xl font-bold uppercase tracking-[0.08em]"
+                style={{
+                  color: template.colors.text,
+                  fontFamily: `'${template.fonts.heading}', serif`,
+                }}
+              >
+                {partner1Name}
+              </span>
+              <span
+                className="inline-block text-3xl sm:text-4xl md:text-5xl mx-2 sm:mx-3"
+                style={{
+                  color: template.colors.text,
+                  fontFamily: `'${template.fonts.heading}', serif`,
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                }}
+              >
+                &amp;
+              </span>
+              <br />
+              <span
+                className="text-4xl sm:text-5xl md:text-6xl font-bold uppercase tracking-[0.08em]"
+                style={{
+                  color: template.colors.text,
+                  fontFamily: `'${template.fonts.heading}', serif`,
+                }}
+              >
+                {partner2Name}
+              </span>
+            </h1>
+
+            {/* Body text */}
+            <p
+              className="text-xs sm:text-sm leading-relaxed max-w-[16rem] mx-auto mt-10"
+              style={{
+                color: template.colors.textMuted,
+                fontFamily: `'${template.fonts.body}', serif`,
+              }}
+            >
+              Nodigen je uit voor hun bruiloft op{" "}
+              {weddingDate.toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}
+              . Noteer de datum alvast in je agenda, de officiële uitnodiging volgt snel!
+            </p>
+          </motion.div>
         ) : isMediterranean ? (
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -328,35 +431,78 @@ export function HeroSection({
             transition={{ duration: 0.5, delay: 0.45 }}
             className="text-center mt-4 sm:mt-8 max-w-[72vw] sm:max-w-[220px] lg:max-w-sm mx-auto"
           >
-            <p
-              className="text-xs sm:text-[0.65rem] lg:text-sm leading-relaxed"
-              style={{
-                color: template.colors.text,
-                fontFamily: `'${template.fonts.body}', serif`,
-                textShadow: "0 1px 8px rgba(253,252,250,0.8)",
-              }}
-            >
-              {headline || "Nodigen je uit om deel te nemen aan hun vreugde wanneer zij elkaar het jawoord geven!"}
-            </p>
-            <div className="flex items-center justify-center gap-3 mt-4 sm:mt-5 lg:mt-12">
-              <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
-              <p
-                className="text-lg sm:text-xs lg:text-2xl capitalize tracking-wide whitespace-nowrap"
-                style={{
-                  color: template.colors.text,
-                  fontFamily: `'${template.fonts.heading}', serif`,
-                  textShadow: "0 1px 8px rgba(253,252,250,0.8)",
-                }}
-              >
-                {formattedDate}
-              </p>
-              <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
-            </div>
+            {template.slug?.startsWith("std-") && isSaveTheDate ? (
+              /* STD coastal: 3-line uppercase date (no time) */
+              <>
+                <p
+                  className="text-xl sm:text-2xl lg:text-3xl italic"
+                  style={{
+                    color: template.colors.text,
+                    fontFamily: `'${template.fonts.accent}', cursive`,
+                    fontWeight: 400,
+                    textShadow: "0 1px 8px rgba(253,252,250,0.8)",
+                  }}
+                >
+                  {headline || "Save the Date"}
+                </p>
+                <div className="flex items-center justify-center gap-3 mt-2 sm:mt-3 lg:mt-6">
+                  <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
+                  <div
+                    className="text-center uppercase tracking-[0.15em]"
+                    style={{
+                      color: template.colors.text,
+                      fontFamily: `'${template.fonts.heading}', serif`,
+                      textShadow: "0 1px 8px rgba(253,252,250,0.8)",
+                    }}
+                  >
+                    <p className="text-base sm:text-xs lg:text-lg font-semibold">
+                      {weddingDate.toLocaleDateString("nl-NL", { weekday: "long" })}
+                    </p>
+                    <p className="text-xl sm:text-sm lg:text-3xl font-bold mt-0.5">
+                      {weddingDate.getDate()}{" "}
+                      {weddingDate.toLocaleDateString("nl-NL", { month: "long" })}
+                    </p>
+                    <p className="text-base sm:text-xs lg:text-lg font-semibold mt-0.5">
+                      {weddingDate.getFullYear()}
+                    </p>
+                  </div>
+                  <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
+                </div>
+              </>
+            ) : (
+              /* Wedding invitation coastal: original layout */
+              <>
+                <p
+                  className="text-xs sm:text-[0.65rem] lg:text-sm leading-relaxed"
+                  style={{
+                    color: template.colors.text,
+                    fontFamily: `'${template.fonts.body}', serif`,
+                    textShadow: "0 1px 8px rgba(253,252,250,0.8)",
+                  }}
+                >
+                  {headline || "Nodigen je uit om deel te nemen aan hun vreugde wanneer zij elkaar het jawoord geven!"}
+                </p>
+                <div className="flex items-center justify-center gap-3 mt-4 sm:mt-5 lg:mt-12">
+                  <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
+                  <p
+                    className="text-lg sm:text-xs lg:text-2xl capitalize tracking-wide whitespace-nowrap"
+                    style={{
+                      color: template.colors.text,
+                      fontFamily: `'${template.fonts.heading}', serif`,
+                      textShadow: "0 1px 8px rgba(253,252,250,0.8)",
+                    }}
+                  >
+                    {formattedDate}
+                  </p>
+                  <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
+                </div>
+              </>
+            )}
           </motion.div>
         )}
 
-        {/* Mediterranean headline + date below names, left-aligned */}
-        {isMediterranean && (
+        {/* Mediterranean headline + date below names, left-aligned (non-STD only) */}
+        {isMediterranean && !isStdMediterranean && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

@@ -144,40 +144,34 @@
       "badge": "Waarom digitaal?",
       "title": "Traditioneel vs. Digitaal",
       "subtitle": "Ontdek waarom steeds meer koppels kiezen voor een digitale trouwuitnodiging",
-      "traditional": "Normale Trouwkaarten",
-      "digital": "Onze Digitale Kaart",
-      "items": [
-        {
-          "aspect": "Kosten",
-          "traditional": "Duur (drukkosten, verzending)",
-          "digital": "Betaalbaar (eenmalige prijs)"
-        },
-        {
-          "aspect": "Milieu",
-          "traditional": "Papier, inkt, transport",
-          "digital": "Milieuvriendelijk"
-        },
-        {
-          "aspect": "Snelheid",
-          "traditional": "Weken wachten",
-          "digital": "Direct klaar"
-        },
-        {
-          "aspect": "Aanpassen",
-          "traditional": "Moeilijk en duur",
-          "digital": "Eenvoudig aanpasbaar"
-        },
-        {
-          "aspect": "RSVP",
-          "traditional": "Handmatig bijhouden",
-          "digital": "Automatisch dashboard"
-        },
-        {
-          "aspect": "Bereik",
-          "traditional": "Beperkt",
-          "digital": "Makkelijk delen via WhatsApp & social"
-        }
-      ]
+      "paper": {
+        "title": "Papieren trouwkaarten",
+        "subtitle": "Geschatte kosten voor 150 gasten",
+        "costs": [
+          { "label": "Trouwkaarten (125 st.)", "price": "€313" },
+          { "label": "Luxere enveloppen (125 st.)", "price": "€76" },
+          { "label": "Luxer papier", "price": "€28" },
+          { "label": "Sluitzegels & afwerking", "price": "€31" },
+          { "label": "Verzending per post", "price": "€238" }
+        ],
+        "totalLabel": "Totaal",
+        "totalPrice": "~€686",
+        "footnote": "Bron: gemiddelde marktprijzen Nederland"
+      },
+      "digital": {
+        "title": "Onze digitale kaart",
+        "subtitle": "Alles wat je nodig hebt",
+        "popularBadge": "Populairste keuze",
+        "benefits": [
+          { "title": "Bespaar +€511", "description": "Geen druk- of verzendkosten" },
+          { "title": "Gastenportaal", "description": "Realtime bevestigingen" },
+          { "title": "Op elk scherm", "description": "Telefoon, tablet of computer" },
+          { "title": "Direct klaar", "description": "Binnen enkele minuten" }
+        ],
+        "pricePrefix": "Vanaf slechts",
+        "price": "€175",
+        "priceSuffix": "Alles inbegrepen"
+      }
     },
     "dashboard_preview": {
       "badge": "Jouw dashboard",

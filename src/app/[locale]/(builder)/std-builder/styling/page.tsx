@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { WaxSeal } from "@/components/wax-seal/wax-seal";
 import { EnvelopePreview } from "@/components/envelope-2d/envelope-preview";
 import { useStdBuilderStore } from "@/stores/std-builder-store";
+import { MusicSelector } from "@/components/builder/music-selector";
 import { useStdBuilderGuard } from "@/hooks/use-std-builder-guard";
 import { getStdTemplateById } from "@/lib/std-templates";
 import { SEAL_COLOR_PRESETS, DEFAULT_SEAL_COLOR, isValidHexColor } from "@/lib/wax-colors";
@@ -28,6 +29,8 @@ export default function StdStylingPage() {
     weddingDate,
     templateId,
     setStyling,
+    musicConfig,
+    setMusicConfig,
     setCurrentStep,
   } = useStdBuilderStore();
 
@@ -239,6 +242,13 @@ export default function StdStylingPage() {
             />
           </div>
         </motion.div>
+
+        {/* Music Selector */}
+        <MusicSelector
+          musicConfig={musicConfig}
+          setMusicConfig={setMusicConfig}
+          selectedPlan="signature"
+        />
       </div>
 
       {/* Navigation */}

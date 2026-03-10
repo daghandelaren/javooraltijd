@@ -254,6 +254,8 @@ model SaveTheDate {
   envelopeColor   String         @default("#FDF8F3")
   envelopeLiner   String         @default("floral")
   envelopePersonalizedText String?
+  musicEnabled  Boolean          @default(false)
+  musicUrl      String?
   shareId       String           @unique @default(cuid())
   shareUrl      String?
   molliePaymentId String?

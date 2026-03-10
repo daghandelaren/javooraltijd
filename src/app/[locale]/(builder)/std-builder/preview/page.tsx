@@ -16,8 +16,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Envelope2D } from "@/components/envelope-2d/envelope-2d";
 import { PreviewWatermark } from "@/components/builder/preview-watermark";
-import { HeroSection } from "@/components/invitation-sections";
-import { useStdBuilderStore } from "@/stores/std-builder-store";
+import { HeroSection, FloatingMusicToggle, useMusicControl } from "@/components/invitation-sections";
+import { useStdBuilderStore, getStdMusicUrl } from "@/stores/std-builder-store";
 import { useStdBuilderGuard } from "@/hooks/use-std-builder-guard";
 import { getStdTemplateById, stdTemplates } from "@/lib/std-templates";
 import { type SealFontId } from "@/lib/wax-fonts";
@@ -46,8 +46,12 @@ export default function StdPreviewPage() {
     weddingDate,
     headline,
     styling,
+    musicConfig,
     setCurrentStep,
   } = useStdBuilderStore();
+
+  const musicUrl = getStdMusicUrl(musicConfig) || undefined;
+  const { audioRef, play: playMusic, pause: pauseMusic } = useMusicControl(musicUrl);
 
   const selectedTemplate = getStdTemplateById(templateId || "") || stdTemplates[0];
 
@@ -223,7 +227,8 @@ export default function StdPreviewPage() {
               monogram={styling.monogram || `${partner1Name.charAt(0) || "J"}&${partner2Name.charAt(0) || "B"}`}
               sealText={envelopeSealText}
               onOpen={() => setIsAnimationComplete(true)}
-              enableMusic={false}
+              enableMusic={musicConfig.enabled}
+              onMusicStart={playMusic}
             />
           ) : (
             <div
@@ -231,11 +236,15 @@ export default function StdPreviewPage() {
               style={{ background: selectedTemplate.colors.backgroundGradient }}
             >
               <button
-                onClick={() => { setIsAnimationOpen(false); setIsAnimationComplete(false); }}
+                onClick={() => { pauseMusic(); setIsAnimationOpen(false); setIsAnimationComplete(false); }}
                 className="fixed top-4 right-4 z-10 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md hover:bg-white transition-colors"
               >
                 <X className="w-5 h-5 text-stone-700" />
               </button>
+
+              {musicConfig.enabled && musicUrl && (
+                <FloatingMusicToggle audioRef={audioRef} />
+              )}
 
               <HeroSection
                 partner1Name={partner1Name || "Partner 1"}

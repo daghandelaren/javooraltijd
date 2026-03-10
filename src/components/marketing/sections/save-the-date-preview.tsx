@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, CalendarHeart, Eye, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,21 +10,58 @@ import { stdTemplates } from "@/lib/std-templates";
 const miniPreviews = [
   {
     slug: "std-watercolor-villa",
-    gradient: "linear-gradient(160deg, #EEF4F9 0%, #D4E4F0 40%, #B8D4E8 100%)",
+    bgImage: "/images/std/watercolor-villa/hero.png",
+    gradient: "#FDFCFA",
     textColor: "#2C3E50",
     accentColor: "#6B8299",
+    namePreview: (
+      <div className="flex flex-col items-center text-[#2C3E50] drop-shadow-[0_1px_3px_rgba(255,255,255,0.5)] translate-y-8 sm:translate-y-11">
+        <span className="flex items-baseline gap-0.5 sm:gap-1">
+          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-[6px] sm:text-[8px] uppercase">Thomas</span>
+          <span style={{ fontFamily: "'Dancing Script', cursive" }} className="text-[8px] sm:text-xs">&amp;</span>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-[6px] sm:text-[8px] uppercase">Suzanna</span>
+        </span>
+        <span className="text-[5px] sm:text-[7px] mt-0.5 tracking-widest uppercase text-[#6B8299]">Save the Date</span>
+      </div>
+    ),
   },
   {
     slug: "std-limoncello",
-    gradient: "linear-gradient(160deg, #1A2E1A 0%, #243524 40%, #1A2E1A 100%)",
+    bgImage: "/images/std/limoncello/hero.png",
+    gradient: "#4d583f",
     textColor: "#F5F0E0",
     accentColor: "#B8C4A8",
+    namePreview: (
+      <div className="flex flex-col items-center text-[#F5F0E0]">
+        <svg viewBox="0 0 200 30" className="w-20 sm:w-28 mb-0.5 ml-2" aria-hidden="true">
+          <defs>
+            <path id="std-mini-arc" d="M 15,28 Q 100,2 185,28" fill="none" />
+          </defs>
+          <text fill="#B8C4A8" fontSize="12" letterSpacing="1.5" style={{ fontFamily: "'Dancing Script', cursive" }}>
+            <textPath href="#std-mini-arc" startOffset="55%" textAnchor="middle">save the date</textPath>
+          </text>
+        </svg>
+        <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, letterSpacing: "0.08em" }} className="text-[9px] sm:text-xs uppercase">
+          JARNO <span style={{ fontStyle: "italic", fontWeight: 400 }}>&amp;</span>
+        </span>
+        <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, letterSpacing: "0.08em" }} className="text-[9px] sm:text-xs uppercase">BRYONIE</span>
+      </div>
+    ),
   },
   {
     slug: "std-minimalist",
+    bgImage: null,
     gradient: "linear-gradient(160deg, #FFFFFF 0%, #FAFAFA 40%, #F5F5F5 100%)",
     textColor: "#2C2C2C",
     accentColor: "#999999",
+    namePreview: (
+      <div className="flex flex-col items-center text-[#2C2C2C]">
+        <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, letterSpacing: "0.2em" }} className="text-[10px] sm:text-sm uppercase">Ian</span>
+        <span style={{ fontFamily: "'Lavishly Yours', cursive" }} className="text-base sm:text-2xl -my-0.5">&amp;</span>
+        <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, letterSpacing: "0.2em" }} className="text-[10px] sm:text-sm uppercase">Indy</span>
+        <span className="text-[6px] sm:text-[8px] mt-1 tracking-widest uppercase text-[#999]">Save the Date</span>
+      </div>
+    ),
   },
 ];
 
@@ -119,19 +157,17 @@ export function SaveTheDatePreviewSection() {
                     className="block aspect-[3/4] rounded-xl overflow-hidden relative shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                     style={{ background: preview.gradient }}
                   >
-                    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                      <p
-                        className="text-[10px] sm:text-xs tracking-[0.2em] uppercase font-light mb-2"
-                        style={{ color: preview.accentColor }}
-                      >
-                        Save the Date
-                      </p>
-                      <p
-                        className="font-heading text-sm sm:text-base font-semibold"
-                        style={{ color: preview.textColor }}
-                      >
-                        {template.name}
-                      </p>
+                    {preview.bgImage && (
+                      <Image
+                        src={preview.bgImage}
+                        alt=""
+                        fill
+                        className="object-cover object-center"
+                        sizes="(max-width: 768px) 33vw, 20vw"
+                      />
+                    )}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-[1]">
+                      {preview.namePreview}
                     </div>
                   </Link>
                 </motion.div>

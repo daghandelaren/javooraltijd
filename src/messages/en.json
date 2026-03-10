@@ -144,40 +144,34 @@
       "badge": "Why digital?",
       "title": "Traditional vs. Digital",
       "subtitle": "Discover why more and more couples choose a digital wedding invitation",
-      "traditional": "Traditional Wedding Cards",
-      "digital": "Our Digital Card",
-      "items": [
-        {
-          "aspect": "Cost",
-          "traditional": "Expensive (printing, shipping)",
-          "digital": "Affordable (one-time price)"
-        },
-        {
-          "aspect": "Environment",
-          "traditional": "Paper, ink, transport",
-          "digital": "Eco-friendly"
-        },
-        {
-          "aspect": "Speed",
-          "traditional": "Weeks of waiting",
-          "digital": "Ready instantly"
-        },
-        {
-          "aspect": "Customize",
-          "traditional": "Difficult and expensive",
-          "digital": "Easily adjustable"
-        },
-        {
-          "aspect": "RSVP",
-          "traditional": "Manual tracking",
-          "digital": "Automatic dashboard"
-        },
-        {
-          "aspect": "Reach",
-          "traditional": "Limited",
-          "digital": "Easy sharing via WhatsApp & social"
-        }
-      ]
+      "paper": {
+        "title": "Paper wedding cards",
+        "subtitle": "Estimated cost for 150 guests",
+        "costs": [
+          { "label": "Wedding cards (125 pcs.)", "price": "€313" },
+          { "label": "Premium envelopes (125 pcs.)", "price": "€76" },
+          { "label": "Premium paper", "price": "€28" },
+          { "label": "Wax seals & finishing", "price": "€31" },
+          { "label": "Postage & shipping", "price": "€238" }
+        ],
+        "totalLabel": "Total",
+        "totalPrice": "~€686",
+        "footnote": "Source: average Dutch market prices"
+      },
+      "digital": {
+        "title": "Our digital card",
+        "subtitle": "Everything you need",
+        "popularBadge": "Most popular",
+        "benefits": [
+          { "title": "Save +€511", "description": "No printing or shipping costs" },
+          { "title": "Guest portal", "description": "Real-time confirmations" },
+          { "title": "Any screen", "description": "Phone, tablet or computer" },
+          { "title": "Ready instantly", "description": "Done in minutes" }
+        ],
+        "pricePrefix": "Starting from just",
+        "price": "€175",
+        "priceSuffix": "Everything included"
+      }
     },
     "dashboard_preview": {
       "badge": "Your dashboard",

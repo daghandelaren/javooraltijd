@@ -82,6 +82,8 @@ export async function PUT(
       weddingDate,
       headline,
       styling,
+      musicEnabled,
+      musicUrl,
     } = body;
 
     const saveTheDate = await db.saveTheDate.update({
@@ -102,6 +104,8 @@ export async function PUT(
           envelopeLiner: styling.envelopeConfig?.linerPattern ?? "floral",
           envelopePersonalizedText: styling.envelopeConfig?.personalizedText ?? "Noteer de datum in je agenda",
         }),
+        ...(musicEnabled !== undefined && { musicEnabled }),
+        ...(musicUrl !== undefined && { musicUrl: musicUrl || null }),
       },
     });
 

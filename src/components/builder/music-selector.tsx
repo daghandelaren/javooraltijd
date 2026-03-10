@@ -192,8 +192,18 @@ function TrackCard({
   );
 }
 
-export function MusicSelector() {
-  const { selectedPlan, musicConfig, setMusicConfig, styling } = useBuilderStore();
+interface MusicSelectorProps {
+  musicConfig?: { enabled: boolean; source: "library" | "upload" | null; trackId?: string; uploadedUrl?: string; autoPlay: boolean; volume: number };
+  setMusicConfig?: (config: Partial<{ enabled: boolean; source: "library" | "upload" | null; trackId?: string; uploadedUrl?: string; autoPlay: boolean; volume: number }>) => void;
+  selectedPlan?: string;
+}
+
+export function MusicSelector(props: MusicSelectorProps = {}) {
+  const store = useBuilderStore();
+  const selectedPlan = props.selectedPlan ?? store.selectedPlan;
+  const musicConfig = props.musicConfig ?? store.musicConfig;
+  const setMusicConfig = props.setMusicConfig ?? store.setMusicConfig;
+  const styling = store.styling;
   const [playingTrack, setPlayingTrack] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
