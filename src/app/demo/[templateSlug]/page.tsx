@@ -33,7 +33,7 @@ const defaultDemoData = {
   monogram: "J&B",
   date: "15 juni 2026",
   time: "14:00",
-  headline: "Wij gaan trouwen!",
+  headline: "",
   locations: [
     {
       name: "Locatie A",

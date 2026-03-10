@@ -137,7 +137,7 @@ function StdTemplateCard({
 
         {/* Bottom label */}
         <div className="relative z-[3] flex flex-col justify-end h-full p-4 sm:p-5">
-          <h3 className={`font-heading text-base sm:text-lg font-semibold leading-tight ${style.textColor}`}>
+          <h3 className={`font-heading text-base sm:text-lg font-semibold leading-tight hidden sm:block ${style.textColor}`}>
             {template.name}
           </h3>
         </div>
