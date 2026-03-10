@@ -15,7 +15,7 @@ const miniPreviews = [
     textColor: "#2C3E50",
     accentColor: "#6B8299",
     namePreview: (
-      <div className="flex flex-col items-center text-[#2C3E50] drop-shadow-[0_1px_3px_rgba(255,255,255,0.5)] translate-y-8 sm:translate-y-11">
+      <div className="flex flex-col items-center text-[#2C3E50] drop-shadow-[0_1px_3px_rgba(255,255,255,0.5)] translate-y-12 sm:translate-y-11">
         <span className="flex items-baseline gap-0.5 sm:gap-1">
           <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-[6px] sm:text-[8px] uppercase">Thomas</span>
           <span style={{ fontFamily: "'Dancing Script', cursive" }} className="text-[8px] sm:text-xs">&amp;</span>
