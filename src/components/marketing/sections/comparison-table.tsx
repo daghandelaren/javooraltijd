@@ -176,7 +176,7 @@ export function ComparisonTableSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="flex flex-col rounded-2xl border border-olive-200/80 bg-gradient-to-br from-olive-50/80 via-white to-champagne-50/40 shadow-lg shadow-olive-100/40 ring-1 ring-olive-100/60 p-6 lg:p-8 relative overflow-hidden"
+            className="flex flex-col rounded-2xl border border-olive-200/80 bg-gradient-to-br from-olive-50/80 via-white to-champagne-50/40 shadow-lg shadow-olive-100/40 ring-1 ring-olive-100/60 pt-12 sm:pt-6 px-6 pb-6 lg:p-8 relative overflow-hidden"
           >
             {/* "Populair" badge */}
             <motion.span
@@ -212,7 +212,7 @@ export function ComparisonTableSection() {
             </div>
 
             {/* 2×2 benefit grid — horizontal icon + text in each tile */}
-            <div className="grid grid-cols-2 gap-2.5 flex-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 flex-1">
               {benefits.map((benefit, index) => {
                 const Icon = benefitIcons[index];
                 return (
