@@ -55,7 +55,8 @@ export default async function middleware(request: NextRequest) {
     pathname.startsWith("/_next") ||
     pathname.includes(".") ||
     pathname.startsWith("/u/") ||
-    pathname.startsWith("/demo/")
+    pathname.startsWith("/demo/") ||
+    pathname.startsWith("/admin")
   ) {
     return NextResponse.next();
   }
@@ -95,6 +96,6 @@ export const config = {
     // - static files (images, fonts, etc.)
     // - u/ (public share links - no locale)
     // - demo/ (demo pages - no locale)
-    "/((?!api|_next|.*\\..*|u|demo).*)",
+    "/((?!api|_next|.*\\..*|u|demo|admin).*)",
   ],
 };

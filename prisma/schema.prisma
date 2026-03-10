@@ -283,6 +283,20 @@ model SaveTheDateView {
   @@index([saveTheDateId])
 }
 
+// ==================== PAGE VIEW TRACKING ====================
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  ipHash    String
+  userAgent String?
+  referrer  String?
+  createdAt DateTime @default(now())
+
+  @@index([path])
+  @@index([createdAt])
+}
+
 // ==================== TEMPLATE (reference data) ====================
 
 model Template {

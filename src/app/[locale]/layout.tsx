@@ -3,6 +3,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { locales, type Locale } from "@/i18n";
 import { SessionProvider } from "@/components/providers/session-provider";
+import { PageTracker } from "@/components/providers/page-tracker";
 import { inter, cormorant } from "@/lib/fonts";
 import "@/app/globals.css";
 
@@ -39,6 +40,7 @@ export default async function LocaleLayout({
       <body className="font-body antialiased">
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>
+            <PageTracker />
             {children}
           </NextIntlClientProvider>
         </SessionProvider>
