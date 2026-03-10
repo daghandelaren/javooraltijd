@@ -376,7 +376,7 @@ function StdTemplateCard({
           />
         )}
 
-        <div className="absolute inset-0 flex items-center justify-center z-[1] pointer-events-none">
+        <div className="absolute inset-0 hidden sm:flex items-center justify-center z-[1] pointer-events-none">
           {style.namePreview}
         </div>
 
