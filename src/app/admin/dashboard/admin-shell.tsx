@@ -63,7 +63,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-stone-900 flex flex-col transition-transform duration-200 lg:translate-x-0 lg:static lg:z-auto ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-stone-900 flex flex-col transition-transform duration-200 lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -129,7 +129,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 lg:ml-64">
         {/* Top bar */}
         <header className="h-16 bg-white border-b border-stone-200 flex items-center px-4 lg:px-6 sticky top-0 z-30">
           <button

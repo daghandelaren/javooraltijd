@@ -3,7 +3,7 @@ import { PLANS, STD_PLAN, type PlanId } from "@/lib/mollie";
 import { getTemplateById } from "@/lib/templates";
 import { getStdTemplateById } from "@/lib/std-templates";
 import {
-  DollarSign,
+  Euro,
   Eye,
   TrendingUp,
   Users,
@@ -216,7 +216,7 @@ export default async function AdminAnalyticsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white rounded-xl border border-stone-200 p-5">
           <div className="flex items-center gap-2 text-stone-500 text-sm mb-1">
-            <DollarSign className="w-4 h-4" />
+            <Euro className="w-4 h-4" />
             Totale Omzet
           </div>
           <p className="text-2xl font-semibold text-stone-800">{formatCents(totalRevenue)}</p>

@@ -3,7 +3,7 @@ import { PLANS, STD_PLAN, type PlanId } from "@/lib/mollie";
 import { getTemplateById } from "@/lib/templates";
 import { getStdTemplateById } from "@/lib/std-templates";
 import {
-  DollarSign,
+  Euro,
   ShoppingCart,
   Send,
   Users,
@@ -132,7 +132,7 @@ export default async function AdminOverviewPage() {
     {
       label: "Totale Omzet",
       value: formatCents(totalRevenue),
-      icon: DollarSign,
+      icon: Euro,
       color: "text-emerald-600",
       bg: "bg-emerald-50",
     },
