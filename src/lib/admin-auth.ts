@@ -16,14 +16,6 @@ export function verifyAdminCredentials(
 ): boolean {
   const expectedUsername = process.env.ADMIN_USERNAME;
   const expectedPassword = process.env.ADMIN_PASSWORD;
-  console.log("[admin-auth] ENV loaded:", {
-    hasUsername: !!expectedUsername,
-    hasPassword: !!expectedPassword,
-    usernameLength: expectedUsername?.length,
-    passwordLength: expectedPassword?.length,
-    inputUsernameLength: username.length,
-    inputPasswordLength: password.length,
-  });
   if (!expectedUsername || !expectedPassword) return false;
 
   const usernameBuffer = Buffer.from(username);
