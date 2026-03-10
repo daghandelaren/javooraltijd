@@ -87,9 +87,6 @@ const cardStyles: Record<
         <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 700 }} className="text-[#2C2C2C] text-sm sm:text-lg leading-tight">
           Evelyn
         </span>
-        <span style={{ fontFamily: "'Amatic SC', cursive", fontWeight: 400 }} className="text-[#7A7A6A] text-[9px] sm:text-[11px] tracking-widest uppercase mt-1">
-          wij gaan trouwen
-        </span>
       </div>
     ),
   },

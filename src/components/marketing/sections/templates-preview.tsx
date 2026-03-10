@@ -106,12 +106,6 @@ const templateCards: Array<{
         >
           Evelyn
         </span>
-        <span
-          style={{ fontFamily: "'Amatic SC', cursive", fontWeight: 400 }}
-          className="text-[#7A7A6A] text-[10px] sm:text-sm tracking-widest uppercase mt-1"
-        >
-          Wij gaan trouwen!
-        </span>
       </div>
     ),
   },

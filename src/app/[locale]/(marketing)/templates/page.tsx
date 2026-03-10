@@ -99,9 +99,6 @@ const cardStyles: Record<
         <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 700 }} className="text-[#2C2C2C] text-base sm:text-2xl leading-tight">
           Evelyn
         </span>
-        <span style={{ fontFamily: "'Amatic SC', cursive", fontWeight: 400 }} className="text-[#7A7A6A] text-[10px] sm:text-sm tracking-widest uppercase mt-1">
-          Wij gaan trouwen!
-        </span>
       </div>
     ),
   },
@@ -376,7 +373,7 @@ function StdTemplateCard({
           />
         )}
 
-        <div className="absolute inset-0 hidden sm:flex items-center justify-center z-[1] pointer-events-none">
+        <div className="absolute inset-0 flex items-center justify-center z-[1] pointer-events-none">
           {style.namePreview}
         </div>
 
@@ -394,7 +391,7 @@ function StdTemplateCard({
           </div>
 
           <div className="flex flex-col gap-2 sm:gap-3">
-            <h3 className={`font-heading text-lg sm:text-xl font-semibold leading-tight ${style.textColor}`}>
+            <h3 className={`font-heading text-lg sm:text-xl font-semibold leading-tight hidden sm:block ${style.textColor}`}>
               {name}
             </h3>
             <Button
