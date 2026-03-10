@@ -7,6 +7,8 @@ import {
   ShoppingCart,
   BarChart3,
   Ticket,
+  Send,
+  Mail,
   LogOut,
   Menu,
   X,
@@ -23,6 +25,16 @@ const navItems = [
     label: "Bestellingen",
     href: "/admin/dashboard/orders",
     icon: ShoppingCart,
+  },
+  {
+    label: "Actief",
+    href: "/admin/dashboard/active",
+    icon: Send,
+  },
+  {
+    label: "Actief STD",
+    href: "/admin/dashboard/active-std",
+    icon: Mail,
   },
   {
     label: "Analytics",

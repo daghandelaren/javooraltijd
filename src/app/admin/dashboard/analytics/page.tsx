@@ -26,7 +26,6 @@ export default async function AdminAnalyticsPage() {
     paidInvitations,
     paidStds,
     rsvpStats,
-    stdViewTotal,
     invitationsByStatus,
     stdsByStatus,
     totalUsers,
@@ -49,7 +48,6 @@ export default async function AdminAnalyticsPage() {
       select: { discountAmount: true, paidAt: true, templateId: true },
     }),
     db.rSVP.groupBy({ by: ["attending"], _count: { id: true } }),
-    db.saveTheDate.aggregate({ _sum: { viewCount: true } }),
     db.invitation.groupBy({ by: ["status"], _count: { id: true } }),
     db.saveTheDate.groupBy({ by: ["status"], _count: { id: true } }),
     db.user.count(),
@@ -213,7 +211,7 @@ export default async function AdminAnalyticsPage() {
   return (
     <div className="space-y-6">
       {/* Top stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="bg-white rounded-xl border border-stone-200 p-5">
           <div className="flex items-center gap-2 text-stone-500 text-sm mb-1">
             <Euro className="w-4 h-4" />
@@ -235,13 +233,6 @@ export default async function AdminAnalyticsPage() {
           </div>
           <p className="text-2xl font-semibold text-stone-800">{uniqueVisitors.length}</p>
           <p className="text-xs text-stone-400 mt-0.5">{pageViewsToday} vandaag &middot; {pageViewsTotal} totaal</p>
-        </div>
-        <div className="bg-white rounded-xl border border-stone-200 p-5">
-          <div className="flex items-center gap-2 text-stone-500 text-sm mb-1">
-            <Eye className="w-4 h-4" />
-            STD Weergaven
-          </div>
-          <p className="text-2xl font-semibold text-stone-800">{stdViewTotal._sum.viewCount || 0}</p>
         </div>
       </div>
 
