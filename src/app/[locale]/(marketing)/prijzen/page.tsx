@@ -417,7 +417,8 @@ export default function PrijzenPage() {
             transition={{ delay: 0.1 }}
             className="max-w-5xl mx-auto"
           >
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-champagne-200">
+            {/* Desktop table */}
+            <div className="hidden md:block bg-white rounded-2xl shadow-xl overflow-hidden border border-champagne-200">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -475,6 +476,82 @@ export default function PrijzenPage() {
                   </tbody>
                 </table>
               </div>
+            </div>
+
+            {/* Mobile stacked cards */}
+            <div className="md:hidden space-y-4">
+              {plans.map((plan) => (
+                <div
+                  key={plan.id}
+                  className={cn(
+                    "rounded-2xl border overflow-hidden",
+                    plan.popular
+                      ? "bg-olive-50 border-olive-200 shadow-lg"
+                      : "bg-white border-champagne-200 shadow-md"
+                  )}
+                >
+                  {/* Card header */}
+                  <div
+                    className={cn(
+                      "px-5 py-4 flex items-center justify-between",
+                      plan.popular
+                        ? "bg-olive-100/60 border-b border-olive-200"
+                        : "bg-champagne-50/50 border-b border-champagne-200"
+                    )}
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-heading text-lg font-semibold text-stone-900">
+                          {t(`plans.${plan.id}.name`)}
+                        </h3>
+                        {plan.popular && (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-olive-700 text-white text-xs font-medium">
+                            <DiamondIcon className="w-3 h-3" />
+                            {t("mostPopular")}
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-sm text-stone-500 mt-0.5">
+                        €{plan.price} — {t("oneTime")}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Features list */}
+                  <div className="px-5 py-3 divide-y divide-champagne-100">
+                    {comparisonFeatures.map((feature) => {
+                      const featureValue =
+                        plan.features[feature as keyof typeof plan.features];
+                      const display = getFeatureDisplay(feature, featureValue);
+                      const isBoolean = typeof featureValue === "boolean";
+                      const isFalseExtra =
+                        feature === "extraQuestions" && featureValue === false;
+
+                      return (
+                        <div
+                          key={feature}
+                          className="flex items-center justify-between py-2.5 gap-3"
+                        >
+                          <span className="text-sm text-stone-700">
+                            {t(`comparison.rows.${feature}`)}
+                          </span>
+                          <span className="text-sm font-medium text-stone-900 flex-shrink-0">
+                            {isBoolean || isFalseExtra ? (
+                              featureValue ? (
+                                <Check className="w-5 h-5 text-green-600" />
+                              ) : (
+                                <X className="w-5 h-5 text-red-400" />
+                              )
+                            ) : (
+                              display
+                            )}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
