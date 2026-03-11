@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Envelope2D } from "@/components/envelope-2d/envelope-2d";
 import { PreviewWatermark } from "@/components/builder/preview-watermark";
-import { HeroSection, FloatingMusicToggle, useMusicControl } from "@/components/invitation-sections";
+import { HeroSection, FloatingMusicToggle, useMusicControl, StdCalendarSection } from "@/components/invitation-sections";
 import { useStdBuilderStore, getStdMusicUrl } from "@/stores/std-builder-store";
 import { useStdBuilderGuard } from "@/hooks/use-std-builder-guard";
 import { getStdTemplateById, stdTemplates } from "@/lib/std-templates";
@@ -258,10 +258,17 @@ export default function StdPreviewPage() {
                 isSaveTheDate
               />
 
+              <StdCalendarSection
+                template={selectedTemplate}
+                weddingDate={weddingDateObj}
+                partner1Name={partner1Name || "Partner 1"}
+                partner2Name={partner2Name || "Partner 2"}
+              />
+
               <div className="py-6 text-center">
                 <Button
                   variant="ghost"
-                  onClick={() => { setIsAnimationOpen(false); setIsAnimationComplete(false); }}
+                  onClick={() => { pauseMusic(); setIsAnimationOpen(false); setIsAnimationComplete(false); }}
                 >
                   ← Sluiten
                 </Button>
