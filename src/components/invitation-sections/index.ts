@@ -9,3 +9,4 @@ export { DresscodeSection } from "./dresscode-section";
 export { SectionDivider } from "./section-divider";
 export { ClosingSection } from "./closing-section";
 export { FloatingMusicToggle, useMusicControl } from "./floating-music-toggle";
+export { StdCalendarSection } from "./std-calendar-section";

@@ -52,7 +52,8 @@ export default function StdStylingPage() {
     ? styling.sealColor
     : DEFAULT_SEAL_COLOR;
 
-  const sealText = weddingDate
+  const showDate = styling.envelopeConfig?.showDateOnEnvelope ?? true;
+  const sealText = showDate && weddingDate
     ? new Date(weddingDate).toLocaleDateString("nl-NL", {
         day: "numeric",
         month: "long",
@@ -74,11 +75,10 @@ export default function StdStylingPage() {
       {/* Template context */}
       {selectedTemplate && (
         <div
-          className="flex items-center gap-3 px-4 py-3 rounded-lg border text-sm"
+          className="flex items-center gap-3 px-4 py-3 rounded-lg border text-sm text-stone-700"
           style={{
             borderColor: selectedTemplate.colors.primary + "40",
             backgroundColor: selectedTemplate.colors.accent,
-            color: selectedTemplate.colors.text,
           }}
         >
           <div
@@ -219,6 +219,33 @@ export default function StdStylingPage() {
               Gasten zien een elegante envelop met jullie lakzegel.
               Door op de zegel te klikken &quot;breekt&quot; deze open en verschijnt jullie Save the Date.
             </p>
+          </div>
+
+          <div className="space-y-3 mt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <Label>Trouwdatum tonen op envelop</Label>
+                <p className="text-xs text-stone-500 mt-1">
+                  De trouwdatum verschijnt boven de lakzegel op de envelop.
+                </p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={styling.envelopeConfig?.showDateOnEnvelope ?? true}
+                  onChange={(e) =>
+                    setStyling({
+                      envelopeConfig: {
+                        ...styling.envelopeConfig,
+                        showDateOnEnvelope: e.target.checked,
+                      },
+                    })
+                  }
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-olive-100 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-olive-600"></div>
+              </label>
+            </div>
           </div>
         </motion.div>
 

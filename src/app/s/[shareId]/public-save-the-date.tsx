@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { type SealFontId } from "@/lib/wax-fonts";
 import { getStdTemplateById, stdTemplates } from "@/lib/std-templates";
 import { Envelope2D } from "@/components/envelope-2d";
-import { HeroSection, FloatingMusicToggle, useMusicControl } from "@/components/invitation-sections";
+import { HeroSection, FloatingMusicToggle, useMusicControl, StdCalendarSection } from "@/components/invitation-sections";
 
 interface SaveTheDateData {
   id: string;
@@ -95,6 +95,13 @@ export function PublicSaveTheDate({ saveTheDate }: Props) {
         {hasMusicEnabled && (
           <FloatingMusicToggle audioRef={audioRef} />
         )}
+
+        <StdCalendarSection
+          template={template}
+          weddingDate={weddingDate}
+          partner1Name={saveTheDate.partner1Name}
+          partner2Name={saveTheDate.partner2Name}
+        />
       </motion.div>
     </AnimatePresence>
   );

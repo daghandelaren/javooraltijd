@@ -67,7 +67,8 @@ export default function StdPreviewPage() {
 
   const isValid = validationChecks.every((check) => check.valid);
 
-  const envelopeSealText = weddingDate
+  const showDate = styling.envelopeConfig?.showDateOnEnvelope ?? true;
+  const envelopeSealText = showDate && weddingDate
     ? new Date(weddingDate).toLocaleDateString("nl-NL", {
         day: "numeric",
         month: "long",
@@ -156,11 +157,10 @@ export default function StdPreviewPage() {
         {/* Template badge */}
         <div className="flex justify-center">
           <span
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border text-stone-700"
             style={{
               backgroundColor: selectedTemplate.colors.accent,
               borderColor: selectedTemplate.colors.primary + "40",
-              color: selectedTemplate.colors.text,
             }}
           >
             Template: {selectedTemplate.name}

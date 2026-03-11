@@ -93,6 +93,9 @@ model Invitation {
   // Timeline
   timeline      TimelineItem[]
 
+  // Guest Groups (JSON array of GuestGroup objects)
+  guestGroups   Json?
+
   // RSVP Config
   rsvpEnabled   Boolean          @default(true)
   rsvpDeadline  DateTime?
@@ -131,6 +134,10 @@ model Invitation {
   paidAt        DateTime?
   discountCode    String?
   discountAmount  Int?    // cents
+
+  // View tracking
+  viewCount     Int              @default(0)
+  views         InvitationView[]
 
   // Relations
   rsvps         RSVP[]
@@ -281,6 +288,18 @@ model SaveTheDateView {
 
   @@unique([saveTheDateId, ipHash])
   @@index([saveTheDateId])
+}
+
+model InvitationView {
+  id              String     @id @default(cuid())
+  invitationId    String
+  invitation      Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+  ipHash          String
+  userAgent       String?
+  createdAt       DateTime   @default(now())
+
+  @@unique([invitationId, ipHash])
+  @@index([invitationId])
 }
 
 // ==================== PAGE VIEW TRACKING ====================

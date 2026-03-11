@@ -4,13 +4,23 @@ import { Suspense } from "react";
 import { getSession } from "@/lib/auth-server";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, ExternalLink, Users, Calendar, Settings, Share2, CreditCard, ArrowRight, Sparkles, Eye, CalendarHeart } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Plus, ExternalLink, Calendar, Settings, Share2, PenLine, BarChart3, Eye, MousePointerClick, CalendarHeart, Sparkles } from "lucide-react";
 import { WaxSeal } from "@/components/wax-seal/wax-seal";
 import { DEFAULT_SEAL_COLOR } from "@/lib/wax-colors";
-import { type SealFontId } from "@/lib/wax-fonts";
 import { ShareButtons } from "./share-buttons";
 import { PaymentSuccessBanner } from "./payment-success-banner";
+import { RsvpProgressBar } from "./rsvp-progress-bar";
+import { ExpiryCountdown } from "./expiry-countdown";
+import { RecentResponses } from "./recent-responses";
+import { GroupShareLinks } from "./group-share-links";
+import { DashboardTabs } from "./dashboard-tabs";
+
+interface GuestGroup {
+  id: string;
+  name: string;
+  includedEvents: string[];
+}
 
 export default async function DashboardPage() {
   const session = await getSession();
@@ -28,9 +38,13 @@ export default async function DashboardPage() {
         },
         rsvps: {
           select: {
+            id: true,
+            name: true,
             attending: true,
             guestCount: true,
+            createdAt: true,
           },
+          orderBy: { createdAt: "desc" },
         },
       },
       orderBy: { updatedAt: "desc" },
@@ -41,45 +55,18 @@ export default async function DashboardPage() {
     }),
   ]);
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "DRAFT":
-        return (
-          <span className="px-2 py-1 text-xs rounded-full bg-stone-100 text-stone-600">
-            Concept
-          </span>
-        );
-      case "PAID":
-        return (
-          <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
-            Betaald
-          </span>
-        );
-      case "PUBLISHED":
-        return (
-          <span className="px-2 py-1 text-xs rounded-full bg-green-100 text-green-700">
-            Gepubliceerd
-          </span>
-        );
-      case "EXPIRED":
-        return (
-          <span className="px-2 py-1 text-xs rounded-full bg-red-100 text-red-600">
-            Verlopen
-          </span>
-        );
-      default:
-        return null;
-    }
-  };
+  // Filter to only paid/published items for the redesigned dashboard
+  const activeInvitations = invitations.filter(
+    (inv) => inv.status === "PAID" || inv.status === "PUBLISHED"
+  );
+  const activeStds = saveTheDates.filter(
+    (std) => std.status === "PUBLISHED"
+  );
 
-  const getRSVPStats = (rsvps: { attending: string; guestCount: number }[]) => {
-    const attending = rsvps.filter((r) => r.attending === "YES");
-    const notAttending = rsvps.filter((r) => r.attending === "NO");
-    const maybe = rsvps.filter((r) => r.attending === "MAYBE");
-    const totalGuests = attending.reduce((sum, r) => sum + r.guestCount, 0);
-
-    return { attending: attending.length, notAttending: notAttending.length, maybe: maybe.length, totalGuests };
-  };
+  const hasInvitations = activeInvitations.length > 0;
+  const hasStds = activeStds.length > 0;
+  const hasBoth = hasInvitations && hasStds;
+  const hasNothing = !hasInvitations && !hasStds;
 
   return (
     <div className="space-y-8">
@@ -89,7 +76,7 @@ export default async function DashboardPage() {
       </Suspense>
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-heading text-3xl font-semibold text-stone-900">
             Dashboard
@@ -99,19 +86,19 @@ export default async function DashboardPage() {
           </p>
         </div>
         <div className="flex gap-3">
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" size="sm">
             <Link href="/dashboard/settings">
               <Settings className="w-4 h-4 mr-2" />
               Instellingen
             </Link>
           </Button>
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" size="sm">
             <Link href="/std-builder/template">
               <CalendarHeart className="w-4 h-4 mr-2" />
               Save the Date
             </Link>
           </Button>
-          <Button asChild>
+          <Button asChild size="sm">
             <Link href="/builder/package">
               <Plus className="w-4 h-4 mr-2" />
               Nieuwe uitnodiging
@@ -120,11 +107,10 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Invitations & Save the Dates */}
-      {invitations.length === 0 && saveTheDates.length === 0 ? (
+      {/* Empty state */}
+      {hasNothing && (
         <Card className="overflow-hidden">
           <CardContent className="py-16 text-center relative">
-            {/* Decorative background */}
             <div className="absolute inset-0 bg-gradient-to-br from-champagne-50 via-white to-olive-50/30 opacity-50" />
             <div className="absolute top-0 right-0 w-64 h-64 bg-olive-100/20 rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-champagne-200/30 rounded-full translate-y-1/2 -translate-x-1/2" />
@@ -151,272 +137,297 @@ export default async function DashboardPage() {
             </div>
           </CardContent>
         </Card>
-      ) : (
-        <div className="grid gap-6">
-          {invitations.map((invitation) => {
-            const stats = getRSVPStats(invitation.rsvps);
-            const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL || ""}/u/${invitation.shareId}`;
-            const canShare = invitation.status === "PAID" || invitation.status === "PUBLISHED";
-
-            return (
-              <Card key={invitation.id}>
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-4">
-                      <WaxSeal
-                        size="md"
-                        color={invitation.sealColor}
-                        font={invitation.sealFont as SealFontId | undefined}
-                        initials={invitation.monogram || undefined}
-                      />
-                      <div>
-                        <CardTitle className="font-heading text-xl">
-                          {invitation.partner1Name} & {invitation.partner2Name}
-                        </CardTitle>
-                        <CardDescription className="flex items-center gap-2 mt-1">
-                          <Calendar className="w-4 h-4" />
-                          {new Date(invitation.weddingDate).toLocaleDateString("nl-NL", {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric",
-                          })}
-                        </CardDescription>
-                      </div>
-                    </div>
-                    {getStatusBadge(invitation.status)}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  {/* Draft invitation guidance */}
-                  {invitation.status === "DRAFT" && (
-                    <div className="mb-6 p-5 bg-gradient-to-r from-olive-50 via-champagne-50 to-olive-50 rounded-xl border border-olive-200">
-                      <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0 w-10 h-10 bg-olive-100 rounded-full flex items-center justify-center">
-                          <Sparkles className="w-5 h-5 text-olive-600" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-heading font-semibold text-olive-800 mb-1">
-                            Bijna klaar!
-                          </h3>
-                          <p className="text-sm text-olive-700 mb-4">
-                            Jullie uitnodiging is opgeslagen als concept. Rond de betaling af om de uitnodiging te activeren en te delen met jullie gasten.
-                          </p>
-                          <Button asChild className="bg-olive-600 hover:bg-olive-700">
-                            <Link href={`/builder/checkout?edit=${invitation.id}`}>
-                              <CreditCard className="w-4 h-4 mr-2" />
-                              Doorgaan naar betaling
-                              <ArrowRight className="w-4 h-4 ml-2" />
-                            </Link>
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* RSVP Stats - only show for paid/published */}
-                  {canShare && (
-                    <div className="grid grid-cols-4 gap-4 mb-6 p-4 bg-stone-50 rounded-lg">
-                      <div className="text-center">
-                        <p className="text-2xl font-semibold text-green-600">
-                          {stats.attending}
-                        </p>
-                        <p className="text-xs text-stone-500">Komt</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-2xl font-semibold text-red-600">
-                          {stats.notAttending}
-                        </p>
-                        <p className="text-xs text-stone-500">Komt niet</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-2xl font-semibold text-amber-600">
-                          {stats.maybe}
-                        </p>
-                        <p className="text-xs text-stone-500">Misschien</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-2xl font-semibold text-stone-800">
-                          {stats.totalGuests}
-                        </p>
-                        <p className="text-xs text-stone-500">Gasten</p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Share URL */}
-                  {canShare && (
-                    <div className="mb-6 p-4 bg-champagne-50 rounded-lg border border-champagne-200">
-                      <p className="text-sm text-stone-600 mb-3 flex items-center gap-2">
-                        <Share2 className="w-4 h-4" />
-                        Deel deze link met jullie gasten:
-                      </p>
-                      <div className="mb-3">
-                        <code className="block text-sm bg-white px-3 py-2 rounded border border-champagne-300 truncate">
-                          {shareUrl}
-                        </code>
-                      </div>
-                      <ShareButtons
-                        url={shareUrl}
-                        partner1Name={invitation.partner1Name}
-                        partner2Name={invitation.partner2Name}
-                        weddingDate={invitation.weddingDate.toISOString()}
-                      />
-                    </div>
-                  )}
-
-                  {/* Actions */}
-                  <div className="flex flex-wrap gap-3">
-                    {canShare && (
-                      <>
-                        <Button asChild variant="outline" size="sm">
-                          <Link href={`/u/${invitation.shareId}`} target="_blank">
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            Bekijk uitnodiging
-                          </Link>
-                        </Button>
-                        <Button asChild variant="outline" size="sm">
-                          <Link href={`/dashboard/${invitation.id}/rsvp`}>
-                            <Users className="w-4 h-4 mr-2" />
-                            RSVP overzicht
-                          </Link>
-                        </Button>
-                      </>
-                    )}
-                    <Button asChild variant="outline" size="sm">
-                      <Link href={`/builder/template?edit=${invitation.id}`}>
-                        <Settings className="w-4 h-4 mr-2" />
-                        {invitation.status === "DRAFT" ? "Concept bewerken" : "Bewerken"}
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-
-          {/* Save the Date cards */}
-          {saveTheDates.map((std) => {
-            const stdShareUrl = `${process.env.NEXT_PUBLIC_APP_URL || ""}/s/${std.shareId}`;
-            const stdCanShare = std.status === "PUBLISHED";
-
-            return (
-              <Card key={std.id}>
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-4">
-                      <WaxSeal
-                        size="md"
-                        color={std.sealColor}
-                        font={std.sealFont as SealFontId | undefined}
-                        initials={std.monogram || undefined}
-                      />
-                      <div>
-                        <CardTitle className="font-heading text-xl flex items-center gap-2">
-                          {std.partner1Name} & {std.partner2Name}
-                          <span className="text-xs font-normal bg-olive-100 text-olive-700 px-2 py-0.5 rounded-full">
-                            Save the Date
-                          </span>
-                        </CardTitle>
-                        <CardDescription className="flex items-center gap-2 mt-1">
-                          <Calendar className="w-4 h-4" />
-                          {new Date(std.weddingDate).toLocaleDateString("nl-NL", {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric",
-                          })}
-                        </CardDescription>
-                      </div>
-                    </div>
-                    {getStatusBadge(std.status)}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  {/* Draft STD guidance */}
-                  {std.status === "DRAFT" && (
-                    <div className="mb-6 p-5 bg-gradient-to-r from-olive-50 via-champagne-50 to-olive-50 rounded-xl border border-olive-200">
-                      <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0 w-10 h-10 bg-olive-100 rounded-full flex items-center justify-center">
-                          <Sparkles className="w-5 h-5 text-olive-600" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-heading font-semibold text-olive-800 mb-1">
-                            Bijna klaar!
-                          </h3>
-                          <p className="text-sm text-olive-700 mb-4">
-                            Jullie Save the Date is opgeslagen als concept. Rond de betaling af om het te activeren.
-                          </p>
-                          <Button asChild className="bg-olive-600 hover:bg-olive-700">
-                            <Link href={`/std-builder/checkout?edit=${std.id}`}>
-                              <CreditCard className="w-4 h-4 mr-2" />
-                              Doorgaan naar betaling
-                              <ArrowRight className="w-4 h-4 ml-2" />
-                            </Link>
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* View count stats */}
-                  {stdCanShare && (
-                    <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-stone-50 rounded-lg">
-                      <div className="text-center">
-                        <p className="text-2xl font-semibold text-olive-600">
-                          {std.viewCount}
-                        </p>
-                        <p className="text-xs text-stone-500">Unieke bezoekers</p>
-                      </div>
-                      <div className="text-center flex flex-col items-center justify-center">
-                        <Eye className="w-5 h-5 text-stone-400 mb-1" />
-                        <p className="text-xs text-stone-500">Bezoekers tracking</p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Share URL */}
-                  {stdCanShare && (
-                    <div className="mb-6 p-4 bg-champagne-50 rounded-lg border border-champagne-200">
-                      <p className="text-sm text-stone-600 mb-3 flex items-center gap-2">
-                        <Share2 className="w-4 h-4" />
-                        Deel deze link met jullie gasten:
-                      </p>
-                      <div className="mb-3">
-                        <code className="block text-sm bg-white px-3 py-2 rounded border border-champagne-300 truncate">
-                          {stdShareUrl}
-                        </code>
-                      </div>
-                      <ShareButtons
-                        url={stdShareUrl}
-                        partner1Name={std.partner1Name}
-                        partner2Name={std.partner2Name}
-                        weddingDate={std.weddingDate.toISOString()}
-                      />
-                    </div>
-                  )}
-
-                  {/* Actions */}
-                  <div className="flex flex-wrap gap-3">
-                    {stdCanShare && (
-                      <Button asChild variant="outline" size="sm">
-                        <Link href={`/s/${std.shareId}`} target="_blank">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Bekijk kaart
-                        </Link>
-                      </Button>
-                    )}
-                    <Button asChild variant="outline" size="sm">
-                      <Link href={`/std-builder/template?edit=${std.id}`}>
-                        <Settings className="w-4 h-4 mr-2" />
-                        {std.status === "DRAFT" ? "Concept bewerken" : "Bewerken"}
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
       )}
+
+      {/* Dashboard content with tabs if both products exist */}
+      {!hasNothing && (
+        <>
+          {hasBoth ? (
+            <DashboardTabs
+              invitationContent={
+                <>
+                  {activeInvitations.map((invitation) => (
+                    <InvitationDashboard key={invitation.id} invitation={invitation} />
+                  ))}
+                </>
+              }
+              stdContent={
+                <>
+                  {activeStds.map((std) => (
+                    <StdDashboard key={std.id} std={std} />
+                  ))}
+                </>
+              }
+            />
+          ) : (
+            <div className="space-y-8">
+              {activeInvitations.map((invitation) => (
+                <InvitationDashboard key={invitation.id} invitation={invitation} />
+              ))}
+              {activeStds.map((std) => (
+                <StdDashboard key={std.id} std={std} />
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// Invitation dashboard (matches homepage mockup)
+function InvitationDashboard({
+  invitation,
+}: {
+  invitation: {
+    id: string;
+    partner1Name: string;
+    partner2Name: string;
+    weddingDate: Date;
+    shareId: string;
+    expiresAt: Date | null;
+    viewCount: number;
+    guestGroups: unknown;
+    rsvps: {
+      id: string;
+      name: string;
+      attending: string;
+      guestCount: number;
+      createdAt: Date;
+    }[];
+  };
+}) {
+  const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL || ""}/u/${invitation.shareId}`;
+  const groups = (invitation.guestGroups as GuestGroup[] | null) || [];
+
+  const attending = invitation.rsvps.filter((r) => r.attending === "YES").length;
+  const notAttending = invitation.rsvps.filter((r) => r.attending === "NO").length;
+  const maybe = invitation.rsvps.filter((r) => r.attending === "MAYBE").length;
+  const total = attending + notAttending + maybe;
+
+  return (
+    <div className="bg-gradient-to-br from-champagne-50 to-white rounded-xl border border-stone-200 p-4 md:p-6 lg:p-8 space-y-6 md:space-y-8">
+      {/* Welcome header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h3 className="font-heading text-xl md:text-2xl font-semibold text-stone-900">
+            Welkom, {invitation.partner1Name} & {invitation.partner2Name}
+          </h3>
+          <p className="text-stone-500 text-sm mt-1 flex items-center gap-1.5">
+            <Calendar className="w-4 h-4" />
+            {new Date(invitation.weddingDate).toLocaleDateString("nl-NL", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </p>
+        </div>
+        <Button asChild size="sm" className="bg-olive-600 hover:bg-olive-700">
+          <Link href={`/builder/template?edit=${invitation.id}`}>
+            <PenLine className="w-4 h-4 mr-2" />
+            Bewerk uitnodiging
+          </Link>
+        </Button>
+      </div>
+
+      {/* Expiry countdown */}
+      <ExpiryCountdown expiresAt={invitation.expiresAt?.toISOString() || null} />
+
+      {/* Stats grid */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        {/* RSVP Progress Bar (spans 2 cols) */}
+        <RsvpProgressBar
+          attending={attending}
+          maybe={maybe}
+          notAttending={notAttending}
+          total={total}
+        />
+
+        {/* Views card */}
+        <div className="bg-white rounded-xl border border-stone-200 p-4 md:p-5 shadow-sm">
+          <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center mb-3">
+            <Eye className="w-4 h-4 text-blue-600" />
+          </div>
+          <p className="text-2xl md:text-3xl font-semibold text-stone-900">{invitation.viewCount}</p>
+          <p className="text-stone-500 text-sm">Weergaven</p>
+        </div>
+
+        {/* Responses card */}
+        <div className="bg-white rounded-xl border border-stone-200 p-4 md:p-5 shadow-sm">
+          <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center mb-3">
+            <MousePointerClick className="w-4 h-4 text-purple-600" />
+          </div>
+          <p className="text-2xl md:text-3xl font-semibold text-stone-900">{invitation.rsvps.length}</p>
+          <p className="text-stone-500 text-sm">Reacties</p>
+        </div>
+      </div>
+
+      {/* Recent responses + Quick actions */}
+      <div className="grid lg:grid-cols-3 gap-4 md:gap-6">
+        <RecentResponses
+          rsvps={invitation.rsvps.map((r) => ({
+            id: r.id,
+            name: r.name,
+            attending: r.attending,
+            createdAt: r.createdAt.toISOString(),
+          }))}
+          invitationId={invitation.id}
+        />
+
+        {/* Quick Actions */}
+        <div className="bg-gradient-to-br from-olive-50 to-champagne-50 rounded-xl border border-olive-100 p-4 md:p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-lg bg-olive-100 flex items-center justify-center">
+              <Settings className="w-4 h-4 text-olive-600" />
+            </div>
+            <span className="font-medium text-stone-800">Snelle acties</span>
+          </div>
+          <div className="space-y-2">
+            <Link
+              href={`/builder/template?edit=${invitation.id}`}
+              className="w-full flex items-center gap-3 p-3 bg-white/80 hover:bg-white rounded-lg text-sm text-stone-700 hover:text-olive-700 transition-colors border border-transparent hover:border-olive-200"
+            >
+              <PenLine className="w-4 h-4" />
+              Teksten bewerken
+            </Link>
+            <Link
+              href={`/dashboard/${invitation.id}/rsvp`}
+              className="w-full flex items-center gap-3 p-3 bg-white/80 hover:bg-white rounded-lg text-sm text-stone-700 hover:text-olive-700 transition-colors border border-transparent hover:border-olive-200"
+            >
+              <BarChart3 className="w-4 h-4" />
+              Gasten exporteren
+            </Link>
+            <Link
+              href={`/u/${invitation.shareId}`}
+              target="_blank"
+              className="w-full flex items-center gap-3 p-3 bg-white/80 hover:bg-white rounded-lg text-sm text-stone-700 hover:text-olive-700 transition-colors border border-transparent hover:border-olive-200"
+            >
+              <Eye className="w-4 h-4" />
+              Bekijk preview
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Share section */}
+      <div className="p-4 bg-champagne-50 rounded-lg border border-champagne-200">
+        <p className="text-sm text-stone-600 mb-3 flex items-center gap-2">
+          <Share2 className="w-4 h-4" />
+          Deel deze link met jullie gasten:
+        </p>
+        <div className="mb-3">
+          <code className="block text-sm bg-white px-3 py-2 rounded border border-champagne-300 truncate">
+            {shareUrl}
+          </code>
+        </div>
+        <ShareButtons
+          url={shareUrl}
+          partner1Name={invitation.partner1Name}
+          partner2Name={invitation.partner2Name}
+          weddingDate={invitation.weddingDate.toISOString()}
+        />
+      </div>
+
+      {/* Per-group share links */}
+      {groups.length > 0 && (
+        <GroupShareLinks
+          shareUrl={shareUrl}
+          groups={groups}
+          partner1Name={invitation.partner1Name}
+          partner2Name={invitation.partner2Name}
+          weddingDate={invitation.weddingDate.toISOString()}
+        />
+      )}
+    </div>
+  );
+}
+
+// Save the Date dashboard (simpler)
+function StdDashboard({
+  std,
+}: {
+  std: {
+    id: string;
+    partner1Name: string;
+    partner2Name: string;
+    weddingDate: Date;
+    shareId: string;
+    expiresAt: Date | null;
+    viewCount: number;
+  };
+}) {
+  const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL || ""}/s/${std.shareId}`;
+
+  return (
+    <div className="bg-gradient-to-br from-champagne-50 to-white rounded-xl border border-stone-200 p-4 md:p-6 lg:p-8 space-y-6 md:space-y-8">
+      {/* Welcome header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h3 className="font-heading text-xl md:text-2xl font-semibold text-stone-900">
+            {std.partner1Name} & {std.partner2Name}
+            <span className="ml-2 text-xs font-normal bg-olive-100 text-olive-700 px-2 py-0.5 rounded-full align-middle">
+              Save the Date
+            </span>
+          </h3>
+          <p className="text-stone-500 text-sm mt-1 flex items-center gap-1.5">
+            <Calendar className="w-4 h-4" />
+            {new Date(std.weddingDate).toLocaleDateString("nl-NL", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </p>
+        </div>
+        <Button asChild size="sm" className="bg-olive-600 hover:bg-olive-700">
+          <Link href={`/std-builder/template?edit=${std.id}`}>
+            <PenLine className="w-4 h-4 mr-2" />
+            Bewerken
+          </Link>
+        </Button>
+      </div>
+
+      {/* Expiry countdown */}
+      <ExpiryCountdown expiresAt={std.expiresAt?.toISOString() || null} />
+
+      {/* View stats */}
+      <div className="grid grid-cols-2 gap-3 md:gap-4">
+        <div className="bg-white rounded-xl border border-stone-200 p-4 md:p-5 shadow-sm">
+          <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center mb-3">
+            <Eye className="w-4 h-4 text-blue-600" />
+          </div>
+          <p className="text-2xl md:text-3xl font-semibold text-stone-900">{std.viewCount}</p>
+          <p className="text-stone-500 text-sm">Unieke bezoekers</p>
+        </div>
+        <div className="bg-white rounded-xl border border-stone-200 p-4 md:p-5 shadow-sm flex flex-col items-center justify-center">
+          <Link
+            href={`/s/${std.shareId}`}
+            target="_blank"
+            className="inline-flex items-center gap-2 text-sm text-olive-600 hover:text-olive-700 font-medium"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Bekijk kaart
+          </Link>
+        </div>
+      </div>
+
+      {/* Share section */}
+      <div className="p-4 bg-champagne-50 rounded-lg border border-champagne-200">
+        <p className="text-sm text-stone-600 mb-3 flex items-center gap-2">
+          <Share2 className="w-4 h-4" />
+          Deel deze link met jullie gasten:
+        </p>
+        <div className="mb-3">
+          <code className="block text-sm bg-white px-3 py-2 rounded border border-champagne-300 truncate">
+            {shareUrl}
+          </code>
+        </div>
+        <ShareButtons
+          url={shareUrl}
+          partner1Name={std.partner1Name}
+          partner2Name={std.partner2Name}
+          weddingDate={std.weddingDate.toISOString()}
+        />
+      </div>
     </div>
   );
 }

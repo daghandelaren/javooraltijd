@@ -3,11 +3,18 @@ import { db } from "@/lib/db";
 import { PublicInvitation } from "./public-invitation";
 import type { SealColor } from "@/components/wax-seal/wax-seal";
 
-interface Props {
-  params: { shareId: string };
+interface GuestGroup {
+  id: string;
+  name: string;
+  includedEvents: string[];
 }
 
-export default async function PublicInvitationPage({ params }: Props) {
+interface Props {
+  params: { shareId: string };
+  searchParams: { group?: string };
+}
+
+export default async function PublicInvitationPage({ params, searchParams }: Props) {
   const invitation = await db.invitation.findUnique({
     where: { shareId: params.shareId },
     include: {
@@ -41,10 +48,34 @@ export default async function PublicInvitationPage({ params }: Props) {
     );
   }
 
+  // Per-group filtering
+  let filteredLocations = invitation.locations;
+  let filteredTimeline = invitation.timeline;
+
+  if (searchParams.group && invitation.guestGroups) {
+    const groups = invitation.guestGroups as unknown as GuestGroup[];
+    const group = groups.find((g) => g.id === searchParams.group);
+    if (group && group.includedEvents.length > 0) {
+      filteredLocations = invitation.locations.filter(
+        (loc) => group.includedEvents.includes(`loc-${loc.id}`)
+      );
+      filteredTimeline = invitation.timeline.filter(
+        (item) => group.includedEvents.includes(`timeline-${item.id}`)
+      );
+      // If filtering resulted in empty, show all (fallback)
+      if (filteredLocations.length === 0 && filteredTimeline.length === 0) {
+        filteredLocations = invitation.locations;
+        filteredTimeline = invitation.timeline;
+      }
+    }
+  }
+
   return (
     <PublicInvitation
       invitation={{
         ...invitation,
+        locations: filteredLocations,
+        timeline: filteredTimeline,
         sealColor: invitation.sealColor as SealColor,
         sealFont: invitation.sealFont,
         giftConfig: invitation.giftConfig as { enabled: boolean; message: string; registryUrl?: string; iban?: string; accountHolder?: string } | null,

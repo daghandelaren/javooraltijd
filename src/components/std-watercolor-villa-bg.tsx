@@ -13,7 +13,7 @@ export function StdWatercolorVillaBackground() {
         src="/images/std/watercolor-villa/hero.png"
         alt=""
         fill
-        className="object-contain object-top scale-[2] origin-top md:scale-100"
+        className="object-contain object-top scale-[2] origin-top translate-y-[10%] md:scale-100 md:translate-y-0"
         priority
         sizes="100vw"
       />
@@ -22,7 +22,7 @@ export function StdWatercolorVillaBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 50% 35% at 50% 55%, rgba(253,252,250,0.55) 0%, rgba(253,252,250,0.2) 65%, transparent 100%)",
+            "radial-gradient(ellipse 50% 35% at 50% 65%, rgba(253,252,250,0.55) 0%, rgba(253,252,250,0.2) 65%, transparent 100%)",
         }}
       />
     </div>

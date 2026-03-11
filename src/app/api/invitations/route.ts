@@ -63,6 +63,7 @@ export async function POST(request: NextRequest) {
       styling,
       musicEnabled,
       musicUrl,
+      guestGroups,
     } = body;
 
     // Validate required fields
@@ -101,6 +102,7 @@ export async function POST(request: NextRequest) {
         envelopePersonalizedText: styling?.envelopeConfig?.personalizedText ?? "Deze uitnodiging is speciaal voor jou",
         musicEnabled: musicEnabled ?? false,
         musicUrl: musicUrl ?? null,
+        guestGroups: guestGroups ?? null,
         locations: locations?.length > 0 ? {
           create: locations.map((loc: {
             name: string;

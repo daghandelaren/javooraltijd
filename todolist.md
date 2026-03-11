@@ -417,4 +417,12 @@ prisma/
 
 ---
 
-*Laatst bijgewerkt: Januari 2026*
+### N) DASHBOARD REDESIGN + EXPIRY COUNTDOWN + PER-GROUP SHARE LINKS ✅
+- ✅ Step 1: Prisma schema — InvitationView model, viewCount + guestGroups on Invitation, SaveTheDateView model
+- ✅ Step 2: Invitation view tracking API route (`/api/invitations/[id]/view` + `/api/save-the-date/[id]/view`) + wired in public pages
+- ✅ Step 3: Persist guest groups to DB — save/load guestGroups in builder store + API routes (POST/PUT)
+- ✅ Step 4: Per-group filtering on public page — `?group=xyz` filters locations/timeline with fallback
+- ✅ Step 5a: New dashboard client components — RsvpProgressBar, ExpiryCountdown, RecentResponses, GroupShareLinks, DashboardTabs
+- ✅ Step 5b: Dashboard page redesign — tabs (Uitnodiging / Save the Date), stats grid, share section, quick actions
+
+*Laatst bijgewerkt: Maart 2026*

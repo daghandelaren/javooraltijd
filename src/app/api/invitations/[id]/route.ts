@@ -93,6 +93,7 @@ export async function PUT(
       styling,
       musicEnabled,
       musicUrl,
+      guestGroups,
     } = body;
 
     // Update invitation with transaction for locations and timeline
@@ -142,6 +143,7 @@ export async function PUT(
           }),
           ...(musicEnabled !== undefined && { musicEnabled }),
           ...(musicUrl !== undefined && { musicUrl: musicUrl || null }),
+          ...(guestGroups !== undefined && { guestGroups }),
         },
       });
 

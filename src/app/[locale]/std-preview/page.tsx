@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { HeroSection, FloatingMusicToggle, useMusicControl } from "@/components/invitation-sections";
+import { HeroSection, FloatingMusicToggle, useMusicControl, StdCalendarSection } from "@/components/invitation-sections";
 import { useStdBuilderStore, getStdMusicUrl } from "@/stores/std-builder-store";
 import { getStdTemplateById, stdTemplates } from "@/lib/std-templates";
 import { type SealFontId } from "@/lib/wax-fonts";
@@ -55,6 +55,12 @@ export default function StdPreviewFrame() {
       {musicConfig.enabled && musicUrl && (
         <FloatingMusicToggle audioSrc={musicUrl} />
       )}
+      <StdCalendarSection
+        template={selectedTemplate}
+        weddingDate={weddingDateObj}
+        partner1Name={partner1Name || "Partner 1"}
+        partner2Name={partner2Name || "Partner 2"}
+      />
     </div>
   );
 }

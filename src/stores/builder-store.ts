@@ -257,6 +257,7 @@ export interface DatabaseInvitation {
   envelopeLiner: string | null;
   envelopePersonalizedText: string | null;
   faqItems: FAQItem[] | null;
+  guestGroups: GuestGroup[] | null;
 }
 
 // Map trackId to music file URL
@@ -565,6 +566,7 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
             },
           },
           faqItems: invitation.faqItems || [],
+          guestGroups: invitation.guestGroups || [],
           isDirty: false,
           lastSaved: new Date().toISOString(),
         });
@@ -599,6 +601,7 @@ export const useBuilderStore = create<BuilderState & BuilderActions>()(
             styling: state.styling,
             musicEnabled: state.musicConfig.enabled,
             musicUrl: getMusicUrl(state.musicConfig),
+            guestGroups: state.guestGroups.length > 0 ? state.guestGroups : null,
           };
 
           const url = state.invitationId

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { type SealFontId } from "@/lib/wax-fonts";
 import { getTemplateById, templates } from "@/lib/templates";
@@ -90,6 +90,15 @@ interface Props {
 
 export function PublicInvitation({ invitation }: Props) {
   const [isOpened, setIsOpened] = useState(false);
+  const viewTracked = useRef(false);
+
+  // Track view when envelope is opened
+  useEffect(() => {
+    if (isOpened && !viewTracked.current) {
+      viewTracked.current = true;
+      fetch(`/api/invitations/${invitation.id}/view`, { method: "POST" }).catch(() => {});
+    }
+  }, [isOpened, invitation.id]);
 
   // Get template configuration
   const template = getTemplateById(invitation.templateId) || templates[0];

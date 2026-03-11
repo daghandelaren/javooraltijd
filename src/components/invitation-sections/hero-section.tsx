@@ -62,7 +62,7 @@ export function HeroSection({
       className={cn(
         "min-h-screen flex flex-col items-center px-4 relative overflow-hidden",
         isStdCoastal
-          ? "justify-end pb-[14rem] sm:pb-20"
+          ? "justify-end pb-[6rem] sm:pb-20"
           : isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center py-12",
         !isStdCoastal && isCoastal && "pb-32 sm:pb-12",
         className
@@ -257,7 +257,7 @@ export function HeroSection({
             {/* Curved "save the date" arc */}
             <svg
               viewBox="0 0 200 30"
-              className="w-[26rem] sm:w-[30rem] ml-auto mr-0 mb-3"
+              className="w-[26rem] sm:w-[30rem] mx-auto sm:ml-auto sm:mr-0 mb-3"
               aria-hidden="true"
             >
               <defs>

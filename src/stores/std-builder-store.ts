@@ -31,6 +31,7 @@ export interface StdEnvelopeConfig {
   color: string;
   linerPattern: string;
   personalizedText: string;
+  showDateOnEnvelope: boolean;
 }
 
 export interface StdStyling {
@@ -117,6 +118,7 @@ const initialState: StdBuilderState = {
       color: DEFAULT_ENVELOPE_COLOR,
       linerPattern: DEFAULT_ENVELOPE_LINER,
       personalizedText: "Noteer de datum in je agenda",
+      showDateOnEnvelope: true,
     },
   },
   musicConfig: {
@@ -202,6 +204,7 @@ export const useStdBuilderStore = create<StdBuilderState & StdBuilderActions>()(
               color: std.envelopeColor || DEFAULT_ENVELOPE_COLOR,
               linerPattern: std.envelopeLiner || DEFAULT_ENVELOPE_LINER,
               personalizedText: std.envelopePersonalizedText || "Noteer de datum in je agenda",
+              showDateOnEnvelope: true,
             },
           },
           musicConfig: restoredMusic,
