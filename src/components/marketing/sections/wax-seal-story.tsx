@@ -24,10 +24,13 @@ export function WaxSealStorySection() {
             transition={{ duration: 0.6 }}
             className="relative flex justify-center order-2 lg:order-1"
           >
-            {/* Glow effect */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-64 h-64 rounded-full bg-olive-700/20 blur-3xl" />
-            </div>
+            {/* Glow effect — radial gradient avoids hard clip lines from overflow-hidden on mobile */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: "radial-gradient(circle at 50% 50%, rgba(85,99,74,0.20) 0%, transparent 70%)",
+              }}
+            />
 
             {/* Multiple seals composition */}
             <div className="relative scale-[0.7] md:scale-100">
