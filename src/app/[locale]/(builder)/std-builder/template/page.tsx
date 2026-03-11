@@ -27,17 +27,13 @@ const stdCardStyles: Record<
     bgGradient: "#FDFCFA",
     textColor: "text-[#2C3E50]",
     namePreview: (
-      <div className="flex flex-col items-center text-[#2C3E50] drop-shadow-[0_1px_3px_rgba(255,255,255,0.5)]">
-        <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-sm sm:text-lg uppercase">
-          Thomas
+      <div className="flex flex-col items-center text-[#2C3E50] drop-shadow-[0_1px_3px_rgba(255,255,255,0.5)] translate-y-9 sm:translate-y-16">
+        <span className="flex items-baseline gap-0.5 sm:gap-1">
+          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-[7px] sm:text-sm uppercase">Thomas</span>
+          <span style={{ fontFamily: "'Dancing Script', cursive" }} className="text-[10px] sm:text-lg">&amp;</span>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-[7px] sm:text-sm uppercase">Suzanna</span>
         </span>
-        <span style={{ fontFamily: "'Dancing Script', cursive" }} className="text-xl sm:text-3xl -my-1 sm:-my-2">
-          &amp;
-        </span>
-        <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-sm sm:text-lg uppercase">
-          Suzanna
-        </span>
-        <span className="text-xs mt-2 tracking-widest uppercase text-[#6B8299]">Save the Date</span>
+        <span className="text-[6px] sm:text-[10px] mt-0.5 sm:mt-1 tracking-widest uppercase text-[#6B8299]">Save the Date</span>
       </div>
     ),
     bottomGradient: "linear-gradient(to top, rgba(253,252,250,0.85) 0%, rgba(253,252,250,0.4) 35%, transparent 70%)",
@@ -48,16 +44,18 @@ const stdCardStyles: Record<
     textColor: "text-[#F5F0E0]",
     namePreview: (
       <div className="flex flex-col items-center text-[#F5F0E0]">
-        <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-sm sm:text-lg uppercase">
-          Jarno
+        <svg viewBox="0 0 200 30" className="w-28 sm:w-40 mb-1 ml-2" aria-hidden="true">
+          <defs>
+            <path id="std-card-arc" d="M 15,28 Q 100,2 185,28" fill="none" />
+          </defs>
+          <text fill="#B8C4A8" fontSize="12" letterSpacing="1.5" style={{ fontFamily: "'Dancing Script', cursive" }}>
+            <textPath href="#std-card-arc" startOffset="55%" textAnchor="middle">save the date</textPath>
+          </text>
+        </svg>
+        <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, letterSpacing: "0.08em" }} className="text-sm sm:text-lg uppercase">
+          JARNO <span style={{ fontStyle: "italic", fontWeight: 400 }}>&amp;</span>
         </span>
-        <span style={{ fontFamily: "'Dancing Script', cursive" }} className="text-xl sm:text-3xl -my-1 sm:-my-2">
-          &amp;
-        </span>
-        <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-sm sm:text-lg uppercase">
-          Bryonie
-        </span>
-        <span className="text-xs mt-2 tracking-widest uppercase text-[#B8C4A8]">Save the Date</span>
+        <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, letterSpacing: "0.08em" }} className="text-sm sm:text-lg uppercase">BRYONIE</span>
       </div>
     ),
     bottomGradient: "linear-gradient(to top, rgba(77,88,63,0.9) 0%, rgba(77,88,63,0.45) 35%, transparent 70%)",
@@ -68,16 +66,10 @@ const stdCardStyles: Record<
     textColor: "text-[#2C2C2C]",
     namePreview: (
       <div className="flex flex-col items-center text-[#2C2C2C]">
-        <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, letterSpacing: "0.2em" }} className="text-sm sm:text-lg uppercase">
-          Ian
-        </span>
-        <span style={{ fontFamily: "'Lavishly Yours', cursive" }} className="text-xl sm:text-3xl -my-0.5">
-          &amp;
-        </span>
-        <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, letterSpacing: "0.2em" }} className="text-sm sm:text-lg uppercase">
-          Indy
-        </span>
-        <span className="text-xs mt-2 tracking-widest uppercase text-[#999]">Save the Date</span>
+        <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, letterSpacing: "0.2em" }} className="text-base sm:text-xl uppercase">Ian</span>
+        <span style={{ fontFamily: "'Lavishly Yours', cursive" }} className="text-2xl sm:text-4xl -my-0.5">&amp;</span>
+        <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, letterSpacing: "0.2em" }} className="text-base sm:text-xl uppercase">Indy</span>
+        <span className="text-[8px] sm:text-[10px] mt-1 tracking-widest uppercase text-[#999]">Save the Date</span>
       </div>
     ),
     bottomGradient: "linear-gradient(to top, rgba(120,120,120,0.7) 0%, rgba(150,150,150,0.3) 40%, transparent 100%)",
