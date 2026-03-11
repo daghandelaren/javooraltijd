@@ -291,7 +291,7 @@ const stdCardStyles: Record<string, { bgImage: string | null; bgGradient: string
     bgGradient: "#FDFCFA",
     textColor: "text-[#2C3E50]",
     namePreview: (
-      <div className="flex flex-col items-center text-[#2C3E50] drop-shadow-[0_1px_3px_rgba(255,255,255,0.5)] translate-y-6 sm:translate-y-16">
+      <div className="flex flex-col items-center text-[#2C3E50] drop-shadow-[0_1px_3px_rgba(255,255,255,0.5)] translate-y-9 sm:translate-y-16">
         <span className="flex items-baseline gap-0.5 sm:gap-1">
           <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-[7px] sm:text-sm uppercase">Thomas</span>
           <span style={{ fontFamily: "'Dancing Script', cursive" }} className="text-[10px] sm:text-lg">&amp;</span>
