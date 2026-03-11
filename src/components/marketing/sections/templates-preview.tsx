@@ -29,7 +29,7 @@ const templateCards: Array<{
     labelColor: "text-white",
     labelMuted: "text-white/60",
     namePreview: (
-      <div className="flex flex-col items-center px-5 py-3 sm:px-7 sm:py-4 rounded-xl bg-white/20 backdrop-blur-sm border border-white/20">
+      <div className="flex flex-col items-center">
         <span
           style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.18em" }}
           className="text-sm sm:text-lg text-[#2C3E50] uppercase"
