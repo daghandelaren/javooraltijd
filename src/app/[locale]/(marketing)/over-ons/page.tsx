@@ -283,7 +283,7 @@ export default function OverOnsPage() {
             className="text-center"
           >
             {/* Decorative wax seals */}
-            <div className="flex justify-center gap-2 md:gap-6 mb-10 scale-[0.8] md:scale-100">
+            <div className="flex justify-center -space-x-4 md:space-x-0 md:gap-6 mb-10 scale-[0.8] md:scale-100">
               <motion.div
                 animate={{ rotate: [-5, 5, -5] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
