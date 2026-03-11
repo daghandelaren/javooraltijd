@@ -15,13 +15,13 @@ const miniPreviews = [
     textColor: "#2C3E50",
     accentColor: "#6B8299",
     namePreview: (
-      <div className="flex flex-col items-center text-[#2C3E50] drop-shadow-[0_1px_3px_rgba(255,255,255,0.5)] translate-y-12 sm:translate-y-11">
+      <div className="flex flex-col items-center text-[#2C3E50] drop-shadow-[0_1px_3px_rgba(255,255,255,0.5)] translate-y-6 sm:translate-y-11">
         <span className="flex items-baseline gap-0.5 sm:gap-1">
-          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-[6px] sm:text-[8px] uppercase">Thomas</span>
-          <span style={{ fontFamily: "'Dancing Script', cursive" }} className="text-[8px] sm:text-xs">&amp;</span>
-          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-[6px] sm:text-[8px] uppercase">Suzanna</span>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-[5px] sm:text-[8px] uppercase">Thomas</span>
+          <span style={{ fontFamily: "'Dancing Script', cursive" }} className="text-[6px] sm:text-xs">&amp;</span>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600, letterSpacing: "0.15em" }} className="text-[5px] sm:text-[8px] uppercase">Suzanna</span>
         </span>
-        <span className="text-[5px] sm:text-[7px] mt-0.5 tracking-widest uppercase text-[#6B8299]">Save the Date</span>
+        <span className="text-[4px] sm:text-[7px] mt-0.5 tracking-widest uppercase text-[#6B8299]">Save the Date</span>
       </div>
     ),
   },
@@ -94,7 +94,7 @@ export function SaveTheDatePreviewSection() {
               Dezelfde premium envelop-animatie, nu als compacte Save the Date.
             </p>
 
-            <div className="space-y-4 mb-8">
+            <div className="space-y-4 mb-4 lg:mb-8">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 bg-olive-50 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
                   <CalendarHeart className="w-4 h-4 text-olive-600" />
