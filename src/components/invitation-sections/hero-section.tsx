@@ -26,7 +26,6 @@ interface HeroSectionProps {
   rsvpId?: string;
   isSaveTheDate?: boolean;
   isCompactPreview?: boolean;
-  previewDevice?: string;
 }
 
 export function HeroSection({
@@ -43,7 +42,6 @@ export function HeroSection({
   rsvpId = "rsvp",
   isSaveTheDate = false,
   isCompactPreview = false,
-  previewDevice,
 }: HeroSectionProps) {
   const formattedDate = weddingDate.toLocaleDateString("nl-NL", {
     weekday: "long",
@@ -66,7 +64,7 @@ export function HeroSection({
       className={cn(
         "min-h-screen flex flex-col items-center px-4 relative overflow-hidden",
         isStdCoastal
-          ? cn("justify-end", isCompactPreview ? (previewDevice === "tablet" ? "pb-32" : "pb-36") + " sm:pb-28 lg:pb-20" : "pb-[10rem] sm:pb-20")
+          ? cn("justify-end", isCompactPreview ? "pb-36 sm:pb-[14rem] lg:pb-20" : "pb-[10rem] sm:pb-20")
           : isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center py-12",
         !isStdCoastal && isCoastal && "pb-32 sm:pb-12",
         className
@@ -77,7 +75,7 @@ export function HeroSection({
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {template.slug?.startsWith("std-") ? (
           <>
-            {template.style === "coastal" && <StdWatercolorVillaBackground forceUnzoom={isCompactPreview && previewDevice === "tablet"} />}
+            {template.style === "coastal" && <StdWatercolorVillaBackground />}
             {template.style === "mediterranean" && <StdLimoncelloBackground />}
           </>
         ) : (
@@ -91,7 +89,7 @@ export function HeroSection({
       </div>
 
       {isBotanical ? null : (
-      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isStdCoastal ? "" : isMinimalist ? "" : isCoastal ? "mt-14 sm:mt-12" : isBotanicalOrMedOrCoastal && "-mt-16")}>
+      <div className={cn("relative z-10 text-center max-w-2xl mx-auto", isStdCoastal ? "" : isMinimalist ? "" : isCoastal ? cn(isCompactPreview ? "mt-20" : "mt-14", "sm:mt-12") : isBotanicalOrMedOrCoastal && "-mt-16")}>
         {/* Wax seal — hidden for botanical, mediterranean, coastal & minimalist */}
         {!isBotanical && !isMediterranean && !isCoastal && !isMinimalist && (
           <motion.div
@@ -160,7 +158,7 @@ export function HeroSection({
             className="leading-[0.85] text-center"
           >
             <span
-              className="block text-[5rem] sm:text-[8rem] font-light uppercase tracking-[0.15em]"
+              className={cn("block font-light uppercase tracking-[0.15em]", isCompactPreview ? "text-[3rem] sm:text-[5.5rem]" : "text-[5rem] sm:text-[8rem]")}
               style={{
                 color: template.colors.text,
                 fontFamily: `'${template.fonts.heading}', serif`,
@@ -169,7 +167,7 @@ export function HeroSection({
               {partner1Name}
             </span>
             <span
-              className="block text-[3rem] sm:text-[4.5rem] my-1 sm:my-2"
+              className={cn("block my-1 sm:my-2", isCompactPreview ? "text-[2rem] sm:text-[3rem]" : "text-[3rem] sm:text-[4.5rem]")}
               style={{
                 color: template.colors.textMuted,
                 fontFamily: `'${template.fonts.accent}', cursive`,
@@ -179,7 +177,7 @@ export function HeroSection({
               &
             </span>
             <span
-              className="block text-[5rem] sm:text-[8rem] font-light uppercase tracking-[0.15em]"
+              className={cn("block font-light uppercase tracking-[0.15em]", isCompactPreview ? "text-[3rem] sm:text-[5.5rem]" : "text-[5rem] sm:text-[8rem]")}
               style={{
                 color: template.colors.text,
                 fontFamily: `'${template.fonts.heading}', serif`,
@@ -200,7 +198,7 @@ export function HeroSection({
             }}
           >
             <span
-              className={cn(isCompactPreview ? "text-2xl sm:text-3xl" : "text-3xl sm:text-4xl", "lg:text-5xl whitespace-nowrap")}
+              className={cn(isCompactPreview ? "text-2xl sm:text-[2.5rem]" : "text-3xl sm:text-4xl", "lg:text-5xl whitespace-nowrap")}
               style={{
                 color: template.colors.text,
                 fontFamily: `'${template.fonts.accent}', cursive`,
@@ -222,7 +220,7 @@ export function HeroSection({
             }}
           >
             <span
-              className="text-[2.5rem] sm:text-4xl lg:text-6xl font-bold uppercase tracking-[0.08em]"
+              className={cn("font-bold uppercase tracking-[0.08em]", isCompactPreview ? "text-[2.5rem] sm:text-5xl" : "text-[2.5rem] sm:text-4xl", "lg:text-6xl")}
               style={{
                 color: template.colors.text,
                 fontFamily: `'${template.fonts.heading}', serif`,
@@ -231,7 +229,7 @@ export function HeroSection({
               {partner1Name}
             </span>
             <span
-              className="block text-2xl sm:text-3xl lg:text-5xl my-0.5 sm:my-1"
+              className={cn("block my-0.5 sm:my-1", isCompactPreview ? "text-2xl sm:text-4xl" : "text-2xl sm:text-3xl", "lg:text-5xl")}
               style={{
                 color: template.colors.primary,
                 fontFamily: `'${template.fonts.accent}', cursive`,
@@ -241,7 +239,7 @@ export function HeroSection({
               &
             </span>
             <span
-              className="text-[2.5rem] sm:text-4xl lg:text-6xl font-bold uppercase tracking-[0.08em]"
+              className={cn("font-bold uppercase tracking-[0.08em]", isCompactPreview ? "text-[2.5rem] sm:text-5xl" : "text-[2.5rem] sm:text-4xl", "lg:text-6xl")}
               style={{
                 color: template.colors.text,
                 fontFamily: `'${template.fonts.heading}', serif`,
@@ -417,7 +415,7 @@ export function HeroSection({
               {isSaveTheDate ? (
                 headline || "Noteer de datum in je agenda"
               ) : (
-                <>
+                headline || <>
                   Nodigen je uit om hun
                   <br />
                   bruiloft te vieren!
@@ -433,13 +431,13 @@ export function HeroSection({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.45 }}
-            className={cn("text-center mt-4 max-w-[72vw] sm:max-w-[220px] lg:max-w-sm mx-auto", isCompactPreview ? "sm:mt-2 lg:mt-8" : "sm:mt-8")}
+            className={cn("text-center mt-4 max-w-[72vw] lg:max-w-sm mx-auto", isCompactPreview ? "sm:max-w-sm sm:mt-5 lg:mt-8" : "sm:max-w-[220px] sm:mt-8")}
           >
             {template.slug?.startsWith("std-") && isSaveTheDate ? (
               /* STD coastal: 3-line uppercase date (no time) */
               <>
                 <p
-                  className={cn(isCompactPreview ? "text-lg sm:text-xl" : "text-xl sm:text-2xl", "lg:text-3xl italic")}
+                  className={cn(isCompactPreview ? "text-lg sm:text-3xl" : "text-xl sm:text-2xl", "lg:text-3xl italic")}
                   style={{
                     color: template.colors.text,
                     fontFamily: `'${template.fonts.accent}', cursive`,
@@ -449,7 +447,7 @@ export function HeroSection({
                 >
                   {headline || "Save the Date"}
                 </p>
-                <div className="flex items-center justify-center gap-3 mt-2 sm:mt-3 lg:mt-6">
+                <div className={cn("flex items-center justify-center gap-3 mt-2 lg:mt-6", isCompactPreview ? "sm:mt-5" : "sm:mt-3")}>
                   <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
                   <div
                     className="text-center uppercase tracking-[0.15em]"
@@ -459,14 +457,14 @@ export function HeroSection({
                       textShadow: "0 1px 8px rgba(253,252,250,0.8)",
                     }}
                   >
-                    <p className={cn(isCompactPreview ? "text-sm sm:text-[10px]" : "text-base sm:text-xs", "lg:text-lg font-semibold")}>
+                    <p className={cn(isCompactPreview ? "text-sm sm:text-sm" : "text-base sm:text-xs", "lg:text-lg font-semibold")}>
                       {weddingDate.toLocaleDateString("nl-NL", { weekday: "long" })}
                     </p>
-                    <p className={cn(isCompactPreview ? "text-lg sm:text-xs" : "text-xl sm:text-sm", "lg:text-3xl font-bold mt-0.5")}>
+                    <p className={cn(isCompactPreview ? "text-lg sm:text-lg" : "text-xl sm:text-sm", "lg:text-3xl font-bold mt-0.5")}>
                       {weddingDate.getDate()}{" "}
                       {weddingDate.toLocaleDateString("nl-NL", { month: "long" })}
                     </p>
-                    <p className={cn(isCompactPreview ? "text-sm sm:text-[10px]" : "text-base sm:text-xs", "lg:text-lg font-semibold mt-0.5")}>
+                    <p className={cn(isCompactPreview ? "text-sm sm:text-sm" : "text-base sm:text-xs", "lg:text-lg font-semibold mt-0.5")}>
                       {weddingDate.getFullYear()}
                     </p>
                   </div>
@@ -477,7 +475,7 @@ export function HeroSection({
               /* Wedding invitation coastal: original layout */
               <>
                 <p
-                  className="text-xs sm:text-[0.65rem] lg:text-sm leading-relaxed"
+                  className={cn("leading-relaxed", isCompactPreview ? "text-xs sm:text-sm" : "text-xs sm:text-[0.65rem]", "lg:text-sm")}
                   style={{
                     color: template.colors.text,
                     fontFamily: `'${template.fonts.body}', serif`,
@@ -489,7 +487,7 @@ export function HeroSection({
                 <div className="flex items-center justify-center gap-3 mt-4 sm:mt-5 lg:mt-12">
                   <div className="h-px w-10 sm:w-14" style={{ backgroundColor: `${template.colors.primary}50` }} />
                   <p
-                    className="text-lg sm:text-xs lg:text-2xl capitalize tracking-wide whitespace-nowrap"
+                    className={cn("capitalize tracking-wide whitespace-nowrap", isCompactPreview ? "text-lg sm:text-base" : "text-lg sm:text-xs", "lg:text-2xl")}
                     style={{
                       color: template.colors.text,
                       fontFamily: `'${template.fonts.heading}', serif`,
@@ -637,7 +635,7 @@ export function HeroSection({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className={`absolute ${isMinimalist ? "bottom-10" : isCoastal ? "bottom-28 sm:bottom-[85px] lg:bottom-[110px]" : "bottom-4 sm:bottom-10"} left-0 right-0 flex flex-col items-center gap-3 z-10`}
+          className={cn("absolute left-0 right-0 flex flex-col items-center gap-3 z-10", isMinimalist ? "bottom-10" : isCoastal ? cn("bottom-28 lg:bottom-[110px]", isCompactPreview ? "sm:bottom-[130px]" : "sm:bottom-[85px]") : "bottom-4 sm:bottom-10")}
         >
           <button
             onClick={() => {
@@ -646,7 +644,7 @@ export function HeroSection({
             className="flex flex-col items-center gap-3 sm:gap-2 lg:gap-3 px-8 py-3 transition-opacity duration-200 hover:opacity-80 cursor-pointer"
           >
             <span
-              className="text-xs sm:text-[0.45rem] lg:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.12em] lg:tracking-[0.2em] uppercase"
+              className="text-xs sm:text-xs lg:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.15em] lg:tracking-[0.2em] uppercase"
               style={{
                 color: (isMediterranean || isCoastal) ? template.colors.primary : isMinimalist ? template.colors.textMuted : "#FDFBF7",
                 textShadow: (isMediterranean || isCoastal)

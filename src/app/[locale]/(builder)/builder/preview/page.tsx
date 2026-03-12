@@ -40,7 +40,7 @@ type DeviceView = "desktop" | "tablet" | "mobile";
 
 const DEVICE_WIDTHS: Record<DeviceView, string> = {
   desktop: "100%",
-  tablet: "768px",
+  tablet: "600px",
   mobile: "375px",
 };
 
@@ -224,7 +224,7 @@ export default function PreviewPage() {
         >
           <div
             className="relative overflow-hidden"
-            style={{ height: deviceView === "mobile" ? "680px" : "600px" }}
+            style={{ height: deviceView === "mobile" ? "680px" : deviceView === "tablet" ? "700px" : "600px" }}
           >
             <PreviewWatermark />
             <iframe
@@ -237,6 +237,17 @@ export default function PreviewPage() {
                 width: "1440px",
                 height: "900px",
                 transform: "scale(0.667)",
+                transformOrigin: "top center",
+                border: "none",
+                display: "block",
+              } : deviceView === "tablet" ? {
+                position: "absolute",
+                top: 0,
+                left: "50%",
+                marginLeft: "-384px",
+                width: "768px",
+                height: "900px",
+                transform: "scale(0.781)",
                 transformOrigin: "top center",
                 border: "none",
                 display: "block",

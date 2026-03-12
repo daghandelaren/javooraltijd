@@ -1,16 +1,13 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { HeroSection, FloatingMusicToggle, useMusicControl, StdCalendarSection } from "@/components/invitation-sections";
 import { useStdBuilderStore, getStdMusicUrl } from "@/stores/std-builder-store";
 import { getStdTemplateById, stdTemplates } from "@/lib/std-templates";
 import { type SealFontId } from "@/lib/wax-fonts";
 
-function StdPreviewContent() {
+export default function StdPreviewFrame() {
   const [hydrated, setHydrated] = useState(false);
-  const searchParams = useSearchParams();
-  const deviceView = searchParams.get("device") || "mobile";
 
   useEffect(() => {
     setHydrated(true);
@@ -55,7 +52,6 @@ function StdPreviewContent() {
         template={selectedTemplate}
         isSaveTheDate
         isCompactPreview
-        previewDevice={deviceView}
       />
       {musicConfig.enabled && musicUrl && (
         <FloatingMusicToggle audioSrc={musicUrl} />
@@ -67,13 +63,5 @@ function StdPreviewContent() {
         partner2Name={partner2Name || "Partner 2"}
       />
     </div>
-  );
-}
-
-export default function StdPreviewFrame() {
-  return (
-    <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
-      <StdPreviewContent />
-    </Suspense>
   );
 }

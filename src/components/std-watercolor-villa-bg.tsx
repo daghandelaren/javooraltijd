@@ -1,12 +1,11 @@
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 
 /**
  * Image-based watercolor floral background for the STD Watercolor Villa template.
  * Uses the arch + florals illustration as hero image.
  */
 
-export function StdWatercolorVillaBackground({ forceUnzoom = false }: { forceUnzoom?: boolean } = {}) {
+export function StdWatercolorVillaBackground() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[#FDFCFA]">
       {/* Watercolor villa hero — portrait arch with florals */}
@@ -14,10 +13,7 @@ export function StdWatercolorVillaBackground({ forceUnzoom = false }: { forceUnz
         src="/images/std/watercolor-villa/hero.png"
         alt=""
         fill
-        className={cn(
-          "object-contain object-top origin-top sm:scale-100 sm:translate-y-0",
-          forceUnzoom ? "scale-[1.8] translate-y-[8%]" : "scale-[2] translate-y-[10%]"
-        )}
+        className="object-contain object-top scale-[2] origin-top translate-y-[10%] sm:scale-[1.35] sm:translate-y-[3%] lg:scale-100 lg:translate-y-0"
         priority
         sizes="100vw"
       />

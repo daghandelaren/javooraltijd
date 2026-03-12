@@ -79,6 +79,7 @@ export default function InvitationPreviewFrame() {
         sealFont={styling.sealFont as SealFontId}
         monogram={styling.monogram || undefined}
         template={selectedTemplate}
+        isCompactPreview
       />
 
       <CountdownSection
