@@ -49,7 +49,9 @@ export default function PreviewPage() {
   const router = useRouter();
   const { locale } = useParams<{ locale: string }>();
   useBuilderGuard(2);
-  const [deviceView, setDeviceView] = useState<DeviceView>("desktop");
+  const [deviceView, setDeviceView] = useState<DeviceView>(
+    typeof window !== "undefined" && window.innerWidth < 640 ? "mobile" : "desktop"
+  );
   const [isAnimationOpen, setIsAnimationOpen] = useState(false);
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
@@ -162,8 +164,8 @@ export default function PreviewPage() {
           </div>
         </motion.div>
 
-        {/* Device selector */}
-        <div className="flex justify-center gap-2">
+        {/* Device selector — hidden on mobile, only mobile preview shown */}
+        <div className="hidden sm:flex justify-center gap-2">
           <Button
             variant={deviceView === "desktop" ? "default" : "ghost"}
             size="sm"

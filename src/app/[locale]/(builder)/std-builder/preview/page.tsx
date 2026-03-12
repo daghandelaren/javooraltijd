@@ -126,8 +126,8 @@ export default function StdPreviewPage() {
           </div>
         </motion.div>
 
-        {/* Device selector */}
-        <div className="flex justify-center gap-2">
+        {/* Device selector — hidden on mobile, only mobile preview shown */}
+        <div className="hidden sm:flex justify-center gap-2">
           <Button
             variant={deviceView === "desktop" ? "default" : "ghost"}
             size="sm"
@@ -189,7 +189,7 @@ export default function StdPreviewPage() {
           >
             <PreviewWatermark />
             <iframe
-              src={`/${locale}/std-preview?device=${deviceView}`}
+              src={`/${locale}/std-preview`}
               style={deviceView === "desktop" ? {
                 position: "absolute",
                 top: 0,
