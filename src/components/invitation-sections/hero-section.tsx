@@ -311,7 +311,7 @@ export function HeroSection({
 
             {/* Body text */}
             <p
-              className="text-xs sm:text-sm leading-relaxed max-w-[16rem] mx-auto mt-10"
+              className="text-xs sm:text-xs leading-relaxed max-w-[16rem] mx-auto mt-10"
               style={{
                 color: template.colors.textMuted,
                 fontFamily: `'${template.fonts.body}', serif`,
