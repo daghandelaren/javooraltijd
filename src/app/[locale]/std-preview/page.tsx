@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { HeroSection, FloatingMusicToggle, useMusicControl, StdCalendarSection } from "@/components/invitation-sections";
 import { useStdBuilderStore, getStdMusicUrl } from "@/stores/std-builder-store";
 import { getStdTemplateById, stdTemplates } from "@/lib/std-templates";
@@ -8,6 +9,8 @@ import { type SealFontId } from "@/lib/wax-fonts";
 
 export default function StdPreviewFrame() {
   const [hydrated, setHydrated] = useState(false);
+  const searchParams = useSearchParams();
+  const deviceView = searchParams.get("device") || "mobile";
 
   useEffect(() => {
     setHydrated(true);
@@ -52,6 +55,7 @@ export default function StdPreviewFrame() {
         template={selectedTemplate}
         isSaveTheDate
         isCompactPreview
+        previewDevice={deviceView}
       />
       {musicConfig.enabled && musicUrl && (
         <FloatingMusicToggle audioSrc={musicUrl} />

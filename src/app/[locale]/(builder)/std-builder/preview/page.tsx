@@ -189,7 +189,7 @@ export default function StdPreviewPage() {
           >
             <PreviewWatermark />
             <iframe
-              src={`/${locale}/std-preview`}
+              src={`/${locale}/std-preview?device=${deviceView}`}
               style={deviceView === "desktop" ? {
                 position: "absolute",
                 top: 0,

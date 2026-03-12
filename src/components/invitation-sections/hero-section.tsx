@@ -26,6 +26,7 @@ interface HeroSectionProps {
   rsvpId?: string;
   isSaveTheDate?: boolean;
   isCompactPreview?: boolean;
+  previewDevice?: string;
 }
 
 export function HeroSection({
@@ -42,6 +43,7 @@ export function HeroSection({
   rsvpId = "rsvp",
   isSaveTheDate = false,
   isCompactPreview = false,
+  previewDevice,
 }: HeroSectionProps) {
   const formattedDate = weddingDate.toLocaleDateString("nl-NL", {
     weekday: "long",
@@ -64,7 +66,7 @@ export function HeroSection({
       className={cn(
         "min-h-screen flex flex-col items-center px-4 relative overflow-hidden",
         isStdCoastal
-          ? cn("justify-end", isCompactPreview ? "pb-36 sm:pb-28 lg:pb-20" : "pb-[10rem] sm:pb-20")
+          ? cn("justify-end", isCompactPreview ? (previewDevice === "tablet" ? "pb-24" : "pb-36") + " sm:pb-28 lg:pb-20" : "pb-[10rem] sm:pb-20")
           : isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center py-12",
         !isStdCoastal && isCoastal && "pb-32 sm:pb-12",
         className
@@ -75,7 +77,7 @@ export function HeroSection({
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {template.slug?.startsWith("std-") ? (
           <>
-            {template.style === "coastal" && <StdWatercolorVillaBackground />}
+            {template.style === "coastal" && <StdWatercolorVillaBackground forceUnzoom={isCompactPreview && previewDevice === "tablet"} />}
             {template.style === "mediterranean" && <StdLimoncelloBackground />}
           </>
         ) : (
