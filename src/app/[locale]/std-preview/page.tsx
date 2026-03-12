@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { HeroSection, FloatingMusicToggle, useMusicControl, StdCalendarSection } from "@/components/invitation-sections";
 import { useStdBuilderStore, getStdMusicUrl } from "@/stores/std-builder-store";
 import { getStdTemplateById, stdTemplates } from "@/lib/std-templates";
 import { type SealFontId } from "@/lib/wax-fonts";
 
-export default function StdPreviewFrame() {
+function StdPreviewContent() {
   const [hydrated, setHydrated] = useState(false);
   const searchParams = useSearchParams();
   const deviceView = searchParams.get("device") || "mobile";
@@ -67,5 +67,13 @@ export default function StdPreviewFrame() {
         partner2Name={partner2Name || "Partner 2"}
       />
     </div>
+  );
+}
+
+export default function StdPreviewFrame() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
+      <StdPreviewContent />
+    </Suspense>
   );
 }
