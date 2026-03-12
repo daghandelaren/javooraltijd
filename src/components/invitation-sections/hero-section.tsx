@@ -66,7 +66,7 @@ export function HeroSection({
       className={cn(
         "min-h-screen flex flex-col items-center px-4 relative overflow-hidden",
         isStdCoastal
-          ? cn("justify-end", isCompactPreview ? (previewDevice === "tablet" ? "pb-24" : "pb-36") + " sm:pb-28 lg:pb-20" : "pb-[10rem] sm:pb-20")
+          ? cn("justify-end", isCompactPreview ? (previewDevice === "tablet" ? "pb-32" : "pb-36") + " sm:pb-28 lg:pb-20" : "pb-[10rem] sm:pb-20")
           : isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center py-12",
         !isStdCoastal && isCoastal && "pb-32 sm:pb-12",
         className

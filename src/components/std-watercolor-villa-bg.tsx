@@ -16,7 +16,7 @@ export function StdWatercolorVillaBackground({ forceUnzoom = false }: { forceUnz
         fill
         className={cn(
           "object-contain object-top origin-top sm:scale-100 sm:translate-y-0",
-          forceUnzoom ? "scale-[1.6] translate-y-[6%]" : "scale-[2] translate-y-[10%]"
+          forceUnzoom ? "scale-[1.8] translate-y-[8%]" : "scale-[2] translate-y-[10%]"
         )}
         priority
         sizes="100vw"
