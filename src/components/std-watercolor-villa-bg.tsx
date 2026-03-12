@@ -13,7 +13,7 @@ export function StdWatercolorVillaBackground() {
         src="/images/std/watercolor-villa/hero.png"
         alt=""
         fill
-        className="object-contain object-top scale-[2] origin-top translate-y-[10%] md:scale-100 md:translate-y-0"
+        className="object-contain object-top scale-[2] origin-top translate-y-[10%] sm:scale-100 sm:translate-y-0"
         priority
         sizes="100vw"
       />

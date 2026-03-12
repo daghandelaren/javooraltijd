@@ -25,6 +25,7 @@ interface HeroSectionProps {
   className?: string;
   rsvpId?: string;
   isSaveTheDate?: boolean;
+  isCompactPreview?: boolean;
 }
 
 export function HeroSection({
@@ -40,6 +41,7 @@ export function HeroSection({
   className,
   rsvpId = "rsvp",
   isSaveTheDate = false,
+  isCompactPreview = false,
 }: HeroSectionProps) {
   const formattedDate = weddingDate.toLocaleDateString("nl-NL", {
     weekday: "long",
@@ -62,7 +64,7 @@ export function HeroSection({
       className={cn(
         "min-h-screen flex flex-col items-center px-4 relative overflow-hidden",
         isStdCoastal
-          ? "justify-end pb-[10rem] sm:pb-20"
+          ? cn("justify-end", isCompactPreview ? "pb-36 sm:pb-28 lg:pb-20" : "pb-[10rem] sm:pb-20")
           : isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center py-12",
         !isStdCoastal && isCoastal && "pb-32 sm:pb-12",
         className
@@ -196,7 +198,7 @@ export function HeroSection({
             }}
           >
             <span
-              className="text-3xl sm:text-4xl lg:text-5xl whitespace-nowrap"
+              className={cn(isCompactPreview ? "text-2xl sm:text-3xl" : "text-3xl sm:text-4xl", "lg:text-5xl whitespace-nowrap")}
               style={{
                 color: template.colors.text,
                 fontFamily: `'${template.fonts.accent}', cursive`,
@@ -429,13 +431,13 @@ export function HeroSection({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.45 }}
-            className="text-center mt-4 sm:mt-8 max-w-[72vw] sm:max-w-[220px] lg:max-w-sm mx-auto"
+            className={cn("text-center mt-4 max-w-[72vw] sm:max-w-[220px] lg:max-w-sm mx-auto", isCompactPreview ? "sm:mt-2 lg:mt-8" : "sm:mt-8")}
           >
             {template.slug?.startsWith("std-") && isSaveTheDate ? (
               /* STD coastal: 3-line uppercase date (no time) */
               <>
                 <p
-                  className="text-xl sm:text-2xl lg:text-3xl italic"
+                  className={cn(isCompactPreview ? "text-lg sm:text-xl" : "text-xl sm:text-2xl", "lg:text-3xl italic")}
                   style={{
                     color: template.colors.text,
                     fontFamily: `'${template.fonts.accent}', cursive`,
@@ -455,14 +457,14 @@ export function HeroSection({
                       textShadow: "0 1px 8px rgba(253,252,250,0.8)",
                     }}
                   >
-                    <p className="text-base sm:text-xs lg:text-lg font-semibold">
+                    <p className={cn(isCompactPreview ? "text-sm sm:text-[10px]" : "text-base sm:text-xs", "lg:text-lg font-semibold")}>
                       {weddingDate.toLocaleDateString("nl-NL", { weekday: "long" })}
                     </p>
-                    <p className="text-xl sm:text-sm lg:text-3xl font-bold mt-0.5">
+                    <p className={cn(isCompactPreview ? "text-lg sm:text-xs" : "text-xl sm:text-sm", "lg:text-3xl font-bold mt-0.5")}>
                       {weddingDate.getDate()}{" "}
                       {weddingDate.toLocaleDateString("nl-NL", { month: "long" })}
                     </p>
-                    <p className="text-base sm:text-xs lg:text-lg font-semibold mt-0.5">
+                    <p className={cn(isCompactPreview ? "text-sm sm:text-[10px]" : "text-base sm:text-xs", "lg:text-lg font-semibold mt-0.5")}>
                       {weddingDate.getFullYear()}
                     </p>
                   </div>

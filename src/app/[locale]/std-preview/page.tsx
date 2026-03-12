@@ -51,6 +51,7 @@ export default function StdPreviewFrame() {
         monogram={styling.monogram || undefined}
         template={selectedTemplate}
         isSaveTheDate
+        isCompactPreview
       />
       {musicConfig.enabled && musicUrl && (
         <FloatingMusicToggle audioSrc={musicUrl} />
