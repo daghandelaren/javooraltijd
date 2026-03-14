@@ -122,6 +122,7 @@ export function EmbossedInitials({
           marginTop: `${-verticalOffsetPercent * 0.36}%`,
           userSelect: "none",
           whiteSpace: "nowrap",
+          padding: "0.2em 0.35em",
         }}
       >
         {initials.split("").map((char, i) =>

@@ -44,7 +44,6 @@ export function HeroSection({
   isCompactPreview = false,
 }: HeroSectionProps) {
   const formattedDate = weddingDate.toLocaleDateString("nl-NL", {
-    weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -457,9 +456,6 @@ export function HeroSection({
                       textShadow: "0 1px 8px rgba(253,252,250,0.8)",
                     }}
                   >
-                    <p className={cn(isCompactPreview ? "text-sm sm:text-sm" : "text-base sm:text-xs", "lg:text-lg font-semibold")}>
-                      {weddingDate.toLocaleDateString("nl-NL", { weekday: "long" })}
-                    </p>
                     <p className={cn(isCompactPreview ? "text-lg sm:text-lg" : "text-xl sm:text-sm", "lg:text-3xl font-bold mt-0.5")}>
                       {weddingDate.getDate()}{" "}
                       {weddingDate.toLocaleDateString("nl-NL", { month: "long" })}

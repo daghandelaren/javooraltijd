@@ -77,14 +77,14 @@ const cardStyles: Record<
     badgeClass: "bg-[#6B8F6B]/15 text-[#6B8F6B]",
     bottomGradient: "linear-gradient(to top, rgba(253,251,247,0.75) 0%, rgba(253,251,247,0.3) 45%, transparent 80%)",
     namePreview: (
-      <div className="absolute inset-0 flex flex-col items-center justify-start pt-[18%]" style={{ textShadow: "0 1px 10px rgba(255,255,255,0.9)" }}>
-        <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 700 }} className="text-[#2C2C2C] text-sm sm:text-lg leading-tight">
+      <div className="absolute inset-0 flex flex-col items-center justify-start pt-[28%] sm:pt-[18%]" style={{ textShadow: "0 1px 10px rgba(255,255,255,0.9)" }}>
+        <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 700 }} className="text-[#2C2C2C] text-lg sm:text-lg leading-tight">
           Matthew
         </span>
-        <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 400 }} className="text-[#2C2C2C] text-xs sm:text-base leading-tight">
+        <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 400 }} className="text-[#2C2C2C] text-base sm:text-base leading-tight">
           &amp;
         </span>
-        <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 700 }} className="text-[#2C2C2C] text-sm sm:text-lg leading-tight">
+        <span style={{ fontFamily: "'Libre Baskerville', serif", fontWeight: 700 }} className="text-[#2C2C2C] text-lg sm:text-lg leading-tight">
           Evelyn
         </span>
       </div>

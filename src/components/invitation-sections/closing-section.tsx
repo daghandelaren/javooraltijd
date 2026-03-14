@@ -17,6 +17,7 @@ export function ClosingSection({
   template,
 }: ClosingSectionProps) {
   const formattedDate = weddingDate.toLocaleDateString("nl-NL", {
+    weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
