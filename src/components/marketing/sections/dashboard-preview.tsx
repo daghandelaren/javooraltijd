@@ -14,6 +14,7 @@ import {
   UserCheck,
   Settings,
 } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-is-mobile";
 
 // Mock data for the dashboard preview
 const rsvpStats = {
@@ -30,6 +31,7 @@ const viewStats = {
 
 export function DashboardPreviewSection() {
   const t = useTranslations("home.dashboard_preview");
+  const isMobile = useIsMobile();
 
   const jaPercentage = (rsvpStats.ja / rsvpStats.total) * 100;
   const neePercentage = (rsvpStats.nee / rsvpStats.total) * 100;
@@ -52,10 +54,11 @@ export function DashboardPreviewSection() {
     <section className="section-padding bg-gradient-to-b from-stone-900 via-stone-900 to-stone-800 overflow-hidden">
       <div className="container-wide">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          initial={isMobile ? false : { opacity: 0, y: 20 }}
+          animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+          whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+          viewport={isMobile ? undefined : { once: true }}
+          transition={isMobile ? { duration: 0 } : { duration: 0.5 }}
           className="text-center mb-12 md:mb-16"
         >
           <span className="inline-block px-4 py-1.5 bg-champagne-100/10 text-champagne-200 text-sm font-medium rounded-full mb-4 border border-champagne-200/20">
@@ -71,10 +74,11 @@ export function DashboardPreviewSection() {
 
         {/* Dashboard Mockup Container */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.1 }}
+          initial={isMobile ? false : { opacity: 0, y: 40 }}
+          animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+          whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+          viewport={isMobile ? undefined : { once: true }}
+          transition={isMobile ? { duration: 0 } : { duration: 0.7, delay: 0.1 }}
           className="relative"
         >
           {/* Glow effect behind dashboard */}
@@ -107,8 +111,8 @@ export function DashboardPreviewSection() {
                 </p>
               </div>
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={isMobile ? undefined : { scale: 1.02 }}
+                whileTap={isMobile ? undefined : { scale: 0.98 }}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-olive-600 text-white rounded-lg text-sm font-medium shadow-lg shadow-olive-600/25"
               >
                 <PenLine className="w-4 h-4" />
@@ -120,10 +124,11 @@ export function DashboardPreviewSection() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
               {/* RSVP Overview Card */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.2 }}
+                initial={isMobile ? false : { opacity: 0, scale: 0.95 }}
+                animate={isMobile ? { opacity: 1, scale: 1 } : undefined}
+                whileInView={isMobile ? undefined : { opacity: 1, scale: 1 }}
+                viewport={isMobile ? undefined : { once: true }}
+                transition={isMobile ? { duration: 0 } : { duration: 0.4, delay: 0.2 }}
                 className="col-span-2 bg-white rounded-xl border border-stone-200 p-4 md:p-5 shadow-sm"
               >
                 <div className="flex items-center gap-2 mb-4">
@@ -136,24 +141,27 @@ export function DashboardPreviewSection() {
                 {/* Progress Bar */}
                 <div className="h-3 bg-stone-100 rounded-full overflow-hidden flex mb-4">
                   <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${jaPercentage}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
+                    initial={isMobile ? false : { width: 0 }}
+                    animate={isMobile ? { width: `${jaPercentage}%` } : undefined}
+                    whileInView={isMobile ? undefined : { width: `${jaPercentage}%` }}
+                    viewport={isMobile ? undefined : { once: true }}
+                    transition={isMobile ? { duration: 0 } : { duration: 0.8, delay: 0.4 }}
                     className="bg-emerald-500 h-full"
                   />
                   <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${misschienPercentage}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
+                    initial={isMobile ? false : { width: 0 }}
+                    animate={isMobile ? { width: `${misschienPercentage}%` } : undefined}
+                    whileInView={isMobile ? undefined : { width: `${misschienPercentage}%` }}
+                    viewport={isMobile ? undefined : { once: true }}
+                    transition={isMobile ? { duration: 0 } : { duration: 0.8, delay: 0.5 }}
                     className="bg-amber-400 h-full"
                   />
                   <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${neePercentage}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
+                    initial={isMobile ? false : { width: 0 }}
+                    animate={isMobile ? { width: `${neePercentage}%` } : undefined}
+                    whileInView={isMobile ? undefined : { width: `${neePercentage}%` }}
+                    viewport={isMobile ? undefined : { once: true }}
+                    transition={isMobile ? { duration: 0 } : { duration: 0.8, delay: 0.6 }}
                     className="bg-stone-300 h-full"
                   />
                 </div>
@@ -180,10 +188,11 @@ export function DashboardPreviewSection() {
 
               {/* Views Stat */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.3 }}
+                initial={isMobile ? false : { opacity: 0, scale: 0.95 }}
+                animate={isMobile ? { opacity: 1, scale: 1 } : undefined}
+                whileInView={isMobile ? undefined : { opacity: 1, scale: 1 }}
+                viewport={isMobile ? undefined : { once: true }}
+                transition={isMobile ? { duration: 0 } : { duration: 0.4, delay: 0.3 }}
                 className="bg-white rounded-xl border border-stone-200 p-4 md:p-5 shadow-sm"
               >
                 <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center mb-3">
@@ -195,10 +204,11 @@ export function DashboardPreviewSection() {
 
               {/* Unique Visitors */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.4 }}
+                initial={isMobile ? false : { opacity: 0, scale: 0.95 }}
+                animate={isMobile ? { opacity: 1, scale: 1 } : undefined}
+                whileInView={isMobile ? undefined : { opacity: 1, scale: 1 }}
+                viewport={isMobile ? undefined : { once: true }}
+                transition={isMobile ? { duration: 0 } : { duration: 0.4, delay: 0.4 }}
                 className="bg-white rounded-xl border border-stone-200 p-4 md:p-5 shadow-sm"
               >
                 <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center mb-3">
@@ -213,10 +223,11 @@ export function DashboardPreviewSection() {
             <div className="grid lg:grid-cols-3 gap-4 md:gap-6">
               {/* Recent Guests */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.5 }}
+                initial={isMobile ? false : { opacity: 0, y: 20 }}
+                animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+                viewport={isMobile ? undefined : { once: true }}
+                transition={isMobile ? { duration: 0 } : { duration: 0.4, delay: 0.5 }}
                 className="lg:col-span-2 bg-white rounded-xl border border-stone-200 p-4 md:p-5 shadow-sm"
               >
                 <div className="flex items-center justify-between mb-4">
@@ -235,10 +246,11 @@ export function DashboardPreviewSection() {
                   {recentGuests.map((guest, index) => (
                     <motion.div
                       key={guest.name}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+                      initial={isMobile ? false : { opacity: 0, x: -10 }}
+                      animate={isMobile ? { opacity: 1, x: 0 } : undefined}
+                      whileInView={isMobile ? undefined : { opacity: 1, x: 0 }}
+                      viewport={isMobile ? undefined : { once: true }}
+                      transition={isMobile ? { duration: 0 } : { duration: 0.3, delay: 0.6 + index * 0.1 }}
                       className="flex items-center justify-between py-2 border-b border-stone-100 last:border-0"
                     >
                       <div className="flex items-center gap-3">
@@ -268,10 +280,11 @@ export function DashboardPreviewSection() {
 
               {/* Quick Actions */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.6 }}
+                initial={isMobile ? false : { opacity: 0, y: 20 }}
+                animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+                viewport={isMobile ? undefined : { once: true }}
+                transition={isMobile ? { duration: 0 } : { duration: 0.4, delay: 0.6 }}
                 className="bg-gradient-to-br from-olive-50 to-champagne-50 rounded-xl border border-olive-100 p-4 md:p-5"
               >
                 <div className="flex items-center gap-2 mb-4">
@@ -285,11 +298,12 @@ export function DashboardPreviewSection() {
                   {quickActions.map((action, index) => (
                     <motion.button
                       key={action.label}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
-                      whileHover={{ x: 4 }}
+                      initial={isMobile ? false : { opacity: 0 }}
+                      animate={isMobile ? { opacity: 1 } : undefined}
+                      whileInView={isMobile ? undefined : { opacity: 1 }}
+                      viewport={isMobile ? undefined : { once: true }}
+                      transition={isMobile ? { duration: 0 } : { duration: 0.3, delay: 0.7 + index * 0.1 }}
+                      whileHover={isMobile ? undefined : { x: 4 }}
                       className="w-full flex items-center gap-3 p-3 bg-white/80 hover:bg-white rounded-lg text-sm text-stone-700 hover:text-olive-700 transition-colors border border-transparent hover:border-olive-200"
                     >
                       <action.icon className="w-4 h-4" />
