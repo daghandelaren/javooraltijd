@@ -64,7 +64,7 @@ export function HeroSection({
         "min-h-screen flex flex-col items-center px-4 relative overflow-hidden",
         isStdCoastal
           ? cn("justify-end", isCompactPreview ? "pb-36 sm:pb-[14rem] lg:pb-20" : "pb-[10rem] sm:pb-20")
-          : isBotanical ? "justify-start pt-24 sm:pt-28" : "justify-center py-12",
+          : isBotanical ? cn("justify-start", isCompactPreview ? "pt-16 sm:pt-24" : "pt-24 sm:pt-28") : "justify-center py-12",
         !isStdCoastal && isCoastal && "pb-32 sm:pb-12",
         className
       )}
